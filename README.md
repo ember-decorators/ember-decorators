@@ -81,7 +81,7 @@ foo() {
 import Ember from 'ember';
 import computed from 'ember-computed-decorators';
 
-export default Ember.Computed.extend({
+export default Ember.Component.extend({
   @computed('first', 'last')
   name(first, last) {
     return `${first} ${last}`;
