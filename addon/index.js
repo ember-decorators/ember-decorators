@@ -18,8 +18,10 @@ function handleDescriptor(target, key, descriptor) {
 }
 
 function callUserSuppliedFunction(params, func) {
+  let arityAlignedParams = params.slice(0, func.length);
+
   return function() {
-    let paramValues = params.map(p => get(this, p));
+    let paramValues = arityAlignedParams.map(p => get(this, p));
 
     return func.apply(this, paramValues);
   };
