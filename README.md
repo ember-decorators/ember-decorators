@@ -109,6 +109,21 @@ export default Ember.Component.extend({
 });
 ```
 
+#### "readOnly"
+
+```javascript
+import Ember from 'ember';
+import computed, { readOnly } from 'ember-computed-decorators';
+
+export default Ember.Component.extend({
+  @computed('first', 'last')
+  @readOnly
+  name(first, last) {
+    return `${first} ${last}`;
+  }
+});
+```
+
 ## Installation
 
 * `git clone` this repository
