@@ -27,6 +27,22 @@ test('passes dependent keys into function as arguments', function(assert) {
   get(obj, 'name');
 });
 
+test('preserve arity', function(assert) {
+  var obj = {
+    first: 'rob',
+    last: 'jackson',
+
+    /* jshint ignore:start */
+    @computed('first', 'last', 'middle')
+    /* jshint ignore:end */
+    name(first, last) {
+      assert.equal(arguments.length, 2);
+    }
+  };
+
+  get(obj, 'name');
+});
+
 test('dependent key changes invalidate the computed property', function(assert) {
   var obj = {
     first: 'rob',
