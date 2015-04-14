@@ -12,7 +12,7 @@ function handleDescriptor(target, key, descriptor) {
     throw new Error('ember-computed-decorators does not support using getters and setters');
   }
 
-  descriptor.value = computed(originalParams, computedDescriptor);
+  descriptor.value = computed.apply(null, originalParams.concat(computedDescriptor));
 
   return descriptor;
 }

@@ -27,6 +27,24 @@ test('passes dependent keys into function as arguments', function(assert) {
   get(obj, 'name');
 });
 
+test('dependent key changes invalidate the computed property', function(assert) {
+  var obj = {
+    first: 'rob',
+    last: 'jackson',
+
+    /* jshint ignore:start */
+    @computed('first', 'last')
+    /* jshint ignore:end */
+    name(first, last) {
+      return `${first} ${last}`;
+    }
+  };
+
+  assert.equal(get(obj, 'name'), 'rob jackson');
+  set(obj, 'first', 'al');
+  assert.equal(get(obj, 'name'), 'al jackson');
+});
+
 test('only calls getter when dependent keys change', function(assert) {
   let callCount = 0;
   let obj = {
