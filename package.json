@@ -33,14 +33,14 @@
     "ember-data": "1.0.0-beta.16.1",
     "ember-disable-prototype-extensions": "^1.0.0",
     "ember-export-application-global": "^1.0.2",
-    "ember-new-computed": "1.0.0",
     "ember-try": "0.0.4"
   },
   "keywords": [
     "ember-addon"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.0.0"
+    "ember-cli-babel": "^5.0.0",
+    "ember-new-computed": "1.0.0"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
