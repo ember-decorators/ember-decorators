@@ -1,13 +1,22 @@
 import Ember from 'ember';
 
-const { get, computed } = Ember;
+const { get } = Ember;
+
+import computed from 'ember-new-computed';
 
 function handleDescriptor(target, key, descriptor) {
   let originalParams = descriptor.__originalParams || [];
   let computedDescriptor;
 
   if (descriptor.writable) {
-    computedDescriptor = callUserSuppliedFunction(originalParams, descriptor.value);
+    if (typeof descriptor.value === 'object') {
+      let value = { };
+      if (descriptor.value.get) { value.get = callUserSuppliedGet(originalParams, descriptor.value.get); }
+      if (descriptor.value.set) { value.set = callUserSuppliedSet(originalParams, descriptor.value.set); }
+      computedDescriptor = value;
+    } else {
+      computedDescriptor = callUserSuppliedGet(originalParams, descriptor.value);
+    }
   } else {
     throw new Error('ember-computed-decorators does not support using getters and setters');
   }
@@ -17,9 +26,19 @@ function handleDescriptor(target, key, descriptor) {
   return descriptor;
 }
 
-function callUserSuppliedFunction(params, func) {
+function callUserSuppliedGet(params, func) {
   return function() {
     let paramValues = params.map(p => get(this, p));
+
+    return func.apply(this, paramValues);
+  };
+}
+
+
+function callUserSuppliedSet(params, func) {
+  return function(value) {
+    let paramValues = params.map(p => get(this, p));
+    paramValues.unshift(value);
 
     return func.apply(this, paramValues);
   };

@@ -89,6 +89,26 @@ export default Ember.Component.extend({
 });
 ```
 
+
+#### "Real World get/set syntax"
+
+```javascript
+import Ember from 'ember';
+import computed from 'ember-computed-decorators';
+
+export default Ember.Component.extend({
+  @computed('first', 'last')
+  name: {
+    get(first, last) {
+      return `${first} ${last}`;
+    },
+
+    set(value, first, last) {
+      // ...
+    }
+});
+```
+
 ## Installation
 
 * `git clone` this repository

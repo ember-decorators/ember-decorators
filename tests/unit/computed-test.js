@@ -67,7 +67,7 @@ test('only calls getter when dependent keys change', function(assert) {
 });
 
 test('throws an error when attempting to use ES6 getter/setter syntax', function(assert) {
-  assert.throws(function() {
+  assert.throws(() => {
     let obj = {
       first: 'rob',
       last: 'jackson',
@@ -82,7 +82,7 @@ test('throws an error when attempting to use ES6 getter/setter syntax', function
   });
 });
 
-skip('allows using ember-new-computed style get/set syntax', function(assert) {
+test('allows using ember-new-computed style get/set syntax', function(assert) {
   // not currently supported by Babel (waiting on confirmation from @wycats
   // before opening an issue)
   let setCallCount = 0;
@@ -95,14 +95,14 @@ skip('allows using ember-new-computed style get/set syntax', function(assert) {
     @computed('first', 'last')
     /* jshint ignore:end */
     name: {
-      get: function(first, last) {
+      get(first, last) {
         assert.equal(first, 'rob');
         assert.equal(last, 'jackson');
 
         getCallCount++;
       },
 
-      set: function(value, first, last) {
+      set(value, first, last) {
         assert.equal(first, 'rob');
         assert.equal(last, 'jackson');
 
