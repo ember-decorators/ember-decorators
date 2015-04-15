@@ -71,3 +71,20 @@ export function readOnly(target, name, descriptor) {
 
   return descriptor;
 }
+
+function decoratorAlias(fn, errorMessage) {
+  return function(...params) {
+    // determine if user called as @computed('blah', 'blah') or @computed
+    if (params.length === 0) {
+      throw new Error(errorMessage);
+    } else {
+      return function(target, key, descriptor) {
+        descriptor.value = fn.apply(null, params.concat(descriptor.value));
+        return descriptor;
+      };
+    }
+  };
+}
+
+export var on = decoratorAlias(Ember.on, 'Can not `on` without event names');
+export var observes = decoratorAlias(Ember.observer, 'Can not `observe` without property names');
