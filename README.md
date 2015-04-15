@@ -86,6 +86,27 @@ export default Ember.Component.extend({
   name(first, last) {
     return `${first} ${last}`;
   }
+
+});
+```
+
+#### "Real World get/set syntax"
+
+```javascript
+import Ember from 'ember';
+import computed from 'ember-computed-decorators';
+
+export default Ember.Component.extend({
+  @computed('first', 'last')
+  name: {
+    get(first, last) {
+      return `${first} ${last}`;
+    },
+
+    set(value, first, last) {
+      // ...
+    }
+  }
 });
 ```
 
@@ -106,6 +127,21 @@ export default Ember.Component.extend({
     set(value, first, last) {
       // ...
     }
+});
+```
+
+#### "readOnly"
+
+```javascript
+import Ember from 'ember';
+import computed, { readOnly } from 'ember-computed-decorators';
+
+export default Ember.Component.extend({
+  @computed('first', 'last')
+  @readOnly
+  name(first, last) {
+    return `${first} ${last}`;
+  }
 });
 ```
 

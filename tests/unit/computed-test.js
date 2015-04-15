@@ -1,5 +1,5 @@
 import Ember from "ember";
-import computed from "ember-computed-decorators";
+import computed, { readOnly } from "ember-computed-decorators";
 import { module, test, skip } from "qunit";
 
 const { get, set } = Ember;
@@ -43,6 +43,26 @@ test('dependent key changes invalidate the computed property', function(assert) 
   assert.equal(get(obj, 'name'), 'rob jackson');
   set(obj, 'first', 'al');
   assert.equal(get(obj, 'name'), 'al jackson');
+});
+
+
+test('readOnly', function(assert) {
+  var obj = {
+    first: 'rob',
+    last: 'jackson',
+
+    /* jshint ignore:start */
+    @computed('first', 'last')
+    @readOnly
+    /* jshint ignore:end */
+    name(first, last) {
+      return `${first} ${last}`;
+    }
+  };
+
+  assert.throws(function() {
+    set(obj, 'name', 'al');
+  }, /Cannot set read-only property/);
 });
 
 test('only calls getter when dependent keys change', function(assert) {

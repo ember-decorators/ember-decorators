@@ -60,3 +60,14 @@ export default function computedDecorator(...params) {
     };
   }
 }
+
+export function readOnly(target, name, descriptor) {
+  descriptor.writable = false;
+  var value = typeof descriptor === 'object' && descriptor && descriptor.value;
+
+  if (value && typeof value === 'object' && value.isDescriptor) {
+    value.readOnly();
+  }
+
+  return descriptor;
+}
