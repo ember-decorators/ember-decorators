@@ -8,7 +8,7 @@ export default function decoratorAlias(fn, errorMessage) {
         return {
           enumerable: desc.enumerable,
           configurable: desc.configurable,
-          writalbe: desc.writable,
+          writable: desc.writable,
           initializer: function() {
             return fn.apply(null, params.concat(desc.initializer()));
           }
