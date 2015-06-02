@@ -125,6 +125,22 @@ export default Ember.Component.extend({
 });
 ```
 
+### ember-data
+
+```
+import DS from 'ember-data';
+import {
+  attr,
+  hasMany
+} from "ember-computed-decorators/ember-data";
+
+export default DS.Model.extend({
+  @attr firstName,
+  @hasMany users
+});
+
+```
+
 ## Installation
 
 * `git clone` this repository
