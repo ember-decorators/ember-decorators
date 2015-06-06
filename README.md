@@ -44,10 +44,10 @@ foo: Ember.computed('someKey', 'otherKey', function() {
 You replace with this:
 
 ```javascript
-import computedDecorator from 'ember-computed-decorators';
+import computed from 'ember-computed-decorators';
 
 // ..... <snip> .....
-@computedDecorator('someKey', 'otherKey')
+@computed('someKey', 'otherKey')
 foo(someKey, otherKey) {
   // Do Stuff
 }
@@ -65,10 +65,10 @@ foo: Ember.computed(function() {
 You replace with this:
 
 ```javascript
-import computedDecorator from 'ember-computed-decorators';
+import computed from 'ember-computed-decorators';
 
 // ..... <snip> .....
-@computedDecorator
+@computed
 foo() {
   // Do Stuff
 }
