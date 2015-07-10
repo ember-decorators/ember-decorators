@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import extractValue from './extract-value';
 
 const { computed, get } = Ember;
 
@@ -11,7 +12,7 @@ export default function handleDescriptor(target, key, desc, params = []) {
       let computedDescriptor;
 
       if (desc.writable) {
-        var val = desc.value || typeof desc.initializer === 'function' && desc.initializer();
+        var val = extractValue(desc);
         if (typeof val === 'object') {
           let value = { };
           if (val.get) { value.get = callUserSuppliedGet(params, val.get); }
