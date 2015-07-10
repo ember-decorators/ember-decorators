@@ -20,7 +20,8 @@ export function readOnly(target, name, desc) {
     enumerable:   desc.enumerable,
     configurable: desc.configurable,
     initializer:  function() {
-      return desc.initializer().readOnly();
+      var value = desc.value || typeof desc.initializer === 'function' && desc.initializer();
+      return value.readOnly();
     }
   };
 }

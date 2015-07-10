@@ -52,8 +52,8 @@ test('readOnly', function(assert) {
     last: 'jackson',
 
     /* jshint ignore:start */
-    @computed('first', 'last')
     @readOnly
+    @computed('first', 'last')
     /* jshint ignore:end */
     name(first, last) {
       return `${first} ${last}`;

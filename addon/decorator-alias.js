@@ -10,7 +10,8 @@ export default function decoratorAlias(fn, errorMessage) {
           configurable: desc.configurable,
           writable: desc.writable,
           initializer: function() {
-            return fn.apply(null, params.concat(desc.initializer()));
+            var value = desc.value || typeof desc.initializer === 'function' && desc.initializer();
+            return fn.apply(null, params.concat(value));
           }
         };
       };

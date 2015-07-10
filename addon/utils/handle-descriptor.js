@@ -11,7 +11,7 @@ export default function handleDescriptor(target, key, desc, params = []) {
       let computedDescriptor;
 
       if (desc.writable) {
-        var val = desc.initializer();
+        var val = desc.value || typeof desc.initializer === 'function' && desc.initializer();
         if (typeof val === 'object') {
           let value = { };
           if (val.get) { value.get = callUserSuppliedGet(params, val.get); }
