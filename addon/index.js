@@ -2,6 +2,7 @@ import Ember from 'ember';
 
 import handleDescriptor from './utils/handle-descriptor';
 import isDescriptor from './utils/is-descriptor';
+import extractValue from './utils/extract-value';
 
 export default function computedDecorator(...params) {
   // determine if user called as @computed('blah', 'blah') or @computed
@@ -20,7 +21,8 @@ export function readOnly(target, name, desc) {
     enumerable:   desc.enumerable,
     configurable: desc.configurable,
     initializer:  function() {
-      return desc.initializer().readOnly();
+      var value = extractValue(desc);
+      return value.readOnly();
     }
   };
 }
