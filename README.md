@@ -117,8 +117,8 @@ import Ember from 'ember';
 import computed, { readOnly } from 'ember-computed-decorators';
 
 export default Ember.Component.extend({
-  @computed('first', 'last')
   @readOnly
+  @computed('first', 'last')
   name(first, last) {
     return `${first} ${last}`;
   }
