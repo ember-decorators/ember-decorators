@@ -1,7 +1,6 @@
 import Ember from 'ember';
-import computed from 'ember-new-computed';
 
-const { get } = Ember;
+const { computed, get } = Ember;
 
 export default function handleDescriptor(target, key, desc, params = []) {
   return {
