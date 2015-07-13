@@ -30,9 +30,20 @@ export default function handleDescriptor(target, key, desc, params = []) {
   };
 }
 
+function getAttr(obj, name) {
+  const parts = name.split('.');
+  let i;
+
+  for (i = 0; i < parts.length; i++) {
+    if (parts[i] === '@each' || parts[i] === '[]') { break; }
+  }
+
+  return get(obj, parts.slice(0, i).join('.'));
+}
+
 function callUserSuppliedGet(params, func) {
   return function() {
-    let paramValues = params.map(p => get(this, p));
+    let paramValues = params.map(p => getAttr(this, p));
 
     return func.apply(this, paramValues);
   };
@@ -41,7 +52,7 @@ function callUserSuppliedGet(params, func) {
 
 function callUserSuppliedSet(params, func) {
   return function(key, value) {
-    let paramValues = params.map(p => get(this, p));
+    let paramValues = params.map(p => getAttr(this, p));
     paramValues.unshift(value);
 
     return func.apply(this, paramValues);
