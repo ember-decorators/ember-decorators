@@ -211,3 +211,29 @@ test('attr.models.[] passes attr.models', function(assert) {
   get(obj, 'something');
   set(obj, 'something', 'something');
 });
+
+test('attr.{foo,bar} passes attr', function(assert) {
+  assert.expect(2);
+
+  let obj = {
+    attr: {
+      foo: 'foo',
+      bar: 'bar'
+    },
+
+    /* jshint ignore:start */
+    @computed('attr.{foo,bar}')
+    /* jshint ignore:end */
+    something: {
+      get(obj) {
+        assert.deepEqual(obj, { foo: 'foo', bar: 'bar' });
+      },
+      set(value, obj) {
+        assert.deepEqual(obj, { foo: 'foo', bar: 'bar' });
+      }
+    },
+  };
+
+  get(obj, 'something');
+  set(obj, 'something', 'something');
+});

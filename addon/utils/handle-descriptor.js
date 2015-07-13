@@ -35,7 +35,11 @@ function getAttr(obj, name) {
   let i;
 
   for (i = 0; i < parts.length; i++) {
-    if (parts[i] === '@each' || parts[i] === '[]') { break; }
+    if (parts[i] === '@each' ||
+        parts[i] === '[]'    ||
+        parts[i].indexOf('{') !== -1) {
+      break;
+    }
   }
 
   return get(obj, parts.slice(0, i).join('.'));
