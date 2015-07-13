@@ -161,3 +161,79 @@ test('works properly', function(assert) {
 
   assert.equal(callCount, 1);
 });
+
+test('attr.models.@each passes attr.models', function(assert) {
+  assert.expect(2);
+
+  let obj = {
+    attr: {
+      models: ['one', 'two']
+    },
+
+    /* jshint ignore:start */
+    @computed('attr.models.@each')
+    /* jshint ignore:end */
+    something: {
+      get(models) {
+        assert.deepEqual(models, ['one', 'two']);
+      },
+      set(value, models) {
+        assert.deepEqual(models, ['one', 'two']);
+      }
+    },
+  };
+
+  get(obj, 'something');
+  set(obj, 'something', 'something');
+});
+
+test('attr.models.[] passes attr.models', function(assert) {
+  assert.expect(2);
+
+  let obj = {
+    attr: {
+      models: ['one', 'two']
+    },
+
+    /* jshint ignore:start */
+    @computed('attr.models.[]')
+    /* jshint ignore:end */
+    something: {
+      get(models) {
+        assert.deepEqual(models, ['one', 'two']);
+      },
+      set(value, models) {
+        assert.deepEqual(models, ['one', 'two']);
+      }
+    },
+  };
+
+  get(obj, 'something');
+  set(obj, 'something', 'something');
+});
+
+test('attr.{foo,bar} passes attr', function(assert) {
+  assert.expect(2);
+
+  let obj = {
+    attr: {
+      foo: 'foo',
+      bar: 'bar'
+    },
+
+    /* jshint ignore:start */
+    @computed('attr.{foo,bar}')
+    /* jshint ignore:end */
+    something: {
+      get(obj) {
+        assert.deepEqual(obj, { foo: 'foo', bar: 'bar' });
+      },
+      set(value, obj) {
+        assert.deepEqual(obj, { foo: 'foo', bar: 'bar' });
+      }
+    },
+  };
+
+  get(obj, 'something');
+  set(obj, 'something', 'something');
+});
