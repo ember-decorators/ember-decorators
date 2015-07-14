@@ -127,7 +127,7 @@ export default Ember.Component.extend({
 
 ### ember-data
 
-```
+```javascript
 import DS from 'ember-data';
 import {
   attr,
