@@ -2,13 +2,34 @@
 import Ember from "ember";
 import {
   alias,
+  and,
+  bool,
+  collect,
   empty,
-  notEmpty,
+  equal,
+  filter,
+  filterBy,
+  gt,
+  gte,
+  lt,
+  lte,
+  map,
+  mapBy,
+  match,
+  max,
+  min,
   none,
   not,
-  bool,
-  match,
-  equal
+  notEmpty,
+  oneWay,
+  or,
+  readOnly,
+  reads,
+  setDiff,
+  sort,
+  sum,
+  union,
+  uniq
 } from "ember-computed-decorators";
 import { module, test, skip } from "qunit";
 
