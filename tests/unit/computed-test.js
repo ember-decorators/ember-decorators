@@ -162,6 +162,31 @@ test('works properly', function(assert) {
   assert.equal(callCount, 1);
 });
 
+test('attr.foo passes attr.foo', function(assert) {
+  assert.expect(2);
+
+  let obj = {
+    attr: {
+      foo: 'bar'
+    },
+
+    /* jshint ignore:start */
+    @computed('attr.foo')
+    /* jshint ignore:end */
+    something: {
+      get(foo) {
+        assert.deepEqual(foo, 'bar');
+      },
+      set(value, foo) {
+        assert.deepEqual(foo, 'bar');
+      }
+    },
+  };
+
+  get(obj, 'something');
+  set(obj, 'something', 'something');
+});
+
 test('attr.models.@each passes attr.models', function(assert) {
   assert.expect(2);
 
