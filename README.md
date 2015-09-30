@@ -17,6 +17,7 @@ allow usage of the decorator proposal.
 
 As of Babel 5.1.0 the following should be all you need in your ember-cli application:
 
+* pre-1.13.0
 ```javascript
 // Brocfile.js
 var app = new EmberApp({
@@ -25,6 +26,17 @@ var app = new EmberApp({
   }
 });
 ```
+
+* 1.13.x
+```javascript
+// ember-cli-build.js
+var app = new EmberApp({
+  babel: {
+    optional: ['es7.decorators']
+  }
+});
+```
+
 
 ### Application Usage
 
