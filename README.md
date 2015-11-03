@@ -37,7 +37,6 @@ var app = new EmberApp({
 });
 ```
 
-
 ### Application Usage
 
 #### With Dependent Keys
@@ -63,7 +62,6 @@ import computed from 'ember-computed-decorators';
 foo(someKey, otherKey) {
   // Do Stuff
 }
-
 ```
 
 #### Without Dependent Keys
@@ -84,7 +82,6 @@ import computed from 'ember-computed-decorators';
 foo() {
   // Do Stuff
 }
-
 ```
 
 #### "Real World"
@@ -98,7 +95,6 @@ export default Ember.Component.extend({
   name(first, last) {
     return `${first} ${last}`;
   }
-
 });
 ```
 
@@ -151,7 +147,7 @@ export default Ember.Component.extend({
   persons: [
     { first: 'David', last: 'Heinemeier Hansson' },
     { first: 'Aaron', last: 'Patterson' }
-  ]
+  ],
 
   @computed('persons.@each.{first,last}')
   names(persons) {
@@ -173,7 +169,7 @@ export default Ember.Component.extend({
   address: {
     street: 'Pennsylvania Avenue',
     number: 1600
-  ]
+  ],
 
   @computed('address.{street,number}')
   formattedStreet(street, number) {
