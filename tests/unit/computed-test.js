@@ -237,8 +237,8 @@ test('attr.models.[] passes attr.models', function(assert) {
   set(obj, 'something', 'something');
 });
 
-test('attr.{foo,bar} passes attr', function(assert) {
-  assert.expect(2);
+test('attr.{foo,bar} passes attr.foo and attr.bar', function(assert) {
+  assert.expect(4);
 
   let obj = {
     attr: {
@@ -250,11 +250,39 @@ test('attr.{foo,bar} passes attr', function(assert) {
     @computed('attr.{foo,bar}')
     /* jshint ignore:end */
     something: {
-      get(obj) {
-        assert.deepEqual(obj, { foo: 'foo', bar: 'bar' });
+      get(foo, bar) {
+        assert.equal(foo, 'foo');
+        assert.equal(bar, 'bar');
       },
-      set(value, obj) {
-        assert.deepEqual(obj, { foo: 'foo', bar: 'bar' });
+      set(value, foo, bar) {
+        assert.equal(foo, 'foo');
+        assert.equal(bar, 'bar');
+      }
+    },
+  };
+
+  get(obj, 'something');
+  set(obj, 'something', 'something');
+});
+
+test('attr.@each.{foo,bar} passes attr', function(assert) {
+  assert.expect(2);
+
+  let obj = {
+    attr: [{
+      foo: 'foo',
+      bar: 'bar'
+    }],
+
+    /* jshint ignore:start */
+    @computed('attr.@each.{foo,bar}')
+    /* jshint ignore:end */
+    something: {
+      get(models) {
+        assert.deepEqual(models, [{ foo: 'foo', bar: 'bar' }]);
+      },
+      set(value, models) {
+        assert.deepEqual(models, [{ foo: 'foo', bar: 'bar' }]);
       }
     },
   };
