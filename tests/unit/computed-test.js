@@ -171,7 +171,7 @@ test('attr.models.@each passes attr.models', function(assert) {
     },
 
     /* jshint ignore:start */
-    @computed('attr.models.@each')
+    @computed('attr.models.@each.length')
     /* jshint ignore:end */
     something: {
       get(models) {
