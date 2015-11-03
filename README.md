@@ -137,11 +137,11 @@ export default Ember.Component.extend({
 });
 ```
 
-### Enumerables / Arrays / Destructuring
+### Enumerables / Arrays
 
-When a computed property key contains `@each`, `[]` (enumerable) or `{foo,bar}` (destructuring)
-then the argument that is passed to the `get` or `set` method will be the object at the path
-up to the `@each` (or other) part.
+When a computed property key contains `@each`, `[]` (enumerable) then the
+argument that is passed to the `get` or `set` method will be the object at the
+path up to the `@each` or `[]` part.
 
 ```javascript
 import Ember from 'ember';
@@ -152,10 +152,32 @@ export default Ember.Component.extend({
     { first: 'David', last: 'Heinemeier Hansson' },
     { first: 'Aaron', last: 'Patterson' }
   ]
-  
+
   @computed('persons.@each.{first,last}')
   names(persons) {
     return persons.map((person) => `${person.first} ${person.last}`);
+  }
+});
+```
+
+### Property Expansion
+
+When a computed property key contains `{foo,bar}` then the arguments that are
+passed to the `get` or `set` method will bet the expanded properties.
+
+```javascript
+import Ember from 'ember';
+import computed from 'ember-computed-decorators';
+
+export default Ember.Component.extend({
+  address: {
+    street: 'Pennsylvania Avenue',
+    number: 1600
+  ]
+
+  @computed('address.{street,number}')
+  formattedStreet(street, number) {
+    return `${number} ${street}`;
   }
 });
 ```

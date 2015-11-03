@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import extractValue from './extract-value';
 
-const { computed, get } = Ember;
+const { computed, expandProperties, get } = Ember;
 
 export default function handleDescriptor(target, key, desc, params = []) {
   return {
@@ -30,25 +30,27 @@ export default function handleDescriptor(target, key, desc, params = []) {
   };
 }
 
-function niceAttr(attr) {
-  const parts = attr.split('.');
-  let i;
-
-  for (i = 0; i < parts.length; i++) {
-    if (parts[i] === '@each' ||
-        parts[i] === '[]'    ||
-        parts[i].indexOf('{') !== -1) {
-      break;
+function expandPropertyList(propertyList) {
+  return propertyList.reduce((newPropertyList, property) => {
+    const atEachIndex = property.indexOf('.@each');
+    if (atEachIndex !== -1) {
+      return newPropertyList.concat(property.slice(0, atEachIndex));
+    } else if (property.slice(-2) === '[]') {
+      return newPropertyList.concat(property.slice(0, -2));
     }
-  }
 
-  return parts.slice(0, i).join('.');
+    expandProperties(property, (expandedProperties) => {
+      newPropertyList = newPropertyList.concat(expandedProperties);
+    });
+
+    return newPropertyList;
+  }, []);
 }
 
 function callUserSuppliedGet(params, func) {
-  params = params.map(niceAttr);
+  const expandedParams = expandPropertyList(params);
   return function() {
-    let paramValues = params.map(p => get(this, p));
+    let paramValues = expandedParams.map(p => get(this, p));
 
     return func.apply(this, paramValues);
   };
@@ -56,9 +58,9 @@ function callUserSuppliedGet(params, func) {
 
 
 function callUserSuppliedSet(params, func) {
-  params = params.map(niceAttr);
+  const expandedParams = expandPropertyList(params);
   return function(key, value) {
-    let paramValues = params.map(p => get(this, p));
+    let paramValues = expandedParams.map(p => get(this, p));
     paramValues.unshift(value);
 
     return func.apply(this, paramValues);
