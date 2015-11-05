@@ -82,6 +82,20 @@ test('alias', function(assert) {
 
 });
 
+test('alias', function(assert) {
+  var obj = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.friend = 'Guy';
+    },
+    /* jshint ignore:start */
+    @alias('friend') buddy
+    /* jshint ignore:end */
+  }).create();
+
+  assert.equal(obj.get('buddy'), 'Guy');
+});
+
 test('and', function(assert) {
   var obj = Ember.Object.extend({
     init() {
@@ -514,14 +528,14 @@ test('setDiff', function(assert) {
     init() {
       this._super(...arguments);
       this.numbers = Ember.A(['one','two','three']);
-      this.oddNumbers = Ember.A(['one', 'three']);
+      this.oddNumbers = Ember.A(['one','three']);
     },
     /* jshint ignore:start */
-    @setDiff('numbers', 'oddNumbers') even
+    @setDiff('numbers', 'oddNumbers') evenNumbers
     /* jshint ignore:end */
   }).create();
 
-  assert.deepEqual(obj.get('even').toArray(),['two']);
+  assert.deepEqual(obj.get('evenNumbers'),['two']);
 });
 
 test('sort', function(assert) {
