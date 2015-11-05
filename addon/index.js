@@ -44,6 +44,7 @@ export var filter = macroAlias(Ember.computed.filter);
 export var filterBy = macroAlias(Ember.computed.filterBy);
 export var gt = macroAlias(Ember.computed.gt);
 export var gte = macroAlias(Ember.computed.gte);
+export var intersect = macroAlias(Ember.computed.intersect);
 export var lt = macroAlias(Ember.computed.lt);
 export var lte = macroAlias(Ember.computed.lte);
 export var map = macroAlias(Ember.computed.map);
