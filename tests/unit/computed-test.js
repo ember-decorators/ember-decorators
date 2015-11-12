@@ -216,12 +216,10 @@ test('attr.models.[] passes attr.models', function(assert) {
   assert.expect(2);
 
   let obj = {
-    attr: {
-      models: ['one', 'two']
-    },
+    models: ['one', 'two'],
 
     /* jshint ignore:start */
-    @computed('attr.models.[]')
+    @computed('models.[]')
     /* jshint ignore:end */
     something: {
       get(models) {

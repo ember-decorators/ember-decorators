@@ -36,7 +36,7 @@ function expandPropertyList(propertyList) {
     if (atEachIndex !== -1) {
       return newPropertyList.concat(property.slice(0, atEachIndex));
     } else if (property.slice(-2) === '[]') {
-      return newPropertyList.concat(property.slice(0, -2));
+      return newPropertyList.concat(property.slice(0, -3));
     }
 
     expandProperties(property, (expandedProperties) => {
