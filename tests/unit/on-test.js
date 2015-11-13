@@ -1,9 +1,7 @@
 
 import Ember from "ember";
 import { on, observes } from "ember-computed-decorators";
-import { module, test, skip } from "qunit";
-
-const { get, set } = Ember;
+import { module, test } from "qunit";
 
 module('on/observes decorator');
 
@@ -14,9 +12,7 @@ test('on', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @on('init')
-    /* jshint ignore:end */
     name() {
       didInit = true;
     }
@@ -32,9 +28,7 @@ test('observes', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @observes('first')
-    /* jshint ignore:end */
     name() {
       didObserve = true;
     }
@@ -53,10 +47,8 @@ test('on -> observes', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @on('init')
     @observes('first')
-    /* jshint ignore:end */
     name() {
       didInit = true;
     }
@@ -78,10 +70,8 @@ test('observes > on', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @observes('first')
     @on('init')
-    /* jshint ignore:end */
     name() {
       didInit = true;
     }
