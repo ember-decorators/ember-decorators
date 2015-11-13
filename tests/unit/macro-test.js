@@ -1,5 +1,5 @@
-
 import Ember from "ember";
+/* jshint ignore:start */
 import {
   alias,
   and,
@@ -32,9 +32,8 @@ import {
   union,
   uniq
 } from "ember-computed-decorators";
-import { module, test, skip } from "qunit";
-
-const { get, set } = Ember;
+/* jshint ignore:end */
+import { module, test } from "qunit";
 
 module('macro decorator');
 
