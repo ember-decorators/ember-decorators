@@ -5,6 +5,10 @@ module.exports = function() {
   var app = new EmberApp({
     'babel': {
       optional: ['es7.decorators']
+    },
+
+    'ember-cli-qunit': {
+      useLintTree: false
     }
   });
 

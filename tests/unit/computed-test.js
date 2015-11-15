@@ -1,6 +1,6 @@
 import Ember from "ember";
 import computed, { readOnly } from "ember-computed-decorators";
-import { module, test, skip } from "qunit";
+import { module, test } from "qunit";
 
 const { get, set } = Ember;
 
@@ -15,9 +15,7 @@ test('passes dependent keys into function as arguments', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @computed('first', 'last')
-    /* jshint ignore:end */
     name(first, last) {
       assert.equal(first, 'rob');
       assert.equal(last, 'jackson');
@@ -32,9 +30,7 @@ test('dependent key changes invalidate the computed property', function(assert) 
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @computed('first', 'last')
-    /* jshint ignore:end */
     name(first, last) {
       return `${first} ${last}`;
     }
@@ -51,10 +47,8 @@ test('readOnly', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @readOnly
     @computed('first', 'last')
-    /* jshint ignore:end */
     name(first, last) {
       return `${first} ${last}`;
     }
@@ -71,10 +65,8 @@ test('only calls getter when dependent keys change', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @computed('first', 'last')
-    /* jshint ignore:end */
-    name(first, last) {
+    name() {
       callCount++;
     }
   };
@@ -88,13 +80,11 @@ test('only calls getter when dependent keys change', function(assert) {
 
 test('throws an error when attempting to use ES6 getter/setter syntax', function(assert) {
   assert.throws(() => {
-    let obj = {
+    return {
       first: 'rob',
       last: 'jackson',
 
-      /* jshint ignore:start */
       @computed('first', 'last')
-      /* jshint ignore:end */
       set name(value) { },
 
       get name() { }
@@ -111,9 +101,7 @@ test('allows using ember-new-computed style get/set syntax', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @computed('first', 'last')
-    /* jshint ignore:end */
     name: {
       get(first, last) {
         assert.equal(first, 'rob');
@@ -170,9 +158,7 @@ test('attr.foo passes attr.foo', function(assert) {
       foo: 'bar'
     },
 
-    /* jshint ignore:start */
     @computed('attr.foo')
-    /* jshint ignore:end */
     something: {
       get(foo) {
         assert.deepEqual(foo, 'bar');
@@ -180,7 +166,7 @@ test('attr.foo passes attr.foo', function(assert) {
       set(value, foo) {
         assert.deepEqual(foo, 'bar');
       }
-    },
+    }
   };
 
   get(obj, 'something');
@@ -195,9 +181,7 @@ test('attr.models.@each passes attr.models', function(assert) {
       models: ['one', 'two']
     },
 
-    /* jshint ignore:start */
     @computed('attr.models.@each.length')
-    /* jshint ignore:end */
     something: {
       get(models) {
         assert.deepEqual(models, ['one', 'two']);
@@ -205,7 +189,7 @@ test('attr.models.@each passes attr.models', function(assert) {
       set(value, models) {
         assert.deepEqual(models, ['one', 'two']);
       }
-    },
+    }
   };
 
   get(obj, 'something');
@@ -218,9 +202,7 @@ test('attr.models.[] passes attr.models', function(assert) {
   let obj = {
     models: ['one', 'two'],
 
-    /* jshint ignore:start */
     @computed('models.[]')
-    /* jshint ignore:end */
     something: {
       get(models) {
         assert.deepEqual(models, ['one', 'two']);
@@ -228,7 +210,7 @@ test('attr.models.[] passes attr.models', function(assert) {
       set(value, models) {
         assert.deepEqual(models, ['one', 'two']);
       }
-    },
+    }
   };
 
   get(obj, 'something');
@@ -244,9 +226,7 @@ test('attr.{foo,bar} passes attr.foo and attr.bar', function(assert) {
       bar: 'bar'
     },
 
-    /* jshint ignore:start */
     @computed('attr.{foo,bar}')
-    /* jshint ignore:end */
     something: {
       get(foo, bar) {
         assert.equal(foo, 'foo');
@@ -256,7 +236,7 @@ test('attr.{foo,bar} passes attr.foo and attr.bar', function(assert) {
         assert.equal(foo, 'foo');
         assert.equal(bar, 'bar');
       }
-    },
+    }
   };
 
   get(obj, 'something');
@@ -272,9 +252,7 @@ test('attr.@each.{foo,bar} passes attr', function(assert) {
       bar: 'bar'
     }],
 
-    /* jshint ignore:start */
     @computed('attr.@each.{foo,bar}')
-    /* jshint ignore:end */
     something: {
       get(models) {
         assert.deepEqual(models, [{ foo: 'foo', bar: 'bar' }]);
@@ -282,7 +260,7 @@ test('attr.@each.{foo,bar} passes attr', function(assert) {
       set(value, models) {
         assert.deepEqual(models, [{ foo: 'foo', bar: 'bar' }]);
       }
-    },
+    }
   };
 
   get(obj, 'something');
