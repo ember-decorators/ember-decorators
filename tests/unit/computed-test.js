@@ -1,6 +1,6 @@
 import Ember from "ember";
-import computed, { readOnly } from "ember-computed-decorators";
-import { module, test, skip } from "qunit";
+import computed, { readOnly } from "ember-computed-decorators"; // jshint ignore:line
+import { module, test } from "qunit";
 
 const { get, set } = Ember;
 
@@ -74,7 +74,7 @@ test('only calls getter when dependent keys change', function(assert) {
     /* jshint ignore:start */
     @computed('first', 'last')
     /* jshint ignore:end */
-    name(first, last) {
+    name() {
       callCount++;
     }
   };
@@ -88,14 +88,14 @@ test('only calls getter when dependent keys change', function(assert) {
 
 test('throws an error when attempting to use ES6 getter/setter syntax', function(assert) {
   assert.throws(() => {
-    let obj = {
+    return {
       first: 'rob',
       last: 'jackson',
 
       /* jshint ignore:start */
       @computed('first', 'last')
       /* jshint ignore:end */
-      set name(value) { },
+      set name(value) { return value; },
 
       get name() { }
     };

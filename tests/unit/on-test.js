@@ -1,9 +1,6 @@
-
 import Ember from "ember";
-import { on, observes } from "ember-computed-decorators";
-import { module, test, skip } from "qunit";
-
-const { get, set } = Ember;
+import { on, observes } from "ember-computed-decorators"; // jshint ignore:line
+import { module, test } from "qunit";
 
 module('on/observes decorator');
 

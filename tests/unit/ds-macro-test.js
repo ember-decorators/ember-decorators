@@ -1,13 +1,13 @@
-import Ember from "ember";
+import DS from "ember-data";
+/* jshint ignore:start */
 import {
   attr,
   hasMany,
   belongsTo
 } from "ember-computed-decorators/ember-data";
+/* jshint ignore:end */
 
-import { module, test, skip } from "qunit";
-
-const { get, set } = Ember;
+import { module, test } from "qunit";
 
 module('ember-data macro decorator');
 
