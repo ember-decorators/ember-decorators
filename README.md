@@ -37,6 +37,23 @@ var app = new EmberApp({
 });
 ```
 
+#### Setup with addon
+
+Add the following `init` method to `index.js` of your addon.
+This should enable the decorators to work on the parent app/addon.
+
+```javascript
+  init: function(app) {
+    this.options = this.options || {};
+    this.options.babel = this.options.babel || {};
+    this.options.babel.optional = this.options.babel.optional || [];
+
+    if (this.options.babel.optional.indexOf('es7.decorators') === -1) {
+      this.options.babel.optional.push('es7.decorators');
+    }
+  }
+```
+
 ### Application Usage
 
 #### With Dependent Keys
