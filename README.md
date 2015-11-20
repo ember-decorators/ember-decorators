@@ -576,7 +576,7 @@ import Ember from 'ember';
 import { sort } from 'ember-computed-decorators';
 export default Ember.Component.extend({
   this.names = Ember.A([{name:'Link'},{name:'Zelda'},{name:'Gannon'},{name:'Navi'}]);
-  @sort('names'function(a, b){
+  @sort('names', function(a, b){
     if (a.name > b.name) {
       return 1;
     } else if (a.name < b.name) {
