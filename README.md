@@ -132,6 +132,7 @@ export default Ember.Component.extend({
     set(value, first, last) {
       // ...
     }
+  }
 });
 ```
 
