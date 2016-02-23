@@ -288,3 +288,47 @@ test('attr.@each.{foo,bar} passes attr', function(assert) {
   get(obj, 'something');
   set(obj, 'something', 'something');
 });
+
+test('works with es6 class', function(assert) {
+  assert.expect(2);
+
+  class Foo {
+    constructor() {
+      this.first = 'rob';
+      this.last = 'jackson';
+    }
+
+    /* jshint ignore:start */
+    @computed('first', 'last')
+    /* jshint ignore:end */
+    fullName(first, last) {
+      assert.equal(first, 'rob');
+      assert.equal(last, 'jackson');
+    }
+  }
+
+  let obj = new Foo();
+  get(obj, 'fullName');
+});
+
+test('works with es6 class getter', function(assert) {
+  assert.expect(2);
+
+  class Foo {
+    constructor() {
+      this.first = 'rob';
+      this.last = 'jackson';
+    }
+
+    /* jshint ignore:start */
+    @computed('first', 'last')
+    /* jshint ignore:end */
+    get fullName() {
+      assert.equal(this.first, 'rob');
+      assert.equal(this.last, 'jackson');
+    }
+  }
+
+  let obj = new Foo();
+  get(obj, 'fullName');
+});
