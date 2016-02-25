@@ -189,7 +189,7 @@ export default Ember.Component.extend({
   address: {
     street: 'Pennsylvania Avenue',
     number: 1600
-  ],
+  },
 
   @computed('address.{street,number}')
   formattedStreet(street, number) {
