@@ -177,7 +177,7 @@ export default Ember.Component.extend({
 ### Property Expansion
 
 When a computed property key contains `{foo,bar}` then the arguments that are
-passed to the `get` or `set` method will bet the expanded properties.
+passed to the `get` or `set` method will get the expanded properties.
 
 ```javascript
 import Ember from 'ember';
