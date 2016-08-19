@@ -529,9 +529,9 @@ Where `computed.oneWay` provides oneWay bindings, `computed.readOnly` provides a
 This prevents the reverse flow, and also throws an exception when it occurs.
 ```javascript
 import Ember from 'ember';
-import { readOnly } from 'ember-computed-decorators';
+import { readOnly, alias } from 'ember-computed-decorators';
 export default Ember.Component.extend({
-  @readOnly('first') firstName // throws an error if set 'firstName' is attempted
+  @readOnly @alias('first') firstName // throws an error if set 'firstName' is attempted
 });
 ```
 
