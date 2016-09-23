@@ -44,7 +44,7 @@ This should enable the decorators to work on the parent app/addon.
 
 ```javascript
   init: function(app) {
-    this._super.apply(this, arguments);
+    this._super.init && this._super.init.apply(this, arguments);
 
     this.options = this.options || {};
     this.options.babel = this.options.babel || {};
