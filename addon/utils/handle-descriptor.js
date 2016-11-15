@@ -1,7 +1,8 @@
 import Ember from 'ember';
+import expandPropertyList from 'ember-macro-helpers/utils/expand-property-list';
 import extractValue from './extract-value';
 
-const { computed, expandProperties, get } = Ember;
+const { computed, get } = Ember;
 
 export default function handleDescriptor(target, key, desc, params = []) {
   return {
@@ -30,23 +31,6 @@ export default function handleDescriptor(target, key, desc, params = []) {
   };
 }
 
-function expandPropertyList(propertyList) {
-  return propertyList.reduce((newPropertyList, property) => {
-    const atEachIndex = property.indexOf('.@each');
-    if (atEachIndex !== -1) {
-      return newPropertyList.concat(property.slice(0, atEachIndex));
-    } else if (property.slice(-2) === '[]') {
-      return newPropertyList.concat(property.slice(0, -3));
-    }
-
-    expandProperties(property, (expandedProperties) => {
-      newPropertyList = newPropertyList.concat(expandedProperties);
-    });
-
-    return newPropertyList;
-  }, []);
-}
-
 function callUserSuppliedGet(params, func) {
   const expandedParams = expandPropertyList(params);
   return function() {
@@ -55,7 +39,6 @@ function callUserSuppliedGet(params, func) {
     return func.apply(this, paramValues);
   };
 }
-
 
 function callUserSuppliedSet(params, func) {
   const expandedParams = expandPropertyList(params);
@@ -66,4 +49,3 @@ function callUserSuppliedSet(params, func) {
     return func.apply(this, paramValues);
   };
 }
-
