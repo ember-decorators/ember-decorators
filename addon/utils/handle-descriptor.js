@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import expandPropertyList from 'ember-macro-helpers/utils/expand-property-list';
+import { expandPropertyList } from 'ember-macro-helpers/utils';
 import extractValue from './extract-value';
 
 const { computed, get } = Ember;
