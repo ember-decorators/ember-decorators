@@ -1,5 +1,8 @@
 # ember-computed-decorators
 
+[![npm version](https://badge.fury.io/js/ember-computed-decorators.svg)](https://badge.fury.io/js/ember-computed-decorators)
+[![Build Status](https://travis-ci.org/rwjblue/ember-computed-decorators.svg?branch=master)](https://travis-ci.org/rwjblue/ember-computed-decorators)
+
 This addon allows usage of the proposed decorator syntax, and passes the specified
 dependent keys into your computed function making your computed properties much DRY'er.
 
