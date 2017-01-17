@@ -1,6 +1,6 @@
 {
   "name": "ember-computed-decorators",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
