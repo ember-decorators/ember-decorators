@@ -12,7 +12,7 @@ export default function handleDescriptor(target, key, desc, params = []) {
       }
 
       let value = extractValue(desc);
-      return computed(...params.concat(value));
+      return computed(...params, value);
     }
   };
 }
