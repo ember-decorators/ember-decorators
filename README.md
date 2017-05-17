@@ -19,6 +19,33 @@ More details:
 To use ember-computed-decorators you must update Babel's configuration to
 allow usage of the decorator proposal.
 
+#### Babel 6.x
+
+Babel 6 has split out the various transforms to plugins, so we need to install the plugin for decorators:
+
+```
+yarn add --dev babel-plugin-transform-decorators-legacy
+```
+
+Or if you're using NPM:
+
+```
+npm install --save-dev babel-plugin-transform-decorators-legacy
+```
+
+Now simply tell Babel to use this plugin:
+
+```javascript
+// ember-cli-build.js
+var app = new EmberApp({
+  babel: {
+    plugins: ['transform-decorators-legacy']
+  }
+});
+```
+
+#### Babel 5.x
+
 As of Babel 5.1.0 the following should be all you need in your ember-cli application:
 
 * pre-1.13.0
