@@ -71,9 +71,10 @@ var app = new EmberApp({
 #### Setup with addon
 
 Add the following `init` method to `index.js` of your addon.
-This should enable the decorators to work on the parent app/addon.
+This should enable the decorators to work on the parent app/addon. Use version below that corresponds with your Babel 5.x addon or your Babel 6.x addon.
 
 ```javascript
+  // Babel 5.x version
   init: function(app) {
     this._super.init && this._super.init.apply(this, arguments);
 
@@ -83,6 +84,21 @@ This should enable the decorators to work on the parent app/addon.
 
     if (this.options.babel.optional.indexOf('es7.decorators') === -1) {
       this.options.babel.optional.push('es7.decorators');
+    }
+  }
+  
+  // ~~ OR ~~
+  
+  // Babel 6.x version
+  init: function(app) {
+    this._super.init && this._super.init.apply(this, arguments);
+
+    this.options = this.options || {};
+    this.options.babel = this.options.babel || {};
+    this.options.babel.plugins = this.options.babel.plugins || [];
+
+    if (this.options.babel.plugins.indexOf('transform-decorators-legacy') === -1) {
+      this.options.babel.plugins.push('transform-decorators-legacy');
     }
   }
 ```
