@@ -676,6 +676,18 @@ export default Ember.Component.extend({
 });
 ```
 
+#### [uniqBy](http://emberjs.com/api/classes/Ember.computed.html#method_uniqBy)
+A computed property which returns a new array with all the unique elements from an array, with uniqueness determined by specific key.
+```javascript
+import Ember from 'ember';
+import { uniqBy } from 'ember-computed-decorators';
+export default Ember.Component.extend({
+  likes: Ember.A([{ name: 'tacos' }, { name: 'puppies' }, { name: 'pizza' }, { name: 'tacos' }]),
+
+  @uniqBy('likes', 'name') favorites // [{ name: 'tacos' }, { name: 'puppies' }, { name: 'pizza' }]
+});
+```
+
 ## Installation
 
 * `git clone <repository-url>` this repository

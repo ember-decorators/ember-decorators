@@ -604,3 +604,17 @@ test('uniq', function(assert) {
 
   assert.deepEqual(obj.get('uniqNames').toArray(),['one','two','three']);
 });
+
+test('uniqBy', function(assert) {
+  var obj = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.names = Ember.A([{ name: 'one' }, { name: 'one' }, { name: 'two' }, { name: 'three' }]);
+    },
+    /* jshint ignore:start */
+    @uniqBy('names', 'name') uniqNames
+    /* jshint ignore:end */
+  }).create();
+
+  assert.deepEqual(obj.get('uniqNames').toArray(),['one','two','three']);
+});

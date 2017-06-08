@@ -63,3 +63,4 @@ export var sort = macroAlias(Ember.computed.sort);
 export var sum = macroAlias(Ember.computed.sum);
 export var union = macroAlias(Ember.computed.union);
 export var uniq = macroAlias(Ember.computed.uniq);
+export var uniqBy = macroAlias(Ember.computed.uniqBy);
