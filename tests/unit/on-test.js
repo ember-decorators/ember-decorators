@@ -92,3 +92,29 @@ test('observes > on', function(assert) {
   Ember.run(obj, 'set', 'first', 'stef');
   assert.ok(didInit, 'expected the observer to have fired');
 });
+
+test('observes throws an error if used without parameters', function(assert) {
+  try {
+    Ember.Object.extend({
+      /* jshint ignore:start */
+      @observes
+      /* jshint ignore:end */
+      foo() {}
+    }).create();
+  } catch ({ message }) {
+    assert.equal(message, 'Cannot `observe` without property names', 'error thrown correctly');
+  }
+});
+
+test('on throws an error if used without parameters', function(assert) {
+  try {
+    Ember.Object.extend({
+      /* jshint ignore:start */
+      @on
+      /* jshint ignore:end */
+      foo() {}
+    }).create();
+  } catch ({ message }) {
+    assert.equal(message, 'Cannot `on` without event names', 'error thrown correctly');
+  }
+});

@@ -1,65 +1,61 @@
 import Ember from 'ember';
+import computed from 'ember-macro-helpers/computed';
 
-import handleDescriptor from './utils/handle-descriptor';
-import isDescriptor from './utils/is-descriptor';
 import extractValue from './utils/extract-value';
+import {
+  decorator,
+  decoratorWithParams
+} from './utils/decorator-wrappers';
 
-export default function computedDecorator(...params) {
-  // determine if user called as @computed('blah', 'blah') or @computed
-  if (isDescriptor(params[params.length - 1])) {
-    return handleDescriptor(...arguments);
-  } else {
-    return function(/* target, key, desc */) {
-      return handleDescriptor(...arguments, params);
-    };
+import {
+  decoratorWithRequiredParams,
+  decoratedPropertyWithRequiredParams
+} from './utils/decorator-macros';
+
+
+export default decoratorWithParams(function(target, key, desc, params) {
+  if (!desc.writable) {
+    throw new Error('ember-computed-decorators does not support using getters and setters');
   }
-}
 
-export function readOnly(target, name, desc) {
-  return {
-    writable:     false,
-    enumerable:   desc.enumerable,
-    configurable: desc.configurable,
-    initializer:  function() {
-      var value = extractValue(desc);
-      return value.readOnly();
-    }
-  };
-}
+  let value = extractValue(desc);
+  return computed(...params, value);
+});
 
-import decoratorAlias from './decorator-alias';
+export const readOnly = decorator(function(target, name, desc) {
+  var value = extractValue(desc);
+  return value.readOnly();
+});
 
-export var on = decoratorAlias(Ember.on, 'Can not `on` without event names');
-export var observes = decoratorAlias(Ember.observer, 'Can not `observe` without property names');
+export const on = decoratorWithRequiredParams(Ember.on, 'Cannot `on` without event names');
+export const observes = decoratorWithRequiredParams(Ember.observer, 'Cannot `observe` without property names');
 
-import macroAlias from './macro-alias';
-
-export var alias = macroAlias(Ember.computed.alias);
-export var and = macroAlias(Ember.computed.and);
-export var bool = macroAlias(Ember.computed.bool);
-export var collect = macroAlias(Ember.computed.collect);
-export var empty = macroAlias(Ember.computed.empty);
-export var equal = macroAlias(Ember.computed.equal);
-export var filter = macroAlias(Ember.computed.filter);
-export var filterBy = macroAlias(Ember.computed.filterBy);
-export var gt = macroAlias(Ember.computed.gt);
-export var gte = macroAlias(Ember.computed.gte);
-export var intersect = macroAlias(Ember.computed.intersect);
-export var lt = macroAlias(Ember.computed.lt);
-export var lte = macroAlias(Ember.computed.lte);
-export var map = macroAlias(Ember.computed.map);
-export var mapBy = macroAlias(Ember.computed.mapBy);
-export var match = macroAlias(Ember.computed.match);
-export var max = macroAlias(Ember.computed.max);
-export var min = macroAlias(Ember.computed.min);
-export var none = macroAlias(Ember.computed.none);
-export var not = macroAlias(Ember.computed.not);
-export var notEmpty = macroAlias(Ember.computed.notEmpty);
-export var oneWay = macroAlias(Ember.computed.oneWay);
-export var or = macroAlias(Ember.computed.or);
-export var reads = macroAlias(Ember.computed.reads);
-export var setDiff = macroAlias(Ember.computed.setDiff);
-export var sort = macroAlias(Ember.computed.sort);
-export var sum = macroAlias(Ember.computed.sum);
-export var union = macroAlias(Ember.computed.union);
-export var uniq = macroAlias(Ember.computed.uniq);
+export const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias, 'Cannot use `alias` without parameters');
+export const and = decoratedPropertyWithRequiredParams(Ember.computed.and, 'Cannot use `and` without parameters');
+export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool, 'Cannot use `bool` without parameters');
+export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collect, 'Cannot use `collect` without parameters');
+export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty, 'Cannot use `empty` without parameters');
+export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal, 'Cannot use `equal` without parameters');
+export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter, 'Cannot use `filter` without parameters');
+export const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filterBy, 'Cannot use `filterBy` without parameters');
+export const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt, 'Cannot use `gt` without parameters');
+export const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte, 'Cannot use `gte` without parameters');
+export const intersect = decoratedPropertyWithRequiredParams(Ember.computed.intersect, 'Cannot use `intersect` without parameters');
+export const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt, 'Cannot use `lt` without parameters');
+export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte, 'Cannot use `lte` without parameters');
+export const map = decoratedPropertyWithRequiredParams(Ember.computed.map, 'Cannot use `map` without parameters');
+export const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy, 'Cannot use `mapBy` without parameters');
+export const match = decoratedPropertyWithRequiredParams(Ember.computed.match, 'Cannot use `match` without parameters');
+export const max = decoratedPropertyWithRequiredParams(Ember.computed.max, 'Cannot use `max` without parameters');
+export const min = decoratedPropertyWithRequiredParams(Ember.computed.min, 'Cannot use `min` without parameters');
+export const none = decoratedPropertyWithRequiredParams(Ember.computed.none, 'Cannot use `none` without parameters');
+export const not = decoratedPropertyWithRequiredParams(Ember.computed.not, 'Cannot use `not` without parameters');
+export const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEmpty, 'Cannot use `notEmpty` without parameters');
+export const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay, 'Cannot use `oneWay` without parameters');
+export const or = decoratedPropertyWithRequiredParams(Ember.computed.or, 'Cannot use `or` without parameters');
+export const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads, 'Cannot use `reads` without parameters');
+export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDiff, 'Cannot use `setDiff` without parameters');
+export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort, 'Cannot use `sort` without parameters');
+export const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum, 'Cannot use `sum` without parameters');
+export const union = decoratedPropertyWithRequiredParams(Ember.computed.union, 'Cannot use `union` without parameters');
+export const uniq = decoratedPropertyWithRequiredParams(Ember.computed.uniq, 'Cannot use `uniq` without parameters');
