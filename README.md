@@ -86,9 +86,9 @@ This should enable the decorators to work on the parent app/addon. Use version b
       this.options.babel.optional.push('es7.decorators');
     }
   }
-  
+
   // ~~ OR ~~
-  
+
   // Babel 6.x version
   init: function(app) {
     this._super.init && this._super.init.apply(this, arguments);
@@ -259,6 +259,51 @@ export default DS.Model.extend({
   @hasMany users
 });
 
+```
+
+### Injection Helpers
+
+The `@service` and `@controller` injection decorators are also available for use,
+replacing `Ember.inject.service` and `Ember.inject.controller`:
+
+```javascript
+import Ember from 'ember';
+import { service } from 'ember-computed-decorators/inject';
+
+export default Ember.Component.extend({
+  @service store
+});
+```
+
+```javascript
+import Ember from 'ember';
+import { controller } from 'ember-computed-decorators/inject';
+
+export default Ember.Controller.extend({
+  @controller application
+});
+```
+
+### Other Helpers
+
+The `@on` and `@observes` decorators also exist, mirroring the functionality
+of `Ember.on` and `Ember.observer` respectively.
+
+```javascript
+import Ember from 'ember';
+import { on, observes } from 'ember-computed-decorators';
+
+export default Ember.Component.extend({
+  @on('init')
+  setupStuff() {
+    //...
+  }
+
+  @observes('foo')
+  bar() {
+    //...
+  }
+});
 ```
 
 ### Computed Macros
