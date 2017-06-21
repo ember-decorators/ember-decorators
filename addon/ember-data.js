@@ -1,7 +1,6 @@
 import DS from 'ember-data';
+import { decoratorWithKeyReflection } from './utils/decorator-macros';
 
-import macroAlias from './macro-alias';
-
-export var attr = macroAlias(DS.attr);
-export var hasMany = macroAlias(DS.hasMany);
-export var belongsTo = macroAlias(DS.belongsTo);
+export const attr = decoratorWithKeyReflection(DS.attr);
+export const hasMany = decoratorWithKeyReflection(DS.hasMany);
+export const belongsTo = decoratorWithKeyReflection(DS.belongsTo);

@@ -604,3 +604,15 @@ test('uniq', function(assert) {
 
   assert.deepEqual(obj.get('uniqNames').toArray(),['one','two','three']);
 });
+
+test('macros cannot be used without parameters', function(assert) {
+  try {
+    Ember.Object.extend({
+      /* jshint ignore:start */
+      @alias uniqNames
+      /* jshint ignore:end */
+    }).create();
+  } catch ({ message }) {
+    assert.equal(message, 'Cannot use `alias` without parameters');
+  }
+});
