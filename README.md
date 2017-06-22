@@ -670,7 +670,7 @@ Therefore, if this function is comparing some numeric values, simple `itemA - it
 import Ember from 'ember';
 import { sort } from 'ember-computed-decorators';
 export default Ember.Component.extend({
-  this.names = Ember.A([{name:'Link'},{name:'Zelda'},{name:'Gannon'},{name:'Navi'}]);
+  this.names = Ember.A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);
   @sort('names', function(a, b){
     if (a.name > b.name) {
       return 1;
@@ -679,7 +679,7 @@ export default Ember.Component.extend({
     }
 
     return 0;
-  }) sortedNames // [{name:'Gannon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
+  }) sortedNames // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
 });
 ```
 
