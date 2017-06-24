@@ -1,24 +1,20 @@
-import DS from "ember-data";
-/* jshint ignore:start */
+import DS from 'ember-data';
 import {
   attr,
   hasMany,
   belongsTo
-} from "ember-computed-decorators/ember-data";
-/* jshint ignore:end */
+} from 'ember-computed-decorators/ember-data';
 
-import { module, test } from "qunit";
+import { module, test } from 'qunit';
 
 module('ember-data macro decorator');
 
 test('DS macro', function(assert) {
   var Model = DS.Model.extend({
-    /* jshint ignore:start */
-    @attr firstName,
-    @attr({ defaultTo: 'blue' }) lastName,
-    @hasMany user,
-    @belongsTo car
-    /* jshint ignore:end*/
+    @attr firstName: null,
+    @attr({ defaultTo: 'blue' }) lastName: null,
+    @hasMany user: null,
+    @belongsTo car: null
   });
 
   Model.store = {

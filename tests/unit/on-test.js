@@ -1,6 +1,6 @@
-import Ember from "ember";
-import { on, observes } from "ember-computed-decorators"; // jshint ignore:line
-import { module, test } from "qunit";
+import Ember from 'ember';
+import { on, observes } from 'ember-computed-decorators';
+import { module, test } from 'qunit';
 
 module('on/observes decorator');
 
@@ -11,9 +11,7 @@ test('on', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @on('init')
-    /* jshint ignore:end */
     name() {
       didInit = true;
     }
@@ -29,9 +27,7 @@ test('observes', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @observes('first')
-    /* jshint ignore:end */
     name() {
       didObserve = true;
     }
@@ -50,10 +46,8 @@ test('on -> observes', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @on('init')
     @observes('first')
-    /* jshint ignore:end */
     name() {
       didInit = true;
     }
@@ -75,10 +69,8 @@ test('observes > on', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @observes('first')
     @on('init')
-    /* jshint ignore:end */
     name() {
       didInit = true;
     }
@@ -96,9 +88,7 @@ test('observes > on', function(assert) {
 test('observes throws an error if used without parameters', function(assert) {
   try {
     Ember.Object.extend({
-      /* jshint ignore:start */
       @observes
-      /* jshint ignore:end */
       foo() {}
     }).create();
   } catch ({ message }) {
@@ -109,9 +99,7 @@ test('observes throws an error if used without parameters', function(assert) {
 test('on throws an error if used without parameters', function(assert) {
   try {
     Ember.Object.extend({
-      /* jshint ignore:start */
       @on
-      /* jshint ignore:end */
       foo() {}
     }).create();
   } catch ({ message }) {
