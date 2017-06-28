@@ -8,6 +8,7 @@ module.exports = function(defaults) {
     },
 
     esdoc: {
+      enabledEnvironments: ['production'],
       config: {
         excludes: ['utils/.*']
       }
