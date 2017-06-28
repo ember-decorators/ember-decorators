@@ -3,6 +3,9 @@ const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
+    fingerprint: {
+      enabled: false
+    },
     babel: {
       plugins: ['transform-decorators-legacy']
     },
