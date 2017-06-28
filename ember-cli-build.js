@@ -7,9 +7,11 @@ module.exports = function(defaults) {
       enabled: false
     },
     babel: {
-      plugins: ['transform-decorators-legacy']
+      plugins: [
+        'transform-decorators-legacy',
+        'transform-class-properties'
+      ]
     },
-
     esdoc: {
       enabledEnvironments: ['production'],
       config: {
