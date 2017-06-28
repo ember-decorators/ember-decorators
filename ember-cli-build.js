@@ -4,9 +4,11 @@ const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
     babel: {
-      plugins: ['transform-decorators-legacy']
+      plugins: [
+        'transform-decorators-legacy',
+        'transform-class-properties'
+      ]
     },
-
     esdoc: {
       enabledEnvironments: ['production'],
       config: {
