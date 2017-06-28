@@ -1,0 +1,3752 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">Function | ember-computed-decorators</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The default blueprint for ember-cli addons."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-computed-decorators"><meta property="twitter:description" content="The default blueprint for ember-cli addons."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./index.html">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/rwjblue/ember-computed-decorators.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc">
+      <h4 data-ice="kindHeader" class="nav-kind-header">Functions</h4>
+      <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-ember-data">addon/ember-data</a>
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/ember-data.js.html#static-function-attr">attr</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/ember-data.js.html#static-function-belongsTo">belongsTo</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/ember-data.js.html#static-function-hasMany">hasMany</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-index">addon/index</a>
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-alias">alias</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-and">and</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-bool">bool</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-collect">collect</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-computed">computed</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-empty">empty</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-equal">equal</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-filter">filter</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-filterBy">filterBy</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-gt">gt</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-gte">gte</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-intersect">intersect</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-lt">lt</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-lte">lte</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-map">map</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-mapBy">mapBy</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-match">match</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-max">max</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-min">min</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-none">none</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-not">not</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-notEmpty">notEmpty</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-observes">observes</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-on">on</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-oneWay">oneWay</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-or">or</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-readOnly">readOnly</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-reads">reads</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-setDiff">setDiff</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-sort">sort</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-sum">sum</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-union">union</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-uniq">uniq</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-inject">addon/inject</a>
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/inject.js.html#static-function-controller">controller</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/inject.js.html#static-function-service">service</a></span></span>
+    </li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import * from &apos;<span><a href="file/addon/index.js.html#lineNumber202">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+</div>
+
+<div class="self-detail detail">
+  <h1 data-ice="title">Function</h1>
+  <div data-ice="summaries"><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static function Summary</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-alias">alias</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_alias">Ember.computed.alias</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-and">and</a></span></span><span class="code" data-ice="signature">(dependentKeys: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_and">Ember.computed.and</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-bool">bool</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_bool">Ember.computed.bool</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-collect">collect</a></span></span><span class="code" data-ice="signature">(dependentKeys: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_collect">Ember.computed.collect</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-computed">computed</a></span></span><span class="code" data-ice="signature">(propertyNames: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that turns a function into a computed property.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-empty">empty</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_empty">Ember.computed.empty</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-equal">equal</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span>Any</span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_equal">Ember.computed.equal</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-filter">filter</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, callback: <span>Function(item: Any, index: Number, array: Array&lt;Any&gt;): Boolean</span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_filter">Ember.computed.filter</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-filterBy">filterBy</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, propertyKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span>Any</span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_filterBy">Ember.computed.filterBy</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-gt">gt</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_gt">Ember.computed.gt</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-gte">gte</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_gte">Ember.computed.gte</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-intersect">intersect</a></span></span><span class="code" data-ice="signature">(dependentKeys: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_intersect">Ember.computed.intersect</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-lt">lt</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_lt">Ember.computed.lt</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-lte">lte</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_lte">Ember.computed.lte</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-map">map</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, callback: <span>Function(item: Any, index: Number): Any</span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_map">Ember.computed.map</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-mapBy">mapBy</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, propertyKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_mapBy">Ember.computed.mapBy</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-match">match</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, pattern: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_match">Ember.computed.match</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-max">max</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_max">Ember.computed.max</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-min">min</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_min">Ember.computed.min</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-none">none</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_none">Ember.computed.none</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-not">not</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_not">Ember.computed.not</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-notEmpty">notEmpty</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_notEmpty">Ember.computed.notEmpty</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-observes">observes</a></span></span><span class="code" data-ice="signature">(eventNames: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="https://emberjs.com/api/#method_observer">Ember.observer</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-on">on</a></span></span><span class="code" data-ice="signature">(eventNames: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="https://emberjs.com/api/#method_on">Ember.on</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-oneWay">oneWay</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_oneWay">Ember.computed.oneWay</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-or">or</a></span></span><span class="code" data-ice="signature">(dependentKey: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_or">Ember.computed.or</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-readOnly">readOnly</a></span></span><span class="code" data-ice="signature">()</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that modifies a computed property to be read only.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-reads">reads</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_reads">Ember.computed.reads</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-setDiff">setDiff</a></span></span><span class="code" data-ice="signature">(setAProperty: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, setBProperty: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_setDiff">Ember.computed.setDiff</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-sort">sort</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, sortDefinition: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt; | <span>Function(Any, Any): Number</span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_sort">Ember.computed.sort</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-sum">sum</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_sum">Ember.computed.sum</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-union">union</a></span></span><span class="code" data-ice="signature">(dependentKeys: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_union">Ember.computed.union</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/index.js.html#static-function-uniq">uniq</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_uniq">Ember.computed.uniq</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+  <div data-ice="details"><h2 data-ice="title">Static function </h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-alias">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">alias</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber202">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {alias} from &apos;<span><a href="file/addon/index.js.html#lineNumber202">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_alias">Ember.computed.alias</a></p>
+<p>Creates a new property that is an alias for another property on an object.
+Calls to get or set this property behave as though they were called on
+the original property.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { alias } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  person: {
+    first: &apos;Joe&apos;
+  },
+
+  @alias(&apos;person.first&apos;) firstName
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the aliased property</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-and">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">and</span><span class="code" data-ice="signature">(dependentKeys: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber226">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {and} from &apos;<span><a href="file/addon/index.js.html#lineNumber226">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_and">Ember.computed.and</a></p>
+<p>A computed property that performs a logical and on the original values
+for the provided dependent properties.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { and } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  person: {
+    first: &apos;Joe&apos;
+  },
+
+  @and(&apos;first&apos;, &apos;last&apos;) hasFullName // false
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKeys</td>
+      <td data-ice="type" class="code">...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Keys for properties to <code>and</code></p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-bool">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">bool</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber248">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {bool} from &apos;<span><a href="file/addon/index.js.html#lineNumber248">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_bool">Ember.computed.bool</a></p>
+<p>A computed property that converts the provided dependent property into a
+boolean value.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { bool } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  messageCount: 1,
+
+  @bool(&apos;messageCount&apos;) hasMessages // true
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to convert</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-collect">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">collect</span><span class="code" data-ice="signature">(dependentKeys: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber271">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {collect} from &apos;<span><a href="file/addon/index.js.html#lineNumber271">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_collect">Ember.computed.collect</a></p>
+<p>A computed property that returns the array of values for the provided
+dependent properties.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { collect } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  light: &apos;strobe&apos;,
+  lens: &apos;35mm prime&apos;,
+
+  @collect(&apos;light&apos;, &apos;lens&apos;) equipment // [&apos;strobe&apos;, &apos;35mm prime&apos;]
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKeys</td>
+      <td data-ice="type" class="code">...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Keys for the properties to collect</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-computed">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">computed</span><span class="code" data-ice="signature">(propertyNames: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber99">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import computed from &apos;<span><a href="file/addon/index.js.html#lineNumber99">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that turns a function into a computed property.</p>
+<p>In your application where you would normally have:</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">foo: Ember.computed(&apos;someKey&apos;, &apos;otherKey&apos;, function() {
+  var someKey = this.get(&apos;someKey&apos;);
+  var otherKey = this.get(&apos;otherKey&apos;);
+
+  // Do Stuff
+})</code>
+</code></pre>
+<p>You replace with this:</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import computed from &apos;ember-computed-decorators&apos;;
+
+// ..... &lt;snip&gt; .....
+@computed(&apos;someKey&apos;, &apos;otherKey&apos;)
+foo(someKey, otherKey) {
+  // Do Stuff
+}</code>
+</code></pre>
+<h4 id="without-dependent-keys">Without Dependent Keys</h4><pre><code class="lang-javascript"><code class="source-code prettyprint">foo: Ember.computed(function() {
+  // Do Stuff
+})</code>
+</code></pre>
+<p>You replace with this:</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import computed from &apos;ember-computed-decorators&apos;;
+
+// ..... &lt;snip&gt; .....
+@computed
+foo() {
+  // Do Stuff
+}</code>
+</code></pre>
+<h4 id="-quot-real-world-quot-">&quot;Real World&quot;</h4><pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import computed from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  @computed(&apos;first&apos;, &apos;last&apos;)
+  name(first, last) {
+    return `${first} ${last}`;
+  }
+});</code>
+</code></pre>
+<h4 id="-quot-real-world-get-set-syntax-quot-">&quot;Real World get/set syntax&quot;</h4><pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import computed from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  @computed(&apos;first&apos;, &apos;last&apos;)
+  name: {
+    get(first, last) {
+      return `${first} ${last}`;
+    },
+
+    set(value, first, last) {
+      // ...
+    }
+  }
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">propertyNames</td>
+      <td data-ice="type" class="code">...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>List of property keys this computed is dependent on</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-empty">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">empty</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber293">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {empty} from &apos;<span><a href="file/addon/index.js.html#lineNumber293">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_empty">Ember.computed.empty</a></p>
+<p>A computed property that returns <code>true</code> if the value of the dependent
+property is null, an empty string, empty array, or empty function.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { empty } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  items: Ember.A([&apos;taco&apos;, &apos;burrito&apos;]),
+
+  @empty(&apos;items&apos;) isEmpty // false
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key of the property to check emptiness of</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-equal">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">equal</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span>Any</span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber314">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {equal} from &apos;<span><a href="file/addon/index.js.html#lineNumber314">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_equal">Ember.computed.equal</a></p>
+<p>A computed property that returns true if the dependent properties are equal.</p>
+<p>```javascript
+import Ember from &apos;ember&apos;;
+import { equal } from &apos;ember-computed-decorators&apos;;</p>
+<p>export default Ember.Component.extend({
+  state: &apos;sleepy&apos;,</p>
+<p>  @equal(&apos;state&apos;, &apos;sleepy&apos;) napTime // true
+});</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to check</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">value</td>
+      <td data-ice="type" class="code"><span>Any</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value to compare the dependent property to</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-filter">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">filter</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, callback: <span>Function(item: Any, index: Number, array: Array&lt;Any&gt;): Boolean</span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber342">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {filter} from &apos;<span><a href="file/addon/index.js.html#lineNumber342">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_filter">Ember.computed.filter</a></p>
+<p>Filters the items in the array by the provided callback.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { filter } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  chores: Ember.A([
+    { name: &apos;cook&apos;, done: true },
+    { name: &apos;clean&apos;, done: true },
+    { name: &apos;write more unit tests&apos;, done: false }
+  ]),
+
+  @filter(&apos;chores&apos;, function(chore, index, array) {
+    return !chore.done;
+  }) remainingChores // [{name: &apos;write more unit tests&apos;, done: false}]
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the array to filter</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">callback</td>
+      <td data-ice="type" class="code"><span>Function(item: Any, index: Number, array: Array&lt;Any&gt;): Boolean</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The function to filter with</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-filterBy">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">filterBy</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, propertyKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span>Any</span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber369">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {filterBy} from &apos;<span><a href="file/addon/index.js.html#lineNumber369">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_filterBy">Ember.computed.filterBy</a></p>
+<p>Filters the array by the property and value.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { filterBy } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  chores: Ember.A([
+    { name: &apos;cook&apos;, done: true },
+    { name: &apos;clean&apos;, done: true },
+    { name: &apos;write more unit tests&apos;, done: false }
+  ]),
+
+  @filterBy(&apos;chores&apos;, &apos;done&apos;, false) remainingChores // [{name: &apos;write more unit tests&apos;, done: false}]
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the array to filter</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">propertyKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Property of the array items to filter by</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">value</td>
+      <td data-ice="type" class="code"><span>Any</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value to filter by</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-gt">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">gt</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber392">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {gt} from &apos;<span><a href="file/addon/index.js.html#lineNumber392">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_gt">Ember.computed.gt</a></p>
+<p>A computed property that returns <code>true</code> if the provided dependent property
+is greater than the provided value.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { gt } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  totalCats: 11,
+
+  @gt(&apos;totalCats&apos;, 10) isCatParty // true
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to compare</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">value</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value to compare against</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-gte">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">gte</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber415">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {gte} from &apos;<span><a href="file/addon/index.js.html#lineNumber415">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_gte">Ember.computed.gte</a></p>
+<p>A computed property that returns <code>true</code> if the provided dependent property
+is greater than or equal to the provided value.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { gte } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  totalPlayers: 14,
+
+  @gte(&apos;totalPlayers&apos;, 14) hasEnoughPlayers // true
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to compare</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">value</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value to compare against</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-intersect">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">intersect</span><span class="code" data-ice="signature">(dependentKeys: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber438">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {intersect} from &apos;<span><a href="file/addon/index.js.html#lineNumber438">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_intersect">Ember.computed.intersect</a></p>
+<p>A computed property which returns a new array with all the duplicated
+elements from two or more dependent arrays.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { intersect } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
+  foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;]),
+
+  @intersect(&apos;likes&apos;, &apos;foods&apos;) favoriteFoods // [&apos;tacos&apos;, &apos;pizza&apos;]
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKeys</td>
+      <td data-ice="type" class="code">...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Keys of the arrays to intersect</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-lt">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">lt</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber461">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {lt} from &apos;<span><a href="file/addon/index.js.html#lineNumber461">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_lt">Ember.computed.lt</a></p>
+<p>A computed property that returns <code>true</code> if the provided dependent property
+is less than the provided value.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { lt } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  totalDogs: 3,
+
+  @lt(&apos;totalDogs&apos;, 10) isDogParty // true
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to compare</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">value</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value to compare against</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-lte">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">lte</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber484">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {lte} from &apos;<span><a href="file/addon/index.js.html#lineNumber484">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_lte">Ember.computed.lte</a></p>
+<p>A computed property that returns <code>true</code> if the provided dependent property
+is less than or equal to the provided value.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { lte } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  totalPlayers: 14,
+
+  @lte(&apos;totalPlayers&apos;, 14) hasEnoughPlayers // true
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to compare</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">value</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Value to compare against</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-map">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">map</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, callback: <span>Function(item: Any, index: Number): Any</span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber508">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {map} from &apos;<span><a href="file/addon/index.js.html#lineNumber508">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_map">Ember.computed.map</a></p>
+<p>Returns an array mapped via the callback</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { map } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  chores: Ember.A([&apos;clean&apos;, &apos;write more unit tests&apos;]),
+
+  @map(&apos;chores&apos;, function(chore, index) {
+    return chore.toUpperCase() + &apos;!&apos;;
+  }) loudChores // [&apos;CLEAN!&apos;, &apos;WRITE MORE UNIT TESTS!&apos;]
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the array to map over</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">callback</td>
+      <td data-ice="type" class="code"><span>Function(item: Any, index: Number): Any</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Function to map over the array</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-mapBy">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">mapBy</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, propertyKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber534">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {mapBy} from &apos;<span><a href="file/addon/index.js.html#lineNumber534">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_mapBy">Ember.computed.mapBy</a></p>
+<p>Returns an array mapped to the specified key.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { mapBy } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  people: Ember.A([
+    {name: &quot;George&quot;, age: 5},
+    {name: &quot;Stella&quot;, age: 10},
+    {name: &quot;Violet&quot;, age: 7}
+  ]),
+
+  @mapBy(&apos;people&apos;, &apos;age&apos;) ages // [5, 10, 7]
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the array to map over</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">propertyKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Property of the array items to map by</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-match">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">match</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, pattern: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber558">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {match} from &apos;<span><a href="file/addon/index.js.html#lineNumber558">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_match">Ember.computed.match</a></p>
+<p>A computed property which matches the original value for the dependent
+property against a given RegExp, returning <code>true</code> if they values matches
+the RegExp and <code>false</code> if it does not.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { match } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  email: &apos;tomster@emberjs.com&apos;,
+
+  @match(&apos;email&apos;, /^.+@.+\..+$/) validEmail
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The property to match</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">pattern</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The pattern to match against</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-max">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">max</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber580">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {max} from &apos;<span><a href="file/addon/index.js.html#lineNumber580">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_max">Ember.computed.max</a></p>
+<p>A computed property that calculates the maximum value in the dependent
+array. This will return <code>-Infinity</code> when the dependent array is empty.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { max } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  values: Ember.A([1, 2, 5, 10]),
+
+  @max(&apos;values&apos;) maxValue // 10
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the array to find the max value of</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-min">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">min</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber602">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {min} from &apos;<span><a href="file/addon/index.js.html#lineNumber602">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_min">Ember.computed.min</a></p>
+<p>A computed property that calculates the minimum value in the dependent
+array. This will return <code>Infinity</code> when the dependent array is empty.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { min } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  values: Ember.A([1, 2, 5, 10]),
+
+  @min(&apos;values&apos;) minValue // 1
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the array to find the max value of</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-none">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">none</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber625">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {none} from &apos;<span><a href="file/addon/index.js.html#lineNumber625">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_none">Ember.computed.none</a></p>
+<p>A computed property that returns true if the value of the dependent property
+is null or undefined. This avoids errors from JSLint complaining about use
+of <code>==</code>, which can be technically confusing.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { none } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  firstName: null,
+
+  @none(&apos;firstName&apos;) isNameless // true until firstName is defined
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to check</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-not">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">not</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber647">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {not} from &apos;<span><a href="file/addon/index.js.html#lineNumber647">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_not">Ember.computed.not</a></p>
+<p>A computed property that returns the inverse boolean value of the original
+value for the dependent property.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { not } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  loggedIn: false,
+
+  @not(&apos;loggedIn&apos;) isAnonymous // true
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to <code>not</code></p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-notEmpty">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">notEmpty</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber669">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {notEmpty} from &apos;<span><a href="file/addon/index.js.html#lineNumber669">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_notEmpty">Ember.computed.notEmpty</a></p>
+<p>A computed property that returns <code>true</code> if the value of the dependent
+property is NOT null, an empty string, empty array, or empty function.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { notEmpty } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  groceryBag: Ember.A([&apos;milk&apos;, &apos;eggs&apos;, &apos;apples&apos;]),
+
+  @notEmpty(&apos;groceryBag&apos;) hasGroceriesToPutAway // true
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to check</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-observes">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">observes</span><span class="code" data-ice="signature">(eventNames: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber177">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {observes} from &apos;<span><a href="file/addon/index.js.html#lineNumber177">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="https://emberjs.com/api/#method_observer">Ember.observer</a></p>
+<p>Triggers the target function when the dependent properties have changed</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { observes } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  @observes(&apos;foo&apos;)
+  bar() {
+    //...
+  }
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">eventNames</td>
+      <td data-ice="type" class="code">...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Names of the events that trigger the function</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-on">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">on</span><span class="code" data-ice="signature">(eventNames: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber155">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {on} from &apos;<span><a href="file/addon/index.js.html#lineNumber155">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="https://emberjs.com/api/#method_on">Ember.on</a></p>
+<p>Triggers the target function on events</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { on } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  @on(&apos;init&apos;)
+  setupStuff() {
+    //...
+  }
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">eventNames</td>
+      <td data-ice="type" class="code">...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Names of the events that trigger the function</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-oneWay">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">oneWay</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber694">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {oneWay} from &apos;<span><a href="file/addon/index.js.html#lineNumber694">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_oneWay">Ember.computed.oneWay</a></p>
+<p>Where <code>computed.alias</code> aliases <code>get</code> and <code>set</code>, and allows for bidirectional
+data flow, <code>computed.oneWay</code> only provides an aliased <code>get</code>. The <code>set</code> will
+not mutate the upstream property, rather causes the current property to
+become the value set. This causes the downstream property to permanently
+diverge from the upstream property.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { oneWay } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  firstName: &apos;Joe&apos;,
+
+  @oneWay(&apos;firstName&apos;) originalName // will always be &apos;Joe&apos;
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to alias</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-or">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">or</span><span class="code" data-ice="signature">(dependentKey: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber717">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {or} from &apos;<span><a href="file/addon/index.js.html#lineNumber717">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_or">Ember.computed.or</a></p>
+<p>A computed property which performs a logical or on the original values for
+the provided dependent properties.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { or } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  hasJacket: true,
+  hasUmbrella: false,
+
+  @or(&apos;hasJacket&apos;, &apos;hasUmbrella&apos;) isReadyForRain // true
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code">...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the properties to <code>or</code></p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-readOnly">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">readOnly</span><span class="code" data-ice="signature">()</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber130">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {readOnly} from &apos;<span><a href="file/addon/index.js.html#lineNumber130">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that modifies a computed property to be read only.</p>
+<p>Usage:</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import computed, { readOnly } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  @readOnly
+  @computed(&apos;first&apos;, &apos;last&apos;)
+  name(first, last) {
+    return `${first} ${last}`;
+  }
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-reads">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">reads</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber737">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {reads} from &apos;<span><a href="file/addon/index.js.html#lineNumber737">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_reads">Ember.computed.reads</a></p>
+<p>This is a more semantically meaningful alias of <code>computed.oneWay</code>, whose
+name is somewhat ambiguous as to which direction the data flows.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { reads } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  @reads(&apos;first&apos;) firstName
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to read</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-setDiff">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">setDiff</span><span class="code" data-ice="signature">(setAProperty: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, setBProperty: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber761">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {setDiff} from &apos;<span><a href="file/addon/index.js.html#lineNumber761">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_setDiff">Ember.computed.setDiff</a></p>
+<p>A computed property which returns a new array with all the properties from
+the first dependent array that are not in the second dependent array.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { setDiff } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
+  foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;]),
+
+  @setDiff(&apos;likes&apos;, &apos;foods&apos;) favoriteThingsThatArentFood // [&apos;puppies&apos;]
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">setAProperty</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Keys for the first set</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">setBProperty</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Keys for the first set</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-sort">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">sort</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, sortDefinition: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt; | <span>Function(Any, Any): Number</span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber809">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {sort} from &apos;<span><a href="file/addon/index.js.html#lineNumber809">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_sort">Ember.computed.sort</a></p>
+<p>A computed property which returns a new array with all the properties from
+the first dependent array sorted based on a property or sort function.</p>
+<p>The callback method you provide should have the following signature:</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">function(itemA, itemB);</code>
+</code></pre>
+<ul>
+<li><code>itemA</code> the first item to compare.</li>
+<li><code>itemB</code> the second item to compare.</li>
+</ul>
+<p>This function should return negative number (e.g. <code>-1</code>) when <code>itemA</code> should
+come before <code>itemB</code>. It should return positive number (e.g. <code>1</code>) when
+<code>itemA</code> should come after <code>itemB</code>. If the <code>itemA</code> and <code>itemB</code> are equal this
+function should return <code>0</code>.</p>
+<p>Therefore, if this function is comparing some numeric values, simple
+<code>itemA - itemB</code> or <code>itemA.get( &apos;foo&apos; ) - itemB.get( &apos;foo&apos; )</code> can be used
+instead of series of <code>if</code>.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { sort } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  this.names = Ember.A([{name:&apos;Link&apos;},{name:&apos;Zelda&apos;},{name:&apos;Ganon&apos;},{name:&apos;Navi&apos;}]);
+  @sort(&apos;names&apos;, function(a, b){
+    if (a.name &gt; b.name) {
+      return 1;
+    } else if (a.name &lt; b.name) {
+      return -1;
+    }
+
+    return 0;
+  }) sortedNames // [{name:&apos;Ganon&apos;},{name:&apos;Link&apos;},{name:&apos;Navi&apos;},{name:&apos;Zelda&apos;}]
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The key for the array that should be sorted</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">sortDefinition</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>&gt; | <span>Function(Any, Any): Number</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Sorting function or sort descriptor</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-sum">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">sum</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber831">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {sum} from &apos;<span><a href="file/addon/index.js.html#lineNumber831">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_sum">Ember.computed.sum</a></p>
+<p>A computed property that returns the sum of the value in the dependent
+array.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { sum } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  values: Ember.A([1, 2, 3]),
+
+  @sum(&apos;values&apos;) total // 6
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key of the array to sum up</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-union">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">union</span><span class="code" data-ice="signature">(dependentKeys: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber853">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {union} from &apos;<span><a href="file/addon/index.js.html#lineNumber853">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_union">Ember.computed.union</a></p>
+<p>Alias for <a href="http://emberjs.com/api/classes/Ember.computed.html#method_uniq">union</a>.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { union } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
+  foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;, &apos;ramen&apos;]),
+
+  @union(&apos;likes&apos;, &apos;foods&apos;) favorites // [&apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos;, &apos;ramen&apos;]
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKeys</td>
+      <td data-ice="type" class="code">...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Keys of the arrays to union</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-uniq">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">uniq</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/index.js.html#lineNumber875">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {uniq} from &apos;<span><a href="file/addon/index.js.html#lineNumber875">ember-computed-decorators/index</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_uniq">Ember.computed.uniq</a></p>
+<p>A computed property which returns a new array with all the unique elements from one or more dependent arrays.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { uniq } from &apos;ember-computed-decorators&apos;;
+
+export default Ember.Component.extend({
+  likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
+  foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;, &apos;ramen&apos;]),
+
+  @uniq(&apos;likes&apos;, &apos;foods&apos;) favorites // [&apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos;, &apos;ramen&apos;]
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key of the array to uniq</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.0-alpha.7)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

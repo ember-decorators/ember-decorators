@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">Function | ember-computed-decorators</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="The default blueprint for ember-cli addons."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-computed-decorators"><meta property="twitter:description" content="The default blueprint for ember-cli addons."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./index.html">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/rwjblue/ember-computed-decorators.git"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc">
+      <h4 data-ice="kindHeader" class="nav-kind-header">Functions</h4>
+      <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-ember-data">addon/ember-data</a>
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/ember-data.js.html#static-function-attr">attr</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/ember-data.js.html#static-function-belongsTo">belongsTo</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/ember-data.js.html#static-function-hasMany">hasMany</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-index">addon/index</a>
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-alias">alias</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-and">and</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-bool">bool</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-collect">collect</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-computed">computed</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-empty">empty</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-equal">equal</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-filter">filter</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-filterBy">filterBy</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-gt">gt</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-gte">gte</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-intersect">intersect</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-lt">lt</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-lte">lte</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-map">map</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-mapBy">mapBy</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-match">match</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-max">max</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-min">min</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-none">none</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-not">not</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-notEmpty">notEmpty</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-observes">observes</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-on">on</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-oneWay">oneWay</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-or">or</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-readOnly">readOnly</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-reads">reads</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-setDiff">setDiff</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-sort">sort</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-sum">sum</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-union">union</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/index.js.html#static-function-uniq">uniq</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-inject">addon/inject</a>
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/inject.js.html#static-function-controller">controller</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/inject.js.html#static-function-service">service</a></span></span>
+    </li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import * from &apos;<span><a href="file/addon/inject.js.html#lineNumber40">ember-computed-decorators/inject</a></span>&apos;</code></pre></div>
+</div>
+
+<div class="self-detail detail">
+  <h1 data-ice="title">Function</h1>
+  <div data-ice="summaries"><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static function Summary</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/inject.js.html#static-function-controller">controller</a></span></span><span class="code" data-ice="signature">(controllerName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <code>Ember.inject.controller</code></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/inject.js.html#static-function-service">service</a></span></span><span class="code" data-ice="signature">(serviceName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <code>Ember.inject.service</code></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+  <div data-ice="details"><h2 data-ice="title">Static function </h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-controller">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">controller</span><span class="code" data-ice="signature">(controllerName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/inject.js.html#lineNumber40">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {controller} from &apos;<span><a href="file/addon/inject.js.html#lineNumber40">ember-computed-decorators/inject</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <code>Ember.inject.controller</code></p>
+<p>Injects a controller into a Controller as the decorated property</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { service } from &apos;ember-computed-decorators/inject&apos;;
+
+export default Ember.Controller.extend({
+  @controller application
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">controllerName</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>The name of the controller to inject. If not provided, the property name will be used</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-service">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">service</span><span class="code" data-ice="signature">(serviceName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/inject.js.html#lineNumber21">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {service} from &apos;<span><a href="file/addon/inject.js.html#lineNumber21">ember-computed-decorators/inject</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <code>Ember.inject.service</code></p>
+<p>Injects a service into the object as the decorated property</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+import { service } from &apos;ember-computed-decorators/inject&apos;;
+
+export default Ember.Component.extend({
+  @service store
+});</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">serviceName</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>The name of the service to inject. If not provided, the property name will be used</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.0-alpha.7)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

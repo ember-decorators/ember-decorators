@@ -1,0 +1,22 @@
+{
+  "coverage": "100%",
+  "expectCount": 38,
+  "actualCount": 38,
+  "files": {
+    "addon/ember-data.js": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "addon/index.js": {
+      "expectCount": 33,
+      "actualCount": 33,
+      "undocumentLines": []
+    },
+    "addon/inject.js": {
+      "expectCount": 2,
+      "actualCount": 2,
+      "undocumentLines": []
+    }
+  }
+}
