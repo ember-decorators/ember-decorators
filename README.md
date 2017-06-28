@@ -174,7 +174,7 @@ export default Ember.Component.extend({
 });
 ```
 
-See the [API Documentation](rwjblue.github.io/ember-computed-decorators/docs/index.html)
+See the [API Documentation](https://rwjblue.github.io/ember-computed-decorators/docs/index.html)
 for detailed examples and documentation of the individual decorators.
 
 Note: The `@computed` decorator wraps [ember-macro-helpers](https://github.com/kellyselden/ember-macro-helpers)
