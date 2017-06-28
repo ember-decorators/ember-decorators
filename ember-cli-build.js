@@ -5,6 +5,13 @@ module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
     babel: {
       plugins: ['transform-decorators-legacy']
+    },
+
+    esdoc: {
+      enabledEnvironments: ['production'],
+      config: {
+        excludes: ['utils/.*']
+      }
     }
   });
 
