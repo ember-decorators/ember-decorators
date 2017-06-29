@@ -2,7 +2,8 @@ import Ember from 'ember';
 import { moduleFor } from 'ember-qunit';
 import { test } from 'qunit';
 
-import { service, controller } from 'ember-computed-decorators/inject';
+import { controller } from 'ember-decorators/controller';
+import { service } from 'ember-decorators/service';
 
 moduleFor('Inject Decorators', {
   integration: true

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import action from 'ember-computed-decorators/action';
+import { action } from 'ember-decorators/object';
 
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent } from 'ember-qunit';

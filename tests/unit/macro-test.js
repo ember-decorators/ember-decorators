@@ -23,14 +23,14 @@ import {
   notEmpty,
   oneWay,
   or,
-  readOnly,
   reads,
   setDiff,
   sort,
   sum,
   union,
   uniq
-} from 'ember-computed-decorators';
+} from 'ember-decorators/object/computed';
+import { readOnly } from 'ember-decorators/object';
 import { module, test } from 'qunit';
 
 module('macro decorator');

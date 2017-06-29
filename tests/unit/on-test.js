@@ -1,5 +1,6 @@
 import Ember from 'ember';
-import { on, observes } from 'ember-computed-decorators';
+import { observes } from 'ember-decorators/object';
+import { on } from 'ember-decorators/object/evented';
 import { module, test } from 'qunit';
 
 module('on/observes decorator');

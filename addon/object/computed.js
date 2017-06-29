@@ -1,180 +1,8 @@
 import Ember from 'ember';
-import computedMacro from 'ember-macro-helpers/computed';
-
-import extractValue from './utils/extract-value';
-import {
-  decorator,
-  decoratorWithParams
-} from './utils/decorator-wrappers';
 
 import {
-  decoratorWithRequiredParams,
   decoratedPropertyWithRequiredParams
-} from './utils/decorator-macros';
-
-/**
- * Decorator that turns a function into a computed property.
- *
- * In your application where you would normally have:
- *
- * ```javascript
- * foo: Ember.computed('someKey', 'otherKey', function() {
- *   var someKey = this.get('someKey');
- *   var otherKey = this.get('otherKey');
- *
- *   // Do Stuff
- * })
- * ```
- *
- * You replace with this:
- *
- * ```javascript
- * import computed from 'ember-computed-decorators';
- *
- * // ..... <snip> .....
- * @computed('someKey', 'otherKey')
- * foo(someKey, otherKey) {
- *   // Do Stuff
- * }
- * ```
- *
- * #### Without Dependent Keys
- *
- * ```javascript
- * foo: Ember.computed(function() {
- *   // Do Stuff
- * })
- * ```
- *
- * You replace with this:
- *
- * ```javascript
- * import computed from 'ember-computed-decorators';
- *
- * // ..... <snip> .....
- * @computed
- * foo() {
- *   // Do Stuff
- * }
- * ```
- *
- * #### "Real World"
- *
- * ```javascript
- * import Ember from 'ember';
- * import computed from 'ember-computed-decorators';
- *
- * export default Ember.Component.extend({
- *   @computed('first', 'last')
- *   name(first, last) {
- *     return `${first} ${last}`;
- *   }
- * });
- * ```
- *
- *
- * #### "Real World get/set syntax"
- *
- * ```javascript
- * import Ember from 'ember';
- * import computed from 'ember-computed-decorators';
- *
- * export default Ember.Component.extend({
- *   @computed('first', 'last')
- *   name: {
- *     get(first, last) {
- *       return `${first} ${last}`;
- *     },
- *
- *     set(value, first, last) {
- *       // ...
- *     }
- *   }
- * });
- * ```
- *
- * @function
- * @param {...String} propertyNames - List of property keys this computed is dependent on
- */
-const computed = decoratorWithParams(function(target, key, desc, params) {
-  if (!desc.writable) {
-    throw new Error('ember-computed-decorators does not support using getters and setters');
-  }
-
-  let value = extractValue(desc);
-  return computedMacro(...params, value);
-});
-
-export default computed;
-
-/**
- * Decorator that modifies a computed property to be read only.
- *
- * Usage:
- *
- * ```javascript
- * import Ember from 'ember';
- * import computed, { readOnly } from 'ember-computed-decorators';
- *
- * export default Ember.Component.extend({
- *   @readOnly
- *   @computed('first', 'last')
- *   name(first, last) {
- *     return `${first} ${last}`;
- *   }
- * });
- * ```
- *
- * @function
- */
-export const readOnly = decorator(function(target, name, desc) {
-  var value = extractValue(desc);
-  return value.readOnly();
-});
-
-/**
- * Decorator that wraps [Ember.on](https://emberjs.com/api/#method_on)
- *
- * Triggers the target function on events
- *
- * ```javascript
- * import Ember from 'ember';
- * import { on } from 'ember-computed-decorators';
- *
- * export default Ember.Component.extend({
- *   @on('init')
- *   setupStuff() {
- *     //...
- *   }
- * });
- * ```
- *
- * @function
- * @param {...String} eventNames - Names of the events that trigger the function
- */
-export const on = decoratorWithRequiredParams(Ember.on, 'Cannot `on` without event names');
-
-/**
- * Decorator that wraps [Ember.observer](https://emberjs.com/api/#method_observer)
- *
- * Triggers the target function when the dependent properties have changed
- *
- * ```javascript
- * import Ember from 'ember';
- * import { observes } from 'ember-computed-decorators';
- *
- * export default Ember.Component.extend({
- *   @observes('foo')
- *   bar() {
- *     //...
- *   }
- * });
- * ```
- *
- * @function
- * @param {...String} eventNames - Names of the events that trigger the function
- */
-export const observes = decoratorWithRequiredParams(Ember.observer, 'Cannot `observe` without property names');
+} from '../utils/decorator-macros';
 
 /**
  * Decorator that wraps [Ember.computed.alias](http://emberjs.com/api/classes/Ember.computed.html#method_alias)
@@ -185,7 +13,7 @@ export const observes = decoratorWithRequiredParams(Ember.observer, 'Cannot `obs
  *
  * ```javascript
  * import Ember from 'ember';
- * import { alias } from 'ember-computed-decorators';
+ * import { alias } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   person: {
@@ -209,7 +37,7 @@ export const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias, '
  *
  * ```javascript
  * import Ember from 'ember';
- * import { and } from 'ember-computed-decorators';
+ * import { and } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   person: {
@@ -233,7 +61,7 @@ export const and = decoratedPropertyWithRequiredParams(Ember.computed.and, 'Cann
  *
  * ```javascript
  * import Ember from 'ember';
- * import { bool } from 'ember-computed-decorators';
+ * import { bool } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   messageCount: 1,
@@ -255,7 +83,7 @@ export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool, 'Ca
  *
  * ```javascript
  * import Ember from 'ember';
- * import { collect } from 'ember-computed-decorators';
+ * import { collect } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   light: 'strobe',
@@ -278,7 +106,7 @@ export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collec
  *
  * ```javascript
  * import Ember from 'ember';
- * import { empty } from 'ember-computed-decorators';
+ * import { empty } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   items: Ember.A(['taco', 'burrito']),
@@ -299,7 +127,7 @@ export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty, '
  *
  * ```javascript
  * import Ember from 'ember';
- * import { equal } from 'ember-computed-decorators';
+ * import { equal } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   state: 'sleepy',
@@ -320,7 +148,7 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal, '
  *
  * ```javascript
  * import Ember from 'ember';
- * import { filter } from 'ember-computed-decorators';
+ * import { filter } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   chores: Ember.A([
@@ -348,7 +176,7 @@ export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter,
  *
  * ```javascript
  * import Ember from 'ember';
- * import { filterBy } from 'ember-computed-decorators';
+ * import { filterBy } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   chores: Ember.A([
@@ -376,7 +204,7 @@ export const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filte
  *
  * ```javascript
  * import Ember from 'ember';
- * import { gt } from 'ember-computed-decorators';
+ * import { gt } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   totalCats: 11,
@@ -399,7 +227,7 @@ export const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt, 'Cannot
  *
  * ```javascript
  * import Ember from 'ember';
- * import { gte } from 'ember-computed-decorators';
+ * import { gte } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   totalPlayers: 14,
@@ -422,7 +250,7 @@ export const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte, 'Cann
  *
  * ```javascript
  * import Ember from 'ember';
- * import { intersect } from 'ember-computed-decorators';
+ * import { intersect } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),
@@ -445,7 +273,7 @@ export const intersect = decoratedPropertyWithRequiredParams(Ember.computed.inte
  *
  * ```javascript
  * import Ember from 'ember';
- * import { lt } from 'ember-computed-decorators';
+ * import { lt } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   totalDogs: 3,
@@ -468,7 +296,7 @@ export const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt, 'Cannot
  *
  * ```javascript
  * import Ember from 'ember';
- * import { lte } from 'ember-computed-decorators';
+ * import { lte } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   totalPlayers: 14,
@@ -490,7 +318,7 @@ export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte, 'Cann
  *
  * ```javascript
  * import Ember from 'ember';
- * import { map } from 'ember-computed-decorators';
+ * import { map } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   chores: Ember.A(['clean', 'write more unit tests']),
@@ -514,7 +342,7 @@ export const map = decoratedPropertyWithRequiredParams(Ember.computed.map, 'Cann
  *
  * ```javascript
  * import Ember from 'ember';
- * import { mapBy } from 'ember-computed-decorators';
+ * import { mapBy } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   people: Ember.A([
@@ -542,7 +370,7 @@ export const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy, '
  *
  * ```javascript
  * import Ember from 'ember';
- * import { match } from 'ember-computed-decorators';
+ * import { match } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   email: 'tomster@emberjs.com',
@@ -565,7 +393,7 @@ export const match = decoratedPropertyWithRequiredParams(Ember.computed.match, '
  *
  * ```javascript
  * import Ember from 'ember';
- * import { max } from 'ember-computed-decorators';
+ * import { max } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   values: Ember.A([1, 2, 5, 10]),
@@ -587,7 +415,7 @@ export const max = decoratedPropertyWithRequiredParams(Ember.computed.max, 'Cann
  *
  * ```javascript
  * import Ember from 'ember';
- * import { min } from 'ember-computed-decorators';
+ * import { min } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   values: Ember.A([1, 2, 5, 10]),
@@ -610,7 +438,7 @@ export const min = decoratedPropertyWithRequiredParams(Ember.computed.min, 'Cann
  *
  * ```javascript
  * import Ember from 'ember';
- * import { none } from 'ember-computed-decorators';
+ * import { none } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   firstName: null,
@@ -632,7 +460,7 @@ export const none = decoratedPropertyWithRequiredParams(Ember.computed.none, 'Ca
  *
  * ```javascript
  * import Ember from 'ember';
- * import { not } from 'ember-computed-decorators';
+ * import { not } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   loggedIn: false,
@@ -654,7 +482,7 @@ export const not = decoratedPropertyWithRequiredParams(Ember.computed.not, 'Cann
  *
  * ```javascript
  * import Ember from 'ember';
- * import { notEmpty } from 'ember-computed-decorators';
+ * import { notEmpty } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   groceryBag: Ember.A(['milk', 'eggs', 'apples']),
@@ -679,7 +507,7 @@ export const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEm
  *
  * ```javascript
  * import Ember from 'ember';
- * import { oneWay } from 'ember-computed-decorators';
+ * import { oneWay } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   firstName: 'Joe',
@@ -701,7 +529,7 @@ export const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay,
  *
  * ```javascript
  * import Ember from 'ember';
- * import { or } from 'ember-computed-decorators';
+ * import { or } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   hasJacket: true,
@@ -724,7 +552,7 @@ export const or = decoratedPropertyWithRequiredParams(Ember.computed.or, 'Cannot
  *
  * ```javascript
  * import Ember from 'ember';
- * import { reads } from 'ember-computed-decorators';
+ * import { reads } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   @reads('first') firstName
@@ -744,7 +572,7 @@ export const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads, '
  *
  * ```javascript
  * import Ember from 'ember';
- * import { setDiff } from 'ember-computed-decorators';
+ * import { setDiff } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),
@@ -786,7 +614,7 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  *
  * ```javascript
  * import Ember from 'ember';
- * import { sort } from 'ember-computed-decorators';
+ * import { sort } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   this.names = Ember.A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);
@@ -816,7 +644,7 @@ export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort, 'Ca
  *
  * ```javascript
  * import Ember from 'ember';
- * import { sum } from 'ember-computed-decorators';
+ * import { sum } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   values: Ember.A([1, 2, 3]),
@@ -837,7 +665,7 @@ export const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum, 'Cann
  *
  * ```javascript
  * import Ember from 'ember';
- * import { union } from 'ember-computed-decorators';
+ * import { union } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),
@@ -859,7 +687,7 @@ export const union = decoratedPropertyWithRequiredParams(Ember.computed.union, '
  *
  * ```javascript
  * import Ember from 'ember';
- * import { uniq } from 'ember-computed-decorators';
+ * import { uniq } from 'ember-decorators/computed';
  *
  * export default Ember.Component.extend({
  *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),
