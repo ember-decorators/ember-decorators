@@ -1,6 +1,6 @@
-import Ember from "ember";
-import { on, observes } from "ember-computed-decorators"; // jshint ignore:line
-import { module, test } from "qunit";
+import Ember from 'ember';
+import { on, observes } from 'ember-computed-decorators';
+import { module, test } from 'qunit';
 
 module('on/observes decorator');
 
@@ -11,9 +11,7 @@ test('on', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @on('init')
-    /* jshint ignore:end */
     name() {
       didInit = true;
     }
@@ -29,9 +27,7 @@ test('observes', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @observes('first')
-    /* jshint ignore:end */
     name() {
       didObserve = true;
     }
@@ -50,10 +46,8 @@ test('on -> observes', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @on('init')
     @observes('first')
-    /* jshint ignore:end */
     name() {
       didInit = true;
     }
@@ -75,10 +69,8 @@ test('observes > on', function(assert) {
     first: 'rob',
     last: 'jackson',
 
-    /* jshint ignore:start */
     @observes('first')
     @on('init')
-    /* jshint ignore:end */
     name() {
       didInit = true;
     }
@@ -91,4 +83,26 @@ test('observes > on', function(assert) {
   assert.ok(!didInit, 'expected the observer to NOT have fired');
   Ember.run(obj, 'set', 'first', 'stef');
   assert.ok(didInit, 'expected the observer to have fired');
+});
+
+test('observes throws an error if used without parameters', function(assert) {
+  try {
+    Ember.Object.extend({
+      @observes
+      foo() {}
+    }).create();
+  } catch ({ message }) {
+    assert.equal(message, 'Cannot `observe` without property names', 'error thrown correctly');
+  }
+});
+
+test('on throws an error if used without parameters', function(assert) {
+  try {
+    Ember.Object.extend({
+      @on
+      foo() {}
+    }).create();
+  } catch ({ message }) {
+    assert.equal(message, 'Cannot `on` without event names', 'error thrown correctly');
+  }
 });

@@ -1,5 +1,4 @@
-import Ember from "ember";
-/* jshint ignore:start */
+import Ember from 'ember';
 import {
   alias,
   and,
@@ -31,15 +30,12 @@ import {
   sum,
   union,
   uniq
-} from "ember-computed-decorators";
-/* jshint ignore:end */
-import { module, test } from "qunit";
+} from 'ember-computed-decorators';
+import { module, test } from 'qunit';
 
 module('macro decorator');
 
 test('alias', function(assert) {
-  var didInit = false;
-
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
@@ -47,15 +43,14 @@ test('alias', function(assert) {
       this.last = 'jackson';
     },
 
-    /* jshint ignore:start */
-    @alias('first') firstName,
-    @empty('first') hasNoFirstName,
-    @notEmpty('first') hasFirstName,
-    @none('first') hasNoneFirstName,
-    @not('first') notFirstName,
-    @bool('first') boolFirstName,
-    @match('first', /rob/) firstNameMatch,
-    @equal('first', 'rob') firstNameEqual,
+    @alias('first') firstName: null,
+    @empty('first') hasNoFirstName: null,
+    @notEmpty('first') hasFirstName: null,
+    @none('first') hasNoneFirstName: null,
+    @not('first') notFirstName: null,
+    @bool('first') boolFirstName: null,
+    @match('first', /rob/) firstNameMatch: null,
+    @equal('first', 'rob') firstNameEqual: null,
     // @gt()
     // @gte
     // @lt
@@ -64,10 +59,6 @@ test('alias', function(assert) {
     // @or
     // @any
     // @oneWay
-    /* jshint ignore:end */
-    name() {
-      didInit = true;
-    }
   }).create();
 
   assert.equal(obj.get('firstName'), 'rob');
@@ -87,9 +78,7 @@ test('alias', function(assert) {
       this._super(...arguments);
       this.friend = 'Guy';
     },
-    /* jshint ignore:start */
-    @alias('friend') buddy
-    /* jshint ignore:end */
+    @alias('friend') buddy: null
   }).create();
 
   assert.equal(obj.get('buddy'), 'Guy');
@@ -103,10 +92,8 @@ test('and', function(assert) {
       this.burrito = false;
       this.fried = true;
     },
-    /* jshint ignore:start */
-    @and('taco', 'fried') isChalupa,
-    @and('burrito', 'fried') isChimichanga
-    /* jshint ignore:end */
+    @and('taco', 'fried') isChalupa: null,
+    @and('burrito', 'fried') isChimichanga: null
   }).create();
 
   assert.equal(obj.get('isChalupa'), true);
@@ -123,13 +110,11 @@ test('bool', function(assert) {
       this.undefined = undefined;
       this.null = null;
     },
-    /* jshint ignore:start */
-    @bool('one') isOneAwesome,
-    @bool('zero') isZeroSad,
-    @bool('string') isStringCool,
-    @bool('undefined') isUndefinedAlright,
-    @bool('null') isNullRad
-    /* jshint ignore:end */
+    @bool('one') isOneAwesome: null,
+    @bool('zero') isZeroSad: null,
+    @bool('string') isStringCool: null,
+    @bool('undefined') isUndefinedAlright: null,
+    @bool('null') isNullRad: null
   }).create();
 
   assert.equal(obj.get('isOneAwesome'),true);
@@ -147,10 +132,8 @@ test('collect', function(assert) {
       this.meat = 'beef';
       this.shell = 'tortilla';
     },
-    /* jshint ignore:start */
-    @collect('topping', 'meat', 'shell') taco,
-    @collect('topping', 'shell') quesadilla
-    /* jshint ignore:end */
+    @collect('topping', 'meat', 'shell') taco: null,
+    @collect('topping', 'shell') quesadilla: null
   }).create();
 
   assert.deepEqual(obj.get('taco').toArray(),['cheese', 'beef', 'tortilla']);
@@ -163,9 +146,7 @@ test('empty', function(assert) {
       this._super(...arguments);
       this.names = Ember.A(['one','two','three']);
     },
-    /* jshint ignore:start */
-    @empty('names') hasNames
-    /* jshint ignore:end */
+    @empty('names') hasNames: null
   }).create();
 
   assert.equal(obj.get('hasNames'), false);
@@ -183,9 +164,7 @@ test('equal', function(assert) {
       this._super(...arguments);
       this.name = 'Tom';
     },
-    /* jshint ignore:start */
-    @equal('name','Tomster') isMascot
-    /* jshint ignore:end */
+    @equal('name','Tomster') isMascot: null
   }).create();
 
   assert.equal(obj.get('isMascot'), false);
@@ -204,11 +183,9 @@ test('filter', function(assert) {
         {name:'foo', valid: false}
       ]);
     },
-    /* jshint ignore:start */
-    @filter('names', function(item, index, array) {
+    @filter('names', function(item) {
       return item.valid;
-    }) validNames
-    /* jshint ignore:end */
+    }) validNames: null
   }).create();
 
   assert.deepEqual(obj.get('validNames').mapBy('name'), ['b','z','a']);
@@ -225,9 +202,7 @@ test('filterBy', function(assert) {
         {name:'foo', valid: false}
       ]);
     },
-    /* jshint ignore:start */
-    @filterBy('names', 'valid') validNames
-    /* jshint ignore:end */
+    @filterBy('names', 'valid') validNames: null
   }).create();
 
   assert.deepEqual(obj.get('validNames').mapBy('name'), ['b','z','a']);
@@ -239,9 +214,7 @@ test('gt', function(assert) {
       this._super(...arguments);
       this.total = 9;
     },
-    /* jshint ignore:start */
-    @gt('total', 10) isGtTen
-    /* jshint ignore:end */
+    @gt('total', 10) isGtTen: null
   }).create();
   assert.equal(obj.get('isGtTen'), false);
   obj.set('total', 10);
@@ -256,9 +229,7 @@ test('gte', function(assert) {
       this._super(...arguments);
       this.total = 9;
     },
-    /* jshint ignore:start */
-    @gte('total', 10) isGteTen
-    /* jshint ignore:end */
+    @gte('total', 10) isGteTen: null
   }).create();
   assert.equal(obj.get('isGteTen'), false);
   obj.set('total', 10);
@@ -274,9 +245,7 @@ test('intersect', function(assert) {
       this.cool = Ember.A(['tacos', 'unicorns', 'pirates']);
       this.rad = Ember.A(['tacos', 'zombies', 'ninjas']);
     },
-    /* jshint ignore:start */
-    @intersect('cool','rad') coolRad
-    /* jshint ignore:end */
+    @intersect('cool','rad') coolRad: null
   }).create();
 
   assert.deepEqual(obj.get('coolRad').toArray(), ['tacos']);
@@ -288,9 +257,7 @@ test('lt', function(assert) {
       this._super(...arguments);
       this.total = 11;
     },
-    /* jshint ignore:start */
-    @lt('total', 10) isLtTen
-    /* jshint ignore:end */
+    @lt('total', 10) isLtTen: null
   }).create();
   assert.equal(obj.get('isLtTen'), false);
   obj.set('total', 10);
@@ -305,9 +272,7 @@ test('lte', function(assert) {
       this._super(...arguments);
       this.total = 11;
     },
-    /* jshint ignore:start */
-    @lte('total', 10) isLteTen
-    /* jshint ignore:end */
+    @lte('total', 10) isLteTen: null
   }).create();
   assert.equal(obj.get('isLteTen'), false);
   obj.set('total', 10);
@@ -322,11 +287,9 @@ test('map', function(assert) {
       this._super(...arguments);
       this.names = Ember.A(['one','two','three']);
     },
-    /* jshint ignore:start */
-    @map('names',  function(name, index) {
+    @map('names',  function(name) {
       return name.toUpperCase() + '!';
-    }) loudNames
-    /* jshint ignore:end */
+    }) loudNames: null
   }).create();
 
   assert.deepEqual(obj.get('loudNames').toArray(),['ONE!','TWO!','THREE!']);
@@ -342,9 +305,7 @@ test('mapBy', function(assert) {
           {name:'a', valid: true}
         ]);
     },
-    /* jshint ignore:start */
-    @mapBy('names', 'name') nameValues
-    /* jshint ignore:end */
+    @mapBy('names', 'name') nameValues: null
   }).create();
 
   assert.deepEqual(obj.get('nameValues').toArray(), ['b','z','a']);
@@ -355,9 +316,7 @@ test('match', function(assert) {
     init() {
       this._super(...arguments);
     },
-    /* jshint ignore:start */
-    @match('email', /^.+@.+\..+$/) hasValidEmail
-    /* jshint ignore:end */
+    @match('email', /^.+@.+\..+$/) hasValidEmail: null
   }).create();
 
   assert.equal(obj.get('hasValidEmail'), false);
@@ -373,9 +332,7 @@ test('max', function(assert) {
       this._super(...arguments);
       this.values = Ember.A([1,2,3,4,5]);
     },
-    /* jshint ignore:start */
-    @max('values') maxValue
-    /* jshint ignore:end */
+    @max('values') maxValue: null
   }).create();
 
   assert.equal(obj.get('maxValue'),5);
@@ -389,9 +346,7 @@ test('min', function(assert) {
       this._super(...arguments);
       this.values = Ember.A([5,6,7,8,9,10]);
     },
-    /* jshint ignore:start */
-    @min('values') minValue
-    /* jshint ignore:end */
+    @min('values') minValue: null
   }).create();
 
   assert.equal(obj.get('minValue'),5);
@@ -405,9 +360,7 @@ test('none', function(assert) {
       this._super(...arguments);
       this.thing = 'foo';
     },
-    /* jshint ignore:start */
-    @none('thing') isThing
-    /* jshint ignore:end */
+    @none('thing') isThing: null
   }).create();
 
   assert.equal(obj.get('isThing'), false);
@@ -421,9 +374,7 @@ test('not', function(assert) {
       this._super(...arguments);
       this.aThing = 'chickenWing';
     },
-    /* jshint ignore:start */
-    @not('aThing') notAThing
-    /* jshint ignore:end */
+    @not('aThing') notAThing: null
   }).create();
 
   assert.equal(obj.get('notAThing'), false);
@@ -437,9 +388,7 @@ test('notEmpty', function(assert) {
       this._super(...arguments);
       this.names = Ember.A(['one','one','two','three']);
     },
-    /* jshint ignore:start */
-    @notEmpty('names') isNamesEmpty
-    /* jshint ignore:end */
+    @notEmpty('names') isNamesEmpty: null
   }).create();
 
   assert.equal(obj.get('isNamesEmpty'), true);
@@ -454,9 +403,7 @@ test('oneWay', function(assert) {
       this.names = 'Tom';
       this.nick = 'Tomster';
     },
-    /* jshint ignore:start */
-    @oneWay('nick') nickName
-    /* jshint ignore:end */
+    @oneWay('nick') nickName: null
   }).create();
 
   assert.equal(obj.get('nickName'), 'Tomster');
@@ -472,9 +419,7 @@ test('or', function(assert) {
       this.cool = true;
       this.rad = 'rad';
     },
-    /* jshint ignore:start */
-    @or('cool', 'rad') orValue
-    /* jshint ignore:end */
+    @or('cool', 'rad') orValue: null
   }).create();
 
   assert.equal(obj.get('orValue'),true);
@@ -488,10 +433,8 @@ test('readOnly', function(assert) {
       this._super(...arguments);
       this.userName = 'Brohuda';
     },
-    /* jshint ignore:start */
     @readOnly
-    @alias('userName') finalName
-    /* jshint ignore:end */
+    @alias('userName') finalName: null
   }).create();
 
   assert.equal(obj.get('finalName'), 'Brohuda');
@@ -511,9 +454,7 @@ test('reads', function(assert) {
       this.names = 'Tom';
       this.nick = 'Tomster';
     },
-    /* jshint ignore:start */
-    @reads('nick') nickName
-    /* jshint ignore:end */
+    @reads('nick') nickName: null
   }).create();
 
   assert.equal(obj.get('nickName'), 'Tomster');
@@ -529,9 +470,7 @@ test('setDiff', function(assert) {
       this.numbers = Ember.A(['one','two','three']);
       this.oddNumbers = Ember.A(['one','three']);
     },
-    /* jshint ignore:start */
-    @setDiff('numbers', 'oddNumbers') evenNumbers
-    /* jshint ignore:end */
+    @setDiff('numbers', 'oddNumbers') evenNumbers: null
   }).create();
 
   assert.deepEqual(obj.get('evenNumbers'),['two']);
@@ -543,7 +482,6 @@ test('sort', function(assert) {
       this._super(...arguments);
       this.names = Ember.A([{name:'b'},{name:'z'},{name:'a'},{name:'foo'}]);
     },
-    /* jshint ignore:start */
     @sort('names',function(a, b){
       if (a.name > b.name) {
         return 1;
@@ -553,8 +491,7 @@ test('sort', function(assert) {
 
       return 0;
     })
-    sortedNames
-    /* jshint ignore:end */
+    sortedNames: null
   }).create();
 
   assert.deepEqual(obj.get('sortedNames').mapBy('name'), ['a','b','foo','z']);
@@ -566,9 +503,7 @@ test('sum', function(assert) {
       this._super(...arguments);
       this.things = Ember.A([1,2,3]);
     },
-    /* jshint ignore:start */
-    @sum('things') countTotal
-    /* jshint ignore:end */
+    @sum('things') countTotal: null
   }).create();
 
   assert.equal(obj.get('countTotal'), 6);
@@ -583,9 +518,7 @@ test('union', function(assert) {
       this.names = Ember.A(['one','one','two','three']);
       this.numbers = Ember.A(['twenty', 'two']);
     },
-    /* jshint ignore:start */
-    @union('names', 'numbers') unionNames
-    /* jshint ignore:end */
+    @union('names', 'numbers') unionNames: null
   }).create();
 
   assert.deepEqual(obj.get('unionNames').toArray(),['one','two','three','twenty']);
@@ -597,10 +530,18 @@ test('uniq', function(assert) {
       this._super(...arguments);
       this.names = Ember.A(['one','one','two','three']);
     },
-    /* jshint ignore:start */
-    @uniq('names') uniqNames
-    /* jshint ignore:end */
+    @uniq('names') uniqNames: null
   }).create();
 
   assert.deepEqual(obj.get('uniqNames').toArray(),['one','two','three']);
+});
+
+test('macros cannot be used without parameters', function(assert) {
+  try {
+    Ember.Object.extend({
+      @alias uniqNames: null
+    }).create();
+  } catch ({ message }) {
+    assert.equal(message, 'Cannot use `alias` without parameters');
+  }
 });
