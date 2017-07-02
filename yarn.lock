@@ -1268,9 +1268,9 @@ broccoli-debug@^0.6.1, broccoli-debug@^0.6.2:
     symlink-or-copy "^1.1.8"
     tree-sync "^1.2.2"
 
-"broccoli-esdoc@git+https://github.com/pzuraq/broccoli-esdoc.git#93c5d0042fd751cec468fb01687c7f4e1aa447ea":
+"broccoli-esdoc@https://github.com/pzuraq/broccoli-esdoc.git#93c5d0042fd751cec468fb01687c7f4e1aa447ea":
   version "0.0.1"
-  resolved "git+https://github.com/pzuraq/broccoli-esdoc.git#93c5d0042fd751cec468fb01687c7f4e1aa447ea"
+  resolved "https://github.com/pzuraq/broccoli-esdoc.git#93c5d0042fd751cec468fb01687c7f4e1aa447ea"
   dependencies:
     broccoli-caching-writer "^3.0.3"
     esdoc "https://github.com/pzuraq/esdoc.git#bcd3f55bada45f0555f491cc3789c4dc3970d703"
@@ -2808,9 +2808,9 @@ esdoc-publish-html-plugin@latest:
     marked "0.3.6"
     taffydb "2.7.2"
 
-"esdoc-publish-module-html-plugin@git+https://github.com/pzuraq/esdoc-publish-module-html-plugin.git#fa1c2dbb20521f5dc477a764ab03272fb74f7d37":
+"esdoc-publish-module-html-plugin@https://github.com/pzuraq/esdoc-publish-module-html-plugin.git#fa1c2dbb20521f5dc477a764ab03272fb74f7d37":
   version "0.0.12"
-  resolved "git+https://github.com/pzuraq/esdoc-publish-module-html-plugin.git#fa1c2dbb20521f5dc477a764ab03272fb74f7d37"
+  resolved "https://github.com/pzuraq/esdoc-publish-module-html-plugin.git#fa1c2dbb20521f5dc477a764ab03272fb74f7d37"
   dependencies:
     babel-generator "6.11.4"
     cheerio "0.22.0"
