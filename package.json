@@ -1,7 +1,7 @@
 {
   "name": "ember-decorators",
   "version": "1.0.0-beta.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Useful decorators for Ember applications.",
   "keywords": [
     "ember-addon"
   ],
