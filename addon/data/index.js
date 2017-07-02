@@ -1,12 +1,12 @@
 import DS from 'ember-data';
-import { decoratorWithKeyReflection } from './utils/decorator-macros';
+import { decoratorWithKeyReflection } from '../utils/decorator-macros';
 
 /**
  * Decorator that turns the property into an Ember Data attribute
  *
  * ```javascript
  * import DS from 'ember-data';
- * import { attr } from "ember-computed-decorators/ember-data";
+ * import { attr } from 'ember-decorators/data';
  *
  * export default DS.Model.extend({
  *   @attr firstName
@@ -23,7 +23,7 @@ export const attr = decoratorWithKeyReflection(DS.attr);
  *
  * ```javascript
  * import DS from 'ember-data';
- * import { hasMany } from "ember-computed-decorators/ember-data";
+ * import { hasMany } from 'ember-decorators/data';
  *
  * export default DS.Model.extend({
  *   @hasMany users
@@ -40,7 +40,7 @@ export const hasMany = decoratorWithKeyReflection(DS.hasMany);
  *
  * ```javascript
  * import DS from 'ember-data';
- * import { belongsTo } from "ember-computed-decorators/ember-data";
+ * import { belongsTo } from 'ember-decorators/data';
  *
  * export default DS.Model.extend({
  *   @belongsTo user

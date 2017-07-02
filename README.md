@@ -1,11 +1,10 @@
-# ember-computed-decorators
+# ember-decorators
 
-[![npm version](https://badge.fury.io/js/ember-computed-decorators.svg)](https://badge.fury.io/js/ember-computed-decorators)
-[![Build Status](https://travis-ci.org/rwjblue/ember-computed-decorators.svg?branch=master)](https://travis-ci.org/rwjblue/ember-computed-decorators)
+[![npm version](https://badge.fury.io/js/ember-decorators.svg)](https://badge.fury.io/js/ember-decorators)
+[![Build Status](https://travis-ci.org/rwjblue/ember-decorators.svg?branch=master)](https://travis-ci.org/rwjblue/ember-decorators)
 ![Ember Version](https://embadge.io/v1/badge.svg?start=2.4.0)
 
-This addon allows usage of the proposed decorator syntax, and passes the specified
-dependent keys into your computed function making your computed properties much DRY'er.
+This addon adds decorator support to Ember, allowing you to DRY-up your code and write modern ES6 classes.
 
 More details:
 
@@ -16,30 +15,35 @@ More details:
 
 ### Babel Setup
 
-To use ember-computed-decorators you must update Babel's configuration to
+To use ember-decorators you must update Babel's configuration to
 allow usage of the decorator proposal.
 
 #### Babel 6.x
 
-Babel 6 has split out the various transforms to plugins, so we need to install the plugin for decorators:
+Babel 6 has split out the various transforms to plugins, so we need to install the plugins for decorators:
 
 ```
 yarn add --dev babel-plugin-transform-decorators-legacy
+yarn add --dev babel-plugin-transform-class-properties # needed for ES6 class syntax
 ```
 
 Or if you're using NPM:
 
 ```
 npm install --save-dev babel-plugin-transform-decorators-legacy
+npm install --save-dev babel-plugin-transform-class-properties
 ```
 
-Now simply tell Babel to use this plugin:
+Now simply tell Babel to use these plugins:
 
 ```javascript
 // ember-cli-build.js
 var app = new EmberApp({
   babel: {
-    plugins: ['transform-decorators-legacy']
+    plugins: [
+      'transform-decorators-legacy',
+      'transform-class-properties'
+    ]
   }
 });
 ```
@@ -100,6 +104,10 @@ This should enable the decorators to work on the parent app/addon. Use version b
     if (this.options.babel.plugins.indexOf('transform-decorators-legacy') === -1) {
       this.options.babel.plugins.push('transform-decorators-legacy');
     }
+
+    if (this.options.babel.plugins.indexOf('transform-class-properties') === -1) {
+      this.options.babel.plugins.push('transform-class-properties');
+    }
   }
 ```
 
@@ -108,73 +116,87 @@ This should enable the decorators to work on the parent app/addon. Use version b
 In your application where you would normally have:
 
 ```javascript
-foo: Ember.computed('someKey', 'otherKey', function() {
-  var someKey = this.get('someKey');
-  var otherKey = this.get('otherKey');
-  // Do Stuff
-})
-```
-
-You replace with this:
-
-```javascript
-import computed from 'ember-computed-decorators';
-// ..... <snip> .....
-@computed('someKey', 'otherKey')
-foo(someKey, otherKey) {
-  // Do Stuff
-}
-```
-
-#### Without Dependent Keys
-
-```javascript
-foo: Ember.computed(function() {
-  // Do Stuff
-})
-```
-You replace with this:
-```javascript
-import computed from 'ember-computed-decorators';
-// ..... <snip> .....
-@computed
-foo() {
-  // Do Stuff
-}
-```
-
-#### "Real World"
-
-```javascript
 import Ember from 'ember';
-import computed from 'ember-computed-decorators';
-export default Ember.Component.extend({
-  @computed('first', 'last')
-  name(first, last) {
-    return `${first} ${last}`;
-  }
-});
-```
 
-#### "Real World get/set syntax"
-
-```javascript
-import Ember from 'ember';
-import computed from 'ember-computed-decorators';
 export default Ember.Component.extend({
-  @computed('first', 'last')
-  name: {
-    get(first, last) {
-      return `${first} ${last}`;
-    },
-    set(value, first, last) {
-      // ...
+  foo: Ember.inject.service(),
+
+  bar: Ember.computed('someKey', 'otherKey', function() {
+    var someKey = this.get('someKey');
+    var otherKey = this.get('otherKey');
+
+    // do stuff
+  }),
+
+  actions: {
+    handleClick() {
+      // do stuff
     }
   }
-});
+})
+
 ```
 
-See the [API Documentation](https://rwjblue.github.io/ember-computed-decorators/docs/index.html)
+You replace it with this:
+
+```javascript
+import Ember from 'ember'
+import { action, computed } from 'ember-decorators/object';
+import { service } from 'ember-decorators/service';
+
+export default class MyComponent extends Ember.Component {
+  @service foo
+
+  @computed('someKey', 'otherKey')
+  bar(someKey, otherKey) {
+    // do stuff
+  }
+
+  @action
+  handleClick() {
+    // do stuff
+  }
+}
+
+```
+
+The packages in `ember-decorators` are setup to mirror Ember's [javascript module](https://github.com/emberjs/rfcs/blob/master/text/0176-javascript-module-api.md)
+API. Decorators can be imported from the packages that they belong to:
+
+```javascript
+import {
+  attr,
+  hasMany,
+  belongsTo
+} from 'ember-decorators/data';
+
+import {
+  controller
+} from 'ember-decorators/controller';
+
+import {
+  action,
+  computed,
+  observes
+} from 'ember-decorators/object';
+
+import {
+  alias,
+  or,
+  reads
+} from 'ember-decorators/object/computed';
+
+import {
+  on
+} from 'ember-decorators/object/evented';
+
+import {
+  service
+} from 'ember-decorators/service';
+
+```
+
+See the [API Documentation](https://rwjblue.github.io/ember-decorators/docs/index.html)
 for detailed examples and documentation of the individual decorators.
 
 Note: The `@computed` decorator wraps [ember-macro-helpers](https://github.com/kellyselden/ember-macro-helpers)
@@ -184,7 +206,7 @@ highly recommended that you read the documentation for that addon as well.
 ## Installation
 
 * `git clone <repository-url>` this repository
-* `cd ember-computed-decorators`
+* `cd ember-decorators`
 * `npm install`
 * `bower install`
 

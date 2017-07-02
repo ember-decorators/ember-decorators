@@ -1,6 +1,6 @@
 {
-  "name": "ember-computed-decorators",
-  "version": "0.3.0",
+  "name": "ember-decorators",
+  "version": "1.0.0-beta.0",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rwjblue/ember-computed-decorators.git"
+    "url": "https://github.com/rwjblue/ember-decorators.git"
   },
   "scripts": {
     "build": "ember build",
@@ -32,7 +32,7 @@
     "ember-cli": "2.13.2",
     "ember-cli-app-version": "^2.0.0",
     "ember-cli-dependency-checker": "^1.3.0",
-    "ember-cli-esdoc": "0.0.3",
+    "ember-cli-esdoc": "0.0.4",
     "ember-cli-eslint": "^3.0.0",
     "ember-cli-github-pages": "^0.1.2",
     "ember-cli-htmlbars": "^1.1.1",

@@ -3,7 +3,7 @@ import {
   attr,
   hasMany,
   belongsTo
-} from 'ember-computed-decorators/ember-data';
+} from 'ember-decorators/data';
 
 import { module, test } from 'qunit';
 

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import computed, { readOnly } from 'ember-computed-decorators';
+import { computed, readOnly } from 'ember-decorators/object';
 import { module, test } from 'qunit';
 
 const { get, set } = Ember;

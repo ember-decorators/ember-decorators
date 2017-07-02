@@ -1268,9 +1268,9 @@ broccoli-debug@^0.6.1, broccoli-debug@^0.6.2:
     symlink-or-copy "^1.1.8"
     tree-sync "^1.2.2"
 
-"broccoli-esdoc@https://github.com/pzuraq/broccoli-esdoc.git#93c5d0042fd751cec468fb01687c7f4e1aa447ea":
+"broccoli-esdoc@git+https://github.com/pzuraq/broccoli-esdoc.git#93c5d0042fd751cec468fb01687c7f4e1aa447ea":
   version "0.0.1"
-  resolved "https://github.com/pzuraq/broccoli-esdoc.git#93c5d0042fd751cec468fb01687c7f4e1aa447ea"
+  resolved "git+https://github.com/pzuraq/broccoli-esdoc.git#93c5d0042fd751cec468fb01687c7f4e1aa447ea"
   dependencies:
     broccoli-caching-writer "^3.0.3"
     esdoc "https://github.com/pzuraq/esdoc.git#bcd3f55bada45f0555f491cc3789c4dc3970d703"
@@ -2163,9 +2163,9 @@ ember-cli-dependency-checker@^1.3.0:
     is-git-url "^0.2.0"
     semver "^4.1.0"
 
-ember-cli-esdoc@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/ember-cli-esdoc/-/ember-cli-esdoc-0.0.3.tgz#7a1b3c028f8c30ac069f88b750333571f8f4eb3d"
+ember-cli-esdoc@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/ember-cli-esdoc/-/ember-cli-esdoc-0.0.4.tgz#a3e8932f259d99d2b378078bd36c57c8b8b31ea3"
   dependencies:
     broccoli-caching-writer "^3.0.3"
     broccoli-esdoc "https://github.com/pzuraq/broccoli-esdoc.git#93c5d0042fd751cec468fb01687c7f4e1aa447ea"
@@ -2174,7 +2174,7 @@ ember-cli-esdoc@0.0.3:
     ember-cli-babel "^6.0.0"
     esdoc-ecmascript-proposal-plugin "^0.0.3"
     esdoc-importpath-plugin "^0.1.4"
-    esdoc-publish-module-html-plugin "https://github.com/pzuraq/esdoc-publish-module-html-plugin.git#520d767a8287339030aad392ff5889dd084ba4b9"
+    esdoc-publish-module-html-plugin "https://github.com/pzuraq/esdoc-publish-module-html-plugin.git#fa1c2dbb20521f5dc477a764ab03272fb74f7d37"
     esdoc-standard-plugin "^0.0.7"
     merge "~1.2.0"
     resolve "^1.3.3"
@@ -2808,9 +2808,9 @@ esdoc-publish-html-plugin@latest:
     marked "0.3.6"
     taffydb "2.7.2"
 
-"esdoc-publish-module-html-plugin@https://github.com/pzuraq/esdoc-publish-module-html-plugin.git#520d767a8287339030aad392ff5889dd084ba4b9":
+"esdoc-publish-module-html-plugin@git+https://github.com/pzuraq/esdoc-publish-module-html-plugin.git#fa1c2dbb20521f5dc477a764ab03272fb74f7d37":
   version "0.0.12"
-  resolved "https://github.com/pzuraq/esdoc-publish-module-html-plugin.git#520d767a8287339030aad392ff5889dd084ba4b9"
+  resolved "git+https://github.com/pzuraq/esdoc-publish-module-html-plugin.git#fa1c2dbb20521f5dc477a764ab03272fb74f7d37"
   dependencies:
     babel-generator "6.11.4"
     cheerio "0.22.0"
@@ -5022,7 +5022,7 @@ readable-stream@1.1:
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@^2, readable-stream@^2.0.2, readable-stream@^2.0.6:
+readable-stream@^2, readable-stream@^2.0.6:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.1.5.tgz#66fa8b720e1438b364681f2ad1a63c618448c9d0"
   dependencies:
@@ -5034,7 +5034,7 @@ readable-stream@^2, readable-stream@^2.0.2, readable-stream@^2.0.6:
     string_decoder "~0.10.x"
     util-deprecate "~1.0.1"
 
-readable-stream@^2.1.4, readable-stream@^2.2.2:
+readable-stream@^2.0.2, readable-stream@^2.1.4, readable-stream@^2.2.2:
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-2.2.11.tgz#0796b31f8d7688007ff0b93a8088d34aa17c0f72"
   dependencies:
