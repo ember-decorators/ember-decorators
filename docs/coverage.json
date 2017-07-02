@@ -1,21 +1,36 @@
 {
   "coverage": "100%",
-  "expectCount": 38,
-  "actualCount": 38,
+  "expectCount": 39,
+  "actualCount": 39,
   "files": {
-    "addon/ember-data.js": {
+    "addon/controller/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "addon/data/index.js": {
       "expectCount": 3,
       "actualCount": 3,
       "undocumentLines": []
     },
-    "addon/index.js": {
-      "expectCount": 33,
-      "actualCount": 33,
+    "addon/object/computed.js": {
+      "expectCount": 29,
+      "actualCount": 29,
       "undocumentLines": []
     },
-    "addon/inject.js": {
-      "expectCount": 2,
-      "actualCount": 2,
+    "addon/object/evented.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "addon/object/index.js": {
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
+    },
+    "addon/service/index.js": {
+      "expectCount": 1,
+      "actualCount": 1,
       "undocumentLines": []
     }
   }

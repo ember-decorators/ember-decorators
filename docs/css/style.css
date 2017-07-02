@@ -194,7 +194,7 @@ li > code {
 .navigation .nav-dir-path {
   display: block;
   margin-top: 0.5em;
-  margin-left: 0.5em;
+  margin-left: 0.7em;
   margin-bottom: 0.25em;
   font-weight: 600;
   font-size: 0.85em;
@@ -211,7 +211,7 @@ li > code {
 .kind-typedef,
 .kind-variable,
 .kind-external {
-  margin-left: 1em;
+  margin-left: 0.7em;
   width: 1.2em;
   height: 1.2em;
   display: inline-block;

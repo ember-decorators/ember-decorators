@@ -2,12 +2,12 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | ember-decorators</title>
-  <link type="text/css" rel="stylesheet" href="css/style.css" integrity="sha256-r1pHgOcAKgKheFZPWZWb818cCVGtrH/9gdFGfrQWD6Y= sha512-P9gMhxdFFTuF3RRfYhsnD+xjGsGpYuY76ScQW4r/E/0i8uu6bxP4Uk5zSK1cXd/IlM6acZo1AK+jJkf6grhF0w==" >
-  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css" integrity="sha256-zInEqaMwHPE1XRPTqnMP2uZOEEYFQ2zjcasAv2R1nXg= sha512-DNQDuSSkAzc46N+QWE3KS1L9bV0TmwsRxFLYlC6kX3SP8nJmMl/33DgpGRmNKkm+TppbqCWXPhhin5iHk2K+WQ==" >
-  <script src="script/prettify/prettify.js" integrity="sha256-pBGeWOdVMc8DdZ329AetSw96C27keOTs2YjfUBXXG/k= sha512-Deju3NADWguczdl0ZATQw9ENfS/NX2W+ocWpqRIUQAbWeppuVl2cmXre8u/huZwZGiQ8Bm5/fNToJ20khRZu1Q==" ></script>
-  <script src="script/manual.js" integrity="sha256-XMnSfJiE+5xTHlyG0JUNIKrjty6h1vlou+0kkTWIaV4= sha512-1fbVT6PEozJRXAQx4Rp7Jdd84pnAbQ8oJlPqcQIn+Jd2jh9u958N8BnaQCGjYwfwL9DgESRkfzjtDsYrIdR8Yw==" ></script>
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">addon/object/evented.js | ember-decorators</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
 <meta name="description" content="The default blueprint for ember-cli addons."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="The default blueprint for ember-cli addons."></head>
 <body class="layout-container" data-ice="rootContainer">
 
@@ -228,197 +228,50 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="ember-decorators">ember-decorators</h1><p><a href="https://badge.fury.io/js/ember-decorators"><img src="https://badge.fury.io/js/ember-decorators.svg" alt="npm version"></a>
-<a href="https://travis-ci.org/rwjblue/ember-decorators"><img src="https://travis-ci.org/rwjblue/ember-decorators.svg?branch=master" alt="Build Status"></a>
-<img src="https://embadge.io/v1/badge.svg?start=2.4.0" alt="Ember Version"></p>
-<p>This addon adds decorator support to Ember, allowing you to DRY-up your code and write modern ES6 classes.</p>
-<p>More details:</p>
-<ul>
-<li><a href="https://github.com/wycats/javascript-decorators">javascript-decorators proposal</a></li>
-<li><a href="http://babeljs.io/blog/2015/03/31/5.0.0/#stage-1:-decorators">babel blog post</a></li>
-</ul>
-<h2 id="usage">Usage</h2><h3 id="babel-setup">Babel Setup</h3><p>To use ember-decorators you must update Babel&apos;s configuration to
-allow usage of the decorator proposal.</p>
-<h4 id="babel-6-x">Babel 6.x</h4><p>Babel 6 has split out the various transforms to plugins, so we need to install the plugins for decorators:</p>
-<pre><code><code class="source-code prettyprint">yarn add --dev babel-plugin-transform-decorators-legacy
-yarn add --dev babel-plugin-transform-class-properties # needed for ES6 class syntax</code>
-</code></pre><p>Or if you&apos;re using NPM:</p>
-<pre><code><code class="source-code prettyprint">npm install --save-dev babel-plugin-transform-decorators-legacy
-npm install --save-dev babel-plugin-transform-class-properties</code>
-</code></pre><p>Now simply tell Babel to use these plugins:</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">// ember-cli-build.js
-var app = new EmberApp({
-  babel: {
-    plugins: [
-      &apos;transform-decorators-legacy&apos;,
-      &apos;transform-class-properties&apos;
-    ]
-  }
-});</code>
-</code></pre>
-<h4 id="babel-5-x">Babel 5.x</h4><p>As of Babel 5.1.0 the following should be all you need in your ember-cli application:</p>
-<ul>
-<li><p>pre-1.13.0</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">// Brocfile.js
-var app = new EmberApp({
-babel: {
-  optional: [&apos;es7.decorators&apos;]
-}
-});</code>
-</code></pre>
-</li>
-<li><p>1.13.x</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">// ember-cli-build.js
-var app = new EmberApp({
-babel: {
-  optional: [&apos;es7.decorators&apos;]
-}
-});</code>
-</code></pre>
-</li>
-</ul>
-<h4 id="setup-with-addon">Setup with addon</h4><p>Add the following <code>init</code> method to <code>index.js</code> of your addon.
-This should enable the decorators to work on the parent app/addon. Use version below that corresponds with your Babel 5.x addon or your Babel 6.x addon.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">  // Babel 5.x version
-  init: function(app) {
-    this._super.init &amp;&amp; this._super.init.apply(this, arguments);
-
-    this.options = this.options || {};
-    this.options.babel = this.options.babel || {};
-    this.options.babel.optional = this.options.babel.optional || [];
-
-    if (this.options.babel.optional.indexOf(&apos;es7.decorators&apos;) === -1) {
-      this.options.babel.optional.push(&apos;es7.decorators&apos;);
-    }
-  }
-
-  // ~~ OR ~~
-
-  // Babel 6.x version
-  init: function(app) {
-    this._super.init &amp;&amp; this._super.init.apply(this, arguments);
-
-    this.options = this.options || {};
-    this.options.babel = this.options.babel || {};
-    this.options.babel.plugins = this.options.babel.plugins || [];
-
-    if (this.options.babel.plugins.indexOf(&apos;transform-decorators-legacy&apos;) === -1) {
-      this.options.babel.plugins.push(&apos;transform-decorators-legacy&apos;);
-    }
-
-    if (this.options.babel.plugins.indexOf(&apos;transform-class-properties&apos;) === -1) {
-      this.options.babel.plugins.push(&apos;transform-class-properties&apos;);
-    }
-  }</code>
-</code></pre>
-<h3 id="application-usage">Application Usage</h3><p>In your application where you would normally have:</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-
-export default Ember.Component.extend({
-  foo: Ember.inject.service(),
-
-  bar: Ember.computed(&apos;someKey&apos;, &apos;otherKey&apos;, function() {
-    var someKey = this.get(&apos;someKey&apos;);
-    var otherKey = this.get(&apos;otherKey&apos;);
-
-    // do stuff
-  }),
-
-  actions: {
-    handleClick() {
-      // do stuff
-    }
-  }
-})</code>
-</code></pre>
-<p>You replace it with this:</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;
-import { action, computed } from &apos;ember-decorators/object&apos;;
-import { service } from &apos;ember-decorators/service&apos;;
-
-export default class MyComponent extends Ember.Component {
-  @service foo
-
-  @computed(&apos;someKey&apos;, &apos;otherKey&apos;)
-  bar(someKey, otherKey) {
-    // do stuff
-  }
-
-  @action
-  handleClick() {
-    // do stuff
-  }
-}</code>
-</code></pre>
-<p>The packages in <code>ember-decorators</code> are setup to mirror Ember&apos;s <a href="https://github.com/emberjs/rfcs/blob/master/text/0176-javascript-module-api.md">javascript module</a>
-API. Decorators can be imported from the packages that they belong to:</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import {
-  attr,
-  hasMany,
-  belongsTo
-} from &apos;ember-decorators/data&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">addon/object/evented.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Ember from &apos;ember&apos;;
 
 import {
-  controller
-} from &apos;ember-decorators/controller&apos;;
+  decoratorWithRequiredParams
+} from &apos;../utils/decorator-macros&apos;;
 
-import {
-  action,
-  computed,
-  observes
-} from &apos;ember-decorators/object&apos;;
 
-import {
-  alias,
-  or,
-  reads
-} from &apos;ember-decorators/object/computed&apos;;
+/**
+ * Decorator that wraps [Ember.on](https://emberjs.com/api/#method_on)
+ *
+ * Triggers the target function on events
+ *
+ * ```javascript
+ * import Ember from &apos;ember&apos;;
+ * import { on } from &apos;ember-decorators/object/evented&apos;;
+ *
+ * export default Ember.Component.extend({
+ *   @on(&apos;init&apos;)
+ *   setupStuff() {
+ *     //...
+ *   }
+ * });
+ * ```
+ *
+ * @function
+ * @param {...String} eventNames - Names of the events that trigger the function
+ */
+export const on = decoratorWithRequiredParams(Ember.on, &apos;Cannot `on` without event names&apos;);
 
-import {
-  on
-} from &apos;ember-decorators/object/evented&apos;;
-
-import {
-  service
-} from &apos;ember-decorators/service&apos;;</code>
 </code></pre>
-<p>See the <a href="https://rwjblue.github.io/ember-decorators/docs/index.html">API Documentation</a>
-for detailed examples and documentation of the individual decorators.</p>
-<p>Note: The <code>@computed</code> decorator wraps <a href="https://github.com/kellyselden/ember-macro-helpers">ember-macro-helpers</a>
-which provides a lot of helpful features on top of standard computeds. It is
-highly recommended that you read the documentation for that addon as well.</p>
-<h2 id="installation">Installation</h2><ul>
-<li><code>git clone &lt;repository-url&gt;</code> this repository</li>
-<li><code>cd ember-decorators</code></li>
-<li><code>npm install</code></li>
-<li><code>bower install</code></li>
-</ul>
-<h2 id="running">Running</h2><ul>
-<li><code>ember serve</code></li>
-<li>Visit your app at <a href="http://localhost:4200">http://localhost:4200</a>.</li>
-</ul>
-<h2 id="running-tests">Running Tests</h2><ul>
-<li><code>npm test</code> (Runs <code>ember try:each</code> to test your addon against multiple Ember versions)</li>
-<li><code>ember test</code></li>
-<li><code>ember test --server</code></li>
-</ul>
-<h2 id="building">Building</h2><ul>
-<li><code>ember build</code></li>
-</ul>
-<p>For more information on using ember-cli, visit <a href="https://ember-cli.com/">https://ember-cli.com/</a>.</p>
-</div>
+
 </div>
 
 <footer class="footer">
   Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.0-alpha.7)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
-<script src="script/search_index.js" integrity="sha256-PHw9l2el9grpEPBFIFfiJz/R+yYJQ7HcNSBiwB6a2ug= sha512-XRW4C3HL/aPYPs6LGwSKOCoPpzSYhEjpmpG5QZsOdhRAgc6UIdMOTDnSmqbjYksIt6Qn8M2sPW8ZQMbV1Cidkg==" ></script>
-<script src="script/search.js" integrity="sha256-TVXz97JWpj4nQlr8eLFf9vCkEPt7LV7KxBg/ejnkRoU= sha512-7Vh0R2PInNMw1dy4BrcjntsmtsnpcoKgJ2xbdM85VDapVBlsDcPus5TJ2eibomZdxE9KP7HltoTeP4450p8ggw==" ></script>
-<script src="script/pretty-print.js" integrity="sha256-xA9EQMG6LDJud91eWmyP+4aaV0VkN+6eOCNFKfbHvTA= sha512-39zRVPQuUHFqwxBgKfNQF8y14EWT3wuf8Oc3/giQIIQWs46hPJfmEcNW+nqm/NcZ1mFdXpRTp7SHWLOGY0PdGg==" ></script>
-<script src="script/inherited-summary.js" integrity="sha256-houMEvF28PfeNMq/QaLD5bsIt/+JjqJ7to9rtK3cfHQ= sha512-TFv0E5byaBjKceJxo9uDedbw+dEzTDF8wCglGoOz4i6SpcgSszoOfVYeGWRfnsuReuSK3LRobW3Mac9C9Gijrw==" ></script>
-<script src="script/test-summary.js" integrity="sha256-knEaMouo/OzyDgSC8VIuDjCj3mvOG9tBd7FXafB4UFI= sha512-scEUTChp05pH3e85uGWXdffMQFCiR+/42qj5/eVIekYpY/FsZcAx4vCEOqNDb2OciZKZmj3gwEd5UiMyWxlI6Q==" ></script>
-<script src="script/inner-link.js" integrity="sha256-HN9tht3j9bkOWW1QonnSwBX38ogPvAs+A0ShminRFVY= sha512-fnxUb4ugGvgewZK/V6jgNrYkzE+W+ocG/kmDftbEX6M4wljUYUxWmLQKYhdNDMm3wxZACFGvjpowmhmn6qhghA==" ></script>
-<script src="script/patch-for-local.js" integrity="sha256-50EjHcHGODENdfcXTmYyy+deu1Ypu96i7MV3hzEqrr4= sha512-NtT97Sitg2dWGPi3MlPrOd2MByPGit3CKnuuNfUsNSct3apDoFzaIllyLsTg3/mUWhS81+F0ieCOGSHYA4oCcg==" ></script>
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
 </body>
 </html>

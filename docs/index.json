@@ -566,37 +566,69 @@
   {
     "__docId__": 48,
     "kind": "file",
-    "name": "addon/action.js",
-    "content": "import { decorator } from './utils/decorator-wrappers';\nimport extractValue from './utils/extract-value';\n\n/**\n * Decorator that turns the target function into an Action\n *\n * Adds an `actions` object to the target object and creates a passthrough\n * function that calls the original. This means the function still exists\n * on the original object, and can be used directly.\n *\n * Before:\n *\n * ```js\n * export default Ember.Component.extend({\n *   actions: {\n *     foo() {\n *       // do something\n *     }\n *   }\n * });\n * ```\n *\n * After:\n *\n * ```js\n * export default MyComponent extends Ember.Component {\n *   @action\n *   foo() {\n *     // do something\n *   }\n * }\n * ```\n */\nexport default decorator(function(target, key, desc) {\n  const value = extractValue(desc);\n\n  if (typeof value !== 'function') {\n    throw new Error('The @action decorator must be applied to functions');\n  }\n\n  target.actions = target.actions || {};\n  target.actions[key] = value;\n\n  return value;\n});\n",
+    "name": "addon/controller/index.js",
+    "content": "import Ember from 'ember';\nimport { decoratorWithKeyReflection } from '../utils/decorator-macros';\n\n/**\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Ember from 'ember';\n * import { service } from 'ember-decorators/controller';\n *\n * export default Ember.Controller.extend({\n *   @controller application\n * });\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n */\nexport const controller = decoratorWithKeyReflection(Ember.inject.controller);\n",
     "static": true,
-    "longname": "/Users/rjackson/src/open-source/ember-computed-decorators/tmp/funnel-output_path-is9vPrz1.tmp/addon/action.js",
+    "longname": "/Users/rjackson/src/open-source/ember-decorators/tmp/funnel-output_path-pmseVjJk.tmp/addon/controller/index.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
     "__docId__": 49,
-    "kind": "file",
-    "name": "addon/ember-data.js",
-    "content": "import DS from 'ember-data';\nimport { decoratorWithKeyReflection } from './utils/decorator-macros';\n\n/**\n * Decorator that turns the property into an Ember Data attribute\n *\n * ```javascript\n * import DS from 'ember-data';\n * import { attr } from \"ember-computed-decorators/ember-data\";\n *\n * export default DS.Model.extend({\n *   @attr firstName\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the attribute\n */\nexport const attr = decoratorWithKeyReflection(DS.attr);\n\n/**\n * Decorator that turns the property into an Ember Data `hasMany` relationship\n *\n * ```javascript\n * import DS from 'ember-data';\n * import { hasMany } from \"ember-computed-decorators/ember-data\";\n *\n * export default DS.Model.extend({\n *   @hasMany users\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the `hasMany` relationship\n */\nexport const hasMany = decoratorWithKeyReflection(DS.hasMany);\n\n/**\n * Decorator that turns the property into an Ember Data `belongsTo` relationship\n *\n * ```javascript\n * import DS from 'ember-data';\n * import { belongsTo } from \"ember-computed-decorators/ember-data\";\n *\n * export default DS.Model.extend({\n *   @belongsTo user\n * });\n * ```\n * @function\n * @param {String} [type] - Type of the `belongsTo` relationship\n */\nexport const belongsTo = decoratorWithKeyReflection(DS.belongsTo);\n",
+    "kind": "function",
+    "name": "controller",
+    "memberof": "addon/controller/index.js",
     "static": true,
-    "longname": "/Users/rjackson/src/open-source/ember-computed-decorators/tmp/funnel-output_path-is9vPrz1.tmp/addon/ember-data.js",
+    "longname": "addon/controller/index.js~controller",
+    "access": "public",
+    "export": true,
+    "importPath": "ember-decorators/controller",
+    "importStyle": "{controller}",
+    "description": "Decorator that wraps `Ember.inject.controller`\n\nInjects a controller into a Controller as the decorated property\n\n ```javascript\nimport Ember from 'ember';\nimport { service } from 'ember-decorators/controller';\n\nexport default Ember.Controller.extend({\n  @controller application\n});\n```",
+    "lineNumber": 21,
+    "unknown": [
+      {
+        "tagName": "@function",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": true,
+        "name": "controllerName",
+        "description": "The name of the controller to inject. If not provided, the property name will be used"
+      }
+    ]
+  },
+  {
+    "__docId__": 50,
+    "kind": "file",
+    "name": "addon/data/index.js",
+    "content": "import DS from 'ember-data';\nimport { decoratorWithKeyReflection } from '../utils/decorator-macros';\n\n/**\n * Decorator that turns the property into an Ember Data attribute\n *\n * ```javascript\n * import DS from 'ember-data';\n * import { attr } from 'ember-decorators/data';\n *\n * export default DS.Model.extend({\n *   @attr firstName\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the attribute\n */\nexport const attr = decoratorWithKeyReflection(DS.attr);\n\n/**\n * Decorator that turns the property into an Ember Data `hasMany` relationship\n *\n * ```javascript\n * import DS from 'ember-data';\n * import { hasMany } from 'ember-decorators/data';\n *\n * export default DS.Model.extend({\n *   @hasMany users\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the `hasMany` relationship\n */\nexport const hasMany = decoratorWithKeyReflection(DS.hasMany);\n\n/**\n * Decorator that turns the property into an Ember Data `belongsTo` relationship\n *\n * ```javascript\n * import DS from 'ember-data';\n * import { belongsTo } from 'ember-decorators/data';\n *\n * export default DS.Model.extend({\n *   @belongsTo user\n * });\n * ```\n * @function\n * @param {String} [type] - Type of the `belongsTo` relationship\n */\nexport const belongsTo = decoratorWithKeyReflection(DS.belongsTo);\n",
+    "static": true,
+    "longname": "/Users/rjackson/src/open-source/ember-decorators/tmp/funnel-output_path-pmseVjJk.tmp/addon/data/index.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 50,
+    "__docId__": 51,
     "kind": "function",
     "name": "attr",
-    "memberof": "addon/ember-data.js",
+    "memberof": "addon/data/index.js",
     "static": true,
-    "longname": "addon/ember-data.js~attr",
+    "longname": "addon/data/index.js~attr",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/ember-data",
+    "importPath": "ember-decorators/data",
     "importStyle": "{attr}",
-    "description": "Decorator that turns the property into an Ember Data attribute\n\n```javascript\nimport DS from 'ember-data';\nimport { attr } from \"ember-computed-decorators/ember-data\";\n\nexport default DS.Model.extend({\n  @attr firstName\n});\n```",
+    "description": "Decorator that turns the property into an Ember Data attribute\n\n```javascript\nimport DS from 'ember-data';\nimport { attr } from 'ember-decorators/data';\n\nexport default DS.Model.extend({\n  @attr firstName\n});\n```",
     "lineNumber": 19,
     "unknown": [
       {
@@ -618,17 +650,17 @@
     ]
   },
   {
-    "__docId__": 51,
+    "__docId__": 52,
     "kind": "function",
     "name": "hasMany",
-    "memberof": "addon/ember-data.js",
+    "memberof": "addon/data/index.js",
     "static": true,
-    "longname": "addon/ember-data.js~hasMany",
+    "longname": "addon/data/index.js~hasMany",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/ember-data",
+    "importPath": "ember-decorators/data",
     "importStyle": "{hasMany}",
-    "description": "Decorator that turns the property into an Ember Data `hasMany` relationship\n\n```javascript\nimport DS from 'ember-data';\nimport { hasMany } from \"ember-computed-decorators/ember-data\";\n\nexport default DS.Model.extend({\n  @hasMany users\n});\n```",
+    "description": "Decorator that turns the property into an Ember Data `hasMany` relationship\n\n```javascript\nimport DS from 'ember-data';\nimport { hasMany } from 'ember-decorators/data';\n\nexport default DS.Model.extend({\n  @hasMany users\n});\n```",
     "lineNumber": 36,
     "unknown": [
       {
@@ -650,17 +682,17 @@
     ]
   },
   {
-    "__docId__": 52,
+    "__docId__": 53,
     "kind": "function",
     "name": "belongsTo",
-    "memberof": "addon/ember-data.js",
+    "memberof": "addon/data/index.js",
     "static": true,
-    "longname": "addon/ember-data.js~belongsTo",
+    "longname": "addon/data/index.js~belongsTo",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/ember-data",
+    "importPath": "ember-decorators/data",
     "importStyle": "{belongsTo}",
-    "description": "Decorator that turns the property into an Ember Data `belongsTo` relationship\n\n```javascript\nimport DS from 'ember-data';\nimport { belongsTo } from \"ember-computed-decorators/ember-data\";\n\nexport default DS.Model.extend({\n  @belongsTo user\n});\n```",
+    "description": "Decorator that turns the property into an Ember Data `belongsTo` relationship\n\n```javascript\nimport DS from 'ember-data';\nimport { belongsTo } from 'ember-decorators/data';\n\nexport default DS.Model.extend({\n  @belongsTo user\n});\n```",
     "lineNumber": 52,
     "unknown": [
       {
@@ -682,113 +714,29 @@
     ]
   },
   {
-    "__docId__": 53,
+    "__docId__": 54,
     "kind": "file",
-    "name": "addon/index.js",
-    "content": "import Ember from 'ember';\nimport computedMacro from 'ember-macro-helpers/computed';\n\nimport extractValue from './utils/extract-value';\nimport {\n  decorator,\n  decoratorWithParams\n} from './utils/decorator-wrappers';\n\nimport {\n  decoratorWithRequiredParams,\n  decoratedPropertyWithRequiredParams\n} from './utils/decorator-macros';\n\n/**\n * Decorator that turns a function into a computed property.\n *\n * In your application where you would normally have:\n *\n * ```javascript\n * foo: Ember.computed('someKey', 'otherKey', function() {\n *   var someKey = this.get('someKey');\n *   var otherKey = this.get('otherKey');\n *\n *   // Do Stuff\n * })\n * ```\n *\n * You replace with this:\n *\n * ```javascript\n * import computed from 'ember-computed-decorators';\n *\n * // ..... <snip> .....\n * @computed('someKey', 'otherKey')\n * foo(someKey, otherKey) {\n *   // Do Stuff\n * }\n * ```\n *\n * #### Without Dependent Keys\n *\n * ```javascript\n * foo: Ember.computed(function() {\n *   // Do Stuff\n * })\n * ```\n *\n * You replace with this:\n *\n * ```javascript\n * import computed from 'ember-computed-decorators';\n *\n * // ..... <snip> .....\n * @computed\n * foo() {\n *   // Do Stuff\n * }\n * ```\n *\n * #### \"Real World\"\n *\n * ```javascript\n * import Ember from 'ember';\n * import computed from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   @computed('first', 'last')\n *   name(first, last) {\n *     return `${first} ${last}`;\n *   }\n * });\n * ```\n *\n *\n * #### \"Real World get/set syntax\"\n *\n * ```javascript\n * import Ember from 'ember';\n * import computed from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   @computed('first', 'last')\n *   name: {\n *     get(first, last) {\n *       return `${first} ${last}`;\n *     },\n *\n *     set(value, first, last) {\n *       // ...\n *     }\n *   }\n * });\n * ```\n *\n * @function\n * @param {...String} propertyNames - List of property keys this computed is dependent on\n */\nconst computed = decoratorWithParams(function(target, key, desc, params) {\n  if (!desc.writable) {\n    throw new Error('ember-computed-decorators does not support using getters and setters');\n  }\n\n  let value = extractValue(desc);\n  return computedMacro(...params, value);\n});\n\nexport default computed;\n\n/**\n * Decorator that modifies a computed property to be read only.\n *\n * Usage:\n *\n * ```javascript\n * import Ember from 'ember';\n * import computed, { readOnly } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   @readOnly\n *   @computed('first', 'last')\n *   name(first, last) {\n *     return `${first} ${last}`;\n *   }\n * });\n * ```\n *\n * @function\n */\nexport const readOnly = decorator(function(target, name, desc) {\n  var value = extractValue(desc);\n  return value.readOnly();\n});\n\n/**\n * Decorator that wraps [Ember.on](https://emberjs.com/api/#method_on)\n *\n * Triggers the target function on events\n *\n * ```javascript\n * import Ember from 'ember';\n * import { on } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   @on('init')\n *   setupStuff() {\n *     //...\n *   }\n * });\n * ```\n *\n * @function\n * @param {...String} eventNames - Names of the events that trigger the function\n */\nexport const on = decoratorWithRequiredParams(Ember.on, 'Cannot `on` without event names');\n\n/**\n * Decorator that wraps [Ember.observer](https://emberjs.com/api/#method_observer)\n *\n * Triggers the target function when the dependent properties have changed\n *\n * ```javascript\n * import Ember from 'ember';\n * import { observes } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   @observes('foo')\n *   bar() {\n *     //...\n *   }\n * });\n * ```\n *\n * @function\n * @param {...String} eventNames - Names of the events that trigger the function\n */\nexport const observes = decoratorWithRequiredParams(Ember.observer, 'Cannot `observe` without property names');\n\n/**\n * Decorator that wraps [Ember.computed.alias](http://emberjs.com/api/classes/Ember.computed.html#method_alias)\n *\n * Creates a new property that is an alias for another property on an object.\n * Calls to get or set this property behave as though they were called on\n * the original property.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { alias } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   person: {\n *     first: 'Joe'\n *   },\n *\n *   @alias('person.first') firstName\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the aliased property\n */\nexport const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias, 'Cannot use `alias` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.and](http://emberjs.com/api/classes/Ember.computed.html#method_and)\n *\n * A computed property that performs a logical and on the original values\n * for the provided dependent properties.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { and } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   person: {\n *     first: 'Joe'\n *   },\n *\n *   @and('first', 'last') hasFullName // false\n * });\n * ```\n *\n * @function\n * @param {...String} dependentKeys - Keys for properties to `and`\n */\nexport const and = decoratedPropertyWithRequiredParams(Ember.computed.and, 'Cannot use `and` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.bool](http://emberjs.com/api/classes/Ember.computed.html#method_bool)\n *\n * A computed property that converts the provided dependent property into a\n * boolean value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { bool } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   messageCount: 1,\n *\n *   @bool('messageCount') hasMessages // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to convert\n */\nexport const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool, 'Cannot use `bool` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.collect](http://emberjs.com/api/classes/Ember.computed.html#method_collect)\n *\n * A computed property that returns the array of values for the provided\n * dependent properties.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { collect } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   light: 'strobe',\n *   lens: '35mm prime',\n *\n *   @collect('light', 'lens') equipment // ['strobe', '35mm prime']\n * });\n * ```\n *\n * @function\n * @param {...String} dependentKeys - Keys for the properties to collect\n */\nexport const collect = decoratedPropertyWithRequiredParams(Ember.computed.collect, 'Cannot use `collect` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.empty](http://emberjs.com/api/classes/Ember.computed.html#method_empty)\n *\n * A computed property that returns `true` if the value of the dependent\n * property is null, an empty string, empty array, or empty function.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { empty } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   items: Ember.A(['taco', 'burrito']),\n *\n *   @empty('items') isEmpty // false\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key of the property to check emptiness of\n */\nexport const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty, 'Cannot use `empty` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.equal](http://emberjs.com/api/classes/Ember.computed.html#method_equal)\n *\n * A computed property that returns true if the dependent properties are equal.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { equal } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   state: 'sleepy',\n *\n *   @equal('state', 'sleepy') napTime // true\n * });\n *\n * @function\n * @param {String} dependentKey - Key for the property to check\n * @param {Any} value - Value to compare the dependent property to\n */\nexport const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal, 'Cannot use `equal` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.filter](http://emberjs.com/api/classes/Ember.computed.html#method_filter)\n *\n * Filters the items in the array by the provided callback.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { filter } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   chores: Ember.A([\n *     { name: 'cook', done: true },\n *     { name: 'clean', done: true },\n *     { name: 'write more unit tests', done: false }\n *   ]),\n *\n *   @filter('chores', function(chore, index, array) {\n *     return !chore.done;\n *   }) remainingChores // [{name: 'write more unit tests', done: false}]\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to filter\n * @param {Function(item: Any, index: Number, array: Array<Any>): Boolean} callback - The function to filter with\n */\nexport const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter, 'Cannot use `filter` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.filterBy](http://emberjs.com/api/classes/Ember.computed.html#method_filterBy)\n *\n * Filters the array by the property and value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { filterBy } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   chores: Ember.A([\n *     { name: 'cook', done: true },\n *     { name: 'clean', done: true },\n *     { name: 'write more unit tests', done: false }\n *   ]),\n *\n *   @filterBy('chores', 'done', false) remainingChores // [{name: 'write more unit tests', done: false}]\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to filter\n * @param {String} propertyKey - Property of the array items to filter by\n * @param {Any} value - Value to filter by\n */\nexport const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filterBy, 'Cannot use `filterBy` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.gt](http://emberjs.com/api/classes/Ember.computed.html#method_gt)\n *\n * A computed property that returns `true` if the provided dependent property\n * is greater than the provided value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { gt } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   totalCats: 11,\n *\n *   @gt('totalCats', 10) isCatParty // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to compare\n * @param {Number} value - Value to compare against\n */\nexport const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt, 'Cannot use `gt` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.gte](http://emberjs.com/api/classes/Ember.computed.html#method_gte)\n *\n * A computed property that returns `true` if the provided dependent property\n * is greater than or equal to the provided value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { gte } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   totalPlayers: 14,\n *\n *   @gte('totalPlayers', 14) hasEnoughPlayers // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to compare\n * @param {Number} value - Value to compare against\n */\nexport const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte, 'Cannot use `gte` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.intersect](http://emberjs.com/api/classes/Ember.computed.html#method_intersect)\n *\n * A computed property which returns a new array with all the duplicated\n * elements from two or more dependent arrays.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { intersect } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n *   foods: Ember.A(['tacos', 'pizza']),\n *\n *   @intersect('likes', 'foods') favoriteFoods // ['tacos', 'pizza']\n * });\n * ```\n *\n * @function\n * @param {...String} dependentKeys - Keys of the arrays to intersect\n */\nexport const intersect = decoratedPropertyWithRequiredParams(Ember.computed.intersect, 'Cannot use `intersect` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.lt](http://emberjs.com/api/classes/Ember.computed.html#method_lt)\n *\n * A computed property that returns `true` if the provided dependent property\n * is less than the provided value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { lt } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   totalDogs: 3,\n *\n *   @lt('totalDogs', 10) isDogParty // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to compare\n * @param {Number} value - Value to compare against\n */\nexport const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt, 'Cannot use `lt` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.lte](http://emberjs.com/api/classes/Ember.computed.html#method_lte)\n *\n * A computed property that returns `true` if the provided dependent property\n * is less than or equal to the provided value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { lte } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   totalPlayers: 14,\n *\n *   @lte('totalPlayers', 14) hasEnoughPlayers // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to compare\n * @param {Number} value - Value to compare against\n */\nexport const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte, 'Cannot use `lte` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)\n *\n * Returns an array mapped via the callback\n *\n * ```javascript\n * import Ember from 'ember';\n * import { map } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   chores: Ember.A(['clean', 'write more unit tests']),\n *\n *   @map('chores', function(chore, index) {\n *     return chore.toUpperCase() + '!';\n *   }) loudChores // ['CLEAN!', 'WRITE MORE UNIT TESTS!']\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to map over\n * @param {Function(item: Any, index: Number): Any} callback - Function to map over the array\n */\nexport const map = decoratedPropertyWithRequiredParams(Ember.computed.map, 'Cannot use `map` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.mapBy](http://emberjs.com/api/classes/Ember.computed.html#method_mapBy)\n *\n * Returns an array mapped to the specified key.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { mapBy } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   people: Ember.A([\n *     {name: \"George\", age: 5},\n *     {name: \"Stella\", age: 10},\n *     {name: \"Violet\", age: 7}\n *   ]),\n *\n *   @mapBy('people', 'age') ages // [5, 10, 7]\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to map over\n * @param {String} propertyKey - Property of the array items to map by\n */\nexport const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy, 'Cannot use `mapBy` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.match](http://emberjs.com/api/classes/Ember.computed.html#method_match)\n *\n * A computed property which matches the original value for the dependent\n * property against a given RegExp, returning `true` if they values matches\n * the RegExp and `false` if it does not.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { match } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   email: 'tomster@emberjs.com',\n *\n *   @match('email', /^.+@.+\\..+$/) validEmail\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - The property to match\n * @param {RegExp} pattern - The pattern to match against\n */\nexport const match = decoratedPropertyWithRequiredParams(Ember.computed.match, 'Cannot use `match` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.max](http://emberjs.com/api/classes/Ember.computed.html#method_max)\n *\n * A computed property that calculates the maximum value in the dependent\n * array. This will return `-Infinity` when the dependent array is empty.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { max } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   values: Ember.A([1, 2, 5, 10]),\n *\n *   @max('values') maxValue // 10\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to find the max value of\n */\nexport const max = decoratedPropertyWithRequiredParams(Ember.computed.max, 'Cannot use `max` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.min](http://emberjs.com/api/classes/Ember.computed.html#method_min)\n *\n * A computed property that calculates the minimum value in the dependent\n * array. This will return `Infinity` when the dependent array is empty.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { min } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   values: Ember.A([1, 2, 5, 10]),\n *\n *   @min('values') minValue // 1\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to find the max value of\n */\nexport const min = decoratedPropertyWithRequiredParams(Ember.computed.min, 'Cannot use `min` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.none](http://emberjs.com/api/classes/Ember.computed.html#method_none)\n *\n * A computed property that returns true if the value of the dependent property\n * is null or undefined. This avoids errors from JSLint complaining about use\n * of `==`, which can be technically confusing.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { none } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   firstName: null,\n *\n *   @none('firstName') isNameless // true until firstName is defined\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to check\n */\nexport const none = decoratedPropertyWithRequiredParams(Ember.computed.none, 'Cannot use `none` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.not](http://emberjs.com/api/classes/Ember.computed.html#method_not)\n *\n * A computed property that returns the inverse boolean value of the original\n * value for the dependent property.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { not } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   loggedIn: false,\n *\n *   @not('loggedIn') isAnonymous // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to `not`\n */\nexport const not = decoratedPropertyWithRequiredParams(Ember.computed.not, 'Cannot use `not` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.notEmpty](http://emberjs.com/api/classes/Ember.computed.html#method_notEmpty)\n *\n * A computed property that returns `true` if the value of the dependent\n * property is NOT null, an empty string, empty array, or empty function.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { notEmpty } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   groceryBag: Ember.A(['milk', 'eggs', 'apples']),\n *\n *   @notEmpty('groceryBag') hasGroceriesToPutAway // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to check\n */\nexport const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEmpty, 'Cannot use `notEmpty` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.oneWay](http://emberjs.com/api/classes/Ember.computed.html#method_oneWay)\n *\n * Where `computed.alias` aliases `get` and `set`, and allows for bidirectional\n * data flow, `computed.oneWay` only provides an aliased `get`. The `set` will\n * not mutate the upstream property, rather causes the current property to\n * become the value set. This causes the downstream property to permanently\n * diverge from the upstream property.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { oneWay } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   firstName: 'Joe',\n *\n *   @oneWay('firstName') originalName // will always be 'Joe'\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to alias\n */\nexport const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay, 'Cannot use `oneWay` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.or](http://emberjs.com/api/classes/Ember.computed.html#method_or)\n *\n * A computed property which performs a logical or on the original values for\n * the provided dependent properties.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { or } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   hasJacket: true,\n *   hasUmbrella: false,\n *\n *   @or('hasJacket', 'hasUmbrella') isReadyForRain // true\n * });\n * ```\n *\n * @function\n * @param {...String} dependentKey - Key for the properties to `or`\n */\nexport const or = decoratedPropertyWithRequiredParams(Ember.computed.or, 'Cannot use `or` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.reads](http://emberjs.com/api/classes/Ember.computed.html#method_reads)\n *\n * This is a more semantically meaningful alias of `computed.oneWay`, whose\n * name is somewhat ambiguous as to which direction the data flows.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { reads } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   @reads('first') firstName\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to read\n */\nexport const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads, 'Cannot use `reads` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.setDiff](http://emberjs.com/api/classes/Ember.computed.html#method_setDiff)\n *\n * A computed property which returns a new array with all the properties from\n * the first dependent array that are not in the second dependent array.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { setDiff } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n *   foods: Ember.A(['tacos', 'pizza']),\n *\n *   @setDiff('likes', 'foods') favoriteThingsThatArentFood // ['puppies']\n * });\n * ```\n *\n * @function\n * @param {String} setAProperty - Keys for the first set\n * @param {String} setBProperty - Keys for the first set\n */\nexport const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDiff, 'Cannot use `setDiff` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.sort](http://emberjs.com/api/classes/Ember.computed.html#method_sort)\n *\n * A computed property which returns a new array with all the properties from\n * the first dependent array sorted based on a property or sort function.\n *\n *\n * The callback method you provide should have the following signature:\n *\n * ```javascript\n * function(itemA, itemB);\n * ```\n * - `itemA` the first item to compare.\n * - `itemB` the second item to compare.\n *\n * This function should return negative number (e.g. `-1`) when `itemA` should\n * come before `itemB`. It should return positive number (e.g. `1`) when\n * `itemA` should come after `itemB`. If the `itemA` and `itemB` are equal this\n * function should return `0`.\n *\n * Therefore, if this function is comparing some numeric values, simple\n * `itemA - itemB` or `itemA.get( 'foo' ) - itemB.get( 'foo' )` can be used\n * instead of series of `if`.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { sort } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   this.names = Ember.A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);\n *   @sort('names', function(a, b){\n *     if (a.name > b.name) {\n *       return 1;\n *     } else if (a.name < b.name) {\n *       return -1;\n *     }\n *\n *     return 0;\n *   }) sortedNames // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - The key for the array that should be sorted\n * @param {Array<String>|Function(Any, Any): Number} sortDefinition - Sorting function or sort descriptor\n */\nexport const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort, 'Cannot use `sort` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.sum](http://emberjs.com/api/classes/Ember.computed.html#method_sum)\n *\n * A computed property that returns the sum of the value in the dependent\n * array.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { sum } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   values: Ember.A([1, 2, 3]),\n *\n *   @sum('values') total // 6\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key of the array to sum up\n */\nexport const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum, 'Cannot use `sum` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.union](http://emberjs.com/api/classes/Ember.computed.html#method_union)\n *\n * Alias for [union](http://emberjs.com/api/classes/Ember.computed.html#method_uniq).\n *\n * ```javascript\n * import Ember from 'ember';\n * import { union } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n *   foods: Ember.A(['tacos', 'pizza', 'ramen']),\n *\n *   @union('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']\n * });\n * ```\n *\n * @function\n * @param {...String} dependentKeys - Keys of the arrays to union\n */\nexport const union = decoratedPropertyWithRequiredParams(Ember.computed.union, 'Cannot use `union` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.uniq](http://emberjs.com/api/classes/Ember.computed.html#method_uniq)\n *\n * A computed property which returns a new array with all the unique elements from one or more dependent arrays.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { uniq } from 'ember-computed-decorators';\n *\n * export default Ember.Component.extend({\n *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n *   foods: Ember.A(['tacos', 'pizza', 'ramen']),\n *\n *   @uniq('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key of the array to uniq\n */\nexport const uniq = decoratedPropertyWithRequiredParams(Ember.computed.uniq, 'Cannot use `uniq` without parameters');\n",
+    "name": "addon/object/computed.js",
+    "content": "import Ember from 'ember';\n\nimport {\n  decoratedPropertyWithRequiredParams\n} from '../utils/decorator-macros';\n\n/**\n * Decorator that wraps [Ember.computed.alias](http://emberjs.com/api/classes/Ember.computed.html#method_alias)\n *\n * Creates a new property that is an alias for another property on an object.\n * Calls to get or set this property behave as though they were called on\n * the original property.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { alias } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   person: {\n *     first: 'Joe'\n *   },\n *\n *   @alias('person.first') firstName\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the aliased property\n */\nexport const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias, 'Cannot use `alias` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.and](http://emberjs.com/api/classes/Ember.computed.html#method_and)\n *\n * A computed property that performs a logical and on the original values\n * for the provided dependent properties.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { and } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   person: {\n *     first: 'Joe'\n *   },\n *\n *   @and('first', 'last') hasFullName // false\n * });\n * ```\n *\n * @function\n * @param {...String} dependentKeys - Keys for properties to `and`\n */\nexport const and = decoratedPropertyWithRequiredParams(Ember.computed.and, 'Cannot use `and` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.bool](http://emberjs.com/api/classes/Ember.computed.html#method_bool)\n *\n * A computed property that converts the provided dependent property into a\n * boolean value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { bool } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   messageCount: 1,\n *\n *   @bool('messageCount') hasMessages // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to convert\n */\nexport const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool, 'Cannot use `bool` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.collect](http://emberjs.com/api/classes/Ember.computed.html#method_collect)\n *\n * A computed property that returns the array of values for the provided\n * dependent properties.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { collect } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   light: 'strobe',\n *   lens: '35mm prime',\n *\n *   @collect('light', 'lens') equipment // ['strobe', '35mm prime']\n * });\n * ```\n *\n * @function\n * @param {...String} dependentKeys - Keys for the properties to collect\n */\nexport const collect = decoratedPropertyWithRequiredParams(Ember.computed.collect, 'Cannot use `collect` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.empty](http://emberjs.com/api/classes/Ember.computed.html#method_empty)\n *\n * A computed property that returns `true` if the value of the dependent\n * property is null, an empty string, empty array, or empty function.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { empty } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   items: Ember.A(['taco', 'burrito']),\n *\n *   @empty('items') isEmpty // false\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key of the property to check emptiness of\n */\nexport const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty, 'Cannot use `empty` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.equal](http://emberjs.com/api/classes/Ember.computed.html#method_equal)\n *\n * A computed property that returns true if the dependent properties are equal.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { equal } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   state: 'sleepy',\n *\n *   @equal('state', 'sleepy') napTime // true\n * });\n *\n * @function\n * @param {String} dependentKey - Key for the property to check\n * @param {Any} value - Value to compare the dependent property to\n */\nexport const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal, 'Cannot use `equal` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.filter](http://emberjs.com/api/classes/Ember.computed.html#method_filter)\n *\n * Filters the items in the array by the provided callback.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { filter } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   chores: Ember.A([\n *     { name: 'cook', done: true },\n *     { name: 'clean', done: true },\n *     { name: 'write more unit tests', done: false }\n *   ]),\n *\n *   @filter('chores', function(chore, index, array) {\n *     return !chore.done;\n *   }) remainingChores // [{name: 'write more unit tests', done: false}]\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to filter\n * @param {Function(item: Any, index: Number, array: Array<Any>): Boolean} callback - The function to filter with\n */\nexport const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter, 'Cannot use `filter` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.filterBy](http://emberjs.com/api/classes/Ember.computed.html#method_filterBy)\n *\n * Filters the array by the property and value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { filterBy } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   chores: Ember.A([\n *     { name: 'cook', done: true },\n *     { name: 'clean', done: true },\n *     { name: 'write more unit tests', done: false }\n *   ]),\n *\n *   @filterBy('chores', 'done', false) remainingChores // [{name: 'write more unit tests', done: false}]\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to filter\n * @param {String} propertyKey - Property of the array items to filter by\n * @param {Any} value - Value to filter by\n */\nexport const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filterBy, 'Cannot use `filterBy` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.gt](http://emberjs.com/api/classes/Ember.computed.html#method_gt)\n *\n * A computed property that returns `true` if the provided dependent property\n * is greater than the provided value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { gt } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   totalCats: 11,\n *\n *   @gt('totalCats', 10) isCatParty // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to compare\n * @param {Number} value - Value to compare against\n */\nexport const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt, 'Cannot use `gt` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.gte](http://emberjs.com/api/classes/Ember.computed.html#method_gte)\n *\n * A computed property that returns `true` if the provided dependent property\n * is greater than or equal to the provided value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { gte } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   totalPlayers: 14,\n *\n *   @gte('totalPlayers', 14) hasEnoughPlayers // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to compare\n * @param {Number} value - Value to compare against\n */\nexport const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte, 'Cannot use `gte` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.intersect](http://emberjs.com/api/classes/Ember.computed.html#method_intersect)\n *\n * A computed property which returns a new array with all the duplicated\n * elements from two or more dependent arrays.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { intersect } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n *   foods: Ember.A(['tacos', 'pizza']),\n *\n *   @intersect('likes', 'foods') favoriteFoods // ['tacos', 'pizza']\n * });\n * ```\n *\n * @function\n * @param {...String} dependentKeys - Keys of the arrays to intersect\n */\nexport const intersect = decoratedPropertyWithRequiredParams(Ember.computed.intersect, 'Cannot use `intersect` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.lt](http://emberjs.com/api/classes/Ember.computed.html#method_lt)\n *\n * A computed property that returns `true` if the provided dependent property\n * is less than the provided value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { lt } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   totalDogs: 3,\n *\n *   @lt('totalDogs', 10) isDogParty // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to compare\n * @param {Number} value - Value to compare against\n */\nexport const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt, 'Cannot use `lt` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.lte](http://emberjs.com/api/classes/Ember.computed.html#method_lte)\n *\n * A computed property that returns `true` if the provided dependent property\n * is less than or equal to the provided value.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { lte } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   totalPlayers: 14,\n *\n *   @lte('totalPlayers', 14) hasEnoughPlayers // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to compare\n * @param {Number} value - Value to compare against\n */\nexport const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte, 'Cannot use `lte` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)\n *\n * Returns an array mapped via the callback\n *\n * ```javascript\n * import Ember from 'ember';\n * import { map } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   chores: Ember.A(['clean', 'write more unit tests']),\n *\n *   @map('chores', function(chore, index) {\n *     return chore.toUpperCase() + '!';\n *   }) loudChores // ['CLEAN!', 'WRITE MORE UNIT TESTS!']\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to map over\n * @param {Function(item: Any, index: Number): Any} callback - Function to map over the array\n */\nexport const map = decoratedPropertyWithRequiredParams(Ember.computed.map, 'Cannot use `map` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.mapBy](http://emberjs.com/api/classes/Ember.computed.html#method_mapBy)\n *\n * Returns an array mapped to the specified key.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { mapBy } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   people: Ember.A([\n *     {name: \"George\", age: 5},\n *     {name: \"Stella\", age: 10},\n *     {name: \"Violet\", age: 7}\n *   ]),\n *\n *   @mapBy('people', 'age') ages // [5, 10, 7]\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to map over\n * @param {String} propertyKey - Property of the array items to map by\n */\nexport const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy, 'Cannot use `mapBy` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.match](http://emberjs.com/api/classes/Ember.computed.html#method_match)\n *\n * A computed property which matches the original value for the dependent\n * property against a given RegExp, returning `true` if they values matches\n * the RegExp and `false` if it does not.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { match } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   email: 'tomster@emberjs.com',\n *\n *   @match('email', /^.+@.+\\..+$/) validEmail\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - The property to match\n * @param {RegExp} pattern - The pattern to match against\n */\nexport const match = decoratedPropertyWithRequiredParams(Ember.computed.match, 'Cannot use `match` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.max](http://emberjs.com/api/classes/Ember.computed.html#method_max)\n *\n * A computed property that calculates the maximum value in the dependent\n * array. This will return `-Infinity` when the dependent array is empty.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { max } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   values: Ember.A([1, 2, 5, 10]),\n *\n *   @max('values') maxValue // 10\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to find the max value of\n */\nexport const max = decoratedPropertyWithRequiredParams(Ember.computed.max, 'Cannot use `max` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.min](http://emberjs.com/api/classes/Ember.computed.html#method_min)\n *\n * A computed property that calculates the minimum value in the dependent\n * array. This will return `Infinity` when the dependent array is empty.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { min } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   values: Ember.A([1, 2, 5, 10]),\n *\n *   @min('values') minValue // 1\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the array to find the max value of\n */\nexport const min = decoratedPropertyWithRequiredParams(Ember.computed.min, 'Cannot use `min` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.none](http://emberjs.com/api/classes/Ember.computed.html#method_none)\n *\n * A computed property that returns true if the value of the dependent property\n * is null or undefined. This avoids errors from JSLint complaining about use\n * of `==`, which can be technically confusing.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { none } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   firstName: null,\n *\n *   @none('firstName') isNameless // true until firstName is defined\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to check\n */\nexport const none = decoratedPropertyWithRequiredParams(Ember.computed.none, 'Cannot use `none` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.not](http://emberjs.com/api/classes/Ember.computed.html#method_not)\n *\n * A computed property that returns the inverse boolean value of the original\n * value for the dependent property.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { not } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   loggedIn: false,\n *\n *   @not('loggedIn') isAnonymous // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to `not`\n */\nexport const not = decoratedPropertyWithRequiredParams(Ember.computed.not, 'Cannot use `not` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.notEmpty](http://emberjs.com/api/classes/Ember.computed.html#method_notEmpty)\n *\n * A computed property that returns `true` if the value of the dependent\n * property is NOT null, an empty string, empty array, or empty function.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { notEmpty } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   groceryBag: Ember.A(['milk', 'eggs', 'apples']),\n *\n *   @notEmpty('groceryBag') hasGroceriesToPutAway // true\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to check\n */\nexport const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEmpty, 'Cannot use `notEmpty` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.oneWay](http://emberjs.com/api/classes/Ember.computed.html#method_oneWay)\n *\n * Where `computed.alias` aliases `get` and `set`, and allows for bidirectional\n * data flow, `computed.oneWay` only provides an aliased `get`. The `set` will\n * not mutate the upstream property, rather causes the current property to\n * become the value set. This causes the downstream property to permanently\n * diverge from the upstream property.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { oneWay } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   firstName: 'Joe',\n *\n *   @oneWay('firstName') originalName // will always be 'Joe'\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to alias\n */\nexport const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay, 'Cannot use `oneWay` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.or](http://emberjs.com/api/classes/Ember.computed.html#method_or)\n *\n * A computed property which performs a logical or on the original values for\n * the provided dependent properties.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { or } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   hasJacket: true,\n *   hasUmbrella: false,\n *\n *   @or('hasJacket', 'hasUmbrella') isReadyForRain // true\n * });\n * ```\n *\n * @function\n * @param {...String} dependentKey - Key for the properties to `or`\n */\nexport const or = decoratedPropertyWithRequiredParams(Ember.computed.or, 'Cannot use `or` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.reads](http://emberjs.com/api/classes/Ember.computed.html#method_reads)\n *\n * This is a more semantically meaningful alias of `computed.oneWay`, whose\n * name is somewhat ambiguous as to which direction the data flows.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { reads } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   @reads('first') firstName\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key for the property to read\n */\nexport const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads, 'Cannot use `reads` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.setDiff](http://emberjs.com/api/classes/Ember.computed.html#method_setDiff)\n *\n * A computed property which returns a new array with all the properties from\n * the first dependent array that are not in the second dependent array.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { setDiff } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n *   foods: Ember.A(['tacos', 'pizza']),\n *\n *   @setDiff('likes', 'foods') favoriteThingsThatArentFood // ['puppies']\n * });\n * ```\n *\n * @function\n * @param {String} setAProperty - Keys for the first set\n * @param {String} setBProperty - Keys for the first set\n */\nexport const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDiff, 'Cannot use `setDiff` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.sort](http://emberjs.com/api/classes/Ember.computed.html#method_sort)\n *\n * A computed property which returns a new array with all the properties from\n * the first dependent array sorted based on a property or sort function.\n *\n *\n * The callback method you provide should have the following signature:\n *\n * ```javascript\n * function(itemA, itemB);\n * ```\n * - `itemA` the first item to compare.\n * - `itemB` the second item to compare.\n *\n * This function should return negative number (e.g. `-1`) when `itemA` should\n * come before `itemB`. It should return positive number (e.g. `1`) when\n * `itemA` should come after `itemB`. If the `itemA` and `itemB` are equal this\n * function should return `0`.\n *\n * Therefore, if this function is comparing some numeric values, simple\n * `itemA - itemB` or `itemA.get( 'foo' ) - itemB.get( 'foo' )` can be used\n * instead of series of `if`.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { sort } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   this.names = Ember.A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);\n *   @sort('names', function(a, b){\n *     if (a.name > b.name) {\n *       return 1;\n *     } else if (a.name < b.name) {\n *       return -1;\n *     }\n *\n *     return 0;\n *   }) sortedNames // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - The key for the array that should be sorted\n * @param {Array<String>|Function(Any, Any): Number} sortDefinition - Sorting function or sort descriptor\n */\nexport const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort, 'Cannot use `sort` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.sum](http://emberjs.com/api/classes/Ember.computed.html#method_sum)\n *\n * A computed property that returns the sum of the value in the dependent\n * array.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { sum } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   values: Ember.A([1, 2, 3]),\n *\n *   @sum('values') total // 6\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key of the array to sum up\n */\nexport const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum, 'Cannot use `sum` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.union](http://emberjs.com/api/classes/Ember.computed.html#method_union)\n *\n * Alias for [union](http://emberjs.com/api/classes/Ember.computed.html#method_uniq).\n *\n * ```javascript\n * import Ember from 'ember';\n * import { union } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n *   foods: Ember.A(['tacos', 'pizza', 'ramen']),\n *\n *   @union('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']\n * });\n * ```\n *\n * @function\n * @param {...String} dependentKeys - Keys of the arrays to union\n */\nexport const union = decoratedPropertyWithRequiredParams(Ember.computed.union, 'Cannot use `union` without parameters');\n\n/**\n * Decorator that wraps [Ember.computed.uniq](http://emberjs.com/api/classes/Ember.computed.html#method_uniq)\n *\n * A computed property which returns a new array with all the unique elements from one or more dependent arrays.\n *\n * ```javascript\n * import Ember from 'ember';\n * import { uniq } from 'ember-decorators/computed';\n *\n * export default Ember.Component.extend({\n *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n *   foods: Ember.A(['tacos', 'pizza', 'ramen']),\n *\n *   @uniq('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']\n * });\n * ```\n *\n * @function\n * @param {String} dependentKey - Key of the array to uniq\n */\nexport const uniq = decoratedPropertyWithRequiredParams(Ember.computed.uniq, 'Cannot use `uniq` without parameters');\n",
     "static": true,
-    "longname": "/Users/rjackson/src/open-source/ember-computed-decorators/tmp/funnel-output_path-is9vPrz1.tmp/addon/index.js",
+    "longname": "/Users/rjackson/src/open-source/ember-decorators/tmp/funnel-output_path-pmseVjJk.tmp/addon/object/computed.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 54,
-    "kind": "function",
-    "name": "readOnly",
-    "memberof": "addon/index.js",
-    "static": true,
-    "longname": "addon/index.js~readOnly",
-    "access": "public",
-    "export": true,
-    "importPath": "ember-computed-decorators/index",
-    "importStyle": "{readOnly}",
-    "description": "Decorator that modifies a computed property to be read only.\n\nUsage:\n\n```javascript\nimport Ember from 'ember';\nimport computed, { readOnly } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  @readOnly\n  @computed('first', 'last')\n  name(first, last) {\n    return `${first} ${last}`;\n  }\n});\n```",
-    "lineNumber": 130,
-    "unknown": [
-      {
-        "tagName": "@function",
-        "tagValue": ""
-      }
-    ]
-  },
-  {
     "__docId__": 55,
     "kind": "function",
-    "name": "on",
-    "memberof": "addon/index.js",
-    "static": true,
-    "longname": "addon/index.js~on",
-    "access": "public",
-    "export": true,
-    "importPath": "ember-computed-decorators/index",
-    "importStyle": "{on}",
-    "description": "Decorator that wraps [Ember.on](https://emberjs.com/api/#method_on)\n\nTriggers the target function on events\n\n```javascript\nimport Ember from 'ember';\nimport { on } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  @on('init')\n  setupStuff() {\n    //...\n  }\n});\n```",
-    "lineNumber": 155,
-    "unknown": [
-      {
-        "tagName": "@function",
-        "tagValue": ""
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "...String"
-        ],
-        "spread": true,
-        "optional": false,
-        "name": "eventNames",
-        "description": "Names of the events that trigger the function"
-      }
-    ]
-  },
-  {
-    "__docId__": 56,
-    "kind": "function",
-    "name": "observes",
-    "memberof": "addon/index.js",
-    "static": true,
-    "longname": "addon/index.js~observes",
-    "access": "public",
-    "export": true,
-    "importPath": "ember-computed-decorators/index",
-    "importStyle": "{observes}",
-    "description": "Decorator that wraps [Ember.observer](https://emberjs.com/api/#method_observer)\n\nTriggers the target function when the dependent properties have changed\n\n```javascript\nimport Ember from 'ember';\nimport { observes } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  @observes('foo')\n  bar() {\n    //...\n  }\n});\n```",
-    "lineNumber": 177,
-    "unknown": [
-      {
-        "tagName": "@function",
-        "tagValue": ""
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "...String"
-        ],
-        "spread": true,
-        "optional": false,
-        "name": "eventNames",
-        "description": "Names of the events that trigger the function"
-      }
-    ]
-  },
-  {
-    "__docId__": 57,
-    "kind": "function",
     "name": "alias",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~alias",
+    "longname": "addon/object/computed.js~alias",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{alias}",
-    "description": "Decorator that wraps [Ember.computed.alias](http://emberjs.com/api/classes/Ember.computed.html#method_alias)\n\nCreates a new property that is an alias for another property on an object.\nCalls to get or set this property behave as though they were called on\nthe original property.\n\n```javascript\nimport Ember from 'ember';\nimport { alias } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  person: {\n    first: 'Joe'\n  },\n\n  @alias('person.first') firstName\n});\n```",
-    "lineNumber": 202,
+    "description": "Decorator that wraps [Ember.computed.alias](http://emberjs.com/api/classes/Ember.computed.html#method_alias)\n\nCreates a new property that is an alias for another property on an object.\nCalls to get or set this property behave as though they were called on\nthe original property.\n\n```javascript\nimport Ember from 'ember';\nimport { alias } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  person: {\n    first: 'Joe'\n  },\n\n  @alias('person.first') firstName\n});\n```",
+    "lineNumber": 30,
     "unknown": [
       {
         "tagName": "@function",
@@ -809,18 +757,18 @@
     ]
   },
   {
-    "__docId__": 58,
+    "__docId__": 56,
     "kind": "function",
     "name": "and",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~and",
+    "longname": "addon/object/computed.js~and",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{and}",
-    "description": "Decorator that wraps [Ember.computed.and](http://emberjs.com/api/classes/Ember.computed.html#method_and)\n\nA computed property that performs a logical and on the original values\nfor the provided dependent properties.\n\n```javascript\nimport Ember from 'ember';\nimport { and } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  person: {\n    first: 'Joe'\n  },\n\n  @and('first', 'last') hasFullName // false\n});\n```",
-    "lineNumber": 226,
+    "description": "Decorator that wraps [Ember.computed.and](http://emberjs.com/api/classes/Ember.computed.html#method_and)\n\nA computed property that performs a logical and on the original values\nfor the provided dependent properties.\n\n```javascript\nimport Ember from 'ember';\nimport { and } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  person: {\n    first: 'Joe'\n  },\n\n  @and('first', 'last') hasFullName // false\n});\n```",
+    "lineNumber": 54,
     "unknown": [
       {
         "tagName": "@function",
@@ -841,18 +789,18 @@
     ]
   },
   {
-    "__docId__": 59,
+    "__docId__": 57,
     "kind": "function",
     "name": "bool",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~bool",
+    "longname": "addon/object/computed.js~bool",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{bool}",
-    "description": "Decorator that wraps [Ember.computed.bool](http://emberjs.com/api/classes/Ember.computed.html#method_bool)\n\nA computed property that converts the provided dependent property into a\nboolean value.\n\n```javascript\nimport Ember from 'ember';\nimport { bool } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  messageCount: 1,\n\n  @bool('messageCount') hasMessages // true\n});\n```",
-    "lineNumber": 248,
+    "description": "Decorator that wraps [Ember.computed.bool](http://emberjs.com/api/classes/Ember.computed.html#method_bool)\n\nA computed property that converts the provided dependent property into a\nboolean value.\n\n```javascript\nimport Ember from 'ember';\nimport { bool } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  messageCount: 1,\n\n  @bool('messageCount') hasMessages // true\n});\n```",
+    "lineNumber": 76,
     "unknown": [
       {
         "tagName": "@function",
@@ -873,18 +821,18 @@
     ]
   },
   {
-    "__docId__": 60,
+    "__docId__": 58,
     "kind": "function",
     "name": "collect",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~collect",
+    "longname": "addon/object/computed.js~collect",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{collect}",
-    "description": "Decorator that wraps [Ember.computed.collect](http://emberjs.com/api/classes/Ember.computed.html#method_collect)\n\nA computed property that returns the array of values for the provided\ndependent properties.\n\n```javascript\nimport Ember from 'ember';\nimport { collect } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  light: 'strobe',\n  lens: '35mm prime',\n\n  @collect('light', 'lens') equipment // ['strobe', '35mm prime']\n});\n```",
-    "lineNumber": 271,
+    "description": "Decorator that wraps [Ember.computed.collect](http://emberjs.com/api/classes/Ember.computed.html#method_collect)\n\nA computed property that returns the array of values for the provided\ndependent properties.\n\n```javascript\nimport Ember from 'ember';\nimport { collect } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  light: 'strobe',\n  lens: '35mm prime',\n\n  @collect('light', 'lens') equipment // ['strobe', '35mm prime']\n});\n```",
+    "lineNumber": 99,
     "unknown": [
       {
         "tagName": "@function",
@@ -905,18 +853,18 @@
     ]
   },
   {
-    "__docId__": 61,
+    "__docId__": 59,
     "kind": "function",
     "name": "empty",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~empty",
+    "longname": "addon/object/computed.js~empty",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{empty}",
-    "description": "Decorator that wraps [Ember.computed.empty](http://emberjs.com/api/classes/Ember.computed.html#method_empty)\n\nA computed property that returns `true` if the value of the dependent\nproperty is null, an empty string, empty array, or empty function.\n\n```javascript\nimport Ember from 'ember';\nimport { empty } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  items: Ember.A(['taco', 'burrito']),\n\n  @empty('items') isEmpty // false\n});\n```",
-    "lineNumber": 293,
+    "description": "Decorator that wraps [Ember.computed.empty](http://emberjs.com/api/classes/Ember.computed.html#method_empty)\n\nA computed property that returns `true` if the value of the dependent\nproperty is null, an empty string, empty array, or empty function.\n\n```javascript\nimport Ember from 'ember';\nimport { empty } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  items: Ember.A(['taco', 'burrito']),\n\n  @empty('items') isEmpty // false\n});\n```",
+    "lineNumber": 121,
     "unknown": [
       {
         "tagName": "@function",
@@ -937,18 +885,18 @@
     ]
   },
   {
-    "__docId__": 62,
+    "__docId__": 60,
     "kind": "function",
     "name": "equal",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~equal",
+    "longname": "addon/object/computed.js~equal",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{equal}",
-    "description": "Decorator that wraps [Ember.computed.equal](http://emberjs.com/api/classes/Ember.computed.html#method_equal)\n\nA computed property that returns true if the dependent properties are equal.\n\n```javascript\nimport Ember from 'ember';\nimport { equal } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  state: 'sleepy',\n\n  @equal('state', 'sleepy') napTime // true\n});",
-    "lineNumber": 314,
+    "description": "Decorator that wraps [Ember.computed.equal](http://emberjs.com/api/classes/Ember.computed.html#method_equal)\n\nA computed property that returns true if the dependent properties are equal.\n\n```javascript\nimport Ember from 'ember';\nimport { equal } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  state: 'sleepy',\n\n  @equal('state', 'sleepy') napTime // true\n});",
+    "lineNumber": 142,
     "unknown": [
       {
         "tagName": "@function",
@@ -979,18 +927,18 @@
     ]
   },
   {
-    "__docId__": 63,
+    "__docId__": 61,
     "kind": "function",
     "name": "filter",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~filter",
+    "longname": "addon/object/computed.js~filter",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{filter}",
-    "description": "Decorator that wraps [Ember.computed.filter](http://emberjs.com/api/classes/Ember.computed.html#method_filter)\n\nFilters the items in the array by the provided callback.\n\n```javascript\nimport Ember from 'ember';\nimport { filter } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  chores: Ember.A([\n    { name: 'cook', done: true },\n    { name: 'clean', done: true },\n    { name: 'write more unit tests', done: false }\n  ]),\n\n  @filter('chores', function(chore, index, array) {\n    return !chore.done;\n  }) remainingChores // [{name: 'write more unit tests', done: false}]\n});\n```",
-    "lineNumber": 342,
+    "description": "Decorator that wraps [Ember.computed.filter](http://emberjs.com/api/classes/Ember.computed.html#method_filter)\n\nFilters the items in the array by the provided callback.\n\n```javascript\nimport Ember from 'ember';\nimport { filter } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  chores: Ember.A([\n    { name: 'cook', done: true },\n    { name: 'clean', done: true },\n    { name: 'write more unit tests', done: false }\n  ]),\n\n  @filter('chores', function(chore, index, array) {\n    return !chore.done;\n  }) remainingChores // [{name: 'write more unit tests', done: false}]\n});\n```",
+    "lineNumber": 170,
     "unknown": [
       {
         "tagName": "@function",
@@ -1021,18 +969,18 @@
     ]
   },
   {
-    "__docId__": 64,
+    "__docId__": 62,
     "kind": "function",
     "name": "filterBy",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~filterBy",
+    "longname": "addon/object/computed.js~filterBy",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{filterBy}",
-    "description": "Decorator that wraps [Ember.computed.filterBy](http://emberjs.com/api/classes/Ember.computed.html#method_filterBy)\n\nFilters the array by the property and value.\n\n```javascript\nimport Ember from 'ember';\nimport { filterBy } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  chores: Ember.A([\n    { name: 'cook', done: true },\n    { name: 'clean', done: true },\n    { name: 'write more unit tests', done: false }\n  ]),\n\n  @filterBy('chores', 'done', false) remainingChores // [{name: 'write more unit tests', done: false}]\n});\n```",
-    "lineNumber": 369,
+    "description": "Decorator that wraps [Ember.computed.filterBy](http://emberjs.com/api/classes/Ember.computed.html#method_filterBy)\n\nFilters the array by the property and value.\n\n```javascript\nimport Ember from 'ember';\nimport { filterBy } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  chores: Ember.A([\n    { name: 'cook', done: true },\n    { name: 'clean', done: true },\n    { name: 'write more unit tests', done: false }\n  ]),\n\n  @filterBy('chores', 'done', false) remainingChores // [{name: 'write more unit tests', done: false}]\n});\n```",
+    "lineNumber": 197,
     "unknown": [
       {
         "tagName": "@function",
@@ -1073,18 +1021,18 @@
     ]
   },
   {
-    "__docId__": 65,
+    "__docId__": 63,
     "kind": "function",
     "name": "gt",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~gt",
+    "longname": "addon/object/computed.js~gt",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{gt}",
-    "description": "Decorator that wraps [Ember.computed.gt](http://emberjs.com/api/classes/Ember.computed.html#method_gt)\n\nA computed property that returns `true` if the provided dependent property\nis greater than the provided value.\n\n```javascript\nimport Ember from 'ember';\nimport { gt } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  totalCats: 11,\n\n  @gt('totalCats', 10) isCatParty // true\n});\n```",
-    "lineNumber": 392,
+    "description": "Decorator that wraps [Ember.computed.gt](http://emberjs.com/api/classes/Ember.computed.html#method_gt)\n\nA computed property that returns `true` if the provided dependent property\nis greater than the provided value.\n\n```javascript\nimport Ember from 'ember';\nimport { gt } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  totalCats: 11,\n\n  @gt('totalCats', 10) isCatParty // true\n});\n```",
+    "lineNumber": 220,
     "unknown": [
       {
         "tagName": "@function",
@@ -1115,18 +1063,92 @@
     ]
   },
   {
-    "__docId__": 66,
+    "__docId__": 64,
     "kind": "function",
     "name": "gte",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~gte",
+    "longname": "addon/object/computed.js~gte",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{gte}",
-    "description": "Decorator that wraps [Ember.computed.gte](http://emberjs.com/api/classes/Ember.computed.html#method_gte)\n\nA computed property that returns `true` if the provided dependent property\nis greater than or equal to the provided value.\n\n```javascript\nimport Ember from 'ember';\nimport { gte } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  totalPlayers: 14,\n\n  @gte('totalPlayers', 14) hasEnoughPlayers // true\n});\n```",
-    "lineNumber": 415,
+    "description": "Decorator that wraps [Ember.computed.gte](http://emberjs.com/api/classes/Ember.computed.html#method_gte)\n\nA computed property that returns `true` if the provided dependent property\nis greater than or equal to the provided value.\n\n```javascript\nimport Ember from 'ember';\nimport { gte } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  totalPlayers: 14,\n\n  @gte('totalPlayers', 14) hasEnoughPlayers // true\n});\n```",
+    "lineNumber": 243,
+    "unknown": [
+      {
+        "tagName": "@function",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dependentKey",
+        "description": "Key for the property to compare"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "Value to compare against"
+      }
+    ]
+  },
+  {
+    "__docId__": 65,
+    "kind": "function",
+    "name": "intersect",
+    "memberof": "addon/object/computed.js",
+    "static": true,
+    "longname": "addon/object/computed.js~intersect",
+    "access": "public",
+    "export": true,
+    "importPath": "ember-decorators/object/computed",
+    "importStyle": "{intersect}",
+    "description": "Decorator that wraps [Ember.computed.intersect](http://emberjs.com/api/classes/Ember.computed.html#method_intersect)\n\nA computed property which returns a new array with all the duplicated\nelements from two or more dependent arrays.\n\n```javascript\nimport Ember from 'ember';\nimport { intersect } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n  foods: Ember.A(['tacos', 'pizza']),\n\n  @intersect('likes', 'foods') favoriteFoods // ['tacos', 'pizza']\n});\n```",
+    "lineNumber": 266,
+    "unknown": [
+      {
+        "tagName": "@function",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "...String"
+        ],
+        "spread": true,
+        "optional": false,
+        "name": "dependentKeys",
+        "description": "Keys of the arrays to intersect"
+      }
+    ]
+  },
+  {
+    "__docId__": 66,
+    "kind": "function",
+    "name": "lt",
+    "memberof": "addon/object/computed.js",
+    "static": true,
+    "longname": "addon/object/computed.js~lt",
+    "access": "public",
+    "export": true,
+    "importPath": "ember-decorators/object/computed",
+    "importStyle": "{lt}",
+    "description": "Decorator that wraps [Ember.computed.lt](http://emberjs.com/api/classes/Ember.computed.html#method_lt)\n\nA computed property that returns `true` if the provided dependent property\nis less than the provided value.\n\n```javascript\nimport Ember from 'ember';\nimport { lt } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  totalDogs: 3,\n\n  @lt('totalDogs', 10) isDogParty // true\n});\n```",
+    "lineNumber": 289,
     "unknown": [
       {
         "tagName": "@function",
@@ -1159,16 +1181,16 @@
   {
     "__docId__": 67,
     "kind": "function",
-    "name": "intersect",
-    "memberof": "addon/index.js",
+    "name": "lte",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~intersect",
+    "longname": "addon/object/computed.js~lte",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
-    "importStyle": "{intersect}",
-    "description": "Decorator that wraps [Ember.computed.intersect](http://emberjs.com/api/classes/Ember.computed.html#method_intersect)\n\nA computed property which returns a new array with all the duplicated\nelements from two or more dependent arrays.\n\n```javascript\nimport Ember from 'ember';\nimport { intersect } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n  foods: Ember.A(['tacos', 'pizza']),\n\n  @intersect('likes', 'foods') favoriteFoods // ['tacos', 'pizza']\n});\n```",
-    "lineNumber": 438,
+    "importPath": "ember-decorators/object/computed",
+    "importStyle": "{lte}",
+    "description": "Decorator that wraps [Ember.computed.lte](http://emberjs.com/api/classes/Ember.computed.html#method_lte)\n\nA computed property that returns `true` if the provided dependent property\nis less than or equal to the provided value.\n\n```javascript\nimport Ember from 'ember';\nimport { lte } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  totalPlayers: 14,\n\n  @lte('totalPlayers', 14) hasEnoughPlayers // true\n});\n```",
+    "lineNumber": 312,
     "unknown": [
       {
         "tagName": "@function",
@@ -1179,112 +1201,38 @@
       {
         "nullable": null,
         "types": [
-          "...String"
+          "String"
         ],
-        "spread": true,
+        "spread": false,
         "optional": false,
-        "name": "dependentKeys",
-        "description": "Keys of the arrays to intersect"
+        "name": "dependentKey",
+        "description": "Key for the property to compare"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "Value to compare against"
       }
     ]
   },
   {
     "__docId__": 68,
     "kind": "function",
-    "name": "lt",
-    "memberof": "addon/index.js",
-    "static": true,
-    "longname": "addon/index.js~lt",
-    "access": "public",
-    "export": true,
-    "importPath": "ember-computed-decorators/index",
-    "importStyle": "{lt}",
-    "description": "Decorator that wraps [Ember.computed.lt](http://emberjs.com/api/classes/Ember.computed.html#method_lt)\n\nA computed property that returns `true` if the provided dependent property\nis less than the provided value.\n\n```javascript\nimport Ember from 'ember';\nimport { lt } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  totalDogs: 3,\n\n  @lt('totalDogs', 10) isDogParty // true\n});\n```",
-    "lineNumber": 461,
-    "unknown": [
-      {
-        "tagName": "@function",
-        "tagValue": ""
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "dependentKey",
-        "description": "Key for the property to compare"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "Number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "value",
-        "description": "Value to compare against"
-      }
-    ]
-  },
-  {
-    "__docId__": 69,
-    "kind": "function",
-    "name": "lte",
-    "memberof": "addon/index.js",
-    "static": true,
-    "longname": "addon/index.js~lte",
-    "access": "public",
-    "export": true,
-    "importPath": "ember-computed-decorators/index",
-    "importStyle": "{lte}",
-    "description": "Decorator that wraps [Ember.computed.lte](http://emberjs.com/api/classes/Ember.computed.html#method_lte)\n\nA computed property that returns `true` if the provided dependent property\nis less than or equal to the provided value.\n\n```javascript\nimport Ember from 'ember';\nimport { lte } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  totalPlayers: 14,\n\n  @lte('totalPlayers', 14) hasEnoughPlayers // true\n});\n```",
-    "lineNumber": 484,
-    "unknown": [
-      {
-        "tagName": "@function",
-        "tagValue": ""
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "dependentKey",
-        "description": "Key for the property to compare"
-      },
-      {
-        "nullable": null,
-        "types": [
-          "Number"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "value",
-        "description": "Value to compare against"
-      }
-    ]
-  },
-  {
-    "__docId__": 70,
-    "kind": "function",
     "name": "map",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~map",
+    "longname": "addon/object/computed.js~map",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{map}",
-    "description": "Decorator that wraps [Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)\n\nReturns an array mapped via the callback\n\n```javascript\nimport Ember from 'ember';\nimport { map } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  chores: Ember.A(['clean', 'write more unit tests']),\n\n  @map('chores', function(chore, index) {\n    return chore.toUpperCase() + '!';\n  }) loudChores // ['CLEAN!', 'WRITE MORE UNIT TESTS!']\n});\n```",
-    "lineNumber": 508,
+    "description": "Decorator that wraps [Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)\n\nReturns an array mapped via the callback\n\n```javascript\nimport Ember from 'ember';\nimport { map } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  chores: Ember.A(['clean', 'write more unit tests']),\n\n  @map('chores', function(chore, index) {\n    return chore.toUpperCase() + '!';\n  }) loudChores // ['CLEAN!', 'WRITE MORE UNIT TESTS!']\n});\n```",
+    "lineNumber": 336,
     "unknown": [
       {
         "tagName": "@function",
@@ -1315,18 +1263,18 @@
     ]
   },
   {
-    "__docId__": 71,
+    "__docId__": 69,
     "kind": "function",
     "name": "mapBy",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~mapBy",
+    "longname": "addon/object/computed.js~mapBy",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{mapBy}",
-    "description": "Decorator that wraps [Ember.computed.mapBy](http://emberjs.com/api/classes/Ember.computed.html#method_mapBy)\n\nReturns an array mapped to the specified key.\n\n```javascript\nimport Ember from 'ember';\nimport { mapBy } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  people: Ember.A([\n    {name: \"George\", age: 5},\n    {name: \"Stella\", age: 10},\n    {name: \"Violet\", age: 7}\n  ]),\n\n  @mapBy('people', 'age') ages // [5, 10, 7]\n});\n```",
-    "lineNumber": 534,
+    "description": "Decorator that wraps [Ember.computed.mapBy](http://emberjs.com/api/classes/Ember.computed.html#method_mapBy)\n\nReturns an array mapped to the specified key.\n\n```javascript\nimport Ember from 'ember';\nimport { mapBy } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  people: Ember.A([\n    {name: \"George\", age: 5},\n    {name: \"Stella\", age: 10},\n    {name: \"Violet\", age: 7}\n  ]),\n\n  @mapBy('people', 'age') ages // [5, 10, 7]\n});\n```",
+    "lineNumber": 362,
     "unknown": [
       {
         "tagName": "@function",
@@ -1357,18 +1305,18 @@
     ]
   },
   {
-    "__docId__": 72,
+    "__docId__": 70,
     "kind": "function",
     "name": "match",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~match",
+    "longname": "addon/object/computed.js~match",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{match}",
-    "description": "Decorator that wraps [Ember.computed.match](http://emberjs.com/api/classes/Ember.computed.html#method_match)\n\nA computed property which matches the original value for the dependent\nproperty against a given RegExp, returning `true` if they values matches\nthe RegExp and `false` if it does not.\n\n```javascript\nimport Ember from 'ember';\nimport { match } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  email: 'tomster@emberjs.com',\n\n  @match('email', /^.+@.+\\..+$/) validEmail\n});\n```",
-    "lineNumber": 558,
+    "description": "Decorator that wraps [Ember.computed.match](http://emberjs.com/api/classes/Ember.computed.html#method_match)\n\nA computed property which matches the original value for the dependent\nproperty against a given RegExp, returning `true` if they values matches\nthe RegExp and `false` if it does not.\n\n```javascript\nimport Ember from 'ember';\nimport { match } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  email: 'tomster@emberjs.com',\n\n  @match('email', /^.+@.+\\..+$/) validEmail\n});\n```",
+    "lineNumber": 386,
     "unknown": [
       {
         "tagName": "@function",
@@ -1399,18 +1347,18 @@
     ]
   },
   {
-    "__docId__": 73,
+    "__docId__": 71,
     "kind": "function",
     "name": "max",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~max",
+    "longname": "addon/object/computed.js~max",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{max}",
-    "description": "Decorator that wraps [Ember.computed.max](http://emberjs.com/api/classes/Ember.computed.html#method_max)\n\nA computed property that calculates the maximum value in the dependent\narray. This will return `-Infinity` when the dependent array is empty.\n\n```javascript\nimport Ember from 'ember';\nimport { max } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  values: Ember.A([1, 2, 5, 10]),\n\n  @max('values') maxValue // 10\n});\n```",
-    "lineNumber": 580,
+    "description": "Decorator that wraps [Ember.computed.max](http://emberjs.com/api/classes/Ember.computed.html#method_max)\n\nA computed property that calculates the maximum value in the dependent\narray. This will return `-Infinity` when the dependent array is empty.\n\n```javascript\nimport Ember from 'ember';\nimport { max } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  values: Ember.A([1, 2, 5, 10]),\n\n  @max('values') maxValue // 10\n});\n```",
+    "lineNumber": 408,
     "unknown": [
       {
         "tagName": "@function",
@@ -1427,22 +1375,86 @@
         "optional": false,
         "name": "dependentKey",
         "description": "Key for the array to find the max value of"
+      }
+    ]
+  },
+  {
+    "__docId__": 72,
+    "kind": "function",
+    "name": "min",
+    "memberof": "addon/object/computed.js",
+    "static": true,
+    "longname": "addon/object/computed.js~min",
+    "access": "public",
+    "export": true,
+    "importPath": "ember-decorators/object/computed",
+    "importStyle": "{min}",
+    "description": "Decorator that wraps [Ember.computed.min](http://emberjs.com/api/classes/Ember.computed.html#method_min)\n\nA computed property that calculates the minimum value in the dependent\narray. This will return `Infinity` when the dependent array is empty.\n\n```javascript\nimport Ember from 'ember';\nimport { min } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  values: Ember.A([1, 2, 5, 10]),\n\n  @min('values') minValue // 1\n});\n```",
+    "lineNumber": 430,
+    "unknown": [
+      {
+        "tagName": "@function",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dependentKey",
+        "description": "Key for the array to find the max value of"
+      }
+    ]
+  },
+  {
+    "__docId__": 73,
+    "kind": "function",
+    "name": "none",
+    "memberof": "addon/object/computed.js",
+    "static": true,
+    "longname": "addon/object/computed.js~none",
+    "access": "public",
+    "export": true,
+    "importPath": "ember-decorators/object/computed",
+    "importStyle": "{none}",
+    "description": "Decorator that wraps [Ember.computed.none](http://emberjs.com/api/classes/Ember.computed.html#method_none)\n\nA computed property that returns true if the value of the dependent property\nis null or undefined. This avoids errors from JSLint complaining about use\nof `==`, which can be technically confusing.\n\n```javascript\nimport Ember from 'ember';\nimport { none } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  firstName: null,\n\n  @none('firstName') isNameless // true until firstName is defined\n});\n```",
+    "lineNumber": 453,
+    "unknown": [
+      {
+        "tagName": "@function",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "dependentKey",
+        "description": "Key for the property to check"
       }
     ]
   },
   {
     "__docId__": 74,
     "kind": "function",
-    "name": "min",
-    "memberof": "addon/index.js",
+    "name": "not",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~min",
+    "longname": "addon/object/computed.js~not",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
-    "importStyle": "{min}",
-    "description": "Decorator that wraps [Ember.computed.min](http://emberjs.com/api/classes/Ember.computed.html#method_min)\n\nA computed property that calculates the minimum value in the dependent\narray. This will return `Infinity` when the dependent array is empty.\n\n```javascript\nimport Ember from 'ember';\nimport { min } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  values: Ember.A([1, 2, 5, 10]),\n\n  @min('values') minValue // 1\n});\n```",
-    "lineNumber": 602,
+    "importPath": "ember-decorators/object/computed",
+    "importStyle": "{not}",
+    "description": "Decorator that wraps [Ember.computed.not](http://emberjs.com/api/classes/Ember.computed.html#method_not)\n\nA computed property that returns the inverse boolean value of the original\nvalue for the dependent property.\n\n```javascript\nimport Ember from 'ember';\nimport { not } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  loggedIn: false,\n\n  @not('loggedIn') isAnonymous // true\n});\n```",
+    "lineNumber": 475,
     "unknown": [
       {
         "tagName": "@function",
@@ -1458,23 +1470,23 @@
         "spread": false,
         "optional": false,
         "name": "dependentKey",
-        "description": "Key for the array to find the max value of"
+        "description": "Key for the property to `not`"
       }
     ]
   },
   {
     "__docId__": 75,
     "kind": "function",
-    "name": "none",
-    "memberof": "addon/index.js",
+    "name": "notEmpty",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~none",
+    "longname": "addon/object/computed.js~notEmpty",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
-    "importStyle": "{none}",
-    "description": "Decorator that wraps [Ember.computed.none](http://emberjs.com/api/classes/Ember.computed.html#method_none)\n\nA computed property that returns true if the value of the dependent property\nis null or undefined. This avoids errors from JSLint complaining about use\nof `==`, which can be technically confusing.\n\n```javascript\nimport Ember from 'ember';\nimport { none } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  firstName: null,\n\n  @none('firstName') isNameless // true until firstName is defined\n});\n```",
-    "lineNumber": 625,
+    "importPath": "ember-decorators/object/computed",
+    "importStyle": "{notEmpty}",
+    "description": "Decorator that wraps [Ember.computed.notEmpty](http://emberjs.com/api/classes/Ember.computed.html#method_notEmpty)\n\nA computed property that returns `true` if the value of the dependent\nproperty is NOT null, an empty string, empty array, or empty function.\n\n```javascript\nimport Ember from 'ember';\nimport { notEmpty } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  groceryBag: Ember.A(['milk', 'eggs', 'apples']),\n\n  @notEmpty('groceryBag') hasGroceriesToPutAway // true\n});\n```",
+    "lineNumber": 497,
     "unknown": [
       {
         "tagName": "@function",
@@ -1497,80 +1509,16 @@
   {
     "__docId__": 76,
     "kind": "function",
-    "name": "not",
-    "memberof": "addon/index.js",
-    "static": true,
-    "longname": "addon/index.js~not",
-    "access": "public",
-    "export": true,
-    "importPath": "ember-computed-decorators/index",
-    "importStyle": "{not}",
-    "description": "Decorator that wraps [Ember.computed.not](http://emberjs.com/api/classes/Ember.computed.html#method_not)\n\nA computed property that returns the inverse boolean value of the original\nvalue for the dependent property.\n\n```javascript\nimport Ember from 'ember';\nimport { not } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  loggedIn: false,\n\n  @not('loggedIn') isAnonymous // true\n});\n```",
-    "lineNumber": 647,
-    "unknown": [
-      {
-        "tagName": "@function",
-        "tagValue": ""
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "dependentKey",
-        "description": "Key for the property to `not`"
-      }
-    ]
-  },
-  {
-    "__docId__": 77,
-    "kind": "function",
-    "name": "notEmpty",
-    "memberof": "addon/index.js",
-    "static": true,
-    "longname": "addon/index.js~notEmpty",
-    "access": "public",
-    "export": true,
-    "importPath": "ember-computed-decorators/index",
-    "importStyle": "{notEmpty}",
-    "description": "Decorator that wraps [Ember.computed.notEmpty](http://emberjs.com/api/classes/Ember.computed.html#method_notEmpty)\n\nA computed property that returns `true` if the value of the dependent\nproperty is NOT null, an empty string, empty array, or empty function.\n\n```javascript\nimport Ember from 'ember';\nimport { notEmpty } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  groceryBag: Ember.A(['milk', 'eggs', 'apples']),\n\n  @notEmpty('groceryBag') hasGroceriesToPutAway // true\n});\n```",
-    "lineNumber": 669,
-    "unknown": [
-      {
-        "tagName": "@function",
-        "tagValue": ""
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": false,
-        "name": "dependentKey",
-        "description": "Key for the property to check"
-      }
-    ]
-  },
-  {
-    "__docId__": 78,
-    "kind": "function",
     "name": "oneWay",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~oneWay",
+    "longname": "addon/object/computed.js~oneWay",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{oneWay}",
-    "description": "Decorator that wraps [Ember.computed.oneWay](http://emberjs.com/api/classes/Ember.computed.html#method_oneWay)\n\nWhere `computed.alias` aliases `get` and `set`, and allows for bidirectional\ndata flow, `computed.oneWay` only provides an aliased `get`. The `set` will\nnot mutate the upstream property, rather causes the current property to\nbecome the value set. This causes the downstream property to permanently\ndiverge from the upstream property.\n\n```javascript\nimport Ember from 'ember';\nimport { oneWay } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  firstName: 'Joe',\n\n  @oneWay('firstName') originalName // will always be 'Joe'\n});\n```",
-    "lineNumber": 694,
+    "description": "Decorator that wraps [Ember.computed.oneWay](http://emberjs.com/api/classes/Ember.computed.html#method_oneWay)\n\nWhere `computed.alias` aliases `get` and `set`, and allows for bidirectional\ndata flow, `computed.oneWay` only provides an aliased `get`. The `set` will\nnot mutate the upstream property, rather causes the current property to\nbecome the value set. This causes the downstream property to permanently\ndiverge from the upstream property.\n\n```javascript\nimport Ember from 'ember';\nimport { oneWay } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  firstName: 'Joe',\n\n  @oneWay('firstName') originalName // will always be 'Joe'\n});\n```",
+    "lineNumber": 522,
     "unknown": [
       {
         "tagName": "@function",
@@ -1591,18 +1539,18 @@
     ]
   },
   {
-    "__docId__": 79,
+    "__docId__": 77,
     "kind": "function",
     "name": "or",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~or",
+    "longname": "addon/object/computed.js~or",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{or}",
-    "description": "Decorator that wraps [Ember.computed.or](http://emberjs.com/api/classes/Ember.computed.html#method_or)\n\nA computed property which performs a logical or on the original values for\nthe provided dependent properties.\n\n```javascript\nimport Ember from 'ember';\nimport { or } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  hasJacket: true,\n  hasUmbrella: false,\n\n  @or('hasJacket', 'hasUmbrella') isReadyForRain // true\n});\n```",
-    "lineNumber": 717,
+    "description": "Decorator that wraps [Ember.computed.or](http://emberjs.com/api/classes/Ember.computed.html#method_or)\n\nA computed property which performs a logical or on the original values for\nthe provided dependent properties.\n\n```javascript\nimport Ember from 'ember';\nimport { or } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  hasJacket: true,\n  hasUmbrella: false,\n\n  @or('hasJacket', 'hasUmbrella') isReadyForRain // true\n});\n```",
+    "lineNumber": 545,
     "unknown": [
       {
         "tagName": "@function",
@@ -1623,18 +1571,18 @@
     ]
   },
   {
-    "__docId__": 80,
+    "__docId__": 78,
     "kind": "function",
     "name": "reads",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~reads",
+    "longname": "addon/object/computed.js~reads",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{reads}",
-    "description": "Decorator that wraps [Ember.computed.reads](http://emberjs.com/api/classes/Ember.computed.html#method_reads)\n\nThis is a more semantically meaningful alias of `computed.oneWay`, whose\nname is somewhat ambiguous as to which direction the data flows.\n\n```javascript\nimport Ember from 'ember';\nimport { reads } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  @reads('first') firstName\n});\n```",
-    "lineNumber": 737,
+    "description": "Decorator that wraps [Ember.computed.reads](http://emberjs.com/api/classes/Ember.computed.html#method_reads)\n\nThis is a more semantically meaningful alias of `computed.oneWay`, whose\nname is somewhat ambiguous as to which direction the data flows.\n\n```javascript\nimport Ember from 'ember';\nimport { reads } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  @reads('first') firstName\n});\n```",
+    "lineNumber": 565,
     "unknown": [
       {
         "tagName": "@function",
@@ -1655,18 +1603,18 @@
     ]
   },
   {
-    "__docId__": 81,
+    "__docId__": 79,
     "kind": "function",
     "name": "setDiff",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~setDiff",
+    "longname": "addon/object/computed.js~setDiff",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{setDiff}",
-    "description": "Decorator that wraps [Ember.computed.setDiff](http://emberjs.com/api/classes/Ember.computed.html#method_setDiff)\n\nA computed property which returns a new array with all the properties from\nthe first dependent array that are not in the second dependent array.\n\n```javascript\nimport Ember from 'ember';\nimport { setDiff } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n  foods: Ember.A(['tacos', 'pizza']),\n\n  @setDiff('likes', 'foods') favoriteThingsThatArentFood // ['puppies']\n});\n```",
-    "lineNumber": 761,
+    "description": "Decorator that wraps [Ember.computed.setDiff](http://emberjs.com/api/classes/Ember.computed.html#method_setDiff)\n\nA computed property which returns a new array with all the properties from\nthe first dependent array that are not in the second dependent array.\n\n```javascript\nimport Ember from 'ember';\nimport { setDiff } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n  foods: Ember.A(['tacos', 'pizza']),\n\n  @setDiff('likes', 'foods') favoriteThingsThatArentFood // ['puppies']\n});\n```",
+    "lineNumber": 589,
     "unknown": [
       {
         "tagName": "@function",
@@ -1697,18 +1645,18 @@
     ]
   },
   {
-    "__docId__": 82,
+    "__docId__": 80,
     "kind": "function",
     "name": "sort",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~sort",
+    "longname": "addon/object/computed.js~sort",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{sort}",
-    "description": "Decorator that wraps [Ember.computed.sort](http://emberjs.com/api/classes/Ember.computed.html#method_sort)\n\nA computed property which returns a new array with all the properties from\nthe first dependent array sorted based on a property or sort function.\n\n\nThe callback method you provide should have the following signature:\n\n```javascript\nfunction(itemA, itemB);\n```\n- `itemA` the first item to compare.\n- `itemB` the second item to compare.\n\nThis function should return negative number (e.g. `-1`) when `itemA` should\ncome before `itemB`. It should return positive number (e.g. `1`) when\n`itemA` should come after `itemB`. If the `itemA` and `itemB` are equal this\nfunction should return `0`.\n\nTherefore, if this function is comparing some numeric values, simple\n`itemA - itemB` or `itemA.get( 'foo' ) - itemB.get( 'foo' )` can be used\ninstead of series of `if`.\n\n```javascript\nimport Ember from 'ember';\nimport { sort } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  this.names = Ember.A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);\n  @sort('names', function(a, b){\n    if (a.name > b.name) {\n      return 1;\n    } else if (a.name < b.name) {\n      return -1;\n    }\n\n    return 0;\n  }) sortedNames // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]\n});\n```",
-    "lineNumber": 809,
+    "description": "Decorator that wraps [Ember.computed.sort](http://emberjs.com/api/classes/Ember.computed.html#method_sort)\n\nA computed property which returns a new array with all the properties from\nthe first dependent array sorted based on a property or sort function.\n\n\nThe callback method you provide should have the following signature:\n\n```javascript\nfunction(itemA, itemB);\n```\n- `itemA` the first item to compare.\n- `itemB` the second item to compare.\n\nThis function should return negative number (e.g. `-1`) when `itemA` should\ncome before `itemB`. It should return positive number (e.g. `1`) when\n`itemA` should come after `itemB`. If the `itemA` and `itemB` are equal this\nfunction should return `0`.\n\nTherefore, if this function is comparing some numeric values, simple\n`itemA - itemB` or `itemA.get( 'foo' ) - itemB.get( 'foo' )` can be used\ninstead of series of `if`.\n\n```javascript\nimport Ember from 'ember';\nimport { sort } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  this.names = Ember.A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);\n  @sort('names', function(a, b){\n    if (a.name > b.name) {\n      return 1;\n    } else if (a.name < b.name) {\n      return -1;\n    }\n\n    return 0;\n  }) sortedNames // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]\n});\n```",
+    "lineNumber": 637,
     "unknown": [
       {
         "tagName": "@function",
@@ -1740,18 +1688,18 @@
     ]
   },
   {
-    "__docId__": 83,
+    "__docId__": 81,
     "kind": "function",
     "name": "sum",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~sum",
+    "longname": "addon/object/computed.js~sum",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{sum}",
-    "description": "Decorator that wraps [Ember.computed.sum](http://emberjs.com/api/classes/Ember.computed.html#method_sum)\n\nA computed property that returns the sum of the value in the dependent\narray.\n\n```javascript\nimport Ember from 'ember';\nimport { sum } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  values: Ember.A([1, 2, 3]),\n\n  @sum('values') total // 6\n});\n```",
-    "lineNumber": 831,
+    "description": "Decorator that wraps [Ember.computed.sum](http://emberjs.com/api/classes/Ember.computed.html#method_sum)\n\nA computed property that returns the sum of the value in the dependent\narray.\n\n```javascript\nimport Ember from 'ember';\nimport { sum } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  values: Ember.A([1, 2, 3]),\n\n  @sum('values') total // 6\n});\n```",
+    "lineNumber": 659,
     "unknown": [
       {
         "tagName": "@function",
@@ -1772,18 +1720,18 @@
     ]
   },
   {
-    "__docId__": 84,
+    "__docId__": 82,
     "kind": "function",
     "name": "union",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~union",
+    "longname": "addon/object/computed.js~union",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{union}",
-    "description": "Decorator that wraps [Ember.computed.union](http://emberjs.com/api/classes/Ember.computed.html#method_union)\n\nAlias for [union](http://emberjs.com/api/classes/Ember.computed.html#method_uniq).\n\n```javascript\nimport Ember from 'ember';\nimport { union } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n  foods: Ember.A(['tacos', 'pizza', 'ramen']),\n\n  @union('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']\n});\n```",
-    "lineNumber": 853,
+    "description": "Decorator that wraps [Ember.computed.union](http://emberjs.com/api/classes/Ember.computed.html#method_union)\n\nAlias for [union](http://emberjs.com/api/classes/Ember.computed.html#method_uniq).\n\n```javascript\nimport Ember from 'ember';\nimport { union } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n  foods: Ember.A(['tacos', 'pizza', 'ramen']),\n\n  @union('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']\n});\n```",
+    "lineNumber": 681,
     "unknown": [
       {
         "tagName": "@function",
@@ -1804,18 +1752,18 @@
     ]
   },
   {
-    "__docId__": 85,
+    "__docId__": 83,
     "kind": "function",
     "name": "uniq",
-    "memberof": "addon/index.js",
+    "memberof": "addon/object/computed.js",
     "static": true,
-    "longname": "addon/index.js~uniq",
+    "longname": "addon/object/computed.js~uniq",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
+    "importPath": "ember-decorators/object/computed",
     "importStyle": "{uniq}",
-    "description": "Decorator that wraps [Ember.computed.uniq](http://emberjs.com/api/classes/Ember.computed.html#method_uniq)\n\nA computed property which returns a new array with all the unique elements from one or more dependent arrays.\n\n```javascript\nimport Ember from 'ember';\nimport { uniq } from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n  foods: Ember.A(['tacos', 'pizza', 'ramen']),\n\n  @uniq('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']\n});\n```",
-    "lineNumber": 875,
+    "description": "Decorator that wraps [Ember.computed.uniq](http://emberjs.com/api/classes/Ember.computed.html#method_uniq)\n\nA computed property which returns a new array with all the unique elements from one or more dependent arrays.\n\n```javascript\nimport Ember from 'ember';\nimport { uniq } from 'ember-decorators/computed';\n\nexport default Ember.Component.extend({\n  likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),\n  foods: Ember.A(['tacos', 'pizza', 'ramen']),\n\n  @uniq('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']\n});\n```",
+    "lineNumber": 703,
     "unknown": [
       {
         "tagName": "@function",
@@ -1836,18 +1784,92 @@
     ]
   },
   {
-    "__docId__": 86,
-    "kind": "function",
-    "name": "computed",
-    "memberof": "addon/index.js",
+    "__docId__": 84,
+    "kind": "file",
+    "name": "addon/object/evented.js",
+    "content": "import Ember from 'ember';\n\nimport {\n  decoratorWithRequiredParams\n} from '../utils/decorator-macros';\n\n\n/**\n * Decorator that wraps [Ember.on](https://emberjs.com/api/#method_on)\n *\n * Triggers the target function on events\n *\n * ```javascript\n * import Ember from 'ember';\n * import { on } from 'ember-decorators/object/evented';\n *\n * export default Ember.Component.extend({\n *   @on('init')\n *   setupStuff() {\n *     //...\n *   }\n * });\n * ```\n *\n * @function\n * @param {...String} eventNames - Names of the events that trigger the function\n */\nexport const on = decoratorWithRequiredParams(Ember.on, 'Cannot `on` without event names');\n\n",
     "static": true,
-    "longname": "addon/index.js~computed",
+    "longname": "/Users/rjackson/src/open-source/ember-decorators/tmp/funnel-output_path-pmseVjJk.tmp/addon/object/evented.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 85,
+    "kind": "function",
+    "name": "on",
+    "memberof": "addon/object/evented.js",
+    "static": true,
+    "longname": "addon/object/evented.js~on",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/index",
-    "importStyle": "computed",
-    "description": "Decorator that turns a function into a computed property.\n\nIn your application where you would normally have:\n\n```javascript\nfoo: Ember.computed('someKey', 'otherKey', function() {\n  var someKey = this.get('someKey');\n  var otherKey = this.get('otherKey');\n\n  // Do Stuff\n})\n```\n\nYou replace with this:\n\n```javascript\nimport computed from 'ember-computed-decorators';\n\n// ..... <snip> .....\n@computed('someKey', 'otherKey')\nfoo(someKey, otherKey) {\n  // Do Stuff\n}\n```\n\n#### Without Dependent Keys\n\n```javascript\nfoo: Ember.computed(function() {\n  // Do Stuff\n})\n```\n\nYou replace with this:\n\n```javascript\nimport computed from 'ember-computed-decorators';\n\n// ..... <snip> .....\n@computed\nfoo() {\n  // Do Stuff\n}\n```\n\n#### \"Real World\"\n\n```javascript\nimport Ember from 'ember';\nimport computed from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  @computed('first', 'last')\n  name(first, last) {\n    return `${first} ${last}`;\n  }\n});\n```\n\n\n#### \"Real World get/set syntax\"\n\n```javascript\nimport Ember from 'ember';\nimport computed from 'ember-computed-decorators';\n\nexport default Ember.Component.extend({\n  @computed('first', 'last')\n  name: {\n    get(first, last) {\n      return `${first} ${last}`;\n    },\n\n    set(value, first, last) {\n      // ...\n    }\n  }\n});\n```",
-    "lineNumber": 99,
+    "importPath": "ember-decorators/object/evented",
+    "importStyle": "{on}",
+    "description": "Decorator that wraps [Ember.on](https://emberjs.com/api/#method_on)\n\nTriggers the target function on events\n\n```javascript\nimport Ember from 'ember';\nimport { on } from 'ember-decorators/object/evented';\n\nexport default Ember.Component.extend({\n  @on('init')\n  setupStuff() {\n    //...\n  }\n});\n```",
+    "lineNumber": 28,
+    "unknown": [
+      {
+        "tagName": "@function",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "...String"
+        ],
+        "spread": true,
+        "optional": false,
+        "name": "eventNames",
+        "description": "Names of the events that trigger the function"
+      }
+    ]
+  },
+  {
+    "__docId__": 86,
+    "kind": "file",
+    "name": "addon/object/index.js",
+    "content": "import Ember from 'ember';\nimport computedMacro from 'ember-macro-helpers/computed';\n\nimport extractValue from '../utils/extract-value';\nimport {\n  decorator,\n  decoratorWithParams\n} from '../utils/decorator-wrappers';\n\nimport {\n  decoratorWithRequiredParams\n} from '../utils/decorator-macros';\n\n/**\n * Decorator that turns the target function into an Action\n *\n * Adds an `actions` object to the target object and creates a passthrough\n * function that calls the original. This means the function still exists\n * on the original object, and can be used directly.\n *\n * Before:\n *\n * ```js\n * export default Ember.Component.extend({\n *   actions: {\n *     foo() {\n *       // do something\n *     }\n *   }\n * });\n * ```\n *\n * After:\n *\n * ```js\n * import { action } from 'ember-decorators/object';\n *\n * export default MyComponent extends Ember.Component {\n *   @action\n *   foo() {\n *     // do something\n *   }\n * }\n * ```\n *\n * @function\n */\nexport const action = decorator(function(target, key, desc) {\n  const value = extractValue(desc);\n\n  if (typeof value !== 'function') {\n    throw new Error('The @action decorator must be applied to functions');\n  }\n\n  target.actions = target.actions || {};\n  target.actions[key] = value;\n\n  return value;\n});\n\n/**\n * Decorator that turns a function into a computed property.\n *\n * In your application where you would normally have:\n *\n * ```javascript\n * foo: Ember.computed('someKey', 'otherKey', function() {\n *   var someKey = this.get('someKey');\n *   var otherKey = this.get('otherKey');\n *\n *   // Do Stuff\n * })\n * ```\n *\n * You replace with this:\n *\n * ```javascript\n * import computed from 'ember-decorators/object';\n *\n * // ..... <snip> .....\n * @computed('someKey', 'otherKey')\n * foo(someKey, otherKey) {\n *   // Do Stuff\n * }\n * ```\n *\n * #### Without Dependent Keys\n *\n * ```javascript\n * foo: Ember.computed(function() {\n *   // Do Stuff\n * })\n * ```\n *\n * You replace with this:\n *\n * ```javascript\n * import computed from 'ember-decorators/object';\n *\n * // ..... <snip> .....\n * @computed\n * foo() {\n *   // Do Stuff\n * }\n * ```\n *\n * #### \"Real World\"\n *\n * ```javascript\n * import Ember from 'ember';\n * import computed from 'ember-decorators/object';\n *\n * export default Ember.Component.extend({\n *   @computed('first', 'last')\n *   name(first, last) {\n *     return `${first} ${last}`;\n *   }\n * });\n * ```\n *\n *\n * #### \"Real World get/set syntax\"\n *\n * ```javascript\n * import Ember from 'ember';\n * import computed from 'ember-decorators/object';\n *\n * export default Ember.Component.extend({\n *   @computed('first', 'last')\n *   name: {\n *     get(first, last) {\n *       return `${first} ${last}`;\n *     },\n *\n *     set(value, first, last) {\n *       // ...\n *     }\n *   }\n * });\n * ```\n *\n * @function\n * @param {...String} propertyNames - List of property keys this computed is dependent on\n */\nexport const computed = decoratorWithParams(function(target, key, desc, params) {\n  if (!desc.writable) {\n    throw new Error('ember-decorators does not support using getters and setters');\n  }\n\n  let value = extractValue(desc);\n  return computedMacro(...params, value);\n});\n\n/**\n * Decorator that wraps [Ember.observer](https://emberjs.com/api/#method_observer)\n *\n * Triggers the target function when the dependent properties have changed\n *\n * ```javascript\n * import Ember from 'ember';\n * import { observes } from 'ember-decorators/object';\n *\n * export default Ember.Component.extend({\n *   @observes('foo')\n *   bar() {\n *     //...\n *   }\n * });\n * ```\n *\n * @function\n * @param {...String} eventNames - Names of the events that trigger the function\n */\nexport const observes = decoratorWithRequiredParams(Ember.observer, 'Cannot `observe` without property names');\n\n/**\n * Decorator that modifies a computed property to be read only.\n *\n * Usage:\n *\n * ```javascript\n * import Ember from 'ember';\n * import { computed, readOnly } from 'ember-decorators/object';\n *\n * export default Ember.Component.extend({\n *   @readOnly\n *   @computed('first', 'last')\n *   name(first, last) {\n *     return `${first} ${last}`;\n *   }\n * });\n * ```\n *\n * @function\n */\nexport const readOnly = decorator(function(target, name, desc) {\n  var value = extractValue(desc);\n  return value.readOnly();\n});\n",
+    "static": true,
+    "longname": "/Users/rjackson/src/open-source/ember-decorators/tmp/funnel-output_path-pmseVjJk.tmp/addon/object/index.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 87,
+    "kind": "function",
+    "name": "action",
+    "memberof": "addon/object/index.js",
+    "static": true,
+    "longname": "addon/object/index.js~action",
+    "access": "public",
+    "export": true,
+    "importPath": "ember-decorators/object",
+    "importStyle": "{action}",
+    "description": "Decorator that turns the target function into an Action\n\nAdds an `actions` object to the target object and creates a passthrough\nfunction that calls the original. This means the function still exists\non the original object, and can be used directly.\n\nBefore:\n\n```js\nexport default Ember.Component.extend({\n  actions: {\n    foo() {\n      // do something\n    }\n  }\n});\n```\n\nAfter:\n\n```js\nimport { action } from 'ember-decorators/object';\n\nexport default MyComponent extends Ember.Component {\n  @action\n  foo() {\n    // do something\n  }\n}\n```",
+    "lineNumber": 48,
+    "unknown": [
+      {
+        "tagName": "@function",
+        "tagValue": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 88,
+    "kind": "function",
+    "name": "computed",
+    "memberof": "addon/object/index.js",
+    "static": true,
+    "longname": "addon/object/index.js~computed",
+    "access": "public",
+    "export": true,
+    "importPath": "ember-decorators/object",
+    "importStyle": "{computed}",
+    "description": "Decorator that turns a function into a computed property.\n\nIn your application where you would normally have:\n\n```javascript\nfoo: Ember.computed('someKey', 'otherKey', function() {\n  var someKey = this.get('someKey');\n  var otherKey = this.get('otherKey');\n\n  // Do Stuff\n})\n```\n\nYou replace with this:\n\n```javascript\nimport computed from 'ember-decorators/object';\n\n// ..... <snip> .....\n@computed('someKey', 'otherKey')\nfoo(someKey, otherKey) {\n  // Do Stuff\n}\n```\n\n#### Without Dependent Keys\n\n```javascript\nfoo: Ember.computed(function() {\n  // Do Stuff\n})\n```\n\nYou replace with this:\n\n```javascript\nimport computed from 'ember-decorators/object';\n\n// ..... <snip> .....\n@computed\nfoo() {\n  // Do Stuff\n}\n```\n\n#### \"Real World\"\n\n```javascript\nimport Ember from 'ember';\nimport computed from 'ember-decorators/object';\n\nexport default Ember.Component.extend({\n  @computed('first', 'last')\n  name(first, last) {\n    return `${first} ${last}`;\n  }\n});\n```\n\n\n#### \"Real World get/set syntax\"\n\n```javascript\nimport Ember from 'ember';\nimport computed from 'ember-decorators/object';\n\nexport default Ember.Component.extend({\n  @computed('first', 'last')\n  name: {\n    get(first, last) {\n      return `${first} ${last}`;\n    },\n\n    set(value, first, last) {\n      // ...\n    }\n  }\n});\n```",
+    "lineNumber": 145,
     "unknown": [
       {
         "tagName": "@function",
@@ -1868,28 +1890,80 @@
     ]
   },
   {
-    "__docId__": 87,
-    "kind": "file",
-    "name": "addon/inject.js",
-    "content": "import Ember from 'ember';\nimport { decoratorWithKeyReflection } from './utils/decorator-macros';\n\n/**\n * Decorator that wraps `Ember.inject.service`\n *\n * Injects a service into the object as the decorated property\n *\n *  ```javascript\n * import Ember from 'ember';\n * import { service } from 'ember-computed-decorators/inject';\n *\n * export default Ember.Component.extend({\n *   @service store\n * });\n * ```\n *\n * @function\n * @param {String} [serviceName] - The name of the service to inject. If not provided, the property name will be used\n */\nexport const service = decoratorWithKeyReflection(Ember.inject.service);\n\n/**\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Ember from 'ember';\n * import { service } from 'ember-computed-decorators/inject';\n *\n * export default Ember.Controller.extend({\n *   @controller application\n * });\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n */\nexport const controller = decoratorWithKeyReflection(Ember.inject.controller);\n",
+    "__docId__": 89,
+    "kind": "function",
+    "name": "observes",
+    "memberof": "addon/object/index.js",
     "static": true,
-    "longname": "/Users/rjackson/src/open-source/ember-computed-decorators/tmp/funnel-output_path-is9vPrz1.tmp/addon/inject.js",
+    "longname": "addon/object/index.js~observes",
+    "access": "public",
+    "export": true,
+    "importPath": "ember-decorators/object",
+    "importStyle": "{observes}",
+    "description": "Decorator that wraps [Ember.observer](https://emberjs.com/api/#method_observer)\n\nTriggers the target function when the dependent properties have changed\n\n```javascript\nimport Ember from 'ember';\nimport { observes } from 'ember-decorators/object';\n\nexport default Ember.Component.extend({\n  @observes('foo')\n  bar() {\n    //...\n  }\n});\n```",
+    "lineNumber": 174,
+    "unknown": [
+      {
+        "tagName": "@function",
+        "tagValue": ""
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "...String"
+        ],
+        "spread": true,
+        "optional": false,
+        "name": "eventNames",
+        "description": "Names of the events that trigger the function"
+      }
+    ]
+  },
+  {
+    "__docId__": 90,
+    "kind": "function",
+    "name": "readOnly",
+    "memberof": "addon/object/index.js",
+    "static": true,
+    "longname": "addon/object/index.js~readOnly",
+    "access": "public",
+    "export": true,
+    "importPath": "ember-decorators/object",
+    "importStyle": "{readOnly}",
+    "description": "Decorator that modifies a computed property to be read only.\n\nUsage:\n\n```javascript\nimport Ember from 'ember';\nimport { computed, readOnly } from 'ember-decorators/object';\n\nexport default Ember.Component.extend({\n  @readOnly\n  @computed('first', 'last')\n  name(first, last) {\n    return `${first} ${last}`;\n  }\n});\n```",
+    "lineNumber": 196,
+    "unknown": [
+      {
+        "tagName": "@function",
+        "tagValue": ""
+      }
+    ]
+  },
+  {
+    "__docId__": 91,
+    "kind": "file",
+    "name": "addon/service/index.js",
+    "content": "import Ember from 'ember';\nimport { decoratorWithKeyReflection } from '../utils/decorator-macros';\n\n/**\n * Decorator that wraps `Ember.inject.service`\n *\n * Injects a service into the object as the decorated property\n *\n *  ```javascript\n * import Ember from 'ember';\n * import { service } from 'ember-decorators/service';\n *\n * export default Ember.Component.extend({\n *   @service store\n * });\n * ```\n *\n * @function\n * @param {String} [serviceName] - The name of the service to inject. If not provided, the property name will be used\n */\nexport const service = decoratorWithKeyReflection(Ember.inject.service);\n",
+    "static": true,
+    "longname": "/Users/rjackson/src/open-source/ember-decorators/tmp/funnel-output_path-pmseVjJk.tmp/addon/service/index.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
-    "__docId__": 88,
+    "__docId__": 92,
     "kind": "function",
     "name": "service",
-    "memberof": "addon/inject.js",
+    "memberof": "addon/service/index.js",
     "static": true,
-    "longname": "addon/inject.js~service",
+    "longname": "addon/service/index.js~service",
     "access": "public",
     "export": true,
-    "importPath": "ember-computed-decorators/inject",
+    "importPath": "ember-decorators/service",
     "importStyle": "{service}",
-    "description": "Decorator that wraps `Ember.inject.service`\n\nInjects a service into the object as the decorated property\n\n ```javascript\nimport Ember from 'ember';\nimport { service } from 'ember-computed-decorators/inject';\n\nexport default Ember.Component.extend({\n  @service store\n});\n```",
+    "description": "Decorator that wraps `Ember.inject.service`\n\nInjects a service into the object as the decorated property\n\n ```javascript\nimport Ember from 'ember';\nimport { service } from 'ember-decorators/service';\n\nexport default Ember.Component.extend({\n  @service store\n});\n```",
     "lineNumber": 21,
     "unknown": [
       {
@@ -1911,49 +1985,17 @@
     ]
   },
   {
-    "__docId__": 89,
-    "kind": "function",
-    "name": "controller",
-    "memberof": "addon/inject.js",
-    "static": true,
-    "longname": "addon/inject.js~controller",
-    "access": "public",
-    "export": true,
-    "importPath": "ember-computed-decorators/inject",
-    "importStyle": "{controller}",
-    "description": "Decorator that wraps `Ember.inject.controller`\n\nInjects a controller into a Controller as the decorated property\n\n ```javascript\nimport Ember from 'ember';\nimport { service } from 'ember-computed-decorators/inject';\n\nexport default Ember.Controller.extend({\n  @controller application\n});\n```",
-    "lineNumber": 40,
-    "unknown": [
-      {
-        "tagName": "@function",
-        "tagValue": ""
-      }
-    ],
-    "params": [
-      {
-        "nullable": null,
-        "types": [
-          "String"
-        ],
-        "spread": false,
-        "optional": true,
-        "name": "controllerName",
-        "description": "The name of the controller to inject. If not provided, the property name will be used"
-      }
-    ]
-  },
-  {
     "kind": "index",
-    "content": "# ember-computed-decorators\n\n[![npm version](https://badge.fury.io/js/ember-computed-decorators.svg)](https://badge.fury.io/js/ember-computed-decorators)\n[![Build Status](https://travis-ci.org/rwjblue/ember-computed-decorators.svg?branch=master)](https://travis-ci.org/rwjblue/ember-computed-decorators)\n![Ember Version](https://embadge.io/v1/badge.svg?start=2.4.0)\n\nThis addon allows usage of the proposed decorator syntax, and passes the specified\ndependent keys into your computed function making your computed properties much DRY'er.\n\nMore details:\n\n* [javascript-decorators proposal](https://github.com/wycats/javascript-decorators)\n* [babel blog post](http://babeljs.io/blog/2015/03/31/5.0.0/#stage-1:-decorators)\n\n## Usage\n\n### Babel Setup\n\nTo use ember-computed-decorators you must update Babel's configuration to\nallow usage of the decorator proposal.\n\n#### Babel 6.x\n\nBabel 6 has split out the various transforms to plugins, so we need to install the plugin for decorators:\n\n```\nyarn add --dev babel-plugin-transform-decorators-legacy\n```\n\nOr if you're using NPM:\n\n```\nnpm install --save-dev babel-plugin-transform-decorators-legacy\n```\n\nNow simply tell Babel to use this plugin:\n\n```javascript\n// ember-cli-build.js\nvar app = new EmberApp({\n  babel: {\n    plugins: ['transform-decorators-legacy']\n  }\n});\n```\n\n#### Babel 5.x\n\nAs of Babel 5.1.0 the following should be all you need in your ember-cli application:\n\n* pre-1.13.0\n```javascript\n// Brocfile.js\nvar app = new EmberApp({\n  babel: {\n    optional: ['es7.decorators']\n  }\n});\n```\n\n* 1.13.x\n```javascript\n// ember-cli-build.js\nvar app = new EmberApp({\n  babel: {\n    optional: ['es7.decorators']\n  }\n});\n```\n\n#### Setup with addon\n\nAdd the following `init` method to `index.js` of your addon.\nThis should enable the decorators to work on the parent app/addon. Use version below that corresponds with your Babel 5.x addon or your Babel 6.x addon.\n\n```javascript\n  // Babel 5.x version\n  init: function(app) {\n    this._super.init && this._super.init.apply(this, arguments);\n\n    this.options = this.options || {};\n    this.options.babel = this.options.babel || {};\n    this.options.babel.optional = this.options.babel.optional || [];\n\n    if (this.options.babel.optional.indexOf('es7.decorators') === -1) {\n      this.options.babel.optional.push('es7.decorators');\n    }\n  }\n\n  // ~~ OR ~~\n\n  // Babel 6.x version\n  init: function(app) {\n    this._super.init && this._super.init.apply(this, arguments);\n\n    this.options = this.options || {};\n    this.options.babel = this.options.babel || {};\n    this.options.babel.plugins = this.options.babel.plugins || [];\n\n    if (this.options.babel.plugins.indexOf('transform-decorators-legacy') === -1) {\n      this.options.babel.plugins.push('transform-decorators-legacy');\n    }\n  }\n```\n\n### Application Usage\n\nIn your application where you would normally have:\n\n```javascript\nfoo: Ember.computed('someKey', 'otherKey', function() {\n  var someKey = this.get('someKey');\n  var otherKey = this.get('otherKey');\n  // Do Stuff\n})\n```\n\nYou replace with this:\n\n```javascript\nimport computed from 'ember-computed-decorators';\n// ..... <snip> .....\n@computed('someKey', 'otherKey')\nfoo(someKey, otherKey) {\n  // Do Stuff\n}\n```\n\n#### Without Dependent Keys\n\n```javascript\nfoo: Ember.computed(function() {\n  // Do Stuff\n})\n```\nYou replace with this:\n```javascript\nimport computed from 'ember-computed-decorators';\n// ..... <snip> .....\n@computed\nfoo() {\n  // Do Stuff\n}\n```\n\n#### \"Real World\"\n\n```javascript\nimport Ember from 'ember';\nimport computed from 'ember-computed-decorators';\nexport default Ember.Component.extend({\n  @computed('first', 'last')\n  name(first, last) {\n    return `${first} ${last}`;\n  }\n});\n```\n\n#### \"Real World get/set syntax\"\n\n```javascript\nimport Ember from 'ember';\nimport computed from 'ember-computed-decorators';\nexport default Ember.Component.extend({\n  @computed('first', 'last')\n  name: {\n    get(first, last) {\n      return `${first} ${last}`;\n    },\n    set(value, first, last) {\n      // ...\n    }\n  }\n});\n```\n\nSee the [API Documentation](https://rwjblue.github.io/ember-computed-decorators/docs/index.html)\nfor detailed examples and documentation of the individual decorators.\n\nNote: The `@computed` decorator wraps [ember-macro-helpers](https://github.com/kellyselden/ember-macro-helpers)\nwhich provides a lot of helpful features on top of standard computeds. It is\nhighly recommended that you read the documentation for that addon as well.\n\n## Installation\n\n* `git clone <repository-url>` this repository\n* `cd ember-computed-decorators`\n* `npm install`\n* `bower install`\n\n## Running\n\n* `ember serve`\n* Visit your app at [http://localhost:4200](http://localhost:4200).\n\n## Running Tests\n\n* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)\n* `ember test`\n* `ember test --server`\n\n## Building\n\n* `ember build`\n\nFor more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).\n",
-    "longname": "/Users/rjackson/src/open-source/ember-computed-decorators/tmp/funnel-output_path-is9vPrz1.tmp/README.md",
+    "content": "# ember-decorators\n\n[![npm version](https://badge.fury.io/js/ember-decorators.svg)](https://badge.fury.io/js/ember-decorators)\n[![Build Status](https://travis-ci.org/rwjblue/ember-decorators.svg?branch=master)](https://travis-ci.org/rwjblue/ember-decorators)\n![Ember Version](https://embadge.io/v1/badge.svg?start=2.4.0)\n\nThis addon adds decorator support to Ember, allowing you to DRY-up your code and write modern ES6 classes.\n\nMore details:\n\n* [javascript-decorators proposal](https://github.com/wycats/javascript-decorators)\n* [babel blog post](http://babeljs.io/blog/2015/03/31/5.0.0/#stage-1:-decorators)\n\n## Usage\n\n### Babel Setup\n\nTo use ember-decorators you must update Babel's configuration to\nallow usage of the decorator proposal.\n\n#### Babel 6.x\n\nBabel 6 has split out the various transforms to plugins, so we need to install the plugins for decorators:\n\n```\nyarn add --dev babel-plugin-transform-decorators-legacy\nyarn add --dev babel-plugin-transform-class-properties # needed for ES6 class syntax\n```\n\nOr if you're using NPM:\n\n```\nnpm install --save-dev babel-plugin-transform-decorators-legacy\nnpm install --save-dev babel-plugin-transform-class-properties\n```\n\nNow simply tell Babel to use these plugins:\n\n```javascript\n// ember-cli-build.js\nvar app = new EmberApp({\n  babel: {\n    plugins: [\n      'transform-decorators-legacy',\n      'transform-class-properties'\n    ]\n  }\n});\n```\n\n#### Babel 5.x\n\nAs of Babel 5.1.0 the following should be all you need in your ember-cli application:\n\n* pre-1.13.0\n```javascript\n// Brocfile.js\nvar app = new EmberApp({\n  babel: {\n    optional: ['es7.decorators']\n  }\n});\n```\n\n* 1.13.x\n```javascript\n// ember-cli-build.js\nvar app = new EmberApp({\n  babel: {\n    optional: ['es7.decorators']\n  }\n});\n```\n\n#### Setup with addon\n\nAdd the following `init` method to `index.js` of your addon.\nThis should enable the decorators to work on the parent app/addon. Use version below that corresponds with your Babel 5.x addon or your Babel 6.x addon.\n\n```javascript\n  // Babel 5.x version\n  init: function(app) {\n    this._super.init && this._super.init.apply(this, arguments);\n\n    this.options = this.options || {};\n    this.options.babel = this.options.babel || {};\n    this.options.babel.optional = this.options.babel.optional || [];\n\n    if (this.options.babel.optional.indexOf('es7.decorators') === -1) {\n      this.options.babel.optional.push('es7.decorators');\n    }\n  }\n\n  // ~~ OR ~~\n\n  // Babel 6.x version\n  init: function(app) {\n    this._super.init && this._super.init.apply(this, arguments);\n\n    this.options = this.options || {};\n    this.options.babel = this.options.babel || {};\n    this.options.babel.plugins = this.options.babel.plugins || [];\n\n    if (this.options.babel.plugins.indexOf('transform-decorators-legacy') === -1) {\n      this.options.babel.plugins.push('transform-decorators-legacy');\n    }\n\n    if (this.options.babel.plugins.indexOf('transform-class-properties') === -1) {\n      this.options.babel.plugins.push('transform-class-properties');\n    }\n  }\n```\n\n### Application Usage\n\nIn your application where you would normally have:\n\n```javascript\nimport Ember from 'ember';\n\nexport default Ember.Component.extend({\n  foo: Ember.inject.service(),\n\n  bar: Ember.computed('someKey', 'otherKey', function() {\n    var someKey = this.get('someKey');\n    var otherKey = this.get('otherKey');\n\n    // do stuff\n  }),\n\n  actions: {\n    handleClick() {\n      // do stuff\n    }\n  }\n})\n\n```\n\nYou replace it with this:\n\n```javascript\nimport Ember from 'ember'\nimport { action, computed } from 'ember-decorators/object';\nimport { service } from 'ember-decorators/service';\n\nexport default class MyComponent extends Ember.Component {\n  @service foo\n\n  @computed('someKey', 'otherKey')\n  bar(someKey, otherKey) {\n    // do stuff\n  }\n\n  @action\n  handleClick() {\n    // do stuff\n  }\n}\n\n```\n\nThe packages in `ember-decorators` are setup to mirror Ember's [javascript module](https://github.com/emberjs/rfcs/blob/master/text/0176-javascript-module-api.md)\nAPI. Decorators can be imported from the packages that they belong to:\n\n```javascript\nimport {\n  attr,\n  hasMany,\n  belongsTo\n} from 'ember-decorators/data';\n\nimport {\n  controller\n} from 'ember-decorators/controller';\n\nimport {\n  action,\n  computed,\n  observes\n} from 'ember-decorators/object';\n\nimport {\n  alias,\n  or,\n  reads\n} from 'ember-decorators/object/computed';\n\nimport {\n  on\n} from 'ember-decorators/object/evented';\n\nimport {\n  service\n} from 'ember-decorators/service';\n\n```\n\nSee the [API Documentation](https://rwjblue.github.io/ember-decorators/docs/index.html)\nfor detailed examples and documentation of the individual decorators.\n\nNote: The `@computed` decorator wraps [ember-macro-helpers](https://github.com/kellyselden/ember-macro-helpers)\nwhich provides a lot of helpful features on top of standard computeds. It is\nhighly recommended that you read the documentation for that addon as well.\n\n## Installation\n\n* `git clone <repository-url>` this repository\n* `cd ember-decorators`\n* `npm install`\n* `bower install`\n\n## Running\n\n* `ember serve`\n* Visit your app at [http://localhost:4200](http://localhost:4200).\n\n## Running Tests\n\n* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)\n* `ember test`\n* `ember test --server`\n\n## Building\n\n* `ember build`\n\nFor more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).\n",
+    "longname": "/Users/rjackson/src/open-source/ember-decorators/tmp/funnel-output_path-pmseVjJk.tmp/README.md",
     "name": "./README.md",
     "static": true,
     "access": "public"
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"ember-computed-decorators\",\n  \"version\": \"0.3.0\",\n  \"description\": \"The default blueprint for ember-cli addons.\",\n  \"keywords\": [\n    \"ember-addon\"\n  ],\n  \"license\": \"MIT\",\n  \"author\": \"Robert Jackson <me@rwjblue.com>\",\n  \"directories\": {\n    \"doc\": \"doc\",\n    \"test\": \"tests\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/rwjblue/ember-computed-decorators.git\"\n  },\n  \"scripts\": {\n    \"build\": \"ember build\",\n    \"start\": \"ember server\",\n    \"test\": \"ember try:each\"\n  },\n  \"dependencies\": {\n    \"ember-cli-babel\": \"^6.0.0\",\n    \"ember-macro-helpers\": \"^0.9.0\"\n  },\n  \"devDependencies\": {\n    \"babel-eslint\": \"^7.2.3\",\n    \"babel-plugin-transform-class-properties\": \"^6.24.1\",\n    \"babel-plugin-transform-decorators-legacy\": \"^1.3.4\",\n    \"broccoli-asset-rev\": \"^2.4.5\",\n    \"ember-cli\": \"2.13.2\",\n    \"ember-cli-app-version\": \"^2.0.0\",\n    \"ember-cli-dependency-checker\": \"^1.3.0\",\n    \"ember-cli-esdoc\": \"0.0.3\",\n    \"ember-cli-eslint\": \"^3.0.0\",\n    \"ember-cli-github-pages\": \"^0.1.2\",\n    \"ember-cli-htmlbars\": \"^1.1.1\",\n    \"ember-cli-htmlbars-inline-precompile\": \"^0.4.0\",\n    \"ember-cli-inject-live-reload\": \"^1.4.1\",\n    \"ember-cli-qunit\": \"^4.0.0\",\n    \"ember-cli-release\": \"^0.2.9\",\n    \"ember-cli-shims\": \"^1.1.0\",\n    \"ember-cli-sri\": \"^2.1.0\",\n    \"ember-cli-uglify\": \"^1.2.0\",\n    \"ember-data\": \"~2.13.0\",\n    \"ember-disable-prototype-extensions\": \"^1.1.0\",\n    \"ember-export-application-global\": \"^2.0.0\",\n    \"ember-load-initializers\": \"^1.0.0\",\n    \"ember-native-dom-helpers\": \"^0.5.0\",\n    \"ember-resolver\": \"^4.0.0\",\n    \"ember-source\": \"~2.13.0\",\n    \"loader.js\": \"^4.2.3\"\n  },\n  \"engines\": {\n    \"node\": \">= 4\"\n  },\n  \"ember-addon\": {\n    \"configPath\": \"tests/dummy/config\"\n  }\n}\n",
-    "longname": "/Users/rjackson/src/open-source/ember-computed-decorators/tmp/funnel-output_path-is9vPrz1.tmp/package.json",
+    "content": "{\n  \"name\": \"ember-decorators\",\n  \"version\": \"1.0.0-beta.0\",\n  \"description\": \"The default blueprint for ember-cli addons.\",\n  \"keywords\": [\n    \"ember-addon\"\n  ],\n  \"license\": \"MIT\",\n  \"author\": \"Robert Jackson <me@rwjblue.com>\",\n  \"directories\": {\n    \"doc\": \"doc\",\n    \"test\": \"tests\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/rwjblue/ember-decorators.git\"\n  },\n  \"scripts\": {\n    \"build\": \"ember build\",\n    \"start\": \"ember server\",\n    \"test\": \"ember try:each\"\n  },\n  \"dependencies\": {\n    \"ember-cli-babel\": \"^6.0.0\",\n    \"ember-macro-helpers\": \"^0.9.0\"\n  },\n  \"devDependencies\": {\n    \"babel-eslint\": \"^7.2.3\",\n    \"babel-plugin-transform-class-properties\": \"^6.24.1\",\n    \"babel-plugin-transform-decorators-legacy\": \"^1.3.4\",\n    \"broccoli-asset-rev\": \"^2.4.5\",\n    \"ember-cli\": \"2.13.2\",\n    \"ember-cli-app-version\": \"^2.0.0\",\n    \"ember-cli-dependency-checker\": \"^1.3.0\",\n    \"ember-cli-esdoc\": \"0.0.4\",\n    \"ember-cli-eslint\": \"^3.0.0\",\n    \"ember-cli-github-pages\": \"^0.1.2\",\n    \"ember-cli-htmlbars\": \"^1.1.1\",\n    \"ember-cli-htmlbars-inline-precompile\": \"^0.4.0\",\n    \"ember-cli-inject-live-reload\": \"^1.4.1\",\n    \"ember-cli-qunit\": \"^4.0.0\",\n    \"ember-cli-release\": \"^0.2.9\",\n    \"ember-cli-shims\": \"^1.1.0\",\n    \"ember-cli-sri\": \"^2.1.0\",\n    \"ember-cli-uglify\": \"^1.2.0\",\n    \"ember-data\": \"~2.13.0\",\n    \"ember-disable-prototype-extensions\": \"^1.1.0\",\n    \"ember-export-application-global\": \"^2.0.0\",\n    \"ember-load-initializers\": \"^1.0.0\",\n    \"ember-native-dom-helpers\": \"^0.5.0\",\n    \"ember-resolver\": \"^4.0.0\",\n    \"ember-source\": \"~2.13.0\",\n    \"loader.js\": \"^4.2.3\"\n  },\n  \"engines\": {\n    \"node\": \">= 4\"\n  },\n  \"ember-addon\": {\n    \"configPath\": \"tests/dummy/config\"\n  }\n}\n",
+    "longname": "/Users/rjackson/src/open-source/ember-decorators/tmp/funnel-output_path-pmseVjJk.tmp/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
