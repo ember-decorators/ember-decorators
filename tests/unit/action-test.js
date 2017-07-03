@@ -48,3 +48,30 @@ test('action decorator throws an error if applied to non-functions', function(as
     assert.equal(message, 'The @action decorator must be applied to functions', 'error message sent correctly');
   }
 });
+
+test('action decorator does not add actions to superclass', function(assert) {
+  class Foo extends Ember.Object {
+    @action
+    foo() {
+      // Do nothing
+    }
+  }
+
+  // eslint-disable-next-line
+  class Bar extends Foo {
+    @action
+    bar() {
+      assert.ok(false, 'called')
+    }
+  }
+
+  const foo = new Foo();
+
+  assert.equal(typeof foo.actions.foo, 'function', 'foo has foo action');
+  assert.equal(typeof foo.actions.bar, 'undefined', 'foo does not have bar action');
+
+  const bar = new Bar();
+
+  assert.equal(typeof bar.actions.foo, 'function', 'bar has foo action');
+  assert.equal(typeof bar.actions.bar, 'function', 'bar has bar action');
+});

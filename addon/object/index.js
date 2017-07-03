@@ -52,7 +52,11 @@ export const action = decorator(function(target, key, desc) {
     throw new Error('The @action decorator must be applied to functions');
   }
 
-  target.actions = target.actions || {};
+  if (!target.hasOwnProperty('actions')) {
+    let parentActions = target.actions;
+    target.actions = parentActions ? Object.create(parentActions) : {};
+  }
+
   target.actions[key] = value;
 
   return value;
