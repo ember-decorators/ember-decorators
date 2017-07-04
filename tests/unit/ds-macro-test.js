@@ -42,7 +42,7 @@ test('DS macro (ES6)', function(assert) {
   class ES6Model extends DS.Model {
     @attr firstName;
     @attr({ defaultTo: 'blue' }) lastName;
-    @hasMany user;
+    @hasMany('user') user;
     @belongsTo car;
   }
 
