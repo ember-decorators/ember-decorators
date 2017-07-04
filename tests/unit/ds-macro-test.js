@@ -13,7 +13,7 @@ test('DS macro', function(assert) {
   var Model = DS.Model.extend({
     @attr firstName: null,
     @attr({ defaultTo: 'blue' }) lastName: null,
-    @hasMany user: null,
+    @hasMany('user') user: null,
     @belongsTo car: null
   });
 
@@ -32,6 +32,36 @@ test('DS macro', function(assert) {
 
   var relationships = [];
   Model.eachRelationship(function(attr) {
+    relationships.push(attr);
+  });
+
+  assert.deepEqual(relationships, ['user', 'car']);
+});
+
+test('DS macro (ES6)', function(assert) {
+  class ES6Model extends DS.Model {
+    @attr firstName;
+    @attr({ defaultTo: 'blue' }) lastName;
+    @hasMany('user') user;
+    @belongsTo car;
+  }
+
+
+  ES6Model.store = {
+    modelFor(typeKey) {
+      return typeKey;
+    }
+  };
+
+  var attributes = [];
+  ES6Model.eachAttribute(function(attr) {
+    attributes.push(attr);
+  });
+
+  assert.deepEqual(attributes, ['firstName', 'lastName']);
+
+  var relationships = [];
+  ES6Model.eachRelationship(function(attr) {
     relationships.push(attr);
   });
 
