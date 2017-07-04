@@ -13,7 +13,7 @@ test('DS macro', function(assert) {
   var Model = DS.Model.extend({
     @attr firstName: null,
     @attr({ defaultTo: 'blue' }) lastName: null,
-    @hasMany user: null,
+    @hasMany('user') user: null,
     @belongsTo car: null
   });
 
