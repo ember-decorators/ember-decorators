@@ -13,6 +13,7 @@ test('DS macro', function(assert) {
   var Model = DS.Model.extend({
     @attr firstName: null,
     @attr({ defaultTo: 'blue' }) lastName: null,
+    @attr('number') age: null,
     @hasMany user: null,
     @belongsTo car: null
   });
@@ -24,11 +25,15 @@ test('DS macro', function(assert) {
   };
 
   var attributes = [];
-  Model.eachAttribute(function(attr) {
-    attributes.push(attr);
+  Model.eachAttribute(function(attr, meta) {
+    attributes.push({name: attr, type: meta.type});
   });
 
-  assert.deepEqual(attributes, ['firstName', 'lastName']);
+  assert.deepEqual(attributes, [
+    {name: 'firstName', type: undefined},
+    {name: 'lastName',  type: undefined},
+    {name: 'age',       type: 'number'}
+  ]);
 
   var relationships = [];
   Model.eachRelationship(function(attr) {
