@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import { decoratorWithParams } from '../utils/decorator-wrappers';
 import { decoratorWithKeyReflection } from '../utils/decorator-macros';
 
 /**
@@ -16,7 +17,9 @@ import { decoratorWithKeyReflection } from '../utils/decorator-macros';
  * @function
  * @param {String} [type] - Type of the attribute
  */
-export const attr = decoratorWithKeyReflection(DS.attr);
+export const attr = decoratorWithParams(function(target, key, desc, params) {
+  return DS.attr(...params);
+});
 
 /**
  * Decorator that turns the property into an Ember Data `hasMany` relationship
