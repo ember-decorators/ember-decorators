@@ -308,7 +308,7 @@ test('works with es6 class setter', function(assert) {
 });
 
 test('works with es6 class getter and setter', function(assert) {
-  assert.expect(3);
+  assert.expect(5);
 
   class Foo {
     constructor() {
@@ -324,6 +324,10 @@ test('works with es6 class getter and setter', function(assert) {
 
     set fullName(name) {
       assert.equal(name, 'rob jackson');
+
+      // Check `this` context to make sure function was bound properly
+      assert.equal(this.first, 'rob');
+      assert.equal(this.last, 'jackson');
     }
   }
 

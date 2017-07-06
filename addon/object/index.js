@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import computedMacro from 'ember-macro-helpers/computed';
+import macroComputed from 'ember-macro-helpers/computed';
 
 import extractValue from '../utils/extract-value';
 import {
@@ -10,6 +10,8 @@ import {
 import {
   decoratorWithRequiredParams
 } from '../utils/decorator-macros';
+
+const { computed: emberComputed } = Ember;
 
 /**
  * Decorator that turns the target function into an Action
@@ -151,22 +153,24 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
     throw new Error(`ES6 property getters/setters only need to be decorated once, '${key}' was decorated on both the getter and the setter`);
   }
 
-  let value;
-
   if (desc.writable === undefined) {
-    value = {
-      get: desc.get,
-      set: desc.set
-    };
+    let { get, set } = desc;
 
     // Unset the getter and setter so the descriptor just has a plain value
     desc.get = undefined;
     desc.set = undefined;
-  } else {
-    value = extractValue(desc);
-  }
 
-  return computedMacro(...params, value);
+    // Use a standard ember computed since getter/setter arrity is restricted,
+    // meaning ember-macro-helpers doesn't provide any benefit
+    return emberComputed(...params, {
+      get,
+      set(key, value) {
+        set.call(this, value);
+      }
+    });
+  } else {
+    return macroComputed(...params, extractValue(desc));
+  }
 });
 
 /**
