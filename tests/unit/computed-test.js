@@ -78,20 +78,6 @@ test('only calls getter when dependent keys change', function(assert) {
   assert.equal(callCount, 1);
 });
 
-test('throws an error when attempting to use ES6 getter/setter syntax', function(assert) {
-  assert.throws(() => {
-    return {
-      first: 'rob',
-      last: 'jackson',
-
-      @computed('first', 'last')
-      set name(value) { return value; },
-
-      get name() { }
-    };
-  });
-});
-
 test('allows using ember-new-computed style get/set syntax', function(assert) {
   // not currently supported by Babel (waiting on confirmation from @wycats
   // before opening an issue)
@@ -266,3 +252,95 @@ test('attr.@each.{foo,bar} passes attr', function(assert) {
   get(obj, 'something');
   set(obj, 'something', 'something');
 });
+
+test('works with es6 class', function(assert) {
+  assert.expect(2);
+
+  class Foo {
+    constructor() {
+      this.first = 'rob';
+      this.last = 'jackson';
+    }
+
+    @computed('first', 'last')
+    fullName(first, last) {
+      assert.equal(first, 'rob');
+      assert.equal(last, 'jackson');
+    }
+  }
+
+  let obj = new Foo();
+  get(obj, 'fullName');
+});
+
+test('works with es6 class getter', function(assert) {
+  assert.expect(2);
+
+  class Foo {
+    constructor() {
+      this.first = 'rob';
+      this.last = 'jackson';
+    }
+
+    @computed('first', 'last')
+    get fullName() {
+      assert.equal(this.first, 'rob');
+      assert.equal(this.last, 'jackson');
+    }
+  }
+
+  let obj = new Foo();
+  get(obj, 'fullName');
+});
+
+test('works with es6 class setter', function(assert) {
+  assert.expect(1);
+
+  class Foo {
+    @computed
+    set fullName(name) {
+      assert.equal(name, 'rob jackson');
+    }
+  }
+
+  let obj = new Foo();
+  set(obj, 'fullName', 'rob jackson');
+});
+
+test('works with es6 class getter and setter', function(assert) {
+  assert.expect(3);
+
+  class Foo {
+    constructor() {
+      this.first = 'rob';
+      this.last = 'jackson';
+    }
+
+    @computed('first', 'last')
+    get fullName() {
+      assert.equal(this.first, 'rob');
+      assert.equal(this.last, 'jackson');
+    }
+
+    set fullName(name) {
+      assert.equal(name, 'rob jackson');
+    }
+  }
+
+  let obj = new Foo();
+  get(obj, 'fullName');
+  set(obj, 'fullName', 'rob jackson');
+});
+
+test('throws if the same property is decorated more than once', function(assert) {
+  assert.throws(() => {
+    // eslint-disable-next-line
+    class Foo {
+      @computed
+      get fullName() {}
+
+      @computed
+      set fullName(name) {}
+    }
+  });
+})

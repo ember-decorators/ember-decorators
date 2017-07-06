@@ -147,11 +147,25 @@ export const action = decorator(function(target, key, desc) {
  * @param {...String} propertyNames - List of property keys this computed is dependent on
  */
 export const computed = decoratorWithParams(function(target, key, desc, params) {
-  if (!desc.writable) {
-    throw new Error('ember-decorators does not support using getters and setters');
+  if (desc.value instanceof Ember.ComputedProperty) {
+    throw new Error(`ES6 property getters/setters only need to be decorated once, '${key}' was decorated on both the getter and the setter`);
   }
 
-  let value = extractValue(desc);
+  let value;
+
+  if (desc.writable === undefined) {
+    value = {
+      get: desc.get,
+      set: desc.set
+    };
+
+    // Unset the getter and setter so the descriptor just has a plain value
+    desc.get = undefined;
+    desc.set = undefined;
+  } else {
+    value = extractValue(desc);
+  }
+
   return computedMacro(...params, value);
 });
 
