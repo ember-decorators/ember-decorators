@@ -1,6 +1,8 @@
 import { decoratorWithParams } from './decorator-wrappers';
 import extractValue from './extract-value';
 
+import { assert } from '@ember/debug';
+
 export function decoratorWithKeyReflection(fn) {
   return decoratorWithParams(function(target, key, desc, params) {
     if (params.length === 0) {
@@ -11,22 +13,18 @@ export function decoratorWithKeyReflection(fn) {
   });
 }
 
-export function decoratorWithRequiredParams(fn, errorMessage) {
+export function decoratorWithRequiredParams(fn) {
   return decoratorWithParams(function(target, key, desc, params) {
-    if (params.length === 0) {
-      throw new Error(errorMessage);
-    }
+    assert(`Cannot use '${fn.name}' on field '${key}' without parameters`, params.length !== 0);
 
     const value = extractValue(desc);
     return fn(...params, value);
   });
 }
 
-export function decoratedPropertyWithRequiredParams(fn, errorMessage) {
+export function decoratedPropertyWithRequiredParams(fn) {
   return decoratorWithParams(function(target, key, desc, params) {
-    if (params.length === 0) {
-      throw new Error(errorMessage);
-    }
+    assert(`Cannot use '${fn.name}' on field '${key}' without parameters`, params.length !== 0);
 
     return fn(...params);
   });

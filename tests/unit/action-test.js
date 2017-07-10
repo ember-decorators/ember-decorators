@@ -38,15 +38,17 @@ test('action decorator works with ES6 class', function(assert) {
 });
 
 test('action decorator throws an error if applied to non-functions', function(assert) {
-  try {
-    class TestObject extends Ember.Object {
-      @action foo = 'bar'
-    }
+  assert.throws(
+    () => {
+      class TestObject extends Ember.Object {
+        @action foo = 'bar'
+      }
 
-    new TestObject();
-  } catch ({ message }) {
-    assert.equal(message, 'The @action decorator must be applied to functions', 'error message sent correctly');
-  }
+      new TestObject();
+    },
+    /The @action decorator must be applied to functions/,
+    'error thrown correctly'
+  )
 });
 
 test('action decorator does not add actions to superclass', function(assert) {

@@ -992,6 +992,10 @@ babel-types@^6.10.2, babel-types@^6.19.0, babel-types@^6.23.0, babel-types@^6.24
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
 
+babel6-plugin-remove-imports@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/babel6-plugin-remove-imports/-/babel6-plugin-remove-imports-6.0.0.tgz#50c865371c91dbb5956a4f0fc578de269fbdc0e1"
+
 babel6-plugin-strip-class-callcheck@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/babel6-plugin-strip-class-callcheck/-/babel6-plugin-strip-class-callcheck-6.0.0.tgz#de841c1abebbd39f78de0affb2c9a52ee228fddf"

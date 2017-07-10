@@ -87,23 +87,27 @@ test('observes > on', function(assert) {
 });
 
 test('observes throws an error if used without parameters', function(assert) {
-  try {
-    Ember.Object.extend({
-      @observes
-      foo() {}
-    }).create();
-  } catch ({ message }) {
-    assert.equal(message, 'Cannot `observe` without property names', 'error thrown correctly');
-  }
+  assert.throws(
+    () => {
+      Ember.Object.extend({
+        @observes
+        foo() {}
+      }).create();
+    },
+    /Cannot use 'observer' on field 'foo' without parameters/,
+    'error thrown correctly'
+  );
 });
 
 test('on throws an error if used without parameters', function(assert) {
-  try {
-    Ember.Object.extend({
-      @on
-      foo() {}
-    }).create();
-  } catch ({ message }) {
-    assert.equal(message, 'Cannot `on` without event names', 'error thrown correctly');
-  }
+  assert.throws(
+    () => {
+      Ember.Object.extend({
+        @on
+        foo() {}
+      }).create();
+    },
+    /Cannot use 'on' on field 'foo' without parameters/,
+    'error thrown correctly'
+  );
 });

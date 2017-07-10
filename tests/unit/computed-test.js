@@ -54,9 +54,13 @@ test('readOnly', function(assert) {
     }
   };
 
-  assert.throws(function() {
-    set(obj, 'name', 'al');
-  }, /Cannot set read-only property/);
+  assert.throws(
+    () => {
+      set(obj, 'name', 'al');
+    },
+    /Cannot set read-only property/,
+    'error thrown correctly'
+  );
 });
 
 test('only calls getter when dependent keys change', function(assert) {
@@ -337,14 +341,18 @@ test('works with es6 class getter and setter', function(assert) {
 });
 
 test('throws if the same property is decorated more than once', function(assert) {
-  assert.throws(() => {
+  assert.throws(
+    () => {
     // eslint-disable-next-line
-    class Foo {
-      @computed
-      get fullName() {}
+      class Foo {
+        @computed
+        get fullName() {}
 
-      @computed
-      set fullName(name) {}
-    }
-  });
+        @computed
+        set fullName(name) {}
+      }
+    },
+    /ES6 property getters\/setters only need to be decorated once, 'fullName' was decorated on both the getter and the setter/,
+    'error thrown correctly'
+  );
 })

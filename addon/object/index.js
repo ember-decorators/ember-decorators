@@ -7,9 +7,9 @@ import {
   decoratorWithParams
 } from '../utils/decorator-wrappers';
 
-import {
-  decoratorWithRequiredParams
-} from '../utils/decorator-macros';
+import { decoratorWithRequiredParams } from '../utils/decorator-macros';
+
+import { assert } from '@ember/debug';
 
 const { computed: emberComputed } = Ember;
 
@@ -50,9 +50,7 @@ const { computed: emberComputed } = Ember;
 export const action = decorator(function(target, key, desc) {
   const value = extractValue(desc);
 
-  if (typeof value !== 'function') {
-    throw new Error('The @action decorator must be applied to functions');
-  }
+  assert('The @action decorator must be applied to functions', typeof value === 'function');
 
   if (!target.hasOwnProperty('actions')) {
     let parentActions = target.actions;
@@ -149,9 +147,7 @@ export const action = decorator(function(target, key, desc) {
  * @param {...String} propertyNames - List of property keys this computed is dependent on
  */
 export const computed = decoratorWithParams(function(target, key, desc, params) {
-  if (desc.value instanceof Ember.ComputedProperty) {
-    throw new Error(`ES6 property getters/setters only need to be decorated once, '${key}' was decorated on both the getter and the setter`);
-  }
+  assert(`ES6 property getters/setters only need to be decorated once, '${key}' was decorated on both the getter and the setter`, !(desc.value instanceof Ember.ComputedProperty));
 
   if (desc.writable === undefined) {
     let { get, set } = desc;
@@ -193,7 +189,7 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
  * @function
  * @param {...String} eventNames - Names of the events that trigger the function
  */
-export const observes = decoratorWithRequiredParams(Ember.observer, 'Cannot `observe` without property names');
+export const observes = decoratorWithRequiredParams(Ember.observer);
 
 /**
  * Decorator that modifies a computed property to be read only.
