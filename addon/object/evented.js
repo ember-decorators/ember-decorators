@@ -25,5 +25,5 @@ import {
  * @function
  * @param {...String} eventNames - Names of the events that trigger the function
  */
-export const on = decoratorWithRequiredParams(Ember.on, 'Cannot `on` without event names');
+export const on = decoratorWithRequiredParams(Ember.on);
 

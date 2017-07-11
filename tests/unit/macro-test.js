@@ -438,12 +438,14 @@ test('readOnly', function(assert) {
   }).create();
 
   assert.equal(obj.get('finalName'), 'Brohuda');
-  try {
-    obj.set('finalName', 'Brotom');
-  }
-  catch(e) {
-    assert.equal(e.message.match(/Cannot set read-only property 'finalName' on object/).length, 1);
-  }
+  assert.throws(
+    () => {
+      obj.set('finalName', 'Brotom');
+    },
+    /Cannot set read-only property 'finalName' on object/,
+    'error message thrown when trying to set readOnly property'
+  );
+
   assert.equal(obj.get('finalName'), 'Brohuda');
 });
 
@@ -537,11 +539,13 @@ test('uniq', function(assert) {
 });
 
 test('macros cannot be used without parameters', function(assert) {
-  try {
-    Ember.Object.extend({
-      @alias uniqNames: null
-    }).create();
-  } catch ({ message }) {
-    assert.equal(message, 'Cannot use `alias` without parameters');
-  }
+  assert.throws(
+    () => {
+      Ember.Object.extend({
+        @alias uniqNames: null
+      }).create();
+    },
+    /Cannot use 'alias' on field 'uniqNames' without parameters/,
+    'error thrown correctly'
+  );
 });

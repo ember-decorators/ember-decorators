@@ -27,7 +27,7 @@ import {
  * @function
  * @param {String} dependentKey - Key for the aliased property
  */
-export const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias, 'Cannot use `alias` without parameters');
+export const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias);
 
 /**
  * Decorator that wraps [Ember.computed.and](http://emberjs.com/api/classes/Ember.computed.html#method_and)
@@ -51,7 +51,7 @@ export const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias, '
  * @function
  * @param {...String} dependentKeys - Keys for properties to `and`
  */
-export const and = decoratedPropertyWithRequiredParams(Ember.computed.and, 'Cannot use `and` without parameters');
+export const and = decoratedPropertyWithRequiredParams(Ember.computed.and);
 
 /**
  * Decorator that wraps [Ember.computed.bool](http://emberjs.com/api/classes/Ember.computed.html#method_bool)
@@ -73,7 +73,7 @@ export const and = decoratedPropertyWithRequiredParams(Ember.computed.and, 'Cann
  * @function
  * @param {String} dependentKey - Key for the property to convert
  */
-export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool, 'Cannot use `bool` without parameters');
+export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool);
 
 /**
  * Decorator that wraps [Ember.computed.collect](http://emberjs.com/api/classes/Ember.computed.html#method_collect)
@@ -96,7 +96,7 @@ export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool, 'Ca
  * @function
  * @param {...String} dependentKeys - Keys for the properties to collect
  */
-export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collect, 'Cannot use `collect` without parameters');
+export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collect);
 
 /**
  * Decorator that wraps [Ember.computed.empty](http://emberjs.com/api/classes/Ember.computed.html#method_empty)
@@ -118,7 +118,7 @@ export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collec
  * @function
  * @param {String} dependentKey - Key of the property to check emptiness of
  */
-export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty, 'Cannot use `empty` without parameters');
+export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty);
 
 /**
  * Decorator that wraps [Ember.computed.equal](http://emberjs.com/api/classes/Ember.computed.html#method_equal)
@@ -139,7 +139,7 @@ export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty, '
  * @param {String} dependentKey - Key for the property to check
  * @param {Any} value - Value to compare the dependent property to
  */
-export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal, 'Cannot use `equal` without parameters');
+export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal);
 
 /**
  * Decorator that wraps [Ember.computed.filter](http://emberjs.com/api/classes/Ember.computed.html#method_filter)
@@ -167,7 +167,7 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal, '
  * @param {String} dependentKey - Key for the array to filter
  * @param {Function(item: Any, index: Number, array: Array<Any>): Boolean} callback - The function to filter with
  */
-export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter, 'Cannot use `filter` without parameters');
+export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter);
 
 /**
  * Decorator that wraps [Ember.computed.filterBy](http://emberjs.com/api/classes/Ember.computed.html#method_filterBy)
@@ -194,7 +194,7 @@ export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter,
  * @param {String} propertyKey - Property of the array items to filter by
  * @param {Any} value - Value to filter by
  */
-export const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filterBy, 'Cannot use `filterBy` without parameters');
+export const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filterBy);
 
 /**
  * Decorator that wraps [Ember.computed.gt](http://emberjs.com/api/classes/Ember.computed.html#method_gt)
@@ -217,7 +217,7 @@ export const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filte
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt, 'Cannot use `gt` without parameters');
+export const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt);
 
 /**
  * Decorator that wraps [Ember.computed.gte](http://emberjs.com/api/classes/Ember.computed.html#method_gte)
@@ -240,7 +240,7 @@ export const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt, 'Cannot
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte, 'Cannot use `gte` without parameters');
+export const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte);
 
 /**
  * Decorator that wraps [Ember.computed.intersect](http://emberjs.com/api/classes/Ember.computed.html#method_intersect)
@@ -263,7 +263,7 @@ export const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte, 'Cann
  * @function
  * @param {...String} dependentKeys - Keys of the arrays to intersect
  */
-export const intersect = decoratedPropertyWithRequiredParams(Ember.computed.intersect, 'Cannot use `intersect` without parameters');
+export const intersect = decoratedPropertyWithRequiredParams(Ember.computed.intersect);
 
 /**
  * Decorator that wraps [Ember.computed.lt](http://emberjs.com/api/classes/Ember.computed.html#method_lt)
@@ -286,7 +286,7 @@ export const intersect = decoratedPropertyWithRequiredParams(Ember.computed.inte
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt, 'Cannot use `lt` without parameters');
+export const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt);
 
 /**
  * Decorator that wraps [Ember.computed.lte](http://emberjs.com/api/classes/Ember.computed.html#method_lte)
@@ -309,7 +309,7 @@ export const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt, 'Cannot
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte, 'Cannot use `lte` without parameters');
+export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte);
 
 /**
  * Decorator that wraps [Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)
@@ -333,7 +333,7 @@ export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte, 'Cann
  * @param {String} dependentKey - Key for the array to map over
  * @param {Function(item: Any, index: Number): Any} callback - Function to map over the array
  */
-export const map = decoratedPropertyWithRequiredParams(Ember.computed.map, 'Cannot use `map` without parameters');
+export const map = decoratedPropertyWithRequiredParams(Ember.computed.map);
 
 /**
  * Decorator that wraps [Ember.computed.mapBy](http://emberjs.com/api/classes/Ember.computed.html#method_mapBy)
@@ -359,7 +359,7 @@ export const map = decoratedPropertyWithRequiredParams(Ember.computed.map, 'Cann
  * @param {String} dependentKey - Key for the array to map over
  * @param {String} propertyKey - Property of the array items to map by
  */
-export const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy, 'Cannot use `mapBy` without parameters');
+export const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy);
 
 /**
  * Decorator that wraps [Ember.computed.match](http://emberjs.com/api/classes/Ember.computed.html#method_match)
@@ -383,7 +383,7 @@ export const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy, '
  * @param {String} dependentKey - The property to match
  * @param {RegExp} pattern - The pattern to match against
  */
-export const match = decoratedPropertyWithRequiredParams(Ember.computed.match, 'Cannot use `match` without parameters');
+export const match = decoratedPropertyWithRequiredParams(Ember.computed.match);
 
 /**
  * Decorator that wraps [Ember.computed.max](http://emberjs.com/api/classes/Ember.computed.html#method_max)
@@ -405,7 +405,7 @@ export const match = decoratedPropertyWithRequiredParams(Ember.computed.match, '
  * @function
  * @param {String} dependentKey - Key for the array to find the max value of
  */
-export const max = decoratedPropertyWithRequiredParams(Ember.computed.max, 'Cannot use `max` without parameters');
+export const max = decoratedPropertyWithRequiredParams(Ember.computed.max);
 
 /**
  * Decorator that wraps [Ember.computed.min](http://emberjs.com/api/classes/Ember.computed.html#method_min)
@@ -427,7 +427,7 @@ export const max = decoratedPropertyWithRequiredParams(Ember.computed.max, 'Cann
  * @function
  * @param {String} dependentKey - Key for the array to find the max value of
  */
-export const min = decoratedPropertyWithRequiredParams(Ember.computed.min, 'Cannot use `min` without parameters');
+export const min = decoratedPropertyWithRequiredParams(Ember.computed.min);
 
 /**
  * Decorator that wraps [Ember.computed.none](http://emberjs.com/api/classes/Ember.computed.html#method_none)
@@ -450,7 +450,7 @@ export const min = decoratedPropertyWithRequiredParams(Ember.computed.min, 'Cann
  * @function
  * @param {String} dependentKey - Key for the property to check
  */
-export const none = decoratedPropertyWithRequiredParams(Ember.computed.none, 'Cannot use `none` without parameters');
+export const none = decoratedPropertyWithRequiredParams(Ember.computed.none);
 
 /**
  * Decorator that wraps [Ember.computed.not](http://emberjs.com/api/classes/Ember.computed.html#method_not)
@@ -472,7 +472,7 @@ export const none = decoratedPropertyWithRequiredParams(Ember.computed.none, 'Ca
  * @function
  * @param {String} dependentKey - Key for the property to `not`
  */
-export const not = decoratedPropertyWithRequiredParams(Ember.computed.not, 'Cannot use `not` without parameters');
+export const not = decoratedPropertyWithRequiredParams(Ember.computed.not);
 
 /**
  * Decorator that wraps [Ember.computed.notEmpty](http://emberjs.com/api/classes/Ember.computed.html#method_notEmpty)
@@ -494,7 +494,7 @@ export const not = decoratedPropertyWithRequiredParams(Ember.computed.not, 'Cann
  * @function
  * @param {String} dependentKey - Key for the property to check
  */
-export const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEmpty, 'Cannot use `notEmpty` without parameters');
+export const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEmpty);
 
 /**
  * Decorator that wraps [Ember.computed.oneWay](http://emberjs.com/api/classes/Ember.computed.html#method_oneWay)
@@ -519,7 +519,7 @@ export const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEm
  * @function
  * @param {String} dependentKey - Key for the property to alias
  */
-export const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay, 'Cannot use `oneWay` without parameters');
+export const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay);
 
 /**
  * Decorator that wraps [Ember.computed.or](http://emberjs.com/api/classes/Ember.computed.html#method_or)
@@ -542,7 +542,7 @@ export const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay,
  * @function
  * @param {...String} dependentKey - Key for the properties to `or`
  */
-export const or = decoratedPropertyWithRequiredParams(Ember.computed.or, 'Cannot use `or` without parameters');
+export const or = decoratedPropertyWithRequiredParams(Ember.computed.or);
 
 /**
  * Decorator that wraps [Ember.computed.reads](http://emberjs.com/api/classes/Ember.computed.html#method_reads)
@@ -562,7 +562,7 @@ export const or = decoratedPropertyWithRequiredParams(Ember.computed.or, 'Cannot
  * @function
  * @param {String} dependentKey - Key for the property to read
  */
-export const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads, 'Cannot use `reads` without parameters');
+export const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads);
 
 /**
  * Decorator that wraps [Ember.computed.setDiff](http://emberjs.com/api/classes/Ember.computed.html#method_setDiff)
@@ -586,7 +586,7 @@ export const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads, '
  * @param {String} setAProperty - Keys for the first set
  * @param {String} setBProperty - Keys for the first set
  */
-export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDiff, 'Cannot use `setDiff` without parameters');
+export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDiff);
 
 /**
  * Decorator that wraps [Ember.computed.sort](http://emberjs.com/api/classes/Ember.computed.html#method_sort)
@@ -634,7 +634,7 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  * @param {String} dependentKey - The key for the array that should be sorted
  * @param {Array<String>|Function(Any, Any): Number} sortDefinition - Sorting function or sort descriptor
  */
-export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort, 'Cannot use `sort` without parameters');
+export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort);
 
 /**
  * Decorator that wraps [Ember.computed.sum](http://emberjs.com/api/classes/Ember.computed.html#method_sum)
@@ -656,7 +656,7 @@ export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort, 'Ca
  * @function
  * @param {String} dependentKey - Key of the array to sum up
  */
-export const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum, 'Cannot use `sum` without parameters');
+export const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum);
 
 /**
  * Decorator that wraps [Ember.computed.union](http://emberjs.com/api/classes/Ember.computed.html#method_union)
@@ -678,7 +678,7 @@ export const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum, 'Cann
  * @function
  * @param {...String} dependentKeys - Keys of the arrays to union
  */
-export const union = decoratedPropertyWithRequiredParams(Ember.computed.union, 'Cannot use `union` without parameters');
+export const union = decoratedPropertyWithRequiredParams(Ember.computed.union);
 
 /**
  * Decorator that wraps [Ember.computed.uniq](http://emberjs.com/api/classes/Ember.computed.html#method_uniq)
@@ -700,4 +700,4 @@ export const union = decoratedPropertyWithRequiredParams(Ember.computed.union, '
  * @function
  * @param {String} dependentKey - Key of the array to uniq
  */
-export const uniq = decoratedPropertyWithRequiredParams(Ember.computed.uniq, 'Cannot use `uniq` without parameters');
+export const uniq = decoratedPropertyWithRequiredParams(Ember.computed.uniq);
