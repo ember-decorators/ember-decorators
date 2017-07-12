@@ -13,6 +13,10 @@ More details:
 
 ## Usage
 
+### Installation
+
+`ember install ember-decorators`
+
 ### Babel Setup
 
 To use ember-decorators you must update Babel's configuration to
