@@ -6,12 +6,6 @@ module.exports = function(defaults) {
     fingerprint: {
       enabled: false
     },
-    babel: {
-      plugins: [
-        'transform-decorators-legacy',
-        'transform-class-properties'
-      ]
-    },
     esdoc: {
       enabledEnvironments: ['production'],
       config: {
