@@ -18,13 +18,29 @@ function requireTransform(transformName) {
   return plugin;
 }
 
+function hasPlugin(plugins, name) {
+  for (let maybePlugin of plugins) {
+    let plugin = Array.isArray(maybePlugin) ? maybePlugin[0] : maybePlugin;
+    let pluginName = typeof plugin === 'string' ? plugin : plugin.name;
+
+    if (pluginName === name) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 module.exports = {
   name: 'ember-decorators',
 
   _getParentOptions: function() {
     let options;
 
-    if (this.parent) {
+    // The parent can either be an Addon or a Project. If it's an addon,
+    // we want to use the app instead. This public method probably wasn't meant
+    // for this, but it's named well enough that we can use it for this purpose.
+    if (this.parent && !this.parent.isEmberCLIProject) {
       options = this.parent.options = this.parent.options || {};
     } else {
       options = this.app.options = this.app.options || {};
@@ -41,21 +57,25 @@ module.exports = {
     let disableTransforms = parentOptions.emberDecorators && parentOptions.emberDecorators.disableTransforms;
 
     if (!this._registeredWithBabel && !disableTransforms) {
-      let TransformClassProperties = requireTransform('babel-plugin-transform-class-properties');
-      let TransformDecoratorsLegacy = requireTransform('babel-plugin-transform-decorators-legacy');
-
       let checker = new VersionChecker(this.parent).for('ember-cli-babel', 'npm');
 
       if (checker.satisfies('^6.0.0-beta.1')) {
-        parentOptions.babel = parentOptions.babel || {};
-        parentOptions.babel.plugins = parentOptions.babel.plugins || [];
+        let TransformDecoratorsLegacy = requireTransform('babel-plugin-transform-decorators-legacy');
+        let TransformClassProperties = requireTransform('babel-plugin-transform-class-properties');
 
-        if (parentOptions.babel.plugins.indexOf('transform-decorators-legacy') === -1) {
-          parentOptions.babel.plugins.push(TransformDecoratorsLegacy);
+        // Create babel options if they do not exist
+        parentOptions.babel = parentOptions.babel || {};
+
+        // Create and pull off babel plugins
+        let plugins = parentOptions.babel.plugins = parentOptions.babel.plugins || [];
+
+        if (!hasPlugin(plugins, 'transform-decorators-legacy')) {
+          // unshift the transform because it always must come before class properties
+          plugins.unshift(TransformDecoratorsLegacy);
         }
 
-        if (parentOptions.babel.plugins.indexOf('transform-class-properties') === -1) {
-          parentOptions.babel.plugins.push(TransformClassProperties);
+        if (!hasPlugin('transform-class-properties')) {
+          plugins.push(TransformClassProperties);
         }
       } else {
         app.project.ui.writeWarnLine(
