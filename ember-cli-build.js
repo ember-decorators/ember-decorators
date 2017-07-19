@@ -11,6 +11,9 @@ module.exports = function(defaults) {
       config: {
         excludes: ['utils/.*']
       }
+    },
+    'ember-cli-babel': {
+      includePolyfill: true
     }
   });
 

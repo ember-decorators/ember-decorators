@@ -48,9 +48,18 @@ const { computed: emberComputed } = Ember;
  * @function
  */
 export const action = decorator(function(target, key, desc) {
-  const value = extractValue(desc);
+  let value = extractValue(desc);
 
   assert('The @action decorator must be applied to functions', typeof value === 'function');
+
+  // We must collapse the superclass prototype to make sure that the `actions`
+  // object will exist. Since collapsing doesn't generally happen until a class is
+  // instantiated, we have to do it manually.
+  let superClass = Object.getPrototypeOf(target.constructor);
+
+  if (superClass.hasOwnProperty('proto') && typeof superClass.proto === 'function') {
+    superClass.proto();
+  }
 
   if (!target.hasOwnProperty('actions')) {
     let parentActions = target.actions;

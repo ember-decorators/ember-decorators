@@ -4,7 +4,7 @@ import { action } from 'ember-decorators/object';
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent } from 'ember-qunit';
 import { test } from 'qunit';
-import { click } from 'ember-native-dom-helpers';
+import { findAll, click } from 'ember-native-dom-helpers';
 
 moduleForComponent('actions', { integration: true });
 
@@ -76,4 +76,45 @@ test('action decorator does not add actions to superclass', function(assert) {
 
   assert.equal(typeof bar.actions.foo, 'function', 'bar has foo action');
   assert.equal(typeof bar.actions.bar, 'function', 'bar has bar action');
+});
+
+test('actions are properly merged through traditional and ES6 prototype hierarchy', async function(assert) {
+  assert.expect(3);
+
+  let FooComponent = Ember.Component.extend({
+    actions: {
+      foo() {
+        assert.ok(true, 'foo called!');
+      }
+    }
+  })
+
+  class BarComponent extends FooComponent {
+    @action
+    bar() {
+      assert.ok(true, 'bar called!');
+    }
+  }
+
+  class BazComponent extends BarComponent {
+    @action
+    baz() {
+      assert.ok(true, 'baz called!');
+    }
+  }
+
+  this.register('component:baz-component', BazComponent);
+  this.register('template:components/baz-component', hbs`
+    <button {{action 'foo'}}>Click Foo!</button>
+    <button {{action 'bar'}}>Click Bar!</button>
+    <button {{action 'baz'}}>Click Baz!</button>
+  `);
+
+  this.render(hbs`{{baz-component}}`);
+
+  let buttons = findAll('button');
+
+  await click(buttons[0]);
+  await click(buttons[1]);
+  await click(buttons[2]);
 });
