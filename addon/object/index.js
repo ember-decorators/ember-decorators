@@ -9,6 +9,8 @@ import {
 
 import { decoratorWithRequiredParams } from '../utils/decorator-macros';
 
+import { observerOrEventedDecorator } from '../utils/observer-and-evented-macros';
+
 import { assert } from '@ember/debug';
 
 const { computed: emberComputed } = Ember;
@@ -177,6 +179,28 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
     return macroComputed(...params, extractValue(desc));
   }
 });
+
+/**
+ * Class decorator that makes an ES class capable of observing changes to
+ * properties. Used with the `observes` decorator to trigger functions on
+ * property changes.
+ *
+ * ```javascript
+ * import Ember from 'ember';
+ * import { observer, observes } from 'ember-decorators/object';
+ *
+ * @observer
+ * export default class extends Ember.Component {
+ *   @observes('foo')
+ *   bar() {
+ *     //...
+ *   }
+ * }
+ * ```
+ *
+ * @function
+ */
+export const observer = observerOrEventedDecorator('observer');
 
 /**
  * Decorator that wraps [Ember.observer](https://emberjs.com/api/#method_observer)
