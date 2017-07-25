@@ -1,7 +1,8 @@
 import Ember from 'ember';
 
 import {
-  decoratedPropertyWithRequiredParams
+  decoratedPropertyWithRequiredParams,
+  decoratedPropertyWithOptionalCallback
 } from '../utils/decorator-macros';
 
 /**
@@ -167,7 +168,7 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal);
  * @param {String} dependentKey - Key for the array to filter
  * @param {Function(item: Any, index: Number, array: Array<Any>): Boolean} callback - The function to filter with
  */
-export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter);
+export const filter = decoratedPropertyWithOptionalCallback(Ember.computed.filter);
 
 /**
  * Decorator that wraps [Ember.computed.filterBy](http://emberjs.com/api/classes/Ember.computed.html#method_filterBy)
@@ -333,7 +334,7 @@ export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte);
  * @param {String} dependentKey - Key for the array to map over
  * @param {Function(item: Any, index: Number): Any} callback - Function to map over the array
  */
-export const map = decoratedPropertyWithRequiredParams(Ember.computed.map);
+export const map = decoratedPropertyWithOptionalCallback(Ember.computed.map);
 
 /**
  * Decorator that wraps [Ember.computed.mapBy](http://emberjs.com/api/classes/Ember.computed.html#method_mapBy)
@@ -634,7 +635,7 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  * @param {String} dependentKey - The key for the array that should be sorted
  * @param {Array<String>|Function(Any, Any): Number} sortDefinition - Sorting function or sort descriptor
  */
-export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort);
+export const sort = decoratedPropertyWithOptionalCallback(Ember.computed.sort);
 
 /**
  * Decorator that wraps [Ember.computed.sum](http://emberjs.com/api/classes/Ember.computed.html#method_sum)
