@@ -105,6 +105,8 @@ test('allows using ember-new-computed style get/set syntax', function(assert) {
         assert.equal(last, 'jackson');
 
         setCallCount++;
+
+        return `${value}-transformed`;
       }
     }
   };
@@ -117,6 +119,8 @@ test('allows using ember-new-computed style get/set syntax', function(assert) {
 
   set(obj, 'name', 'foo');
   assert.equal(setCallCount, 1, 'calls setter when set');
+
+  assert.strictEqual(get(obj, 'name'), 'foo-transformed', 'return value of setter is new value of computed property')
 });
 
 module('decorated computed without dependent keys');
@@ -298,21 +302,25 @@ test('works with es6 class getter', function(assert) {
 });
 
 test('works with es6 class setter', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
 
   class Foo {
     @computed
     set fullName(name) {
       assert.equal(name, 'rob jackson');
+
+      return `${name}-transformed`;
     }
   }
 
   let obj = new Foo();
   set(obj, 'fullName', 'rob jackson');
+
+  assert.strictEqual(get(obj, 'fullName'), 'rob jackson-transformed', 'return value of setter is new value of computed property');
 });
 
 test('works with es6 class getter and setter', function(assert) {
-  assert.expect(5);
+  assert.expect(6);
 
   class Foo {
     constructor() {
@@ -332,12 +340,16 @@ test('works with es6 class getter and setter', function(assert) {
       // Check `this` context to make sure function was bound properly
       assert.equal(this.first, 'rob');
       assert.equal(this.last, 'jackson');
+
+      return `${name}-transformed`;
     }
   }
 
   let obj = new Foo();
   get(obj, 'fullName');
   set(obj, 'fullName', 'rob jackson');
+
+  assert.strictEqual(get(obj, 'fullName'), 'rob jackson-transformed', 'return value of setter is new value of computed property');
 });
 
 test('throws if the same property is decorated more than once', function(assert) {
