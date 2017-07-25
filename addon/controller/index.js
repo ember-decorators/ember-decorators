@@ -7,12 +7,12 @@ import { decoratorWithKeyReflection } from '../utils/decorator-macros';
  * Injects a controller into a Controller as the decorated property
  *
  *  ```javascript
- * import Ember from 'ember';
- * import { service } from 'ember-decorators/controller';
+ * import Controller from '@ember/controller';
+ * import { controller } from 'ember-decorators/controller';
  *
- * export default Ember.Controller.extend({
+ * export default class extends Controller {
  *   @controller application
- * });
+ * }
  * ```
  *
  * @function

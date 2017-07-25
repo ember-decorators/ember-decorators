@@ -23,21 +23,24 @@ const { computed: emberComputed } = Ember;
  * Before:
  *
  * ```js
- * export default Ember.Component.extend({
+ * import Component from '@ember/component';
+ *
+ * export default class extends Component {
  *   actions: {
  *     foo() {
  *       // do something
  *     }
  *   }
- * });
+ * }
  * ```
  *
  * After:
  *
  * ```js
+ * import Component from '@ember/component';
  * import { action } from 'ember-decorators/object';
  *
- * export default MyComponent extends Ember.Component {
+ * export default class extends Component {
  *   @action
  *   foo() {
  *     // do something
@@ -120,25 +123,25 @@ export const action = decorator(function(target, key, desc) {
  * #### "Real World"
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import computed from 'ember-decorators/object';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   @computed('first', 'last')
  *   name(first, last) {
  *     return `${first} ${last}`;
  *   }
- * });
+ * }
  * ```
  *
  *
  * #### "Real World get/set syntax"
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import computed from 'ember-decorators/object';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   @computed('first', 'last')
  *   name: {
  *     get(first, last) {
@@ -149,7 +152,7 @@ export const action = decorator(function(target, key, desc) {
  *       // ...
  *     }
  *   }
- * });
+ * }
  * ```
  *
  * @function
@@ -184,15 +187,15 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
  * Triggers the target function when the dependent properties have changed
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { observes } from 'ember-decorators/object';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   @observes('foo')
  *   bar() {
  *     //...
  *   }
- * });
+ * }
  * ```
  *
  * @function
@@ -206,16 +209,16 @@ export const observes = decoratorWithRequiredParams(Ember.observer);
  * Usage:
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { computed, readOnly } from 'ember-decorators/object';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   @readOnly
  *   @computed('first', 'last')
  *   name(first, last) {
  *     return `${first} ${last}`;
  *   }
- * });
+ * }
  * ```
  *
  * @function

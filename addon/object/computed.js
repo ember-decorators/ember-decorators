@@ -12,16 +12,16 @@ import {
  * the original property.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { alias } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   person: {
  *     first: 'Joe'
  *   },
  *
  *   @alias('person.first') firstName
- * });
+ * }
  * ```
  *
  * @function
@@ -36,16 +36,16 @@ export const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias);
  * for the provided dependent properties.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { and } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   person: {
  *     first: 'Joe'
  *   },
  *
- *   @and('first', 'last') hasFullName // false
- * });
+ *   @and('person.{first,last}') hasFullName // false
+ * }
  * ```
  *
  * @function
@@ -60,14 +60,14 @@ export const and = decoratedPropertyWithRequiredParams(Ember.computed.and);
  * boolean value.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { bool } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   messageCount: 1,
  *
  *   @bool('messageCount') hasMessages // true
- * });
+ * }
  * ```
  *
  * @function
@@ -82,15 +82,15 @@ export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool);
  * dependent properties.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { collect } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   light: 'strobe',
  *   lens: '35mm prime',
  *
  *   @collect('light', 'lens') equipment // ['strobe', '35mm prime']
- * });
+ * }
  * ```
  *
  * @function
@@ -105,14 +105,15 @@ export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collec
  * property is null, an empty string, empty array, or empty function.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { empty } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   items: Ember.A(['taco', 'burrito']),
+ * export default class extends Component {
+ *   items: A(['taco', 'burrito']),
  *
  *   @empty('items') isEmpty // false
- * });
+ * }
  * ```
  *
  * @function
@@ -126,14 +127,14 @@ export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty);
  * A computed property that returns true if the dependent properties are equal.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { equal } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   state: 'sleepy',
  *
  *   @equal('state', 'sleepy') napTime // true
- * });
+ * }
  *
  * @function
  * @param {String} dependentKey - Key for the property to check
@@ -147,11 +148,12 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal);
  * Filters the items in the array by the provided callback.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { filter } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   chores: Ember.A([
+ * export default class extends Component {
+ *   chores: A([
  *     { name: 'cook', done: true },
  *     { name: 'clean', done: true },
  *     { name: 'write more unit tests', done: false }
@@ -160,7 +162,7 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal);
  *   @filter('chores', function(chore, index, array) {
  *     return !chore.done;
  *   }) remainingChores // [{name: 'write more unit tests', done: false}]
- * });
+ * }
  * ```
  *
  * @function
@@ -175,18 +177,19 @@ export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter)
  * Filters the array by the property and value.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { filterBy } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   chores: Ember.A([
+ * export default class extends Component {
+ *   chores: A([
  *     { name: 'cook', done: true },
  *     { name: 'clean', done: true },
  *     { name: 'write more unit tests', done: false }
  *   ]),
  *
  *   @filterBy('chores', 'done', false) remainingChores // [{name: 'write more unit tests', done: false}]
- * });
+ * }
  * ```
  *
  * @function
@@ -203,14 +206,14 @@ export const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filte
  * is greater than the provided value.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { gt } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   totalCats: 11,
  *
  *   @gt('totalCats', 10) isCatParty // true
- * });
+ * }
  * ```
  *
  * @function
@@ -226,14 +229,14 @@ export const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt);
  * is greater than or equal to the provided value.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { gte } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   totalPlayers: 14,
  *
  *   @gte('totalPlayers', 14) hasEnoughPlayers // true
- * });
+ * }
  * ```
  *
  * @function
@@ -249,15 +252,16 @@ export const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte);
  * elements from two or more dependent arrays.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { intersect } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),
- *   foods: Ember.A(['tacos', 'pizza']),
+ * export default class extends Component {
+ *   likes: A([ 'tacos', 'puppies', 'pizza' ]),
+ *   foods: A(['tacos', 'pizza']),
  *
  *   @intersect('likes', 'foods') favoriteFoods // ['tacos', 'pizza']
- * });
+ * }
  * ```
  *
  * @function
@@ -272,14 +276,14 @@ export const intersect = decoratedPropertyWithRequiredParams(Ember.computed.inte
  * is less than the provided value.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { lt } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   totalDogs: 3,
  *
  *   @lt('totalDogs', 10) isDogParty // true
- * });
+ * }
  * ```
  *
  * @function
@@ -295,14 +299,14 @@ export const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt);
  * is less than or equal to the provided value.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { lte } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   totalPlayers: 14,
  *
  *   @lte('totalPlayers', 14) hasEnoughPlayers // true
- * });
+ * }
  * ```
  *
  * @function
@@ -317,16 +321,17 @@ export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte);
  * Returns an array mapped via the callback
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { map } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   chores: Ember.A(['clean', 'write more unit tests']),
+ * export default class extends Component {
+ *   chores: A(['clean', 'write more unit tests']),
  *
  *   @map('chores', function(chore, index) {
  *     return chore.toUpperCase() + '!';
  *   }) loudChores // ['CLEAN!', 'WRITE MORE UNIT TESTS!']
- * });
+ * }
  * ```
  *
  * @function
@@ -341,18 +346,19 @@ export const map = decoratedPropertyWithRequiredParams(Ember.computed.map);
  * Returns an array mapped to the specified key.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { mapBy } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   people: Ember.A([
+ * export default class extends Component {
+ *   people: A([
  *     {name: "George", age: 5},
  *     {name: "Stella", age: 10},
  *     {name: "Violet", age: 7}
  *   ]),
  *
  *   @mapBy('people', 'age') ages // [5, 10, 7]
- * });
+ * }
  * ```
  *
  * @function
@@ -369,14 +375,14 @@ export const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy);
  * the RegExp and `false` if it does not.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { match } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   email: 'tomster@emberjs.com',
  *
  *   @match('email', /^.+@.+\..+$/) validEmail
- * });
+ * }
  * ```
  *
  * @function
@@ -392,14 +398,15 @@ export const match = decoratedPropertyWithRequiredParams(Ember.computed.match);
  * array. This will return `-Infinity` when the dependent array is empty.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { max } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   values: Ember.A([1, 2, 5, 10]),
+ * export default class extends Component {
+ *   values: A([1, 2, 5, 10]),
  *
  *   @max('values') maxValue // 10
- * });
+ * }
  * ```
  *
  * @function
@@ -414,14 +421,15 @@ export const max = decoratedPropertyWithRequiredParams(Ember.computed.max);
  * array. This will return `Infinity` when the dependent array is empty.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { min } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   values: Ember.A([1, 2, 5, 10]),
+ * export default class extends Component {
+ *   values: A([1, 2, 5, 10]),
  *
  *   @min('values') minValue // 1
- * });
+ * }
  * ```
  *
  * @function
@@ -437,14 +445,14 @@ export const min = decoratedPropertyWithRequiredParams(Ember.computed.min);
  * of `==`, which can be technically confusing.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { none } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   firstName: null,
  *
  *   @none('firstName') isNameless // true until firstName is defined
- * });
+ * }
  * ```
  *
  * @function
@@ -459,14 +467,14 @@ export const none = decoratedPropertyWithRequiredParams(Ember.computed.none);
  * value for the dependent property.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { not } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   loggedIn: false,
  *
  *   @not('loggedIn') isAnonymous // true
- * });
+ * }
  * ```
  *
  * @function
@@ -481,14 +489,15 @@ export const not = decoratedPropertyWithRequiredParams(Ember.computed.not);
  * property is NOT null, an empty string, empty array, or empty function.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { notEmpty } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   groceryBag: Ember.A(['milk', 'eggs', 'apples']),
+ * export default class extends Component {
+ *   groceryBag: A(['milk', 'eggs', 'apples']),
  *
  *   @notEmpty('groceryBag') hasGroceriesToPutAway // true
- * });
+ * }
  * ```
  *
  * @function
@@ -506,14 +515,14 @@ export const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEm
  * diverge from the upstream property.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { oneWay } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   firstName: 'Joe',
  *
  *   @oneWay('firstName') originalName // will always be 'Joe'
- * });
+ * }
  * ```
  *
  * @function
@@ -528,15 +537,15 @@ export const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay)
  * the provided dependent properties.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { or } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   hasJacket: true,
  *   hasUmbrella: false,
  *
  *   @or('hasJacket', 'hasUmbrella') isReadyForRain // true
- * });
+ * }
  * ```
  *
  * @function
@@ -551,12 +560,13 @@ export const or = decoratedPropertyWithRequiredParams(Ember.computed.or);
  * name is somewhat ambiguous as to which direction the data flows.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { reads } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   @reads('first') firstName
- * });
+ * }
  * ```
  *
  * @function
@@ -571,15 +581,16 @@ export const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads);
  * the first dependent array that are not in the second dependent array.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { setDiff } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),
- *   foods: Ember.A(['tacos', 'pizza']),
+ * export default class extends Component {
+ *   likes: A([ 'tacos', 'puppies', 'pizza' ]),
+ *   foods: A(['tacos', 'pizza']),
  *
  *   @setDiff('likes', 'foods') favoriteThingsThatArentFood // ['puppies']
- * });
+ * }
  * ```
  *
  * @function
@@ -613,11 +624,12 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  * instead of series of `if`.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { sort } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   this.names = Ember.A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);
+ * export default class extends Component {
+ *   this.names = A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);
  *   @sort('names', function(a, b){
  *     if (a.name > b.name) {
  *       return 1;
@@ -627,7 +639,7 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  *
  *     return 0;
  *   }) sortedNames // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
- * });
+ * }
  * ```
  *
  * @function
@@ -643,14 +655,15 @@ export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort);
  * array.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { sum } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   values: Ember.A([1, 2, 3]),
+ * export default class extends Component {
+ *   values: A([1, 2, 3]),
  *
  *   @sum('values') total // 6
- * });
+ * }
  * ```
  *
  * @function
@@ -664,15 +677,16 @@ export const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum);
  * Alias for [union](http://emberjs.com/api/classes/Ember.computed.html#method_uniq).
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { union } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),
- *   foods: Ember.A(['tacos', 'pizza', 'ramen']),
+ * export default class extends Component {
+ *   likes: A([ 'tacos', 'puppies', 'pizza' ]),
+ *   foods: A(['tacos', 'pizza', 'ramen']),
  *
  *   @union('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']
- * });
+ * }
  * ```
  *
  * @function
@@ -686,15 +700,16 @@ export const union = decoratedPropertyWithRequiredParams(Ember.computed.union);
  * A computed property which returns a new array with all the unique elements from one or more dependent arrays.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
  * import { uniq } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   likes: Ember.A([ 'tacos', 'puppies', 'pizza' ]),
- *   foods: Ember.A(['tacos', 'pizza', 'ramen']),
+ * export default class extends Component {
+ *   likes: A([ 'tacos', 'puppies', 'pizza' ]),
+ *   foods: A(['tacos', 'pizza', 'ramen']),
  *
  *   @uniq('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']
- * });
+ * }
  * ```
  *
  * @function

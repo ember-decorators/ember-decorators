@@ -7,12 +7,12 @@ import { decoratorWithKeyReflection } from '../utils/decorator-macros';
  * Injects a service into the object as the decorated property
  *
  *  ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { service } from 'ember-decorators/service';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component
  *   @service store
- * });
+ * }
  * ```
  *
  * @function
