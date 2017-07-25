@@ -9,9 +9,9 @@ import { decoratorWithKeyReflection } from '../utils/decorator-macros';
  * import Model from 'ember-data/model';
  * import { attr } from 'ember-decorators/data';
  *
- * export default class extends Model {
- *   @attr firstName;
- * }
+ * export default Model.extend({
+ *   @attr firstName: null
+ * });
  * ```
  *
  * @function
@@ -28,9 +28,9 @@ export const attr = decoratorWithParams(function(target, key, desc, params) {
  * import Model from 'ember-data/model';
  * import { hasMany } from 'ember-decorators/data';
  *
- * export default class extends Model {
- *   @hasMany users;
- * }
+ * export default Model.extend({
+ *   @hasMany users: null
+ * });
  * ```
  *
  * @function
@@ -45,9 +45,9 @@ export const hasMany = decoratorWithKeyReflection(DS.hasMany);
  * import Model from 'ember-data/model';
  * import { belongsTo } from 'ember-decorators/data';
  *
- * export default class extends Model {
- *   @belongsTo user;
- * }
+ * export default Model.extend({
+ *   @belongsTo user: null
+ * });
  * ```
  * @function
  * @param {String} [type] - Type of the `belongsTo` relationship
