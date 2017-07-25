@@ -17,6 +17,11 @@ More details:
 
 `ember install ember-decorators`
 
+If you're using **ember-decorators** in an addon, pass the `-S` option to save
+this as a `dependency` as opposed to the default `devDependency`:
+
+`ember install -S ember-decorators`
+
 ### Application Usage
 
 In your application where you would normally have:
