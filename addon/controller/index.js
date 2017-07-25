@@ -10,7 +10,7 @@ import { decoratorWithKeyReflection } from '../utils/decorator-macros';
  * import Controller from '@ember/controller';
  * import { controller } from 'ember-decorators/controller';
  *
- * export default class extends Controller {
+ * export default class IndexController extends Controller {
  *   @controller application;
  * }
  * ```

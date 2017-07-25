@@ -10,7 +10,7 @@ import { decoratorWithKeyReflection } from '../utils/decorator-macros';
  * import Component from '@ember/component';
  * import { service } from 'ember-decorators/service';
  *
- * export default class extends Component
+ * export default class StoreInjectedComponent extends Component
  *   @service store;
  * }
  * ```

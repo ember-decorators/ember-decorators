@@ -15,7 +15,7 @@ import {
  * import Component from '@ember/component';
  * import { alias } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class UserProfileComponent extends Component {
  *   person = {
  *     first: 'Joe'
  *   };
@@ -39,7 +39,7 @@ export const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias);
  * import Component from '@ember/component';
  * import { and } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class UserProfileComponent extends Component {
  *   person = {
  *     first: 'Joe'
  *   };
@@ -63,7 +63,7 @@ export const and = decoratedPropertyWithRequiredParams(Ember.computed.and);
  * import Component from '@ember/component';
  * import { bool } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class MessagesNotificationComponent extends Component {
  *   messageCount = 1;
  *
  *   @bool('messageCount') hasMessages; // true
@@ -85,7 +85,7 @@ export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool);
  * import Component from '@ember/component';
  * import { collect } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class CameraEquipmentComponent extends Component {
  *   light = 'strobe';
  *   lens = '35mm prime';
  *
@@ -109,7 +109,7 @@ export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collec
  * import { A } from '@ember/array';
  * import { empty } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class FoodItemsComponent extends Component {
  *   items = A(['taco', 'burrito']);
  *
  *   @empty('items') isEmpty; // false
@@ -130,7 +130,7 @@ export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty);
  * import Component from '@ember/component';
  * import { equal } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class NapTimeComponent extends Component {
  *   state = 'sleepy';
  *
  *   @equal('state', 'sleepy') napTime; // true
@@ -152,7 +152,7 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal);
  * import { A } from '@ember/array';
  * import { filter } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class ChoresListComponent extends Component {
  *   chores = A([
  *     { name: 'cook', done: true },
  *     { name: 'clean', done: true },
@@ -181,7 +181,7 @@ export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter)
  * import { A } from '@ember/array';
  * import { filterBy } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class ChoresListComponent extends Component {
  *   chores = A([
  *     { name: 'cook', done: true },
  *     { name: 'clean', done: true },
@@ -209,7 +209,7 @@ export const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filte
  * import Component from '@ember/component';
  * import { gt } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class CatPartyComponent extends Component {
  *   totalCats = 11;
  *
  *   @gt('totalCats', 10) isCatParty; // true
@@ -232,7 +232,7 @@ export const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt);
  * import Component from '@ember/component';
  * import { gte } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class PlayerListComponent extends Component {
  *   totalPlayers = 14;
  *
  *   @gte('totalPlayers', 14) hasEnoughPlayers; // true
@@ -256,7 +256,7 @@ export const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte);
  * import { A } from '@ember/array';
  * import { intersect } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class FoodListComponent extends Component {
  *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
  *   foods = A(['tacos', 'pizza']);
  *
@@ -279,7 +279,7 @@ export const intersect = decoratedPropertyWithRequiredParams(Ember.computed.inte
  * import Component from '@ember/component';
  * import { lt } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class DogPartyComponent extends Component {
  *   totalDogs = 3;
  *
  *   @lt('totalDogs', 10) isDogParty; // true
@@ -302,7 +302,7 @@ export const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt);
  * import Component from '@ember/component';
  * import { lte } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class PlayerListComponent extends Component {
  *   totalPlayers = 14;
  *
  *   @lte('totalPlayers', 14) hasEnoughPlayers; // true
@@ -325,7 +325,7 @@ export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte);
  * import { A } from '@ember/array';
  * import { map } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class ChoresListComponent extends Component {
  *   chores = A(['clean', 'write more unit tests']);
  *
  *   @map('chores', function(chore, index) {
@@ -350,7 +350,7 @@ export const map = decoratedPropertyWithRequiredParams(Ember.computed.map);
  * import { A } from '@ember/array';
  * import { mapBy } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class PeopleListComponent extends Component {
  *   people = A([
  *     {name: "George", age: 5},
  *     {name: "Stella", age: 10},
@@ -378,7 +378,7 @@ export const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy);
  * import Component from '@ember/component';
  * import { match } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class IsEmailValidComponent extends Component {
  *   email = 'tomster@emberjs.com';
  *
  *   @match('email', /^.+@.+\..+$/) validEmail;
@@ -402,7 +402,7 @@ export const match = decoratedPropertyWithRequiredParams(Ember.computed.match);
  * import { A } from '@ember/array';
  * import { max } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class MaxValueComponent extends Component {
  *   values = A([1, 2, 5, 10]);
  *
  *   @max('values') maxValue; // 10
@@ -425,7 +425,7 @@ export const max = decoratedPropertyWithRequiredParams(Ember.computed.max);
  * import { A } from '@ember/array';
  * import { min } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class MinValueComponent extends Component {
  *   values = A([1, 2, 5, 10]);
  *
  *   @min('values') minValue; // 1
@@ -448,7 +448,7 @@ export const min = decoratedPropertyWithRequiredParams(Ember.computed.min);
  * import Component from '@ember/component';
  * import { none } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class NameDisplayComponent extends Component {
  *   firstName = null;
  *
  *   @none('firstName') isNameless; // true unless firstName is defined
@@ -470,7 +470,7 @@ export const none = decoratedPropertyWithRequiredParams(Ember.computed.none);
  * import Component from '@ember/component';
  * import { not } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class UserInfoComponent extends Component {
  *   loggedIn = false;
  *
  *   @not('loggedIn') isAnonymous; // true
@@ -493,7 +493,7 @@ export const not = decoratedPropertyWithRequiredParams(Ember.computed.not);
  * import { A } from '@ember/array';
  * import { notEmpty } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class GroceryBagComponent extends Component {
  *   groceryBag = A(['milk', 'eggs', 'apples']);
  *
  *   @notEmpty('groceryBag') hasGroceriesToPutAway; // true
@@ -518,7 +518,7 @@ export const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEm
  * import Component from '@ember/component';
  * import { oneWay } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class UserProfileComponent extends Component {
  *   firstName = 'Joe';
  *
  *   @oneWay('firstName') originalName; // will always be 'Joe'
@@ -540,7 +540,7 @@ export const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay)
  * import Component from '@ember/component';
  * import { or } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class OutfitFeaturesComponent extends Component {
  *   hasJacket = true;
  *   hasUmbrella = false;
  *
@@ -564,7 +564,7 @@ export const or = decoratedPropertyWithRequiredParams(Ember.computed.or);
  * import { A } from '@ember/array';
  * import { reads } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class UserProfileComponent extends Component {
  *   first = 'Tomster';
  *
  *   @reads('first') firstName;
@@ -587,7 +587,7 @@ export const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads);
  * import { A } from '@ember/array';
  * import { setDiff } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class FavoriteThingsComponent extends Component {
  *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
  *   foods = A(['tacos', 'pizza']);
  *
@@ -630,7 +630,7 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  * import { A } from '@ember/array';
  * import { sort } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class SortNamesComponent extends Component {
  *   names = A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);
  *
  *   @sort('names', function(a, b){
@@ -662,7 +662,7 @@ export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort);
  * import { A } from '@ember/array';
  * import { sum } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class SumValuesComponent extends Component {
  *   values = A([1, 2, 3]);
  *
  *   @sum('values') total; // 6
@@ -684,7 +684,7 @@ export const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum);
  * import { A } from '@ember/array';
  * import { union } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class LikesAndFoodsComponent extends Component {
  *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
  *   foods = A(['tacos', 'pizza', 'ramen']);
  *
@@ -707,7 +707,7 @@ export const union = decoratedPropertyWithRequiredParams(Ember.computed.union);
  * import { A } from '@ember/array';
  * import { uniq } from 'ember-decorators/object/computed';
  *
- * export default class extends Component {
+ * export default class FavoriteThingsComponent extends Component {
  *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
  *   foods = A(['tacos', 'pizza', 'ramen']);
  *

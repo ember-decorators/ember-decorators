@@ -14,7 +14,7 @@ import {
  * import Component from '@ember/component';
  * import { on } from 'ember-decorators/object/evented';
  *
- * export default class extends Component
+ * export default class EventDemoComponent extends Component
  *   @on('init')
  *   setupStuff() {
  *     //...
@@ -26,4 +26,3 @@ import {
  * @param {...String} eventNames - Names of the events that trigger the function
  */
 export const on = decoratorWithRequiredParams(Ember.on);
-

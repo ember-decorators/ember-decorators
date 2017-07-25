@@ -24,7 +24,7 @@ const { computed: emberComputed } = Ember;
  * import Component from '@ember/component';
  * import { action } from 'ember-decorators/object';
  *
- * export default class extends Component {
+ * export default class ActionDemoComponent extends Component {
  *   @action
  *   foo() {
  *     // do something
@@ -75,7 +75,7 @@ export const action = decorator(function(target, key, desc) {
  * import EmberObject from '@ember/object';
  * import computed from 'ember-decorators/object';
  *
- * export default class extends EmberObject {
+ * export default class User extends EmberObject {
  *   someKey = 'foo';
  *   otherKey = 'bar';
  *
@@ -107,7 +107,7 @@ export const action = decorator(function(target, key, desc) {
  * import EmberObject from '@ember/object';
  * import computed from 'ember-decorators/object';
  *
- * export default class extends EmberObject {
+ * export default class FooBar extends EmberObject {
  *   @computed
  *   foo() {
  *     // calculate stuff
@@ -123,7 +123,7 @@ export const action = decorator(function(target, key, desc) {
  * import { setProperties } from ''@ember/object';
  * import computed from 'ember-decorators/object';
  *
- * export default class extends Component {
+ * export default class UserProfileComponent extends Component {
  *   first = 'John';
  *   last = 'Smith';
  *
