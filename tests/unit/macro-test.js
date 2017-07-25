@@ -4,6 +4,7 @@ import {
   and,
   bool,
   collect,
+  deprecatingAlias,
   empty,
   equal,
   filter,
@@ -138,6 +139,20 @@ test('collect', function(assert) {
 
   assert.deepEqual(obj.get('taco').toArray(),['cheese', 'beef', 'tortilla']);
   assert.deepEqual(obj.get('quesadilla').toArray(),['cheese', 'tortilla']);
+});
+
+test('deprecatingAlias', function(assert) {
+  var obj = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.friend = 'Guy';
+    },
+    @deprecatingAlias('friend') buddy: null
+  }).create();
+
+  assert.equal(obj.get('buddy'), 'Guy');
+  obj.set('buddy', 'Tomster');
+  assert.equal(obj.get('friend'), 'Tomster');
 });
 
 test('empty', function(assert) {
