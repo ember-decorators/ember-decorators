@@ -158,6 +158,13 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal);
  *     { name: 'write more unit tests', done: false }
  *   ]),
  *
+ *   @filter('chores')
+ *   remainingChores(chore, index, array) {
+ *     return !chore.done;
+ *   }, // [{name: 'write more unit tests', done: false}]
+ *
+ *   // alternative syntax:
+ *
  *   @filter('chores', function(chore, index, array) {
  *     return !chore.done;
  *   }) remainingChores // [{name: 'write more unit tests', done: false}]
@@ -323,6 +330,13 @@ export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte);
  *
  * export default Ember.Component.extend({
  *   chores: Ember.A(['clean', 'write more unit tests']),
+ *
+ *   @map('chores')
+ *   loudChores(chore, index) {
+ *     return chore.toUpperCase() + '!';
+ *   }, // ['CLEAN!', 'WRITE MORE UNIT TESTS!']
+ *
+ *   // alternative syntax:
  *
  *   @map('chores', function(chore, index) {
  *     return chore.toUpperCase() + '!';
@@ -618,7 +632,21 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  * import { sort } from 'ember-decorators/object/computed';
  *
  * export default Ember.Component.extend({
- *   this.names = Ember.A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);
+ *   names: Ember.A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]),
+ *
+ *   @sort('names')
+ *   sortedNames(a, b){
+ *     if (a.name > b.name) {
+ *       return 1;
+ *     } else if (a.name < b.name) {
+ *       return -1;
+ *     }
+ *
+ *     return 0;
+ *   }, // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
+ *
+ *   // alternative syntax:
+ *
  *   @sort('names', function(a, b){
  *     if (a.name > b.name) {
  *       return 1;
