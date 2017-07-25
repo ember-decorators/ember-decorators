@@ -170,7 +170,12 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
     return emberComputed(...params, {
       get,
       set(key, value) {
-        return set.call(this, value);
+        let ret = set.call(this, value);
+        if (typeof ret === "undefined") {
+          ret = get.call(this);
+        }
+
+        return ret;
       }
     });
   } else {

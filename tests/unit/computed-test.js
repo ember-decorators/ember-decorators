@@ -352,6 +352,30 @@ test('works with es6 class getter and setter', function(assert) {
   assert.strictEqual(get(obj, 'fullName'), 'rob jackson-transformed', 'return value of setter is new value of computed property');
 });
 
+
+test('return value of ES6 setter is not required', function(assert) {
+  class Foo {
+    constructor() {
+      this.first = 'rob';
+      this.last = 'jackson';
+    }
+
+    @computed('first', 'last')
+    get fullName() {
+      return `${this.first} ${this.last}`;
+    }
+
+    set fullName(name) {
+      [this.first, this.last] = name.split(' ');
+    }
+  }
+
+  let obj = new Foo();
+  set(obj, 'fullName', 'yehuda katz');
+
+  assert.strictEqual(get(obj, 'fullName'), 'yehuda katz', 'return value of setter is not required, if there is a getter');
+});
+
 test('throws if the same property is decorated more than once', function(assert) {
   assert.throws(
     () => {
