@@ -191,6 +191,26 @@ test('filter', function(assert) {
   assert.deepEqual(obj.get('validNames').mapBy('name'), ['b','z','a']);
 });
 
+test('filter (no callback, use descriptor value)', function(assert) {
+  var obj = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.names = Ember.A([
+        {name:'b', valid: true},
+        {name:'z', valid: true},
+        {name:'a', valid: true},
+        {name:'foo', valid: false}
+      ]);
+    },
+    @filter('names')
+    validNames(item) {
+      return item.valid;
+    }
+  }).create();
+
+  assert.deepEqual(obj.get('validNames').mapBy('name'), ['b','z','a']);
+});
+
 test('filterBy', function(assert) {
   var obj = Ember.Object.extend({
     init() {
@@ -290,6 +310,21 @@ test('map', function(assert) {
     @map('names',  function(name) {
       return name.toUpperCase() + '!';
     }) loudNames: null
+  }).create();
+
+  assert.deepEqual(obj.get('loudNames').toArray(),['ONE!','TWO!','THREE!']);
+});
+
+test('map (no callback, use descriptor value)', function(assert) {
+  var obj = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.names = Ember.A(['one','two','three']);
+    },
+    @map('names')
+    loudNames(name) {
+      return name.toUpperCase() + '!';
+    }
   }).create();
 
   assert.deepEqual(obj.get('loudNames').toArray(),['ONE!','TWO!','THREE!']);
@@ -494,6 +529,27 @@ test('sort', function(assert) {
       return 0;
     })
     sortedNames: null
+  }).create();
+
+  assert.deepEqual(obj.get('sortedNames').mapBy('name'), ['a','b','foo','z']);
+});
+
+test('sort (no callback, use descriptor value)', function(assert) {
+  var obj = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.names = Ember.A([{name:'b'},{name:'z'},{name:'a'},{name:'foo'}]);
+    },
+    @sort('names')
+    sortedNames(a, b){
+      if (a.name > b.name) {
+        return 1;
+      } else if (a.name < b.name) {
+        return -1;
+      }
+
+      return 0;
+    }
   }).create();
 
   assert.deepEqual(obj.get('sortedNames').mapBy('name'), ['a','b','foo','z']);
