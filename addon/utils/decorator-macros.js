@@ -29,3 +29,18 @@ export function decoratedPropertyWithRequiredParams(fn) {
     return fn(...params);
   });
 }
+
+export function decoratedPropertyWithOptionalCallback(fn) {
+  return decoratorWithParams(function(target, key, desc, params) {
+    assert(`Cannot use '${fn.name}' on field '${key}' without parameters`, params.length !== 0);
+
+    if (typeof params[params.length - 1] === 'function') {
+      return fn(...params);
+    }
+
+    const value = extractValue(desc);
+    assert(`Cannot use '${fn.name}' on field '${key}' without a callback`, typeof value === 'function');
+
+    return fn(...params, value);
+  });
+}
