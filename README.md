@@ -31,7 +31,7 @@ export default Ember.Component.extend({
     var someKey = this.get('someKey');
     var otherKey = this.get('otherKey');
 
-    // do stuff
+    return `${someKey} - ${otherKey}`;
   }),
 
   actions: {
@@ -46,16 +46,16 @@ export default Ember.Component.extend({
 You replace it with this:
 
 ```javascript
-import Ember from 'ember'
+import Component from '@ember/component'
 import { action, computed } from 'ember-decorators/object';
 import { service } from 'ember-decorators/service';
 
-export default class MyComponent extends Ember.Component {
+export default class extends Component {
   @service foo
 
   @computed('someKey', 'otherKey')
   bar(someKey, otherKey) {
-    // do stuff
+    return `${someKey} - ${otherKey}`;
   }
 
   @action
