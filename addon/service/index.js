@@ -11,7 +11,7 @@ import { decoratorWithKeyReflection } from '../utils/decorator-macros';
  * import { service } from 'ember-decorators/service';
  *
  * export default class extends Component
- *   @service store
+ *   @service store;
  * }
  * ```
  *

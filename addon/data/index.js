@@ -10,7 +10,7 @@ import { decoratorWithKeyReflection } from '../utils/decorator-macros';
  * import { attr } from 'ember-decorators/data';
  *
  * export default class extends Model {
- *   @attr firstName
+ *   @attr firstName;
  * }
  * ```
  *
@@ -29,7 +29,7 @@ export const attr = decoratorWithParams(function(target, key, desc, params) {
  * import { hasMany } from 'ember-decorators/data';
  *
  * export default class extends Model {
- *   @hasMany users
+ *   @hasMany users;
  * }
  * ```
  *
@@ -46,7 +46,7 @@ export const hasMany = decoratorWithKeyReflection(DS.hasMany);
  * import { belongsTo } from 'ember-decorators/data';
  *
  * export default class extends Model {
- *   @belongsTo user
+ *   @belongsTo user;
  * }
  * ```
  * @function

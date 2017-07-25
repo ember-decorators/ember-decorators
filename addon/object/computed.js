@@ -16,11 +16,11 @@ import {
  * import { alias } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   person: {
+ *   person = {
  *     first: 'Joe'
- *   },
+ *   };
  *
- *   @alias('person.first') firstName
+ *   @alias('person.first') firstName;
  * }
  * ```
  *
@@ -40,11 +40,11 @@ export const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias);
  * import { and } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   person: {
+ *   person = {
  *     first: 'Joe'
- *   },
+ *   };
  *
- *   @and('person.{first,last}') hasFullName // false
+ *   @and('person.{first,last}') hasFullName; // false
  * }
  * ```
  *
@@ -64,9 +64,9 @@ export const and = decoratedPropertyWithRequiredParams(Ember.computed.and);
  * import { bool } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   messageCount: 1,
+ *   messageCount = 1;
  *
- *   @bool('messageCount') hasMessages // true
+ *   @bool('messageCount') hasMessages; // true
  * }
  * ```
  *
@@ -86,10 +86,10 @@ export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool);
  * import { collect } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   light: 'strobe',
- *   lens: '35mm prime',
+ *   light = 'strobe';
+ *   lens = '35mm prime';
  *
- *   @collect('light', 'lens') equipment // ['strobe', '35mm prime']
+ *   @collect('light', 'lens') equipment; // ['strobe', '35mm prime']
  * }
  * ```
  *
@@ -110,9 +110,9 @@ export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collec
  * import { empty } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   items: A(['taco', 'burrito']),
+ *   items = A(['taco', 'burrito']);
  *
- *   @empty('items') isEmpty // false
+ *   @empty('items') isEmpty; // false
  * }
  * ```
  *
@@ -131,9 +131,9 @@ export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty);
  * import { equal } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   state: 'sleepy',
+ *   state = 'sleepy';
  *
- *   @equal('state', 'sleepy') napTime // true
+ *   @equal('state', 'sleepy') napTime; // true
  * }
  *
  * @function
@@ -153,15 +153,15 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal);
  * import { filter } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   chores: A([
+ *   chores = A([
  *     { name: 'cook', done: true },
  *     { name: 'clean', done: true },
  *     { name: 'write more unit tests', done: false }
- *   ]),
+ *   ]);
  *
  *   @filter('chores', function(chore, index, array) {
  *     return !chore.done;
- *   }) remainingChores // [{name: 'write more unit tests', done: false}]
+ *   }) remainingChores; // [{name: 'write more unit tests', done: false}]
  * }
  * ```
  *
@@ -182,13 +182,13 @@ export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter)
  * import { filterBy } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   chores: A([
+ *   chores = A([
  *     { name: 'cook', done: true },
  *     { name: 'clean', done: true },
  *     { name: 'write more unit tests', done: false }
- *   ]),
+ *   ]);
  *
- *   @filterBy('chores', 'done', false) remainingChores // [{name: 'write more unit tests', done: false}]
+ *   @filterBy('chores', 'done', false) remainingChores; // [{name: 'write more unit tests', done: false}]
  * }
  * ```
  *
@@ -210,9 +210,9 @@ export const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filte
  * import { gt } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   totalCats: 11,
+ *   totalCats = 11;
  *
- *   @gt('totalCats', 10) isCatParty // true
+ *   @gt('totalCats', 10) isCatParty; // true
  * }
  * ```
  *
@@ -233,9 +233,9 @@ export const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt);
  * import { gte } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   totalPlayers: 14,
+ *   totalPlayers = 14;
  *
- *   @gte('totalPlayers', 14) hasEnoughPlayers // true
+ *   @gte('totalPlayers', 14) hasEnoughPlayers; // true
  * }
  * ```
  *
@@ -257,10 +257,10 @@ export const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte);
  * import { intersect } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   likes: A([ 'tacos', 'puppies', 'pizza' ]),
- *   foods: A(['tacos', 'pizza']),
+ *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
+ *   foods = A(['tacos', 'pizza']);
  *
- *   @intersect('likes', 'foods') favoriteFoods // ['tacos', 'pizza']
+ *   @intersect('likes', 'foods') favoriteFoods; // ['tacos', 'pizza']
  * }
  * ```
  *
@@ -280,9 +280,9 @@ export const intersect = decoratedPropertyWithRequiredParams(Ember.computed.inte
  * import { lt } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   totalDogs: 3,
+ *   totalDogs = 3;
  *
- *   @lt('totalDogs', 10) isDogParty // true
+ *   @lt('totalDogs', 10) isDogParty; // true
  * }
  * ```
  *
@@ -303,9 +303,9 @@ export const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt);
  * import { lte } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   totalPlayers: 14,
+ *   totalPlayers = 14;
  *
- *   @lte('totalPlayers', 14) hasEnoughPlayers // true
+ *   @lte('totalPlayers', 14) hasEnoughPlayers; // true
  * }
  * ```
  *
@@ -326,11 +326,11 @@ export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte);
  * import { map } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   chores: A(['clean', 'write more unit tests']),
+ *   chores = A(['clean', 'write more unit tests']);
  *
  *   @map('chores', function(chore, index) {
  *     return chore.toUpperCase() + '!';
- *   }) loudChores // ['CLEAN!', 'WRITE MORE UNIT TESTS!']
+ *   }) loudChores; // ['CLEAN!', 'WRITE MORE UNIT TESTS!']
  * }
  * ```
  *
@@ -351,13 +351,13 @@ export const map = decoratedPropertyWithRequiredParams(Ember.computed.map);
  * import { mapBy } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   people: A([
+ *   people = A([
  *     {name: "George", age: 5},
  *     {name: "Stella", age: 10},
  *     {name: "Violet", age: 7}
- *   ]),
+ *   ]);
  *
- *   @mapBy('people', 'age') ages // [5, 10, 7]
+ *   @mapBy('people', 'age') ages; // [5, 10, 7]
  * }
  * ```
  *
@@ -379,9 +379,9 @@ export const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy);
  * import { match } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   email: 'tomster@emberjs.com',
+ *   email = 'tomster@emberjs.com';
  *
- *   @match('email', /^.+@.+\..+$/) validEmail
+ *   @match('email', /^.+@.+\..+$/) validEmail;
  * }
  * ```
  *
@@ -403,9 +403,9 @@ export const match = decoratedPropertyWithRequiredParams(Ember.computed.match);
  * import { max } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   values: A([1, 2, 5, 10]),
+ *   values = A([1, 2, 5, 10]);
  *
- *   @max('values') maxValue // 10
+ *   @max('values') maxValue; // 10
  * }
  * ```
  *
@@ -426,9 +426,9 @@ export const max = decoratedPropertyWithRequiredParams(Ember.computed.max);
  * import { min } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   values: A([1, 2, 5, 10]),
+ *   values = A([1, 2, 5, 10]);
  *
- *   @min('values') minValue // 1
+ *   @min('values') minValue; // 1
  * }
  * ```
  *
@@ -449,9 +449,9 @@ export const min = decoratedPropertyWithRequiredParams(Ember.computed.min);
  * import { none } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   firstName: null,
+ *   firstName = null;
  *
- *   @none('firstName') isNameless // true until firstName is defined
+ *   @none('firstName') isNameless; // true unless firstName is defined
  * }
  * ```
  *
@@ -471,9 +471,9 @@ export const none = decoratedPropertyWithRequiredParams(Ember.computed.none);
  * import { not } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   loggedIn: false,
+ *   loggedIn = false;
  *
- *   @not('loggedIn') isAnonymous // true
+ *   @not('loggedIn') isAnonymous; // true
  * }
  * ```
  *
@@ -494,9 +494,9 @@ export const not = decoratedPropertyWithRequiredParams(Ember.computed.not);
  * import { notEmpty } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   groceryBag: A(['milk', 'eggs', 'apples']),
+ *   groceryBag = A(['milk', 'eggs', 'apples']);
  *
- *   @notEmpty('groceryBag') hasGroceriesToPutAway // true
+ *   @notEmpty('groceryBag') hasGroceriesToPutAway; // true
  * }
  * ```
  *
@@ -519,9 +519,9 @@ export const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEm
  * import { oneWay } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   firstName: 'Joe',
+ *   firstName = 'Joe';
  *
- *   @oneWay('firstName') originalName // will always be 'Joe'
+ *   @oneWay('firstName') originalName; // will always be 'Joe'
  * }
  * ```
  *
@@ -541,10 +541,10 @@ export const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay)
  * import { or } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   hasJacket: true,
- *   hasUmbrella: false,
+ *   hasJacket = true;
+ *   hasUmbrella = false;
  *
- *   @or('hasJacket', 'hasUmbrella') isReadyForRain // true
+ *   @or('hasJacket', 'hasUmbrella') isReadyForRain; // true
  * }
  * ```
  *
@@ -565,7 +565,9 @@ export const or = decoratedPropertyWithRequiredParams(Ember.computed.or);
  * import { reads } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   @reads('first') firstName
+ *   first = 'Tomster';
+ *
+ *   @reads('first') firstName;
  * }
  * ```
  *
@@ -586,10 +588,10 @@ export const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads);
  * import { setDiff } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   likes: A([ 'tacos', 'puppies', 'pizza' ]),
- *   foods: A(['tacos', 'pizza']),
+ *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
+ *   foods = A(['tacos', 'pizza']);
  *
- *   @setDiff('likes', 'foods') favoriteThingsThatArentFood // ['puppies']
+ *   @setDiff('likes', 'foods') favoriteThingsThatArentFood; // ['puppies']
  * }
  * ```
  *
@@ -629,7 +631,8 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  * import { sort } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   this.names = A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);
+ *   names = A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);
+ *
  *   @sort('names', function(a, b){
  *     if (a.name > b.name) {
  *       return 1;
@@ -638,7 +641,7 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  *     }
  *
  *     return 0;
- *   }) sortedNames // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
+ *   }) sortedNames; // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
  * }
  * ```
  *
@@ -660,9 +663,9 @@ export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort);
  * import { sum } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   values: A([1, 2, 3]),
+ *   values = A([1, 2, 3]);
  *
- *   @sum('values') total // 6
+ *   @sum('values') total; // 6
  * }
  * ```
  *
@@ -682,10 +685,10 @@ export const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum);
  * import { union } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   likes: A([ 'tacos', 'puppies', 'pizza' ]),
- *   foods: A(['tacos', 'pizza', 'ramen']),
+ *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
+ *   foods = A(['tacos', 'pizza', 'ramen']);
  *
- *   @union('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']
+ *   @union('likes', 'foods') favorites; // ['tacos', 'puppies', 'pizza', 'ramen']
  * }
  * ```
  *
@@ -705,10 +708,10 @@ export const union = decoratedPropertyWithRequiredParams(Ember.computed.union);
  * import { uniq } from 'ember-decorators/object/computed';
  *
  * export default class extends Component {
- *   likes: A([ 'tacos', 'puppies', 'pizza' ]),
- *   foods: A(['tacos', 'pizza', 'ramen']),
+ *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
+ *   foods = A(['tacos', 'pizza', 'ramen']);
  *
- *   @uniq('likes', 'foods') favorites // ['tacos', 'puppies', 'pizza', 'ramen']
+ *   @uniq('likes', 'foods') favorites; // ['tacos', 'puppies', 'pizza', 'ramen']
  * }
  * ```
  *

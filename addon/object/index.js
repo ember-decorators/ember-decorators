@@ -76,18 +76,18 @@ export const action = decorator(function(target, key, desc) {
  * import computed from 'ember-decorators/object';
  *
  * export default class extends EmberObject {
- *   someKey: 'foo',
- *   otherKey: 'bar',
+ *   someKey = 'foo';
+ *   otherKey = 'bar';
  *
- *   person: {
+ *   person = {
  *     firstName: 'John',
  *     lastName: 'Smith'
- *   },
+ *   };
  *
  *   @computed('someKey', 'otherKey')
  *   foo(someKey, otherKey) {
  *     return `${someKey} - ${otherKey}`; // => 'foo - bar'
- *   },
+ *   }
  *
  *   @computed('person.{firstName,lastName}')
  *   fullName(firstName, lastName) {
@@ -124,11 +124,11 @@ export const action = decorator(function(target, key, desc) {
  * import computed from 'ember-decorators/object';
  *
  * export default class extends Component {
- *   first: 'John',
- *   last: 'Smith',
+ *   first = 'John';
+ *   last = 'Smith';
  *
  *   @computed('first', 'last')
- *   name: {
+ *   name = {
  *     get(first, last) {
  *       return `${first} ${last}`; // => 'John Smith'
  *     },
@@ -143,7 +143,7 @@ export const action = decorator(function(target, key, desc) {
  *
  *       return value;
  *     }
- *   }
+ *   };
  * }
  * ```
  *

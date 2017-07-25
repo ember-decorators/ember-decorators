@@ -11,7 +11,7 @@ import { decoratorWithKeyReflection } from '../utils/decorator-macros';
  * import { controller } from 'ember-decorators/controller';
  *
  * export default class extends Controller {
- *   @controller application
+ *   @controller application;
  * }
  * ```
  *
