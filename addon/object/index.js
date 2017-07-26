@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import Ember from 'ember';
 import macroComputed from 'ember-macro-helpers/computed';
 
@@ -9,7 +11,7 @@ import {
 
 import { decoratorWithRequiredParams } from '../utils/decorator-macros';
 
-import { assert, warn } from '@ember/debug';
+import { assert } from '@ember/debug';
 
 const { computed: emberComputed } = Ember;
 
@@ -167,21 +169,22 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
     desc.get = undefined;
     desc.set = undefined;
 
+    let setter;
+
+    if (typeof set === 'function') {
+      setter = function(key, value) {
+        let ret = set.call(this, value);
+        return typeof ret === 'undefined' ? get.call(this) : ret;
+      };
+    } else if (DEBUG) {
+      setter = function() {
+        assert(`You must provide a setter in order to set '${key}' as a computed property.`, false);
+      };
+    }
+
     // Use a standard ember computed since getter/setter arrity is restricted,
     // meaning ember-macro-helpers doesn't provide any benefit
-    return emberComputed(...params, {
-      get,
-      set(key, value) {
-        const ret = set.call(this, value);
-        warn(
-          `The return value ('${ret}') of the ES6 setter for '${key}' was ignored. For more information, see: https://github.com/rwjblue/ember-decorators/pull/141#issuecomment-317974858`,
-          typeof ret === 'undefined',
-          { id: 'ember-decorators.object.computed.es6-setter-return-value' }
-        );
-
-        return get.call(this);
-      }
-    });
+    return emberComputed(...params, { get, set: setter });
   } else {
     return macroComputed(...params, extractValue(desc));
   }

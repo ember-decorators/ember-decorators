@@ -340,8 +340,6 @@ test('works with es6 class getter and setter', function(assert) {
 
       const [first, last] = name.split(' ');
       setProperties(this, { first, last });
-
-      return 'this is ignored';
     }
   }
 
@@ -357,7 +355,7 @@ test('works with es6 class getter and setter', function(assert) {
 });
 
 
-test('return value of ES6 setter is not required', function(assert) {
+test('return value of ES6 setter is not required, but is not ignored', function(assert) {
   class Foo {
     constructor() {
       this.first = 'rob';
@@ -365,19 +363,36 @@ test('return value of ES6 setter is not required', function(assert) {
     }
 
     @computed('first', 'last')
-    get fullName() {
+    get fullNameNoReturn() {
       return `${this.first} ${this.last}`;
     }
 
-    set fullName(name) {
-      [this.first, this.last] = name.split(' ');
+    set fullNameNoReturn(name) {
+      const [first, last] = name.split(' ');
+      setProperties(this, { first, last });
+    }
+
+    @computed('first', 'last')
+    get fullNameWithReturn() {
+      return `${this.first} ${this.last}`;
+    }
+
+    set fullNameWithReturn(name) {
+      const [first, last] = name.split(' ');
+      setProperties(this, { first, last });
+      
+      return 'something else';
     }
   }
 
   let obj = new Foo();
-  set(obj, 'fullName', 'yehuda katz');
 
-  assert.strictEqual(get(obj, 'fullName'), 'yehuda katz', 'return value of setter is not required, if there is a getter');
+  set(obj, 'fullNameNoReturn', 'yehuda katz');
+  assert.strictEqual(get(obj, 'fullNameNoReturn'), 'yehuda katz', 'return value of setter is not required, if there is a getter');
+
+
+  set(obj, 'fullNameWithReturn', 'tom dale');
+  assert.strictEqual(get(obj, 'fullNameWithReturn'), 'something else', 'if the setter returns a value, it is not ignored');
 });
 
 test('throws if the same property is decorated more than once', function(assert) {
