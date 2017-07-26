@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { computed, readOnly } from 'ember-decorators/object';
 import { module, test } from 'qunit';
 
-const { get, set } = Ember;
+const { get, set, setProperties } = Ember;
 
 module('decorated computed with dependent keys', {
   beforeEach() {
@@ -105,6 +105,8 @@ test('allows using ember-new-computed style get/set syntax', function(assert) {
         assert.equal(last, 'jackson');
 
         setCallCount++;
+
+        return `${value}-transformed`;
       }
     }
   };
@@ -117,6 +119,8 @@ test('allows using ember-new-computed style get/set syntax', function(assert) {
 
   set(obj, 'name', 'foo');
   assert.equal(setCallCount, 1, 'calls setter when set');
+
+  assert.strictEqual(get(obj, 'name'), 'foo-transformed', 'return value of setter is new value of computed property')
 });
 
 module('decorated computed without dependent keys');
@@ -297,22 +301,26 @@ test('works with es6 class getter', function(assert) {
   get(obj, 'fullName');
 });
 
-test('works with es6 class setter', function(assert) {
-  assert.expect(1);
-
-  class Foo {
-    @computed
-    set fullName(name) {
-      assert.equal(name, 'rob jackson');
-    }
-  }
-
-  let obj = new Foo();
-  set(obj, 'fullName', 'rob jackson');
+test('throws an assertion, if an ES6 setter was defined without an ES6 getter', function(assert) {
+  assert.throws(
+    () => {
+      // eslint-disable-next-line
+      class Foo {
+        @computed
+        set fullName(name) {}
+      }
+    },
+    /Using @computed for only a setter does not make sense\. Add a getter for 'fullName' as well or remove the @computed decorator./,
+    'error thrown correctly'
+  );
 });
 
 test('works with es6 class getter and setter', function(assert) {
-  assert.expect(5);
+  assert.expect(6);
+
+  let expectedName = 'rob jackson';
+  let expectedFirst = 'rob';
+  let expectedLast = 'jackson';
 
   class Foo {
     constructor() {
@@ -322,22 +330,69 @@ test('works with es6 class getter and setter', function(assert) {
 
     @computed('first', 'last')
     get fullName() {
-      assert.equal(this.first, 'rob');
-      assert.equal(this.last, 'jackson');
+      assert.equal(this.first, expectedFirst, 'getter: first name matches');
+      assert.equal(this.last, expectedLast, 'getter: last name matches');
+      return `${this.first} ${this.last}`;
     }
 
     set fullName(name) {
-      assert.equal(name, 'rob jackson');
+      assert.equal(name, expectedName, 'setter: name matches');
 
-      // Check `this` context to make sure function was bound properly
-      assert.equal(this.first, 'rob');
-      assert.equal(this.last, 'jackson');
+      const [first, last] = name.split(' ');
+      setProperties(this, { first, last });
     }
   }
 
   let obj = new Foo();
   get(obj, 'fullName');
-  set(obj, 'fullName', 'rob jackson');
+
+  expectedName = 'yehuda katz';
+  expectedFirst = 'yehuda';
+  expectedLast = 'katz';
+  set(obj, 'fullName', 'yehuda katz');
+
+  assert.strictEqual(get(obj, 'fullName'), expectedName, 'return value of getter is new value of property');
+});
+
+
+test('return value of ES6 setter is not required, but is not ignored', function(assert) {
+  class Foo {
+    constructor() {
+      this.first = 'rob';
+      this.last = 'jackson';
+    }
+
+    @computed('first', 'last')
+    get fullNameNoReturn() {
+      return `${this.first} ${this.last}`;
+    }
+
+    set fullNameNoReturn(name) {
+      const [first, last] = name.split(' ');
+      setProperties(this, { first, last });
+    }
+
+    @computed('first', 'last')
+    get fullNameWithReturn() {
+      return `${this.first} ${this.last}`;
+    }
+
+    set fullNameWithReturn(name) {
+      const [first, last] = name.split(' ');
+      setProperties(this, { first, last });
+      
+      return 'something else';
+    }
+  }
+
+  let obj = new Foo();
+
+  set(obj, 'fullNameNoReturn', 'yehuda katz');
+  assert.strictEqual(get(obj, 'fullNameNoReturn'), 'yehuda katz', 'return value of setter is not required, if there is a getter');
+
+
+  set(obj, 'fullNameWithReturn', 'tom dale');
+  assert.strictEqual(get(obj, 'fullNameWithReturn'), 'something else', 'if the setter returns a value, it is not ignored');
 });
 
 test('throws if the same property is decorated more than once', function(assert) {
