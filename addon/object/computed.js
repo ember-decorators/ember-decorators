@@ -1,7 +1,8 @@
 import Ember from 'ember';
 
 import {
-  decoratedPropertyWithRequiredParams
+  decoratedPropertyWithRequiredParams,
+  decoratedPropertyWithOptionalCallback
 } from '../utils/decorator-macros';
 
 /**
@@ -159,6 +160,13 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal);
  *     { name: 'write more unit tests', done: false }
  *   ]);
  *
+ *   @filter('chores')
+ *   remainingChores(chore, index, array) {
+ *     return !chore.done;
+ *   }, // [{name: 'write more unit tests', done: false}]
+ *
+ *   // alternative syntax:
+ *
  *   @filter('chores', function(chore, index, array) {
  *     return !chore.done;
  *   }) remainingChores; // [{name: 'write more unit tests', done: false}]
@@ -169,7 +177,7 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal);
  * @param {String} dependentKey - Key for the array to filter
  * @param {Function(item: Any, index: Number, array: Array<Any>): Boolean} callback - The function to filter with
  */
-export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter);
+export const filter = decoratedPropertyWithOptionalCallback(Ember.computed.filter);
 
 /**
  * Decorator that wraps [Ember.computed.filterBy](http://emberjs.com/api/classes/Ember.computed.html#method_filterBy)
@@ -328,6 +336,13 @@ export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte);
  * export default class ChoresListComponent extends Component {
  *   chores = A(['clean', 'write more unit tests']);
  *
+ *   @map('chores')
+ *   loudChores(chore, index) {
+ *     return chore.toUpperCase() + '!';
+ *   }, // ['CLEAN!', 'WRITE MORE UNIT TESTS!']
+ *
+ *   // alternative syntax:
+ *
  *   @map('chores', function(chore, index) {
  *     return chore.toUpperCase() + '!';
  *   }) loudChores; // ['CLEAN!', 'WRITE MORE UNIT TESTS!']
@@ -338,7 +353,7 @@ export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte);
  * @param {String} dependentKey - Key for the array to map over
  * @param {Function(item: Any, index: Number): Any} callback - Function to map over the array
  */
-export const map = decoratedPropertyWithRequiredParams(Ember.computed.map);
+export const map = decoratedPropertyWithOptionalCallback(Ember.computed.map);
 
 /**
  * Decorator that wraps [Ember.computed.mapBy](http://emberjs.com/api/classes/Ember.computed.html#method_mapBy)
@@ -633,6 +648,19 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  * export default class SortNamesComponent extends Component {
  *   names = A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);
  *
+ *   @sort('names')
+ *   sortedNames(a, b){
+ *     if (a.name > b.name) {
+ *       return 1;
+ *     } else if (a.name < b.name) {
+ *       return -1;
+ *     }
+ *
+ *     return 0;
+ *   }, // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
+ *
+ *   // alternative syntax:
+ *
  *   @sort('names', function(a, b){
  *     if (a.name > b.name) {
  *       return 1;
@@ -649,7 +677,7 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  * @param {String} dependentKey - The key for the array that should be sorted
  * @param {Array<String>|Function(Any, Any): Number} sortDefinition - Sorting function or sort descriptor
  */
-export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort);
+export const sort = decoratedPropertyWithOptionalCallback(Ember.computed.sort);
 
 /**
  * Decorator that wraps [Ember.computed.sum](http://emberjs.com/api/classes/Ember.computed.html#method_sum)
