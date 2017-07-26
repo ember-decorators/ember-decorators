@@ -6,11 +6,11 @@ import { decoratorWithKeyReflection } from '../utils/decorator-macros';
  * Decorator that turns the property into an Ember Data attribute
  *
  * ```javascript
- * import DS from 'ember-data';
+ * import Model from 'ember-data/model';
  * import { attr } from 'ember-decorators/data';
  *
- * export default DS.Model.extend({
- *   @attr firstName
+ * export default Model.extend({
+ *   @attr firstName: null
  * });
  * ```
  *
@@ -25,11 +25,11 @@ export const attr = decoratorWithParams(function(target, key, desc, params) {
  * Decorator that turns the property into an Ember Data `hasMany` relationship
  *
  * ```javascript
- * import DS from 'ember-data';
+ * import Model from 'ember-data/model';
  * import { hasMany } from 'ember-decorators/data';
  *
- * export default DS.Model.extend({
- *   @hasMany users
+ * export default Model.extend({
+ *   @hasMany users: null
  * });
  * ```
  *
@@ -42,11 +42,11 @@ export const hasMany = decoratorWithKeyReflection(DS.hasMany);
  * Decorator that turns the property into an Ember Data `belongsTo` relationship
  *
  * ```javascript
- * import DS from 'ember-data';
+ * import Model from 'ember-data/model';
  * import { belongsTo } from 'ember-decorators/data';
  *
- * export default DS.Model.extend({
- *   @belongsTo user
+ * export default Model.extend({
+ *   @belongsTo user: null
  * });
  * ```
  * @function

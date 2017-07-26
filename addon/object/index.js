@@ -22,29 +22,20 @@ const { computed: emberComputed } = Ember;
  * function that calls the original. This means the function still exists
  * on the original object, and can be used directly.
  *
- * Before:
- *
  * ```js
- * export default Ember.Component.extend({
- *   actions: {
- *     foo() {
- *       // do something
- *     }
- *   }
- * });
- * ```
- *
- * After:
- *
- * ```js
+ * import Component from '@ember/component';
  * import { action } from 'ember-decorators/object';
  *
- * export default MyComponent extends Ember.Component {
+ * export default class ActionDemoComponent extends Component {
  *   @action
  *   foo() {
  *     // do something
  *   }
  * }
+ * ```
+ *
+ * ```hbs
+ * <button onclick={{action "foo"}}>Execute foo action</button>
  * ```
  *
  * @function
@@ -76,82 +67,86 @@ export const action = decorator(function(target, key, desc) {
 /**
  * Decorator that turns a function into a computed property.
  *
- * In your application where you would normally have:
+ * #### With Dependent Keys
+ *
+ * The values of the dependent properties are passed as arguments to the
+ * function. You can also use
+ * [property brace expansion](https://www.emberjs.com/blog/2014/02/12/ember-1-4-0-and-ember-1-5-0-beta-released.html#toc_property-brace-expansion).
  *
  * ```javascript
- * foo: Ember.computed('someKey', 'otherKey', function() {
- *   var someKey = this.get('someKey');
- *   var otherKey = this.get('otherKey');
- *
- *   // Do Stuff
- * })
- * ```
- *
- * You replace with this:
- *
- * ```javascript
+ * import EmberObject from '@ember/object';
  * import computed from 'ember-decorators/object';
  *
- * // ..... <snip> .....
- * @computed('someKey', 'otherKey')
- * foo(someKey, otherKey) {
- *   // Do Stuff
+ * export default class User extends EmberObject {
+ *   someKey = 'foo';
+ *   otherKey = 'bar';
+ *
+ *   person = {
+ *     firstName: 'John',
+ *     lastName: 'Smith'
+ *   };
+ *
+ *   @computed('someKey', 'otherKey')
+ *   foo(someKey, otherKey) {
+ *     return `${someKey} - ${otherKey}`; // => 'foo - bar'
+ *   }
+ *
+ *   @computed('person.{firstName,lastName}')
+ *   fullName(firstName, lastName) {
+ *     return `${firstName} ${lastName}`; // => 'John Smith'
+ *   }
  * }
  * ```
  *
  * #### Without Dependent Keys
  *
- * ```javascript
- * foo: Ember.computed(function() {
- *   // Do Stuff
- * })
- * ```
- *
- * You replace with this:
+ * Computed properties without dependent keys are cached for the whole life span
+ * of the object. You can only force a recomputation by calling
+ * [`notifyPropertyChange`](https://www.emberjs.com/api/ember/2.14/classes/Ember.Observable/methods/notifyPropertyChange?anchor=notifyPropertyChange)
+ * on the computed property.
  *
  * ```javascript
+ * import EmberObject from '@ember/object';
  * import computed from 'ember-decorators/object';
  *
- * // ..... <snip> .....
- * @computed
- * foo() {
- *   // Do Stuff
+ * export default class FooBar extends EmberObject {
+ *   @computed
+ *   foo() {
+ *     // calculate stuff
+ *     return stuff;
+ *   }
  * }
  * ```
  *
- * #### "Real World"
+ * #### Getter and Setter
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
+ * import { setProperties } from ''@ember/object';
  * import computed from 'ember-decorators/object';
  *
- * export default Ember.Component.extend({
+ * export default class UserProfileComponent extends Component {
+ *   first = 'John';
+ *   last = 'Smith';
+ *
  *   @computed('first', 'last')
- *   name(first, last) {
- *     return `${first} ${last}`;
- *   }
- * });
- * ```
- *
- *
- * #### "Real World get/set syntax"
- *
- * ```javascript
- * import Ember from 'ember';
- * import computed from 'ember-decorators/object';
- *
- * export default Ember.Component.extend({
- *   @computed('first', 'last')
- *   name: {
+ *   name = {
  *     get(first, last) {
- *       return `${first} ${last}`;
+ *       return `${first} ${last}`; // => 'John Smith'
  *     },
  *
  *     set(value, first, last) {
- *       // ...
+ *       if (typeof value !== 'string' || !value.test(/^[a-z]+ [a-z]+$/i)) {
+ *         throw new TypeError('Invalid name');
+ *       }
+ *
+ *       const [first, last] = value.split(' ');
+ *       setProperties(this, { first, last });
+ *
+ *       return value;
  *     }
- *   }
- * });
+ *   };
+ * }
  * ```
  *
  * @function
@@ -196,15 +191,15 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
  * Triggers the target function when the dependent properties have changed
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { observes } from 'ember-decorators/object';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   @observes('foo')
  *   bar() {
  *     //...
  *   }
- * });
+ * }
  * ```
  *
  * @function
@@ -218,16 +213,16 @@ export const observes = decoratorWithRequiredParams(Ember.observer);
  * Usage:
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { computed, readOnly } from 'ember-decorators/object';
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   @readOnly
  *   @computed('first', 'last')
  *   name(first, last) {
  *     return `${first} ${last}`;
  *   }
- * });
+ * }
  * ```
  *
  * @function
