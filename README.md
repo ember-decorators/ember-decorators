@@ -55,7 +55,7 @@ import Component from '@ember/component'
 import { action, computed } from 'ember-decorators/object';
 import { service } from 'ember-decorators/service';
 
-export default class extends Component {
+export default class ExampleComponent extends Component {
   @service foo
 
   @computed('someKey', 'otherKey')
