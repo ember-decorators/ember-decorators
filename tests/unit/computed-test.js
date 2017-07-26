@@ -2,7 +2,7 @@ import Ember from 'ember';
 import { computed, readOnly } from 'ember-decorators/object';
 import { module, test } from 'qunit';
 
-const { get, set } = Ember;
+const { get, set, setProperties } = Ember;
 
 module('decorated computed with dependent keys', {
   beforeEach() {
@@ -301,26 +301,26 @@ test('works with es6 class getter', function(assert) {
   get(obj, 'fullName');
 });
 
-test('works with es6 class setter', function(assert) {
-  assert.expect(2);
-
-  class Foo {
-    @computed
-    set fullName(name) {
-      assert.equal(name, 'rob jackson');
-
-      return `${name}-transformed`;
-    }
-  }
-
-  let obj = new Foo();
-  set(obj, 'fullName', 'rob jackson');
-
-  assert.strictEqual(get(obj, 'fullName'), 'rob jackson-transformed', 'return value of setter is new value of computed property');
+test('throws an assertion, if an ES6 setter was defined without an ES6 getter', function(assert) {
+  assert.throws(
+    () => {
+      // eslint-disable-next-line
+      class Foo {
+        @computed
+        set fullName(name) {}
+      }
+    },
+    /Using @computed for only a setter does not make sense\. Add a getter for 'fullName' as well or remove the @computed decorator./,
+    'error thrown correctly'
+  );
 });
 
 test('works with es6 class getter and setter', function(assert) {
   assert.expect(6);
+
+  let expectedName = 'rob jackson';
+  let expectedFirst = 'rob';
+  let expectedLast = 'jackson';
 
   class Foo {
     constructor() {
@@ -330,26 +330,30 @@ test('works with es6 class getter and setter', function(assert) {
 
     @computed('first', 'last')
     get fullName() {
-      assert.equal(this.first, 'rob');
-      assert.equal(this.last, 'jackson');
+      assert.equal(this.first, expectedFirst, 'getter: first name matches');
+      assert.equal(this.last, expectedLast, 'getter: last name matches');
+      return `${this.first} ${this.last}`;
     }
 
     set fullName(name) {
-      assert.equal(name, 'rob jackson');
+      assert.equal(name, expectedName, 'setter: name matches');
 
-      // Check `this` context to make sure function was bound properly
-      assert.equal(this.first, 'rob');
-      assert.equal(this.last, 'jackson');
+      const [first, last] = name.split(' ');
+      setProperties(this, { first, last });
 
-      return `${name}-transformed`;
+      return 'this is ignored';
     }
   }
 
   let obj = new Foo();
   get(obj, 'fullName');
-  set(obj, 'fullName', 'rob jackson');
 
-  assert.strictEqual(get(obj, 'fullName'), 'rob jackson-transformed', 'return value of setter is new value of computed property');
+  expectedName = 'yehuda katz';
+  expectedFirst = 'yehuda';
+  expectedLast = 'katz';
+  set(obj, 'fullName', 'yehuda katz');
+
+  assert.strictEqual(get(obj, 'fullName'), expectedName, 'return value of getter is new value of property');
 });
 
 

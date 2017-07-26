@@ -9,7 +9,7 @@ import {
 
 import { decoratorWithRequiredParams } from '../utils/decorator-macros';
 
-import { assert } from '@ember/debug';
+import { assert, warn } from '@ember/debug';
 
 const { computed: emberComputed } = Ember;
 
@@ -161,6 +161,8 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
   if (desc.writable === undefined) {
     let { get, set } = desc;
 
+    assert(`Using @computed for only a setter does not make sense. Add a getter for '${key}' as well or remove the @computed decorator.`, typeof get === 'function');
+
     // Unset the getter and setter so the descriptor just has a plain value
     desc.get = undefined;
     desc.set = undefined;
@@ -170,12 +172,14 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
     return emberComputed(...params, {
       get,
       set(key, value) {
-        let ret = set.call(this, value);
-        if (typeof ret === "undefined") {
-          ret = get.call(this);
-        }
+        const ret = set.call(this, value);
+        warn(
+          `The return value ('${ret}') of the ES6 setter for '${key}' was ignored. For more information, see: https://github.com/rwjblue/ember-decorators/pull/141#issuecomment-317974858`,
+          typeof ret === 'undefined',
+          { id: 'ember-decorators.object.computed.es6-setter-return-value' }
+        );
 
-        return ret;
+        return get.call(this);
       }
     });
   } else {
