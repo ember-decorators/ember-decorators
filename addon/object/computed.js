@@ -100,6 +100,36 @@ export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool);
 export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collect);
 
 /**
+ * Decorator that wraps [Ember.computed.deprecatingAlias](http://emberjs.com/api/classes/Ember.computed.html#method_deprecatingAlias)
+ *
+ * Creates a new property that is an alias for another property on an object.
+ * Calls to get or set this property behave as though they were called on
+ * the original property, but will also trigger a deprecation warning.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { deprecatingAlias } from 'ember-decorators/object/computed';
+ *
+ * export default class UserProfileComponent extends {
+ *   person = {
+ *     first: 'Joe'
+ *   };
+ *
+ *   @deprecatingAlias('person.first', {
+ *     id: 'user-profile.firstName',
+ *     until: '3.0.0',
+ *     url: 'https://example.com/deprecations/user-profile.firstName'
+ *   }) firstName;
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to alias
+ * @param {Object} options
+ */
+export const deprecatingAlias = decoratedPropertyWithRequiredParams(Ember.computed.deprecatingAlias);
+
+/**
  * Decorator that wraps [Ember.computed.empty](http://emberjs.com/api/classes/Ember.computed.html#method_empty)
  *
  * A computed property that returns `true` if the value of the dependent
