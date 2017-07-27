@@ -1,10 +1,10 @@
 import Ember from 'ember';
-import { assert } from '@ember/debug';
-
 import {
   decoratedPropertyWithRequiredParams,
   decoratedPropertyWithOptionalCallback
 } from '../utils/decorator-macros';
+
+const { assert } = Ember;
 
 /**
  * Decorator that wraps [Ember.computed.alias](http://emberjs.com/api/classes/Ember.computed.html#method_alias)
