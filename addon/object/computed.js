@@ -107,20 +107,20 @@ export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collec
  * the original property, but will also trigger a deprecation warning.
  *
  * ```javascript
- * import Ember from 'ember';
+ * import Component from '@ember/component';
  * import { deprecatingAlias } from 'ember-decorators/object/computed';
  *
- * export default Ember.Component.extend({
- *   person: {
+ * export default class UserProfileComponent extends {
+ *   person = {
  *     first: 'Joe'
- *   },
+ *   };
  *
  *   @deprecatingAlias('person.first', {
  *     id: 'user-profile.firstName',
  *     until: '3.0.0',
  *     url: 'https://example.com/deprecations/user-profile.firstName'
- *   }) firstName
- * });
+ *   }) firstName;
+ * }
  * ```
  *
  * @function
