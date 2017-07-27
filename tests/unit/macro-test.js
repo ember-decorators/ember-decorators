@@ -28,7 +28,8 @@ import {
   sort,
   sum,
   union,
-  uniq
+  uniq,
+  uniqBy
 } from 'ember-decorators/object/computed';
 import { readOnly } from 'ember-decorators/object';
 import { module, test } from 'qunit';
@@ -592,6 +593,31 @@ test('uniq', function(assert) {
   }).create();
 
   assert.deepEqual(obj.get('uniqNames').toArray(),['one','two','three']);
+});
+
+test('uniqBy', function(assert) {
+  var obj = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.fruits = Ember.A([
+        { name: 'banana', color: 'yellow' },
+        { name: 'apple',  color: 'red' },
+        { name: 'kiwi',   color: 'brown' },
+        { name: 'cherry', color: 'red' },
+        { name: 'lemon',  color: 'yellow' }
+      ]);
+    },
+    @uniqBy('fruits', 'color') oneOfEachColor: null
+  }).create();
+
+  assert.deepEqual(
+    obj.get('oneOfEachColor').toArray(),
+    [
+      { name: 'banana', color: 'yellow'},
+      { name: 'apple',  color: 'red'},
+      { name: 'kiwi',   color: 'brown'}
+    ]
+  );
 });
 
 test('macros cannot be used without parameters', function(assert) {
