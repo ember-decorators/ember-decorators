@@ -193,7 +193,7 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal);
  *   @filter('chores')
  *   remainingChores(chore, index, array) {
  *     return !chore.done;
- *   }, // [{name: 'write more unit tests', done: false}]
+ *   } // [{name: 'write more unit tests', done: false}]
  *
  *   // alternative syntax:
  *
@@ -369,7 +369,7 @@ export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte);
  *   @map('chores')
  *   loudChores(chore, index) {
  *     return chore.toUpperCase() + '!';
- *   }, // ['CLEAN!', 'WRITE MORE UNIT TESTS!']
+ *   } // ['CLEAN!', 'WRITE MORE UNIT TESTS!']
  *
  *   // alternative syntax:
  *
@@ -687,7 +687,7 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  *     }
  *
  *     return 0;
- *   }, // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
+ *   } // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
  *
  *   // alternative syntax:
  *
