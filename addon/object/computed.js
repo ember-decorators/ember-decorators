@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { assert } from '@ember/debug';
 
 import {
   decoratedPropertyWithRequiredParams,
@@ -781,4 +782,6 @@ export const uniq = decoratedPropertyWithRequiredParams(Ember.computed.uniq);
  * @param {String} dependentKey - Key of the array to uniq
  * @param {String} propertyKey - Key of the property on the objects of the array to determine uniqueness by
  */
-export const uniqBy = decoratedPropertyWithRequiredParams(Ember.computed.uniqBy);
+export const uniqBy = Ember.computed.uniqBy ?
+  decoratedPropertyWithRequiredParams(Ember.computed.uniqBy) :
+  () => assert('uniqBy is only available from Ember.js v2.7 onwards.', false);

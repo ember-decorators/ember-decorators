@@ -33,6 +33,7 @@ import {
 } from 'ember-decorators/object/computed';
 import { readOnly } from 'ember-decorators/object';
 import { module, test } from 'qunit';
+import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 
 module('macro decorator');
 
@@ -595,30 +596,40 @@ test('uniq', function(assert) {
   assert.deepEqual(obj.get('uniqNames').toArray(),['one','two','three']);
 });
 
-test('uniqBy', function(assert) {
-  var obj = Ember.Object.extend({
-    init() {
-      this._super(...arguments);
-      this.fruits = Ember.A([
-        { name: 'banana', color: 'yellow' },
-        { name: 'apple',  color: 'red' },
-        { name: 'kiwi',   color: 'brown' },
-        { name: 'cherry', color: 'red' },
-        { name: 'lemon',  color: 'yellow' }
-      ]);
-    },
-    @uniqBy('fruits', 'color') oneOfEachColor: null
-  }).create();
+if (hasEmberVersion(2, 7)) {
+  test('uniqBy', function(assert) {
+    var obj = Ember.Object.extend({
+      init() {
+        this._super(...arguments);
+        this.fruits = Ember.A([
+          { name: 'banana', color: 'yellow' },
+          { name: 'apple',  color: 'red' },
+          { name: 'kiwi',   color: 'brown' },
+          { name: 'cherry', color: 'red' },
+          { name: 'lemon',  color: 'yellow' }
+        ]);
+      },
+      @uniqBy('fruits', 'color') oneOfEachColor: null
+    }).create();
 
-  assert.deepEqual(
-    obj.get('oneOfEachColor').toArray(),
-    [
-      { name: 'banana', color: 'yellow'},
-      { name: 'apple',  color: 'red'},
-      { name: 'kiwi',   color: 'brown'}
-    ]
-  );
-});
+    assert.deepEqual(
+      obj.get('oneOfEachColor').toArray(),
+      [
+        { name: 'banana', color: 'yellow'},
+        { name: 'apple',  color: 'red'},
+        { name: 'kiwi',   color: 'brown'}
+      ]
+    );
+  }, 'is available in Ember 2.7+ and works correctly');
+} else {
+  test('uniqBy', function(assert) {
+    assert.throws(() => {
+      Ember.Object.extend({
+        @uniqBy('fruits', 'color') oneOfEachColor: null
+      });
+    }, /Ember\.js v2\.7/, 'is not available in Ember <2.7 and throws an assertion');
+  });
+}
 
 test('macros cannot be used without parameters', function(assert) {
   assert.throws(
