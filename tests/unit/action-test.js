@@ -6,6 +6,8 @@ import { moduleForComponent } from 'ember-qunit';
 import { test } from 'qunit';
 import { findAll, click } from 'ember-native-dom-helpers';
 
+import { HAS_UNDERSCORE_ACTIONS } from 'ember-compatibility-helpers';
+
 moduleForComponent('actions', { integration: true });
 
 test('action decorator works with standard Ember Object model', function(assert) {
@@ -68,14 +70,16 @@ test('action decorator does not add actions to superclass', function(assert) {
   }
 
   const foo = new Foo();
-
-  assert.equal(typeof foo.actions.foo, 'function', 'foo has foo action');
-  assert.equal(typeof foo.actions.bar, 'undefined', 'foo does not have bar action');
-
   const bar = new Bar();
 
-  assert.equal(typeof bar.actions.foo, 'function', 'bar has foo action');
-  assert.equal(typeof bar.actions.bar, 'function', 'bar has bar action');
+  const fooActions = HAS_UNDERSCORE_ACTIONS ? foo._actions : foo.actions;
+  const barActions = HAS_UNDERSCORE_ACTIONS ? bar._actions : bar.actions;
+
+  assert.equal(typeof fooActions.foo, 'function', 'foo has foo action');
+  assert.equal(typeof fooActions.bar, 'undefined', 'foo does not have bar action');
+
+  assert.equal(typeof barActions.foo, 'function', 'bar has foo action');
+  assert.equal(typeof barActions.bar, 'function', 'bar has bar action');
 });
 
 test('actions are properly merged through traditional and ES6 prototype hierarchy', async function(assert) {

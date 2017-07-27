@@ -494,7 +494,7 @@ test('readOnly', function(assert) {
     () => {
       obj.set('finalName', 'Brotom');
     },
-    /Cannot set read-only property 'finalName' on object/,
+    /Cannot set read-only property ['"]finalName['"] on object/,
     'error message thrown when trying to set readOnly property'
   );
 
