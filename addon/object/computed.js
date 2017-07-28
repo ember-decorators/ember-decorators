@@ -1,10 +1,9 @@
 import Ember from 'ember';
+import { assert } from '@ember/debug';
 import {
   decoratedPropertyWithRequiredParams,
   decoratedPropertyWithOptionalCallback
 } from '../utils/decorator-macros';
-
-const { assert } = Ember;
 
 /**
  * Decorator that wraps [Ember.computed.alias](http://emberjs.com/api/classes/Ember.computed.html#method_alias)
@@ -784,4 +783,6 @@ export const uniq = decoratedPropertyWithRequiredParams(Ember.computed.uniq);
  */
 export const uniqBy = Ember.computed.uniqBy ?
   decoratedPropertyWithRequiredParams(Ember.computed.uniqBy) :
-  () => assert('uniqBy is only available from Ember.js v2.7 onwards.', false);
+  () => {
+    assert('uniqBy is only available from Ember.js v2.7 onwards.', false);
+  };
