@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import { assert } from '@ember/debug';
 import {
   decoratedPropertyWithRequiredParams,
   decoratedPropertyWithOptionalCallback
@@ -777,3 +777,42 @@ export const union = decoratedPropertyWithRequiredParams(Ember.computed.union);
  * @param {String} dependentKey - Key of the array to uniq
  */
 export const uniq = decoratedPropertyWithRequiredParams(Ember.computed.uniq);
+
+/**
+ * Decorator that wraps [Ember.computed.uniqBy](http://emberjs.com/api/classes/Ember.computed.html#method_uniqBy)
+ *
+ * A computed property which returns a new array with all the unique elements
+ * from an array, with uniqueness determined by a specific key.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { uniqBy } from 'ember-decorators/object/computed';
+ *
+ * export default class FruitBowlComponent extends Component {
+ *   fruits = A([
+ *     { name: 'banana', color: 'yellow' },
+ *     { name: 'apple',  color: 'red' },
+ *     { name: 'kiwi',   color: 'brown' },
+ *     { name: 'cherry', color: 'red' },
+ *     { name: 'lemon',  color: 'yellow' }
+ *   ]);
+ *
+ *   @uniqBy('fruits', 'color') oneOfEachColor;
+ *   // [
+ *   //  { name: 'banana', color: 'yellow'},
+ *   //  { name: 'apple',  color: 'red'},
+ *   //  { name: 'kiwi',   color: 'brown'}
+ *   // ]
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key of the array to uniq
+ * @param {String} propertyKey - Key of the property on the objects of the array to determine uniqueness by
+ */
+export const uniqBy = Ember.computed.uniqBy ?
+  decoratedPropertyWithRequiredParams(Ember.computed.uniqBy) :
+  () => {
+    assert('uniqBy is only available from Ember.js v2.7 onwards.', false);
+  };
