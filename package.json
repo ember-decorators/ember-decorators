@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rwjblue/ember-decorators.git"
+    "url": "https://github.com/ember-decorators/ember-decorators.git"
   },
   "scripts": {
     "build": "ember build",

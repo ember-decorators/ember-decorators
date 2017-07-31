@@ -1,7 +1,7 @@
 # ember-decorators
 
 [![npm version](https://badge.fury.io/js/ember-decorators.svg)](https://badge.fury.io/js/ember-decorators)
-[![Build Status](https://travis-ci.org/rwjblue/ember-decorators.svg?branch=master)](https://travis-ci.org/rwjblue/ember-decorators)
+[![Build Status](https://travis-ci.org/ember-decorators/ember-decorators.svg?branch=master)](https://travis-ci.org/ember-decorators/ember-decorators)
 ![Ember Version](https://embadge.io/v1/badge.svg?start=2.4.0)
 
 This addon adds decorator support to Ember, allowing you to DRY-up your code and write modern ES6 classes.
@@ -107,7 +107,7 @@ import {
 
 ```
 
-See the [API Documentation](https://rwjblue.github.io/ember-decorators/docs/index.html)
+See the [API Documentation](https://ember-decorators.github.io/ember-decorators/docs/index.html)
 for detailed examples and documentation of the individual decorators.
 
 Note: The `@computed` decorator wraps [ember-macro-helpers](https://github.com/kellyselden/ember-macro-helpers)
