@@ -12,6 +12,10 @@ import {
 import { decoratorWithRequiredParams } from '../utils/decorator-macros';
 
 import { assert } from '@ember/debug';
+import {
+  HAS_UNDERSCORE_ACTIONS,
+  SUPPORTS_NEW_COMPUTED
+} from 'ember-compatibility-helpers';
 
 const { computed: emberComputed } = Ember;
 
@@ -54,12 +58,21 @@ export const action = decorator(function(target, key, desc) {
     superClass.proto();
   }
 
-  if (!target.hasOwnProperty('actions')) {
-    let parentActions = target.actions;
-    target.actions = parentActions ? Object.create(parentActions) : {};
-  }
+  if (HAS_UNDERSCORE_ACTIONS) {
+    if (!target.hasOwnProperty('_actions')) {
+      let parentActions = target._actions;
+      target._actions = parentActions ? Object.create(parentActions) : {};
+    }
 
-  target.actions[key] = value;
+    target._actions[key] = value;
+  } else {
+    if (!target.hasOwnProperty('actions')) {
+      let parentActions = target.actions;
+      target.actions = parentActions ? Object.create(parentActions) : {};
+    }
+
+    target.actions[key] = value;
+  }
 
   return value;
 });
@@ -179,7 +192,25 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
 
     // Use a standard ember computed since getter/setter arrity is restricted,
     // meaning ember-macro-helpers doesn't provide any benefit
-    return emberComputed(...params, { get, set: setter });
+    if (SUPPORTS_NEW_COMPUTED) {
+      return emberComputed(...params, { get, set: setter });
+    } else {
+      let callback;
+
+      if (typeof setter === 'function') {
+        callback = function (key, value) {
+          if (arguments.length > 1) {
+            return setter.call(this, key, value);
+          }
+
+          return get.call(this);
+        }
+      } else {
+        callback = get;
+      }
+
+      return emberComputed(...params, callback);
+    }
   } else {
     return macroComputed(...params, extractValue(desc));
   }

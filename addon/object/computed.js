@@ -5,6 +5,10 @@ import {
   decoratedPropertyWithOptionalCallback
 } from '../utils/decorator-macros';
 
+import {
+  SUPPORTS_UNIQ_BY_COMPUTED
+} from 'ember-compatibility-helpers';
+
 /**
  * Decorator that wraps [Ember.computed.alias](http://emberjs.com/api/classes/Ember.computed.html#method_alias)
  *
@@ -811,7 +815,7 @@ export const uniq = decoratedPropertyWithRequiredParams(Ember.computed.uniq);
  * @param {String} dependentKey - Key of the array to uniq
  * @param {String} propertyKey - Key of the property on the objects of the array to determine uniqueness by
  */
-export const uniqBy = Ember.computed.uniqBy ?
+export const uniqBy = SUPPORTS_UNIQ_BY_COMPUTED ?
   decoratedPropertyWithRequiredParams(Ember.computed.uniqBy) :
   () => {
     assert('uniqBy is only available from Ember.js v2.7 onwards.', false);
