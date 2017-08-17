@@ -26,7 +26,7 @@
     "ember-cli-babel": "^6.0.0",
     "ember-cli-version-checker": "^2.0.0",
     "ember-compatibility-helpers": "^0.1.0",
-    "ember-macro-helpers": "^0.15.1"
+    "ember-macro-helpers": "^0.16.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
