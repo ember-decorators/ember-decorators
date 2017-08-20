@@ -43,7 +43,7 @@ export function decoratedPropertyWithOptionalCallback(fn) {
     }
 
     const value = extractValue(desc);
-    assert(`Cannot use '${fn.name}' on field '${key}' without a callback`, (typeof value === 'function'));
+    assert(`Cannot use '${fn.name}' on field '${key}' without a callback`, typeof value === 'function');
 
     return fn(...params, value);
   });
