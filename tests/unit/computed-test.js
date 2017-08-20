@@ -48,7 +48,7 @@ test('sorts on the keys defined in another property', function(assert) {
   }
 
   var expected = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }];
-  assert.equal(get(obj, 'sorted'), expected);
+  assert.deepEqual(get(obj, 'sorted'), expected);
 });
 
 
