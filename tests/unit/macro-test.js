@@ -584,7 +584,8 @@ test('sort (no callback, use property value)', function(assert) {
     sortedNames: null
   }).create();
 
-  assert.deepEqual(obj.get('sortedNames').mapBy('name'), ['a','b','foo','z']);
+  var actual = obj.get('sortedNames').mapBy('name');
+  assert.deepEqual(actual, ['a','b','foo','z']);
 });
 
 test('sum', function(assert) {

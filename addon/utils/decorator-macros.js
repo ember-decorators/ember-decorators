@@ -38,8 +38,12 @@ export function decoratedPropertyWithOptionalCallback(fn) {
       return fn(...params);
     }
 
+    if (typeof params[params.length - 1] === 'string' && target[params[params.length - 1]]) {
+      return fn(...params);
+    }
+
     const value = extractValue(desc);
-    assert(`Cannot use '${fn.name}' on field '${key}' without a callback`, typeof value === 'function');
+    assert(`Cannot use '${fn.name}' on field '${key}' without a callback`, (typeof value === 'function'));
 
     return fn(...params, value);
   });
