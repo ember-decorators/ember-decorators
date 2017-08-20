@@ -37,6 +37,7 @@ test('dependent key changes invalidate the computed property', function(assert) 
   assert.equal(get(obj, 'name'), 'al jackson');
 });
 
+
 test('readOnly', function(assert) {
   var obj = {
     first: 'rob',
