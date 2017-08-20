@@ -1,7 +1,5 @@
 import Ember from 'ember';
 import { computed, readOnly } from 'ember-decorators/object';
-import { sort } from 'ember-decorators/object/computed';
-
 import { module, test } from 'qunit';
 
 const { get, set, setProperties } = Ember;
@@ -38,19 +36,6 @@ test('dependent key changes invalidate the computed property', function(assert) 
   set(obj, 'first', 'al');
   assert.equal(get(obj, 'name'), 'al jackson');
 });
-
-test('sorts on the keys defined in another property', function(assert) {
-  var obj = {
-    arr: [{ name: 'b' }, { name: 'a' }, { name: 'd' }, { name: 'c' }],
-    sortProp: ['name:asc'],
-
-    @sort('arr', 'sortProp') sorted: null
-  }
-
-  var expected = [{ name: 'a' }, { name: 'b' }, { name: 'c' }, { name: 'd' }];
-  assert.deepEqual(get(obj, 'sorted'), expected);
-});
-
 
 test('readOnly', function(assert) {
   var obj = {

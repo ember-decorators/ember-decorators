@@ -572,6 +572,21 @@ test('sort (no callback, use descriptor value)', function(assert) {
   assert.deepEqual(obj.get('sortedNames').mapBy('name'), ['a','b','foo','z']);
 });
 
+test('sort (no callback, use property value)', function(assert) {
+  var obj = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.names = Ember.A([{name:'b'},{name:'z'},{name:'a'},{name:'foo'}]);
+    },
+
+    sorts: ['name:asc'],
+    @sort('names', 'sorts')
+    sortedNames: null
+  }).create();
+
+  assert.deepEqual(obj.get('sortedNames').mapBy('name'), ['a','b','foo','z']);
+});
+
 test('sum', function(assert) {
   var obj = Ember.Object.extend({
     init() {
