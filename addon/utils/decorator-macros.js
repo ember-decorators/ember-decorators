@@ -1,3 +1,5 @@
+import { IS_EMBER_2 } from 'ember-compatibility-helpers';
+
 import { decoratorWithParams } from './decorator-wrappers';
 import extractValue from './extract-value';
 
@@ -56,7 +58,7 @@ export function decoratedPropertyWithEitherCallbackOrProperty(fn) {
       return fn(...params);
     }
 
-    if (params.length > 1 && lastParamType === 'string') {
+    if (IS_EMBER_2 && params.length > 1 && lastParamType === 'string') {
       assert(`Cannot use '${lastParam}' on field '${key}' because it does not exist on the target`, target[lastParam]);
       return fn(...params);
     }
