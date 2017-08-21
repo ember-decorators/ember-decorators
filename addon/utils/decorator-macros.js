@@ -50,12 +50,13 @@ export function decoratedPropertyWithEitherCallbackOrProperty(fn) {
     assert(`Cannot use '${fn.name}' on field '${key}' without parameters`, params.length !== 0);
 
     const lastParam = params[params.length - 1]
+    const lastParamType = typeof lastParam;
 
-    if (typeof lastParam === 'function') {
+    if (lastParamType === 'function') {
       return fn(...params);
     }
 
-    if (params.length > 1 && typeof lastParam === 'string') {
+    if (params.length > 1 && lastParamType === 'string') {
       assert(`Cannot use '${lastParam}' on field '${key}' because it does not exist on the target`, target[lastParam]);
       return fn(...params);
     }
