@@ -38,7 +38,25 @@ export function decoratedPropertyWithOptionalCallback(fn) {
       return fn(...params);
     }
 
-    if (typeof params[params.length - 1] === 'string' && target[params[params.length - 1]]) {
+    const value = extractValue(desc);
+    assert(`Cannot use '${fn.name}' on field '${key}' without a callback`, typeof value === 'function');
+
+    return fn(...params, value);
+  });
+}
+
+export function decoratedPropertyWithEitherCallbackOrProperty(fn) {
+  return decoratorWithParams(function(target, key, desc, params) {
+    assert(`Cannot use '${fn.name}' on field '${key}' without parameters`, params.length !== 0);
+
+    const lastParam = params[params.length - 1]
+
+    if (typeof lastParam === 'function') {
+      return fn(...params);
+    }
+
+    if (params.length > 1 && typeof lastParam === 'string') {
+      assert(`Cannot use '${lastParam}' on field '${key}' because it does not exist on the target`, target[lastParam]);
       return fn(...params);
     }
 

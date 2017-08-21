@@ -2,7 +2,8 @@ import Ember from 'ember';
 import { assert } from '@ember/debug';
 import {
   decoratedPropertyWithRequiredParams,
-  decoratedPropertyWithOptionalCallback
+  decoratedPropertyWithOptionalCallback,
+  decoratedPropertyWithEitherCallbackOrProperty
 } from '../utils/decorator-macros';
 
 import {
@@ -711,7 +712,7 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  * @param {String} dependentKey - The key for the array that should be sorted
  * @param {Array<String>|Function(Any, Any): Number} sortDefinition - Sorting function or sort descriptor
  */
-export const sort = decoratedPropertyWithOptionalCallback(Ember.computed.sort);
+export const sort = decoratedPropertyWithEitherCallbackOrProperty(Ember.computed.sort);
 
 /**
  * Decorator that wraps [Ember.computed.sum](http://emberjs.com/api/classes/Ember.computed.html#method_sum)

@@ -588,6 +588,16 @@ test('sort (no callback, use property value)', function(assert) {
   assert.deepEqual(actual, ['a','b','foo','z']);
 });
 
+test('sort (no callback, use non-existing property value)', function(assert) {
+  assert.throws(() => {
+    Ember.Object.extend({
+      @sort('names', 'sorts')
+      sortedNames: null
+    }).create();
+  }, /sorts/, /sortedNames/, 'because it does not exist on the target');
+});
+
+
 test('sum', function(assert) {
   var obj = Ember.Object.extend({
     init() {
