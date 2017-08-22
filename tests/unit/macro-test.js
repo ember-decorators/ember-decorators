@@ -1,4 +1,6 @@
 import Ember from 'ember';
+import { IS_EMBER_2 } from 'ember-compatibility-helpers';
+
 import {
   alias,
   and,
@@ -571,6 +573,34 @@ test('sort (no callback, use descriptor value)', function(assert) {
 
   assert.deepEqual(obj.get('sortedNames').mapBy('name'), ['a','b','foo','z']);
 });
+
+if (IS_EMBER_2) {
+  test('sort (no callback, use property value)', function(assert) {
+    var obj = Ember.Object.extend({
+      init() {
+        this._super(...arguments);
+        this.names = Ember.A([{name:'b'},{name:'z'},{name:'a'},{name:'foo'}]);
+      },
+
+      sorts: ['name:asc'],
+      @sort('names', 'sorts')
+      sortedNames: null
+    }).create();
+
+    var actual = obj.get('sortedNames').mapBy('name');
+    assert.deepEqual(actual, ['a','b','foo','z']);
+  });
+
+  test('sort (no callback, use non-existing property value)', function(assert) {
+    assert.throws(() => {
+      Ember.Object.extend({
+        @sort('names', 'sorts')
+        sortedNames: null
+      }).create();
+    }, /sorts/, /sortedNames/, 'because it does not exist on the target');
+  });
+}
+
 
 test('sum', function(assert) {
   var obj = Ember.Object.extend({

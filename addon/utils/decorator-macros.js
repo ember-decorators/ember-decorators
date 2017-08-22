@@ -1,3 +1,5 @@
+import { IS_EMBER_2 } from 'ember-compatibility-helpers';
+
 import { decoratorWithParams } from './decorator-wrappers';
 import extractValue from './extract-value';
 
@@ -35,6 +37,29 @@ export function decoratedPropertyWithOptionalCallback(fn) {
     assert(`Cannot use '${fn.name}' on field '${key}' without parameters`, params.length !== 0);
 
     if (typeof params[params.length - 1] === 'function') {
+      return fn(...params);
+    }
+
+    const value = extractValue(desc);
+    assert(`Cannot use '${fn.name}' on field '${key}' without a callback`, typeof value === 'function');
+
+    return fn(...params, value);
+  });
+}
+
+export function decoratedPropertyWithEitherCallbackOrProperty(fn) {
+  return decoratorWithParams(function(target, key, desc, params) {
+    assert(`Cannot use '${fn.name}' on field '${key}' without parameters`, params.length !== 0);
+
+    const lastParam = params[params.length - 1]
+    const lastParamType = typeof lastParam;
+
+    if (lastParamType === 'function') {
+      return fn(...params);
+    }
+
+    if (IS_EMBER_2 && params.length > 1 && lastParamType === 'string') {
+      assert(`Cannot use '${lastParam}' on field '${key}' because it does not exist on the target`, target[lastParam]);
       return fn(...params);
     }
 
