@@ -612,7 +612,7 @@ if (IS_EMBER_2) {
       @sort('names', 'sorts') sortedNames;
     }
 
-    var actual = (new TestSort).get('sortedNames').mapBy('name');
+    var actual = new TestSort().get('sortedNames').mapBy('name');
     assert.deepEqual(actual, ['a','b','foo','z']);
   });
 }

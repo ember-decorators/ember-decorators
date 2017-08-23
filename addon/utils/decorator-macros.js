@@ -59,7 +59,7 @@ export function decoratedPropertyWithEitherCallbackOrProperty(fn) {
     }
 
     if (IS_EMBER_2 && params.length > 1 && lastParamType === 'string') {
-      assert(`Cannot use '${lastParam}' on field '${key}' because it does not exist on the target`, Ember.get(target, lastParam));
+      // assert(`Cannot use '${lastParam}' on field '${ikey}' because it does not exist on the target`, Ember.get(target, lastParam));
       return fn(...params);
     }
 
