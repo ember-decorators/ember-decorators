@@ -51,7 +51,7 @@ export default Ember.Component.extend({
 You replace it with this:
 
 ```javascript
-import Component from '@ember/component'
+import Component from '@ember/component';
 import { action, computed } from 'ember-decorators/object';
 import { service } from 'ember-decorators/service';
 
