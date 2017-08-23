@@ -591,15 +591,6 @@ if (IS_EMBER_2) {
     assert.deepEqual(actual, ['a','b','foo','z']);
   });
 
-  // test('sort (no callback, use non-existing property value)', function(assert) {
-  //   assert.throws(() => {
-  //     Ember.Object.extend({
-  //       @sort('names', 'sorts')
-  //       sortedNames: null
-  //     }).create();
-  //   }, /sorts/, /sortedNames/, 'because it does not exist on the target');
-  // });
-
   test('sort (no callback, use property value, es6)', function(assert) {
     class TestSort extends Ember.Object {
       constructor() {
