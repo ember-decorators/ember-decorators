@@ -171,6 +171,7 @@ export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty);
  *
  *   @equal('state', 'sleepy') napTime; // true
  * }
+ * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to check
