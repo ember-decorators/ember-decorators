@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="The default blueprint for ember-cli addons."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="The default blueprint for ember-cli addons."></head>
+<meta name="description" content="Useful decorators for Ember applications."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="Useful decorators for Ember applications."></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/rwjblue/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/ember-decorators/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -88,6 +88,11 @@
       
       
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-collect">collect</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-deprecatingAlias">deprecatingAlias</a></span></span>
     </li>
 <li data-ice="doc">
       
@@ -216,6 +221,11 @@
     </li>
 <li data-ice="doc">
       
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-uniqBy">uniqBy</a></span></span>
+    </li>
+<li data-ice="doc">
+      
       <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-object-evented">addon/object/evented</a>
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/evented.js.html#static-function-on">on</a></span></span>
     </li>
@@ -229,7 +239,7 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import * from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber30">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import * from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber36">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
 </div>
 
 <div class="self-detail detail">
@@ -346,6 +356,35 @@
         
         
         <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_collect">Ember.computed.collect</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-deprecatingAlias">deprecatingAlias</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_deprecatingAlias">Ember.computed.deprecatingAlias</a></p>
 </div>
       </div>
     </td>
@@ -1079,6 +1118,35 @@
       
     </td>
   </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-uniqBy">uniqBy</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, propertyKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_uniqBy">Ember.computed.uniqBy</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
@@ -1096,27 +1164,27 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber30">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber36">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {alias} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber30">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {alias} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber36">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_alias">Ember.computed.alias</a></p>
 <p>Creates a new property that is an alias for another property on an object.
 Calls to get or set this property behave as though they were called on
 the original property.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { alias } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { alias } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  person: {
+export default class UserProfileComponent extends Component {
+  person = {
     first: &apos;Joe&apos;
-  },
+  };
 
-  @alias(&apos;person.first&apos;) firstName
-});</code>
+  @alias(&apos;person.first&apos;) firstName;
+}</code>
 </code></pre>
 </div>
 
@@ -1171,26 +1239,26 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber54">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber60">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {and} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber54">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {and} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber60">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_and">Ember.computed.and</a></p>
 <p>A computed property that performs a logical and on the original values
 for the provided dependent properties.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { and } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { and } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  person: {
+export default class UserProfileComponent extends Component {
+  person = {
     first: &apos;Joe&apos;
-  },
+  };
 
-  @and(&apos;first&apos;, &apos;last&apos;) hasFullName // false
-});</code>
+  @and(&apos;person.{first,last}&apos;) hasFullName; // false
+}</code>
 </code></pre>
 </div>
 
@@ -1245,24 +1313,24 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber76">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber82">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {bool} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber76">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {bool} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber82">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_bool">Ember.computed.bool</a></p>
 <p>A computed property that converts the provided dependent property into a
 boolean value.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { bool } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { bool } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  messageCount: 1,
+export default class MessagesNotificationComponent extends Component {
+  messageCount = 1;
 
-  @bool(&apos;messageCount&apos;) hasMessages // true
-});</code>
+  @bool(&apos;messageCount&apos;) hasMessages; // true
+}</code>
 </code></pre>
 </div>
 
@@ -1317,25 +1385,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber99">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber105">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {collect} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber99">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {collect} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber105">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_collect">Ember.computed.collect</a></p>
 <p>A computed property that returns the array of values for the provided
 dependent properties.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { collect } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { collect } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  light: &apos;strobe&apos;,
-  lens: &apos;35mm prime&apos;,
+export default class CameraEquipmentComponent extends Component {
+  light = &apos;strobe&apos;;
+  lens = &apos;35mm prime&apos;;
 
-  @collect(&apos;light&apos;, &apos;lens&apos;) equipment // [&apos;strobe&apos;, &apos;35mm prime&apos;]
-});</code>
+  @collect(&apos;light&apos;, &apos;lens&apos;) equipment; // [&apos;strobe&apos;, &apos;35mm prime&apos;]
+}</code>
 </code></pre>
 </div>
 
@@ -1379,6 +1447,91 @@ export default Ember.Component.extend({
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-deprecatingAlias">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">deprecatingAlias</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber135">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {deprecatingAlias} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber135">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_deprecatingAlias">Ember.computed.deprecatingAlias</a></p>
+<p>Creates a new property that is an alias for another property on an object.
+Calls to get or set this property behave as though they were called on
+the original property, but will also trigger a deprecation warning.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { deprecatingAlias } from &apos;ember-decorators/object/computed&apos;;
+
+export default class UserProfileComponent extends {
+  person = {
+    first: &apos;Joe&apos;
+  };
+
+  @deprecatingAlias(&apos;person.first&apos;, {
+    id: &apos;user-profile.firstName&apos;,
+    until: &apos;3.0.0&apos;,
+    url: &apos;https://example.com/deprecations/user-profile.firstName&apos;
+  }) firstName;
+}</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key for the property to alias</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">options</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="static-function-empty">
     <span class="access" data-ice="access">public</span>
     
@@ -1390,24 +1543,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber121">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber158">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {empty} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber121">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {empty} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber158">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_empty">Ember.computed.empty</a></p>
 <p>A computed property that returns <code>true</code> if the value of the dependent
 property is null, an empty string, empty array, or empty function.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { empty } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { empty } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  items: Ember.A([&apos;taco&apos;, &apos;burrito&apos;]),
+export default class FoodItemsComponent extends Component {
+  items = A([&apos;taco&apos;, &apos;burrito&apos;]);
 
-  @empty(&apos;items&apos;) isEmpty // false
-});</code>
+  @empty(&apos;items&apos;) isEmpty; // false
+}</code>
 </code></pre>
 </div>
 
@@ -1462,22 +1616,24 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber142">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber180">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {equal} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber142">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {equal} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber180">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_equal">Ember.computed.equal</a></p>
 <p>A computed property that returns true if the dependent properties are equal.</p>
-<p>```javascript
-import Ember from &apos;ember&apos;;
-import { equal } from &apos;ember-decorators/computed&apos;;</p>
-<p>export default Ember.Component.extend({
-  state: &apos;sleepy&apos;,</p>
-<p>  @equal(&apos;state&apos;, &apos;sleepy&apos;) napTime // true
-});</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { equal } from &apos;ember-decorators/object/computed&apos;;
+
+export default class NapTimeComponent extends Component {
+  state = &apos;sleepy&apos;;
+
+  @equal(&apos;state&apos;, &apos;sleepy&apos;) napTime; // true
+}</code>
+</code></pre>
 </div>
 
   
@@ -1538,29 +1694,37 @@ import { equal } from &apos;ember-decorators/computed&apos;;</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber170">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber216">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {filter} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber170">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {filter} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber216">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_filter">Ember.computed.filter</a></p>
 <p>Filters the items in the array by the provided callback.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { filter } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { filter } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  chores: Ember.A([
+export default class ChoresListComponent extends Component {
+  chores = A([
     { name: &apos;cook&apos;, done: true },
     { name: &apos;clean&apos;, done: true },
     { name: &apos;write more unit tests&apos;, done: false }
-  ]),
+  ]);
+
+  @filter(&apos;chores&apos;)
+  remainingChores(chore, index, array) {
+    return !chore.done;
+  } // [{name: &apos;write more unit tests&apos;, done: false}]
+
+  // alternative syntax:
 
   @filter(&apos;chores&apos;, function(chore, index, array) {
     return !chore.done;
-  }) remainingChores // [{name: &apos;write more unit tests&apos;, done: false}]
-});</code>
+  }) remainingChores; // [{name: &apos;write more unit tests&apos;, done: false}]
+}</code>
 </code></pre>
 </div>
 
@@ -1622,27 +1786,28 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber197">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber244">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {filterBy} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber197">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {filterBy} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber244">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_filterBy">Ember.computed.filterBy</a></p>
 <p>Filters the array by the property and value.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { filterBy } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { filterBy } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  chores: Ember.A([
+export default class ChoresListComponent extends Component {
+  chores = A([
     { name: &apos;cook&apos;, done: true },
     { name: &apos;clean&apos;, done: true },
     { name: &apos;write more unit tests&apos;, done: false }
-  ]),
+  ]);
 
-  @filterBy(&apos;chores&apos;, &apos;done&apos;, false) remainingChores // [{name: &apos;write more unit tests&apos;, done: false}]
-});</code>
+  @filterBy(&apos;chores&apos;, &apos;done&apos;, false) remainingChores; // [{name: &apos;write more unit tests&apos;, done: false}]
+}</code>
 </code></pre>
 </div>
 
@@ -1711,24 +1876,24 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber220">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber267">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {gt} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber220">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {gt} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber267">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_gt">Ember.computed.gt</a></p>
 <p>A computed property that returns <code>true</code> if the provided dependent property
 is greater than the provided value.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { gt } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { gt } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  totalCats: 11,
+export default class CatPartyComponent extends Component {
+  totalCats = 11;
 
-  @gt(&apos;totalCats&apos;, 10) isCatParty // true
-});</code>
+  @gt(&apos;totalCats&apos;, 10) isCatParty; // true
+}</code>
 </code></pre>
 </div>
 
@@ -1790,24 +1955,24 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber243">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber290">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {gte} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber243">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {gte} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber290">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_gte">Ember.computed.gte</a></p>
 <p>A computed property that returns <code>true</code> if the provided dependent property
 is greater than or equal to the provided value.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { gte } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { gte } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  totalPlayers: 14,
+export default class PlayerListComponent extends Component {
+  totalPlayers = 14;
 
-  @gte(&apos;totalPlayers&apos;, 14) hasEnoughPlayers // true
-});</code>
+  @gte(&apos;totalPlayers&apos;, 14) hasEnoughPlayers; // true
+}</code>
 </code></pre>
 </div>
 
@@ -1869,25 +2034,26 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber266">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber314">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {intersect} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber266">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {intersect} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber314">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_intersect">Ember.computed.intersect</a></p>
 <p>A computed property which returns a new array with all the duplicated
 elements from two or more dependent arrays.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { intersect } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { intersect } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
-  foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;]),
+export default class FoodListComponent extends Component {
+  likes = A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]);
+  foods = A([&apos;tacos&apos;, &apos;pizza&apos;]);
 
-  @intersect(&apos;likes&apos;, &apos;foods&apos;) favoriteFoods // [&apos;tacos&apos;, &apos;pizza&apos;]
-});</code>
+  @intersect(&apos;likes&apos;, &apos;foods&apos;) favoriteFoods; // [&apos;tacos&apos;, &apos;pizza&apos;]
+}</code>
 </code></pre>
 </div>
 
@@ -1942,24 +2108,24 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber289">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber337">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {lt} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber289">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {lt} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber337">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_lt">Ember.computed.lt</a></p>
 <p>A computed property that returns <code>true</code> if the provided dependent property
 is less than the provided value.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { lt } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { lt } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  totalDogs: 3,
+export default class DogPartyComponent extends Component {
+  totalDogs = 3;
 
-  @lt(&apos;totalDogs&apos;, 10) isDogParty // true
-});</code>
+  @lt(&apos;totalDogs&apos;, 10) isDogParty; // true
+}</code>
 </code></pre>
 </div>
 
@@ -2021,24 +2187,24 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber312">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber360">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {lte} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber312">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {lte} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber360">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_lte">Ember.computed.lte</a></p>
 <p>A computed property that returns <code>true</code> if the provided dependent property
 is less than or equal to the provided value.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { lte } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { lte } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  totalPlayers: 14,
+export default class PlayerListComponent extends Component {
+  totalPlayers = 14;
 
-  @lte(&apos;totalPlayers&apos;, 14) hasEnoughPlayers // true
-});</code>
+  @lte(&apos;totalPlayers&apos;, 14) hasEnoughPlayers; // true
+}</code>
 </code></pre>
 </div>
 
@@ -2100,25 +2266,33 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber336">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber392">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {map} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber336">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {map} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber392">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_map">Ember.computed.map</a></p>
 <p>Returns an array mapped via the callback</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { map } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { map } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  chores: Ember.A([&apos;clean&apos;, &apos;write more unit tests&apos;]),
+export default class ChoresListComponent extends Component {
+  chores = A([&apos;clean&apos;, &apos;write more unit tests&apos;]);
+
+  @map(&apos;chores&apos;)
+  loudChores(chore, index) {
+    return chore.toUpperCase() + &apos;!&apos;;
+  } // [&apos;CLEAN!&apos;, &apos;WRITE MORE UNIT TESTS!&apos;]
+
+  // alternative syntax:
 
   @map(&apos;chores&apos;, function(chore, index) {
     return chore.toUpperCase() + &apos;!&apos;;
-  }) loudChores // [&apos;CLEAN!&apos;, &apos;WRITE MORE UNIT TESTS!&apos;]
-});</code>
+  }) loudChores; // [&apos;CLEAN!&apos;, &apos;WRITE MORE UNIT TESTS!&apos;]
+}</code>
 </code></pre>
 </div>
 
@@ -2180,27 +2354,28 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber362">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber419">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {mapBy} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber362">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {mapBy} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber419">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_mapBy">Ember.computed.mapBy</a></p>
 <p>Returns an array mapped to the specified key.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { mapBy } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { mapBy } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  people: Ember.A([
+export default class PeopleListComponent extends Component {
+  people = A([
     {name: &quot;George&quot;, age: 5},
     {name: &quot;Stella&quot;, age: 10},
     {name: &quot;Violet&quot;, age: 7}
-  ]),
+  ]);
 
-  @mapBy(&apos;people&apos;, &apos;age&apos;) ages // [5, 10, 7]
-});</code>
+  @mapBy(&apos;people&apos;, &apos;age&apos;) ages; // [5, 10, 7]
+}</code>
 </code></pre>
 </div>
 
@@ -2262,25 +2437,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber386">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber443">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {match} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber386">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {match} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber443">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_match">Ember.computed.match</a></p>
 <p>A computed property which matches the original value for the dependent
 property against a given RegExp, returning <code>true</code> if they values matches
 the RegExp and <code>false</code> if it does not.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { match } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { match } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  email: &apos;tomster@emberjs.com&apos;,
+export default class IsEmailValidComponent extends Component {
+  email = &apos;tomster@emberjs.com&apos;;
 
-  @match(&apos;email&apos;, /^.+@.+\..+$/) validEmail
-});</code>
+  @match(&apos;email&apos;, /^.+@.+\..+$/) validEmail;
+}</code>
 </code></pre>
 </div>
 
@@ -2342,24 +2517,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber408">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber466">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {max} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber408">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {max} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber466">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_max">Ember.computed.max</a></p>
 <p>A computed property that calculates the maximum value in the dependent
 array. This will return <code>-Infinity</code> when the dependent array is empty.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { max } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { max } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  values: Ember.A([1, 2, 5, 10]),
+export default class MaxValueComponent extends Component {
+  values = A([1, 2, 5, 10]);
 
-  @max(&apos;values&apos;) maxValue // 10
-});</code>
+  @max(&apos;values&apos;) maxValue; // 10
+}</code>
 </code></pre>
 </div>
 
@@ -2414,24 +2590,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber430">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber489">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {min} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber430">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {min} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber489">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_min">Ember.computed.min</a></p>
 <p>A computed property that calculates the minimum value in the dependent
 array. This will return <code>Infinity</code> when the dependent array is empty.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { min } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { min } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  values: Ember.A([1, 2, 5, 10]),
+export default class MinValueComponent extends Component {
+  values = A([1, 2, 5, 10]);
 
-  @min(&apos;values&apos;) minValue // 1
-});</code>
+  @min(&apos;values&apos;) minValue; // 1
+}</code>
 </code></pre>
 </div>
 
@@ -2486,25 +2663,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber453">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber512">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {none} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber453">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {none} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber512">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_none">Ember.computed.none</a></p>
 <p>A computed property that returns true if the value of the dependent property
 is null or undefined. This avoids errors from JSLint complaining about use
 of <code>==</code>, which can be technically confusing.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { none } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { none } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  firstName: null,
+export default class NameDisplayComponent extends Component {
+  firstName = null;
 
-  @none(&apos;firstName&apos;) isNameless // true until firstName is defined
-});</code>
+  @none(&apos;firstName&apos;) isNameless; // true unless firstName is defined
+}</code>
 </code></pre>
 </div>
 
@@ -2559,24 +2736,24 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber475">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber534">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {not} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber475">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {not} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber534">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_not">Ember.computed.not</a></p>
 <p>A computed property that returns the inverse boolean value of the original
 value for the dependent property.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { not } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { not } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  loggedIn: false,
+export default class UserInfoComponent extends Component {
+  loggedIn = false;
 
-  @not(&apos;loggedIn&apos;) isAnonymous // true
-});</code>
+  @not(&apos;loggedIn&apos;) isAnonymous; // true
+}</code>
 </code></pre>
 </div>
 
@@ -2631,24 +2808,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber497">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber557">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {notEmpty} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber497">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {notEmpty} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber557">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_notEmpty">Ember.computed.notEmpty</a></p>
 <p>A computed property that returns <code>true</code> if the value of the dependent
 property is NOT null, an empty string, empty array, or empty function.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { notEmpty } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { notEmpty } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  groceryBag: Ember.A([&apos;milk&apos;, &apos;eggs&apos;, &apos;apples&apos;]),
+export default class GroceryBagComponent extends Component {
+  groceryBag = A([&apos;milk&apos;, &apos;eggs&apos;, &apos;apples&apos;]);
 
-  @notEmpty(&apos;groceryBag&apos;) hasGroceriesToPutAway // true
-});</code>
+  @notEmpty(&apos;groceryBag&apos;) hasGroceriesToPutAway; // true
+}</code>
 </code></pre>
 </div>
 
@@ -2703,11 +2881,11 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber522">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber582">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {oneWay} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber522">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {oneWay} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber582">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_oneWay">Ember.computed.oneWay</a></p>
@@ -2716,14 +2894,14 @@ data flow, <code>computed.oneWay</code> only provides an aliased <code>get</code
 not mutate the upstream property, rather causes the current property to
 become the value set. This causes the downstream property to permanently
 diverge from the upstream property.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { oneWay } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { oneWay } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  firstName: &apos;Joe&apos;,
+export default class UserProfileComponent extends Component {
+  firstName = &apos;Joe&apos;;
 
-  @oneWay(&apos;firstName&apos;) originalName // will always be &apos;Joe&apos;
-});</code>
+  @oneWay(&apos;firstName&apos;) originalName; // will always be &apos;Joe&apos;
+}</code>
 </code></pre>
 </div>
 
@@ -2778,25 +2956,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber545">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber605">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {or} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber545">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {or} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber605">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_or">Ember.computed.or</a></p>
 <p>A computed property which performs a logical or on the original values for
 the provided dependent properties.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { or } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { or } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  hasJacket: true,
-  hasUmbrella: false,
+export default class OutfitFeaturesComponent extends Component {
+  hasJacket = true;
+  hasUmbrella = false;
 
-  @or(&apos;hasJacket&apos;, &apos;hasUmbrella&apos;) isReadyForRain // true
-});</code>
+  @or(&apos;hasJacket&apos;, &apos;hasUmbrella&apos;) isReadyForRain; // true
+}</code>
 </code></pre>
 </div>
 
@@ -2851,22 +3029,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber565">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber628">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {reads} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber565">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {reads} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber628">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_reads">Ember.computed.reads</a></p>
 <p>This is a more semantically meaningful alias of <code>computed.oneWay</code>, whose
 name is somewhat ambiguous as to which direction the data flows.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { reads } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { reads } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  @reads(&apos;first&apos;) firstName
-});</code>
+export default class UserProfileComponent extends Component {
+  first = &apos;Tomster&apos;;
+
+  @reads(&apos;first&apos;) firstName;
+}</code>
 </code></pre>
 </div>
 
@@ -2921,25 +3102,26 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber589">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber653">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {setDiff} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber589">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {setDiff} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber653">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_setDiff">Ember.computed.setDiff</a></p>
 <p>A computed property which returns a new array with all the properties from
 the first dependent array that are not in the second dependent array.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { setDiff } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { setDiff } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
-  foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;]),
+export default class FavoriteThingsComponent extends Component {
+  likes = A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]);
+  foods = A([&apos;tacos&apos;, &apos;pizza&apos;]);
 
-  @setDiff(&apos;likes&apos;, &apos;foods&apos;) favoriteThingsThatArentFood // [&apos;puppies&apos;]
-});</code>
+  @setDiff(&apos;likes&apos;, &apos;foods&apos;) favoriteThingsThatArentFood; // [&apos;puppies&apos;]
+}</code>
 </code></pre>
 </div>
 
@@ -3001,11 +3183,11 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber637">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber716">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {sort} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber637">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {sort} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber716">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_sort">Ember.computed.sort</a></p>
@@ -3025,11 +3207,26 @@ function should return <code>0</code>.</p>
 <p>Therefore, if this function is comparing some numeric values, simple
 <code>itemA - itemB</code> or <code>itemA.get( &apos;foo&apos; ) - itemB.get( &apos;foo&apos; )</code> can be used
 instead of series of <code>if</code>.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { sort } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { sort } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  this.names = Ember.A([{name:&apos;Link&apos;},{name:&apos;Zelda&apos;},{name:&apos;Ganon&apos;},{name:&apos;Navi&apos;}]);
+export default class SortNamesComponent extends Component {
+  names = A([{name:&apos;Link&apos;},{name:&apos;Zelda&apos;},{name:&apos;Ganon&apos;},{name:&apos;Navi&apos;}]);
+
+  @sort(&apos;names&apos;)
+  sortedNames(a, b){
+    if (a.name &gt; b.name) {
+      return 1;
+    } else if (a.name &lt; b.name) {
+      return -1;
+    }
+
+    return 0;
+  } // [{name:&apos;Ganon&apos;},{name:&apos;Link&apos;},{name:&apos;Navi&apos;},{name:&apos;Zelda&apos;}]
+
+  // alternative syntax:
+
   @sort(&apos;names&apos;, function(a, b){
     if (a.name &gt; b.name) {
       return 1;
@@ -3038,8 +3235,8 @@ export default Ember.Component.extend({
     }
 
     return 0;
-  }) sortedNames // [{name:&apos;Ganon&apos;},{name:&apos;Link&apos;},{name:&apos;Navi&apos;},{name:&apos;Zelda&apos;}]
-});</code>
+  }) sortedNames; // [{name:&apos;Ganon&apos;},{name:&apos;Link&apos;},{name:&apos;Navi&apos;},{name:&apos;Zelda&apos;}]
+}</code>
 </code></pre>
 </div>
 
@@ -3101,24 +3298,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber659">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber739">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {sum} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber659">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {sum} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber739">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_sum">Ember.computed.sum</a></p>
 <p>A computed property that returns the sum of the value in the dependent
 array.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { sum } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { sum } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  values: Ember.A([1, 2, 3]),
+export default class SumValuesComponent extends Component {
+  values = A([1, 2, 3]);
 
-  @sum(&apos;values&apos;) total // 6
-});</code>
+  @sum(&apos;values&apos;) total; // 6
+}</code>
 </code></pre>
 </div>
 
@@ -3173,24 +3371,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber681">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber762">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {union} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber681">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {union} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber762">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_union">Ember.computed.union</a></p>
 <p>Alias for <a href="http://emberjs.com/api/classes/Ember.computed.html#method_uniq">union</a>.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { union } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { union } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
-  foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;, &apos;ramen&apos;]),
+export default class LikesAndFoodsComponent extends Component {
+  likes = A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]);
+  foods = A([&apos;tacos&apos;, &apos;pizza&apos;, &apos;ramen&apos;]);
 
-  @union(&apos;likes&apos;, &apos;foods&apos;) favorites // [&apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos;, &apos;ramen&apos;]
-});</code>
+  @union(&apos;likes&apos;, &apos;foods&apos;) favorites; // [&apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos;, &apos;ramen&apos;]
+}</code>
 </code></pre>
 </div>
 
@@ -3245,24 +3444,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber703">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber785">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {uniq} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber703">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {uniq} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber785">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_uniq">Ember.computed.uniq</a></p>
 <p>A computed property which returns a new array with all the unique elements from one or more dependent arrays.</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
-import { uniq } from &apos;ember-decorators/computed&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { uniq } from &apos;ember-decorators/object/computed&apos;;
 
-export default Ember.Component.extend({
-  likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
-  foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;, &apos;ramen&apos;]),
+export default class FavoriteThingsComponent extends Component {
+  likes = A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]);
+  foods = A([&apos;tacos&apos;, &apos;pizza&apos;, &apos;ramen&apos;]);
 
-  @uniq(&apos;likes&apos;, &apos;foods&apos;) favorites // [&apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos;, &apos;ramen&apos;]
-});</code>
+  @uniq(&apos;likes&apos;, &apos;foods&apos;) favorites; // [&apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos;, &apos;ramen&apos;]
+}</code>
 </code></pre>
 </div>
 
@@ -3281,6 +3481,97 @@ export default Ember.Component.extend({
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>Key of the array to uniq</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-function-uniqBy">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">uniqBy</span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, propertyKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/addon/object/computed.js.html#lineNumber820">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {uniqBy} from &apos;<span><a href="file/addon/object/computed.js.html#lineNumber820">ember-decorators/object/computed</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_uniqBy">Ember.computed.uniqBy</a></p>
+<p>A computed property which returns a new array with all the unique elements
+from an array, with uniqueness determined by a specific key.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { A } from &apos;@ember/array&apos;;
+import { uniqBy } from &apos;ember-decorators/object/computed&apos;;
+
+export default class FruitBowlComponent extends Component {
+  fruits = A([
+    { name: &apos;banana&apos;, color: &apos;yellow&apos; },
+    { name: &apos;apple&apos;,  color: &apos;red&apos; },
+    { name: &apos;kiwi&apos;,   color: &apos;brown&apos; },
+    { name: &apos;cherry&apos;, color: &apos;red&apos; },
+    { name: &apos;lemon&apos;,  color: &apos;yellow&apos; }
+  ]);
+
+  @uniqBy(&apos;fruits&apos;, &apos;color&apos;) oneOfEachColor;
+  // [
+  //  { name: &apos;banana&apos;, color: &apos;yellow&apos;},
+  //  { name: &apos;apple&apos;,  color: &apos;red&apos;},
+  //  { name: &apos;kiwi&apos;,   color: &apos;brown&apos;}
+  // ]
+}</code>
+</code></pre>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dependentKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key of the array to uniq</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">propertyKey</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Key of the property on the objects of the array to determine uniqueness by</p>
 </td>
     </tr>
 </tbody>

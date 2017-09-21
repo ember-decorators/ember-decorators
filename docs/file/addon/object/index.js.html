@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="The default blueprint for ember-cli addons."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="The default blueprint for ember-cli addons."></head>
+<meta name="description" content="Useful decorators for Ember applications."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="Useful decorators for Ember applications."></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/rwjblue/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/ember-decorators/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -88,6 +88,11 @@
       
       
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-collect">collect</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-deprecatingAlias">deprecatingAlias</a></span></span>
     </li>
 <li data-ice="doc">
       
@@ -216,6 +221,11 @@
     </li>
 <li data-ice="doc">
       
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-uniqBy">uniqBy</a></span></span>
+    </li>
+<li data-ice="doc">
+      
       <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-object-evented">addon/object/evented</a>
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/evented.js.html#static-function-on">on</a></span></span>
     </li>
@@ -229,8 +239,10 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">addon/object/index.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Ember from &apos;ember&apos;;
-import computedMacro from &apos;ember-macro-helpers/computed&apos;;
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { DEBUG } from &apos;@glimmer/env&apos;;
+
+import Ember from &apos;ember&apos;;
+import macroComputed from &apos;ember-macro-helpers/computed&apos;;
 
 import extractValue from &apos;../utils/extract-value&apos;;
 import {
@@ -238,9 +250,15 @@ import {
   decoratorWithParams
 } from &apos;../utils/decorator-wrappers&apos;;
 
+import { decoratorWithRequiredParams } from &apos;../utils/decorator-macros&apos;;
+
+import { assert } from &apos;@ember/debug&apos;;
 import {
-  decoratorWithRequiredParams
-} from &apos;../utils/decorator-macros&apos;;
+  HAS_UNDERSCORE_ACTIONS,
+  SUPPORTS_NEW_COMPUTED
+} from &apos;ember-compatibility-helpers&apos;;
+
+const { computed: emberComputed } = Ember;
 
 /**
  * Decorator that turns the target function into an Action
@@ -249,24 +267,11 @@ import {
  * function that calls the original. This means the function still exists
  * on the original object, and can be used directly.
  *
- * Before:
- *
  * ```js
- * export default Ember.Component.extend({
- *   actions: {
- *     foo() {
- *       // do something
- *     }
- *   }
- * });
- * ```
- *
- * After:
- *
- * ```js
+ * import Component from &apos;@ember/component&apos;;
  * import { action } from &apos;ember-decorators/object&apos;;
  *
- * export default MyComponent extends Ember.Component {
+ * export default class ActionDemoComponent extends Component {
  *   @action
  *   foo() {
  *     // do something
@@ -274,17 +279,41 @@ import {
  * }
  * ```
  *
+ * ```hbs
+ * &lt;button onclick={{action &quot;foo&quot;}}&gt;Execute foo action&lt;/button&gt;
+ * ```
+ *
  * @function
  */
 export const action = decorator(function(target, key, desc) {
-  const value = extractValue(desc);
+  let value = extractValue(desc);
 
-  if (typeof value !== &apos;function&apos;) {
-    throw new Error(&apos;The @action decorator must be applied to functions&apos;);
+  assert(&apos;The @action decorator must be applied to functions&apos;, typeof value === &apos;function&apos;);
+
+  // We must collapse the superclass prototype to make sure that the `actions`
+  // object will exist. Since collapsing doesn&apos;t generally happen until a class is
+  // instantiated, we have to do it manually.
+  let superClass = Object.getPrototypeOf(target.constructor);
+
+  if (superClass.hasOwnProperty(&apos;proto&apos;) &amp;&amp; typeof superClass.proto === &apos;function&apos;) {
+    superClass.proto();
   }
 
-  target.actions = target.actions || {};
-  target.actions[key] = value;
+  if (HAS_UNDERSCORE_ACTIONS) {
+    if (!target.hasOwnProperty(&apos;_actions&apos;)) {
+      let parentActions = target._actions;
+      target._actions = parentActions ? Object.create(parentActions) : {};
+    }
+
+    target._actions[key] = value;
+  } else {
+    if (!target.hasOwnProperty(&apos;actions&apos;)) {
+      let parentActions = target.actions;
+      target.actions = parentActions ? Object.create(parentActions) : {};
+    }
+
+    target.actions[key] = value;
+  }
 
   return value;
 });
@@ -292,94 +321,140 @@ export const action = decorator(function(target, key, desc) {
 /**
  * Decorator that turns a function into a computed property.
  *
- * In your application where you would normally have:
+ * #### With Dependent Keys
+ *
+ * The values of the dependent properties are passed as arguments to the
+ * function. You can also use
+ * [property brace expansion](https://www.emberjs.com/blog/2014/02/12/ember-1-4-0-and-ember-1-5-0-beta-released.html#toc_property-brace-expansion).
  *
  * ```javascript
- * foo: Ember.computed(&apos;someKey&apos;, &apos;otherKey&apos;, function() {
- *   var someKey = this.get(&apos;someKey&apos;);
- *   var otherKey = this.get(&apos;otherKey&apos;);
- *
- *   // Do Stuff
- * })
- * ```
- *
- * You replace with this:
- *
- * ```javascript
+ * import EmberObject from &apos;@ember/object&apos;;
  * import computed from &apos;ember-decorators/object&apos;;
  *
- * // ..... &lt;snip&gt; .....
- * @computed(&apos;someKey&apos;, &apos;otherKey&apos;)
- * foo(someKey, otherKey) {
- *   // Do Stuff
+ * export default class User extends EmberObject {
+ *   someKey = &apos;foo&apos;;
+ *   otherKey = &apos;bar&apos;;
+ *
+ *   person = {
+ *     firstName: &apos;John&apos;,
+ *     lastName: &apos;Smith&apos;
+ *   };
+ *
+ *   @computed(&apos;someKey&apos;, &apos;otherKey&apos;)
+ *   foo(someKey, otherKey) {
+ *     return `${someKey} - ${otherKey}`; // =&gt; &apos;foo - bar&apos;
+ *   }
+ *
+ *   @computed(&apos;person.{firstName,lastName}&apos;)
+ *   fullName(firstName, lastName) {
+ *     return `${firstName} ${lastName}`; // =&gt; &apos;John Smith&apos;
+ *   }
  * }
  * ```
  *
  * #### Without Dependent Keys
  *
- * ```javascript
- * foo: Ember.computed(function() {
- *   // Do Stuff
- * })
- * ```
- *
- * You replace with this:
+ * Computed properties without dependent keys are cached for the whole life span
+ * of the object. You can only force a recomputation by calling
+ * [`notifyPropertyChange`](https://www.emberjs.com/api/ember/2.14/classes/Ember.Observable/methods/notifyPropertyChange?anchor=notifyPropertyChange)
+ * on the computed property.
  *
  * ```javascript
+ * import EmberObject from &apos;@ember/object&apos;;
  * import computed from &apos;ember-decorators/object&apos;;
  *
- * // ..... &lt;snip&gt; .....
- * @computed
- * foo() {
- *   // Do Stuff
+ * export default class FooBar extends EmberObject {
+ *   @computed
+ *   foo() {
+ *     // calculate stuff
+ *     return stuff;
+ *   }
  * }
  * ```
  *
- * #### &quot;Real World&quot;
+ * #### Getter and Setter
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { setProperties } from &apos;&apos;@ember/object&apos;;
  * import computed from &apos;ember-decorators/object&apos;;
  *
- * export default Ember.Component.extend({
+ * export default class UserProfileComponent extends Component {
+ *   first = &apos;John&apos;;
+ *   last = &apos;Smith&apos;;
+ *
  *   @computed(&apos;first&apos;, &apos;last&apos;)
- *   name(first, last) {
- *     return `${first} ${last}`;
- *   }
- * });
- * ```
- *
- *
- * #### &quot;Real World get/set syntax&quot;
- *
- * ```javascript
- * import Ember from &apos;ember&apos;;
- * import computed from &apos;ember-decorators/object&apos;;
- *
- * export default Ember.Component.extend({
- *   @computed(&apos;first&apos;, &apos;last&apos;)
- *   name: {
+ *   name = {
  *     get(first, last) {
- *       return `${first} ${last}`;
+ *       return `${first} ${last}`; // =&gt; &apos;John Smith&apos;
  *     },
  *
  *     set(value, first, last) {
- *       // ...
+ *       if (typeof value !== &apos;string&apos; || !value.test(/^[a-z]+ [a-z]+$/i)) {
+ *         throw new TypeError(&apos;Invalid name&apos;);
+ *       }
+ *
+ *       const [first, last] = value.split(&apos; &apos;);
+ *       setProperties(this, { first, last });
+ *
+ *       return value;
  *     }
- *   }
- * });
+ *   };
+ * }
  * ```
  *
  * @function
  * @param {...String} propertyNames - List of property keys this computed is dependent on
  */
 export const computed = decoratorWithParams(function(target, key, desc, params) {
-  if (!desc.writable) {
-    throw new Error(&apos;ember-decorators does not support using getters and setters&apos;);
-  }
+  assert(`ES6 property getters/setters only need to be decorated once, &apos;${key}&apos; was decorated on both the getter and the setter`, !(desc.value instanceof Ember.ComputedProperty));
 
-  let value = extractValue(desc);
-  return computedMacro(...params, value);
+  if (desc.writable === undefined) {
+    let { get, set } = desc;
+
+    assert(`Using @computed for only a setter does not make sense. Add a getter for &apos;${key}&apos; as well or remove the @computed decorator.`, typeof get === &apos;function&apos;);
+
+    // Unset the getter and setter so the descriptor just has a plain value
+    desc.get = undefined;
+    desc.set = undefined;
+
+    let setter;
+
+    if (typeof set === &apos;function&apos;) {
+      setter = function(key, value) {
+        let ret = set.call(this, value);
+        return typeof ret === &apos;undefined&apos; ? get.call(this) : ret;
+      };
+    } else if (DEBUG) {
+      setter = function() {
+        assert(`You must provide a setter in order to set &apos;${key}&apos; as a computed property.`, false);
+      };
+    }
+
+    // Use a standard ember computed since getter/setter arrity is restricted,
+    // meaning ember-macro-helpers doesn&apos;t provide any benefit
+    if (SUPPORTS_NEW_COMPUTED) {
+      return emberComputed(...params, { get, set: setter });
+    } else {
+      let callback;
+
+      if (typeof setter === &apos;function&apos;) {
+        callback = function (key, value) {
+          if (arguments.length &gt; 1) {
+            return setter.call(this, key, value);
+          }
+
+          return get.call(this);
+        }
+      } else {
+        callback = get;
+      }
+
+      return emberComputed(...params, callback);
+    }
+  } else {
+    return macroComputed(...params, extractValue(desc));
+  }
 });
 
 /**
@@ -388,21 +463,21 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
  * Triggers the target function when the dependent properties have changed
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
+ * import Component from &apos;@ember/component&apos;;
  * import { observes } from &apos;ember-decorators/object&apos;;
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   @observes(&apos;foo&apos;)
  *   bar() {
  *     //...
  *   }
- * });
+ * }
  * ```
  *
  * @function
  * @param {...String} eventNames - Names of the events that trigger the function
  */
-export const observes = decoratorWithRequiredParams(Ember.observer, &apos;Cannot `observe` without property names&apos;);
+export const observes = decoratorWithRequiredParams(Ember.observer);
 
 /**
  * Decorator that modifies a computed property to be read only.
@@ -410,16 +485,16 @@ export const observes = decoratorWithRequiredParams(Ember.observer, &apos;Cannot
  * Usage:
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
+ * import Component from &apos;@ember/component&apos;;
  * import { computed, readOnly } from &apos;ember-decorators/object&apos;;
  *
- * export default Ember.Component.extend({
+ * export default class extends Component {
  *   @readOnly
  *   @computed(&apos;first&apos;, &apos;last&apos;)
  *   name(first, last) {
  *     return `${first} ${last}`;
  *   }
- * });
+ * }
  * ```
  *
  * @function

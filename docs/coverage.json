@@ -1,7 +1,7 @@
 {
-  "coverage": "100%",
-  "expectCount": 39,
-  "actualCount": 39,
+  "coverage": "97.61%",
+  "expectCount": 42,
+  "actualCount": 41,
   "files": {
     "addon/controller/index.js": {
       "expectCount": 1,
@@ -14,8 +14,8 @@
       "undocumentLines": []
     },
     "addon/object/computed.js": {
-      "expectCount": 29,
-      "actualCount": 29,
+      "expectCount": 31,
+      "actualCount": 31,
       "undocumentLines": []
     },
     "addon/object/evented.js": {
@@ -24,9 +24,11 @@
       "undocumentLines": []
     },
     "addon/object/index.js": {
-      "expectCount": 4,
+      "expectCount": 5,
       "actualCount": 4,
-      "undocumentLines": []
+      "undocumentLines": [
+        20
+      ]
     },
     "addon/service/index.js": {
       "expectCount": 1,

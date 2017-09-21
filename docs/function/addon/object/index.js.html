@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="The default blueprint for ember-cli addons."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="The default blueprint for ember-cli addons."></head>
+<meta name="description" content="Useful decorators for Ember applications."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="Useful decorators for Ember applications."></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/rwjblue/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/ember-decorators/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -88,6 +88,11 @@
       
       
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-collect">collect</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-deprecatingAlias">deprecatingAlias</a></span></span>
     </li>
 <li data-ice="doc">
       
@@ -216,6 +221,11 @@
     </li>
 <li data-ice="doc">
       
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-uniqBy">uniqBy</a></span></span>
+    </li>
+<li data-ice="doc">
+      
       <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-object-evented">addon/object/evented</a>
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/evented.js.html#static-function-on">on</a></span></span>
     </li>
@@ -229,7 +239,7 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import * from &apos;<span><a href="file/addon/object/index.js.html#lineNumber48">ember-decorators/object</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import * from &apos;<span><a href="file/addon/object/index.js.html#lineNumber47">ember-decorators/object</a></span>&apos;</code></pre></div>
 </div>
 
 <div class="self-detail detail">
@@ -371,35 +381,28 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/index.js.html#lineNumber48">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/index.js.html#lineNumber47">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {action} from &apos;<span><a href="file/addon/object/index.js.html#lineNumber48">ember-decorators/object</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {action} from &apos;<span><a href="file/addon/object/index.js.html#lineNumber47">ember-decorators/object</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that turns the target function into an Action</p>
 <p>Adds an <code>actions</code> object to the target object and creates a passthrough
 function that calls the original. This means the function still exists
 on the original object, and can be used directly.</p>
-<p>Before:</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">export default Ember.Component.extend({
-  actions: {
-    foo() {
-      // do something
-    }
-  }
-});</code>
-</code></pre>
-<p>After:</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">import { action } from &apos;ember-decorators/object&apos;;
+<pre><code class="lang-js"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { action } from &apos;ember-decorators/object&apos;;
 
-export default MyComponent extends Ember.Component {
+export default class ActionDemoComponent extends Component {
   @action
   foo() {
     // do something
   }
 }</code>
+</code></pre>
+<pre><code class="lang-hbs"><code class="source-code prettyprint">&lt;button onclick={{action &quot;foo&quot;}}&gt;Execute foo action&lt;/button&gt;</code>
 </code></pre>
 </div>
 
@@ -437,69 +440,81 @@ export default MyComponent extends Ember.Component {
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/index.js.html#lineNumber145">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/index.js.html#lineNumber168">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {computed} from &apos;<span><a href="file/addon/object/index.js.html#lineNumber145">ember-decorators/object</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {computed} from &apos;<span><a href="file/addon/object/index.js.html#lineNumber168">ember-decorators/object</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that turns a function into a computed property.</p>
-<p>In your application where you would normally have:</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">foo: Ember.computed(&apos;someKey&apos;, &apos;otherKey&apos;, function() {
-  var someKey = this.get(&apos;someKey&apos;);
-  var otherKey = this.get(&apos;otherKey&apos;);
-
-  // Do Stuff
-})</code>
-</code></pre>
-<p>You replace with this:</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import computed from &apos;ember-decorators/object&apos;;
-
-// ..... &lt;snip&gt; .....
-@computed(&apos;someKey&apos;, &apos;otherKey&apos;)
-foo(someKey, otherKey) {
-  // Do Stuff
-}</code>
-</code></pre>
-<h4 id="without-dependent-keys">Without Dependent Keys</h4><pre><code class="lang-javascript"><code class="source-code prettyprint">foo: Ember.computed(function() {
-  // Do Stuff
-})</code>
-</code></pre>
-<p>You replace with this:</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import computed from &apos;ember-decorators/object&apos;;
-
-// ..... &lt;snip&gt; .....
-@computed
-foo() {
-  // Do Stuff
-}</code>
-</code></pre>
-<h4 id="-quot-real-world-quot-">&quot;Real World&quot;</h4><pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+<h4 id="with-dependent-keys">With Dependent Keys</h4><p>The values of the dependent properties are passed as arguments to the
+function. You can also use
+<a href="https://www.emberjs.com/blog/2014/02/12/ember-1-4-0-and-ember-1-5-0-beta-released.html#toc_property-brace-expansion">property brace expansion</a>.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import EmberObject from &apos;@ember/object&apos;;
 import computed from &apos;ember-decorators/object&apos;;
 
-export default Ember.Component.extend({
-  @computed(&apos;first&apos;, &apos;last&apos;)
-  name(first, last) {
-    return `${first} ${last}`;
+export default class User extends EmberObject {
+  someKey = &apos;foo&apos;;
+  otherKey = &apos;bar&apos;;
+
+  person = {
+    firstName: &apos;John&apos;,
+    lastName: &apos;Smith&apos;
+  };
+
+  @computed(&apos;someKey&apos;, &apos;otherKey&apos;)
+  foo(someKey, otherKey) {
+    return `${someKey} - ${otherKey}`; // =&gt; &apos;foo - bar&apos;
   }
-});</code>
+
+  @computed(&apos;person.{firstName,lastName}&apos;)
+  fullName(firstName, lastName) {
+    return `${firstName} ${lastName}`; // =&gt; &apos;John Smith&apos;
+  }
+}</code>
 </code></pre>
-<h4 id="-quot-real-world-get-set-syntax-quot-">&quot;Real World get/set syntax&quot;</h4><pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+<h4 id="without-dependent-keys">Without Dependent Keys</h4><p>Computed properties without dependent keys are cached for the whole life span
+of the object. You can only force a recomputation by calling
+<a href="https://www.emberjs.com/api/ember/2.14/classes/Ember.Observable/methods/notifyPropertyChange?anchor=notifyPropertyChange"><code>notifyPropertyChange</code></a>
+on the computed property.</p>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import EmberObject from &apos;@ember/object&apos;;
 import computed from &apos;ember-decorators/object&apos;;
 
-export default Ember.Component.extend({
+export default class FooBar extends EmberObject {
+  @computed
+  foo() {
+    // calculate stuff
+    return stuff;
+  }
+}</code>
+</code></pre>
+<h4 id="getter-and-setter">Getter and Setter</h4><pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
+import { setProperties } from &apos;&apos;@ember/object&apos;;
+import computed from &apos;ember-decorators/object&apos;;
+
+export default class UserProfileComponent extends Component {
+  first = &apos;John&apos;;
+  last = &apos;Smith&apos;;
+
   @computed(&apos;first&apos;, &apos;last&apos;)
-  name: {
+  name = {
     get(first, last) {
-      return `${first} ${last}`;
+      return `${first} ${last}`; // =&gt; &apos;John Smith&apos;
     },
 
     set(value, first, last) {
-      // ...
+      if (typeof value !== &apos;string&apos; || !value.test(/^[a-z]+ [a-z]+$/i)) {
+        throw new TypeError(&apos;Invalid name&apos;);
+      }
+
+      const [first, last] = value.split(&apos; &apos;);
+      setProperties(this, { first, last });
+
+      return value;
     }
-  }
-});</code>
+  };
+}</code>
 </code></pre>
 </div>
 
@@ -554,24 +569,24 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/index.js.html#lineNumber174">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/index.js.html#lineNumber239">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {observes} from &apos;<span><a href="file/addon/object/index.js.html#lineNumber174">ember-decorators/object</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {observes} from &apos;<span><a href="file/addon/object/index.js.html#lineNumber239">ember-decorators/object</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that wraps <a href="https://emberjs.com/api/#method_observer">Ember.observer</a></p>
 <p>Triggers the target function when the dependent properties have changed</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
 import { observes } from &apos;ember-decorators/object&apos;;
 
-export default Ember.Component.extend({
+export default class extends Component {
   @observes(&apos;foo&apos;)
   bar() {
     //...
   }
-});</code>
+}</code>
 </code></pre>
 </div>
 
@@ -626,25 +641,25 @@ export default Ember.Component.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/object/index.js.html#lineNumber196">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/object/index.js.html#lineNumber261">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {readOnly} from &apos;<span><a href="file/addon/object/index.js.html#lineNumber196">ember-decorators/object</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {readOnly} from &apos;<span><a href="file/addon/object/index.js.html#lineNumber261">ember-decorators/object</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that modifies a computed property to be read only.</p>
 <p>Usage:</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import Ember from &apos;ember&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
 import { computed, readOnly } from &apos;ember-decorators/object&apos;;
 
-export default Ember.Component.extend({
+export default class extends Component {
   @readOnly
   @computed(&apos;first&apos;, &apos;last&apos;)
   name(first, last) {
     return `${first} ${last}`;
   }
-});</code>
+}</code>
 </code></pre>
 </div>
 

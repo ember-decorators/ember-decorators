@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="The default blueprint for ember-cli addons."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="The default blueprint for ember-cli addons."></head>
+<meta name="description" content="Useful decorators for Ember applications."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="Useful decorators for Ember applications."></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/rwjblue/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/ember-decorators/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -88,6 +88,11 @@
       
       
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-collect">collect</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-deprecatingAlias">deprecatingAlias</a></span></span>
     </li>
 <li data-ice="doc">
       
@@ -216,6 +221,11 @@
     </li>
 <li data-ice="doc">
       
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-uniqBy">uniqBy</a></span></span>
+    </li>
+<li data-ice="doc">
+      
       <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-object-evented">addon/object/evented</a>
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/evented.js.html#static-function-on">on</a></span></span>
     </li>
@@ -229,7 +239,7 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import * from &apos;<span><a href="file/addon/data/index.js.html#lineNumber19">ember-decorators/data</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import * from &apos;<span><a href="file/addon/data/index.js.html#lineNumber20">ember-decorators/data</a></span>&apos;</code></pre></div>
 </div>
 
 <div class="self-detail detail">
@@ -342,19 +352,19 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/data/index.js.html#lineNumber19">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/data/index.js.html#lineNumber20">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {attr} from &apos;<span><a href="file/addon/data/index.js.html#lineNumber19">ember-decorators/data</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {attr} from &apos;<span><a href="file/addon/data/index.js.html#lineNumber20">ember-decorators/data</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that turns the property into an Ember Data attribute</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import DS from &apos;ember-data&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Model from &apos;ember-data/model&apos;;
 import { attr } from &apos;ember-decorators/data&apos;;
 
-export default DS.Model.extend({
-  @attr firstName
+export default Model.extend({
+  @attr firstName: null
 });</code>
 </code></pre>
 </div>
@@ -410,19 +420,19 @@ export default DS.Model.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/data/index.js.html#lineNumber52">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/data/index.js.html#lineNumber55">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {belongsTo} from &apos;<span><a href="file/addon/data/index.js.html#lineNumber52">ember-decorators/data</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {belongsTo} from &apos;<span><a href="file/addon/data/index.js.html#lineNumber55">ember-decorators/data</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that turns the property into an Ember Data <code>belongsTo</code> relationship</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import DS from &apos;ember-data&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Model from &apos;ember-data/model&apos;;
 import { belongsTo } from &apos;ember-decorators/data&apos;;
 
-export default DS.Model.extend({
-  @belongsTo user
+export default Model.extend({
+  @belongsTo user: null
 });</code>
 </code></pre>
 </div>
@@ -478,19 +488,19 @@ export default DS.Model.extend({
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/addon/data/index.js.html#lineNumber36">source</a></span></span>
+      <span data-ice="source"><span><a href="file/addon/data/index.js.html#lineNumber39">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {hasMany} from &apos;<span><a href="file/addon/data/index.js.html#lineNumber36">ember-decorators/data</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {hasMany} from &apos;<span><a href="file/addon/data/index.js.html#lineNumber39">ember-decorators/data</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Decorator that turns the property into an Ember Data <code>hasMany</code> relationship</p>
-<pre><code class="lang-javascript"><code class="source-code prettyprint">import DS from &apos;ember-data&apos;;
+<pre><code class="lang-javascript"><code class="source-code prettyprint">import Model from &apos;ember-data/model&apos;;
 import { hasMany } from &apos;ember-decorators/data&apos;;
 
-export default DS.Model.extend({
-  @hasMany users
+export default Model.extend({
+  @hasMany users: null
 });</code>
 </code></pre>
 </div>

@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 647,
+  "end": 683,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 647,
+    "end": 683,
     "loc": {
       "start": {
         "line": 1,
@@ -185,9 +185,9 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Ember from 'ember';\n * import { service } from 'ember-decorators/controller';\n *\n * export default Ember.Controller.extend({\n *   @controller application\n * });\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
+            "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Controller from '@ember/controller';\n * import { controller } from 'ember-decorators/controller';\n *\n * export default class IndexController extends Controller {\n *   @controller application;\n * }\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
             "start": 100,
-            "end": 567,
+            "end": 603,
             "loc": {
               "start": {
                 "line": 4,
@@ -203,8 +203,8 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 568,
-        "end": 646,
+        "start": 604,
+        "end": 682,
         "loc": {
           "start": {
             "line": 21,
@@ -219,8 +219,8 @@
         "source": null,
         "declaration": {
           "type": "VariableDeclaration",
-          "start": 575,
-          "end": 646,
+          "start": 611,
+          "end": 682,
           "loc": {
             "start": {
               "line": 21,
@@ -234,8 +234,8 @@
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 581,
-              "end": 645,
+              "start": 617,
+              "end": 681,
               "loc": {
                 "start": {
                   "line": 21,
@@ -248,8 +248,8 @@
               },
               "id": {
                 "type": "Identifier",
-                "start": 581,
-                "end": 591,
+                "start": 617,
+                "end": 627,
                 "loc": {
                   "start": {
                     "line": 21,
@@ -266,8 +266,8 @@
               },
               "init": {
                 "type": "CallExpression",
-                "start": 594,
-                "end": 645,
+                "start": 630,
+                "end": 681,
                 "loc": {
                   "start": {
                     "line": 21,
@@ -280,8 +280,8 @@
                 },
                 "callee": {
                   "type": "Identifier",
-                  "start": 594,
-                  "end": 620,
+                  "start": 630,
+                  "end": 656,
                   "loc": {
                     "start": {
                       "line": 21,
@@ -298,8 +298,8 @@
                 "arguments": [
                   {
                     "type": "MemberExpression",
-                    "start": 621,
-                    "end": 644,
+                    "start": 657,
+                    "end": 680,
                     "loc": {
                       "start": {
                         "line": 21,
@@ -312,8 +312,8 @@
                     },
                     "object": {
                       "type": "MemberExpression",
-                      "start": 621,
-                      "end": 633,
+                      "start": 657,
+                      "end": 669,
                       "loc": {
                         "start": {
                           "line": 21,
@@ -326,8 +326,8 @@
                       },
                       "object": {
                         "type": "Identifier",
-                        "start": 621,
-                        "end": 626,
+                        "start": 657,
+                        "end": 662,
                         "loc": {
                           "start": {
                             "line": 21,
@@ -343,8 +343,8 @@
                       },
                       "property": {
                         "type": "Identifier",
-                        "start": 627,
-                        "end": 633,
+                        "start": 663,
+                        "end": 669,
                         "loc": {
                           "start": {
                             "line": 21,
@@ -362,8 +362,8 @@
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 634,
-                      "end": 644,
+                      "start": 670,
+                      "end": 680,
                       "loc": {
                         "start": {
                           "line": 21,
@@ -388,9 +388,9 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Ember from 'ember';\n * import { service } from 'ember-decorators/controller';\n *\n * export default Ember.Controller.extend({\n *   @controller application\n * });\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
+              "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Controller from '@ember/controller';\n * import { controller } from 'ember-decorators/controller';\n *\n * export default class IndexController extends Controller {\n *   @controller application;\n * }\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
               "start": 100,
-              "end": 567,
+              "end": 603,
               "loc": {
                 "start": {
                   "line": 4,
@@ -408,9 +408,9 @@
         "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Ember from 'ember';\n * import { service } from 'ember-decorators/controller';\n *\n * export default Ember.Controller.extend({\n *   @controller application\n * });\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
+            "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Controller from '@ember/controller';\n * import { controller } from 'ember-decorators/controller';\n *\n * export default class IndexController extends Controller {\n *   @controller application;\n * }\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
             "start": 100,
-            "end": 567,
+            "end": 603,
             "loc": {
               "start": {
                 "line": 4,
@@ -430,9 +430,9 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Ember from 'ember';\n * import { service } from 'ember-decorators/controller';\n *\n * export default Ember.Controller.extend({\n *   @controller application\n * });\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
+      "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Controller from '@ember/controller';\n * import { controller } from 'ember-decorators/controller';\n *\n * export default class IndexController extends Controller {\n *   @controller application;\n * }\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
       "start": 100,
-      "end": 567,
+      "end": 603,
       "loc": {
         "start": {
           "line": 4,
@@ -764,9 +764,9 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Ember from 'ember';\n * import { service } from 'ember-decorators/controller';\n *\n * export default Ember.Controller.extend({\n *   @controller application\n * });\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
+      "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Controller from '@ember/controller';\n * import { controller } from 'ember-decorators/controller';\n *\n * export default class IndexController extends Controller {\n *   @controller application;\n * }\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
       "start": 100,
-      "end": 567,
+      "end": 603,
       "loc": {
         "start": {
           "line": 4,
@@ -793,8 +793,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 568,
-      "end": 574,
+      "start": 604,
+      "end": 610,
       "loc": {
         "start": {
           "line": 21,
@@ -821,8 +821,8 @@
         "updateContext": null
       },
       "value": "const",
-      "start": 575,
-      "end": 580,
+      "start": 611,
+      "end": 616,
       "loc": {
         "start": {
           "line": 21,
@@ -847,8 +847,8 @@
         "binop": null
       },
       "value": "controller",
-      "start": 581,
-      "end": 591,
+      "start": 617,
+      "end": 627,
       "loc": {
         "start": {
           "line": 21,
@@ -874,8 +874,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 592,
-      "end": 593,
+      "start": 628,
+      "end": 629,
       "loc": {
         "start": {
           "line": 21,
@@ -900,8 +900,8 @@
         "binop": null
       },
       "value": "decoratorWithKeyReflection",
-      "start": 594,
-      "end": 620,
+      "start": 630,
+      "end": 656,
       "loc": {
         "start": {
           "line": 21,
@@ -925,8 +925,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 620,
-      "end": 621,
+      "start": 656,
+      "end": 657,
       "loc": {
         "start": {
           "line": 21,
@@ -951,8 +951,8 @@
         "binop": null
       },
       "value": "Ember",
-      "start": 621,
-      "end": 626,
+      "start": 657,
+      "end": 662,
       "loc": {
         "start": {
           "line": 21,
@@ -977,8 +977,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 626,
-      "end": 627,
+      "start": 662,
+      "end": 663,
       "loc": {
         "start": {
           "line": 21,
@@ -1003,8 +1003,8 @@
         "binop": null
       },
       "value": "inject",
-      "start": 627,
-      "end": 633,
+      "start": 663,
+      "end": 669,
       "loc": {
         "start": {
           "line": 21,
@@ -1029,8 +1029,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 633,
-      "end": 634,
+      "start": 669,
+      "end": 670,
       "loc": {
         "start": {
           "line": 21,
@@ -1055,8 +1055,8 @@
         "binop": null
       },
       "value": "controller",
-      "start": 634,
-      "end": 644,
+      "start": 670,
+      "end": 680,
       "loc": {
         "start": {
           "line": 21,
@@ -1080,8 +1080,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 644,
-      "end": 645,
+      "start": 680,
+      "end": 681,
       "loc": {
         "start": {
           "line": 21,
@@ -1106,8 +1106,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 645,
-      "end": 646,
+      "start": 681,
+      "end": 682,
       "loc": {
         "start": {
           "line": 21,
@@ -1132,8 +1132,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 647,
-      "end": 647,
+      "start": 683,
+      "end": 683,
       "loc": {
         "start": {
           "line": 22,

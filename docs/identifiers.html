@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css" integrity="sha256-zInEqaMwHPE1XRPTqnMP2uZOEEYFQ2zjcasAv2R1nXg= sha512-DNQDuSSkAzc46N+QWE3KS1L9bV0TmwsRxFLYlC6kX3SP8nJmMl/33DgpGRmNKkm+TppbqCWXPhhin5iHk2K+WQ==" >
   <script src="script/prettify/prettify.js" integrity="sha256-pBGeWOdVMc8DdZ329AetSw96C27keOTs2YjfUBXXG/k= sha512-Deju3NADWguczdl0ZATQw9ENfS/NX2W+ocWpqRIUQAbWeppuVl2cmXre8u/huZwZGiQ8Bm5/fNToJ20khRZu1Q==" ></script>
   <script src="script/manual.js" integrity="sha256-XMnSfJiE+5xTHlyG0JUNIKrjty6h1vlou+0kkTWIaV4= sha512-1fbVT6PEozJRXAQx4Rp7Jdd84pnAbQ8oJlPqcQIn+Jd2jh9u958N8BnaQCGjYwfwL9DgESRkfzjtDsYrIdR8Yw==" ></script>
-<meta name="description" content="The default blueprint for ember-cli addons."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="The default blueprint for ember-cli addons."></head>
+<meta name="description" content="Useful decorators for Ember applications."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="Useful decorators for Ember applications."></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/rwjblue/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/ember-decorators/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -88,6 +88,11 @@
       
       
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-collect">collect</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-deprecatingAlias">deprecatingAlias</a></span></span>
     </li>
 <li data-ice="doc">
       
@@ -213,6 +218,11 @@
       
       
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-uniq">uniq</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-uniqBy">uniqBy</a></span></span>
     </li>
 <li data-ice="doc">
       
@@ -483,6 +493,35 @@
         
         
         <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_collect">Ember.computed.collect</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          <span data-ice="kind-icon" class="kind-function">F</span>
+          
+          
+          <span class="code" data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-deprecatingAlias">deprecatingAlias</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, options: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_deprecatingAlias">Ember.computed.deprecatingAlias</a></p>
 </div>
       </div>
     </td>
@@ -1230,6 +1269,35 @@
           <span data-ice="kind-icon" class="kind-function">F</span>
           
           
+          <span class="code" data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-uniqBy">uniqBy</a></span></span><span class="code" data-ice="signature">(dependentKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, propertyKey: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Decorator that wraps <a href="http://emberjs.com/api/classes/Ember.computed.html#method_uniqBy">Ember.computed.uniqBy</a></p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          <span data-ice="kind-icon" class="kind-function">F</span>
+          
+          
           <span class="code" data-ice="name"><span><a href="function/addon/object/evented.js.html#static-function-on">on</a></span></span><span class="code" data-ice="signature">(eventNames: ...<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>)</span>
         </p>
       </div>
@@ -1420,7 +1488,7 @@
   Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.0-alpha.7)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
-<script src="script/search_index.js" integrity="sha256-PHw9l2el9grpEPBFIFfiJz/R+yYJQ7HcNSBiwB6a2ug= sha512-XRW4C3HL/aPYPs6LGwSKOCoPpzSYhEjpmpG5QZsOdhRAgc6UIdMOTDnSmqbjYksIt6Qn8M2sPW8ZQMbV1Cidkg==" ></script>
+<script src="script/search_index.js" integrity="sha256-1z47031Hai2EludI0gFzarO0ov18XX91QHNIFNhz8uU= sha512-T11iT9PVz9FSsqNHjPIaMN8ahwn6eRRb+0dxZJCfK4LBZJ6tp6cqzJNCK4T9Dqq0u6FK15rWi4uMs6bqvjw0FA==" ></script>
 <script src="script/search.js" integrity="sha256-TVXz97JWpj4nQlr8eLFf9vCkEPt7LV7KxBg/ejnkRoU= sha512-7Vh0R2PInNMw1dy4BrcjntsmtsnpcoKgJ2xbdM85VDapVBlsDcPus5TJ2eibomZdxE9KP7HltoTeP4450p8ggw==" ></script>
 <script src="script/pretty-print.js" integrity="sha256-xA9EQMG6LDJud91eWmyP+4aaV0VkN+6eOCNFKfbHvTA= sha512-39zRVPQuUHFqwxBgKfNQF8y14EWT3wuf8Oc3/giQIIQWs46hPJfmEcNW+nqm/NcZ1mFdXpRTp7SHWLOGY0PdGg==" ></script>
 <script src="script/inherited-summary.js" integrity="sha256-houMEvF28PfeNMq/QaLD5bsIt/+JjqJ7to9rtK3cfHQ= sha512-TFv0E5byaBjKceJxo9uDedbw+dEzTDF8wCglGoOz4i6SpcgSszoOfVYeGWRfnsuReuSK3LRobW3Mac9C9Gijrw==" ></script>

@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="The default blueprint for ember-cli addons."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="The default blueprint for ember-cli addons."></head>
+<meta name="description" content="Useful decorators for Ember applications."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="Useful decorators for Ember applications."></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/rwjblue/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/ember-decorators/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -88,6 +88,11 @@
       
       
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-collect">collect</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-deprecatingAlias">deprecatingAlias</a></span></span>
     </li>
 <li data-ice="doc">
       
@@ -216,6 +221,11 @@
     </li>
 <li data-ice="doc">
       
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-uniqBy">uniqBy</a></span></span>
+    </li>
+<li data-ice="doc">
+      
       <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-object-evented">addon/object/evented</a>
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/evented.js.html#static-function-on">on</a></span></span>
     </li>
@@ -230,34 +240,37 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">addon/data/index.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import DS from &apos;ember-data&apos;;
+import { decoratorWithParams } from &apos;../utils/decorator-wrappers&apos;;
 import { decoratorWithKeyReflection } from &apos;../utils/decorator-macros&apos;;
 
 /**
  * Decorator that turns the property into an Ember Data attribute
  *
  * ```javascript
- * import DS from &apos;ember-data&apos;;
+ * import Model from &apos;ember-data/model&apos;;
  * import { attr } from &apos;ember-decorators/data&apos;;
  *
- * export default DS.Model.extend({
- *   @attr firstName
+ * export default Model.extend({
+ *   @attr firstName: null
  * });
  * ```
  *
  * @function
  * @param {String} [type] - Type of the attribute
  */
-export const attr = decoratorWithKeyReflection(DS.attr);
+export const attr = decoratorWithParams(function(target, key, desc, params) {
+  return DS.attr(...params);
+});
 
 /**
  * Decorator that turns the property into an Ember Data `hasMany` relationship
  *
  * ```javascript
- * import DS from &apos;ember-data&apos;;
+ * import Model from &apos;ember-data/model&apos;;
  * import { hasMany } from &apos;ember-decorators/data&apos;;
  *
- * export default DS.Model.extend({
- *   @hasMany users
+ * export default Model.extend({
+ *   @hasMany users: null
  * });
  * ```
  *
@@ -270,11 +283,11 @@ export const hasMany = decoratorWithKeyReflection(DS.hasMany);
  * Decorator that turns the property into an Ember Data `belongsTo` relationship
  *
  * ```javascript
- * import DS from &apos;ember-data&apos;;
+ * import Model from &apos;ember-data/model&apos;;
  * import { belongsTo } from &apos;ember-decorators/data&apos;;
  *
- * export default DS.Model.extend({
- *   @belongsTo user
+ * export default Model.extend({
+ *   @belongsTo user: null
  * });
  * ```
  * @function

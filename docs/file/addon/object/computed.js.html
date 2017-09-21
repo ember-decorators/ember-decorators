@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="The default blueprint for ember-cli addons."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="The default blueprint for ember-cli addons."></head>
+<meta name="description" content="Useful decorators for Ember applications."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ember-decorators"><meta property="twitter:description" content="Useful decorators for Ember applications."></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/rwjblue/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/ember-decorators/ember-decorators.git"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
@@ -88,6 +88,11 @@
       
       
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-collect">collect</a></span></span>
+    </li>
+<li data-ice="doc">
+      
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-deprecatingAlias">deprecatingAlias</a></span></span>
     </li>
 <li data-ice="doc">
       
@@ -216,6 +221,11 @@
     </li>
 <li data-ice="doc">
       
+      
+      <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/computed.js.html#static-function-uniqBy">uniqBy</a></span></span>
+    </li>
+<li data-ice="doc">
+      
       <a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#addon-object-evented">addon/object/evented</a>
       <span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/addon/object/evented.js.html#static-function-on">on</a></span></span>
     </li>
@@ -230,10 +240,16 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">addon/object/computed.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Ember from &apos;ember&apos;;
+import { assert } from &apos;@ember/debug&apos;;
+import {
+  decoratedPropertyWithRequiredParams,
+  decoratedPropertyWithOptionalCallback,
+  decoratedPropertyWithEitherCallbackOrProperty
+} from &apos;../utils/decorator-macros&apos;;
 
 import {
-  decoratedPropertyWithRequiredParams
-} from &apos;../utils/decorator-macros&apos;;
+  SUPPORTS_UNIQ_BY_COMPUTED
+} from &apos;ember-compatibility-helpers&apos;;
 
 /**
  * Decorator that wraps [Ember.computed.alias](http://emberjs.com/api/classes/Ember.computed.html#method_alias)
@@ -243,22 +259,22 @@ import {
  * the original property.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { alias } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { alias } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   person: {
+ * export default class UserProfileComponent extends Component {
+ *   person = {
  *     first: &apos;Joe&apos;
- *   },
+ *   };
  *
- *   @alias(&apos;person.first&apos;) firstName
- * });
+ *   @alias(&apos;person.first&apos;) firstName;
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the aliased property
  */
-export const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias, &apos;Cannot use `alias` without parameters&apos;);
+export const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias);
 
 /**
  * Decorator that wraps [Ember.computed.and](http://emberjs.com/api/classes/Ember.computed.html#method_and)
@@ -267,22 +283,22 @@ export const alias = decoratedPropertyWithRequiredParams(Ember.computed.alias, &
  * for the provided dependent properties.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { and } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { and } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   person: {
+ * export default class UserProfileComponent extends Component {
+ *   person = {
  *     first: &apos;Joe&apos;
- *   },
+ *   };
  *
- *   @and(&apos;first&apos;, &apos;last&apos;) hasFullName // false
- * });
+ *   @and(&apos;person.{first,last}&apos;) hasFullName; // false
+ * }
  * ```
  *
  * @function
  * @param {...String} dependentKeys - Keys for properties to `and`
  */
-export const and = decoratedPropertyWithRequiredParams(Ember.computed.and, &apos;Cannot use `and` without parameters&apos;);
+export const and = decoratedPropertyWithRequiredParams(Ember.computed.and);
 
 /**
  * Decorator that wraps [Ember.computed.bool](http://emberjs.com/api/classes/Ember.computed.html#method_bool)
@@ -291,20 +307,20 @@ export const and = decoratedPropertyWithRequiredParams(Ember.computed.and, &apos
  * boolean value.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { bool } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { bool } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   messageCount: 1,
+ * export default class MessagesNotificationComponent extends Component {
+ *   messageCount = 1;
  *
- *   @bool(&apos;messageCount&apos;) hasMessages // true
- * });
+ *   @bool(&apos;messageCount&apos;) hasMessages; // true
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to convert
  */
-export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool, &apos;Cannot use `bool` without parameters&apos;);
+export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool);
 
 /**
  * Decorator that wraps [Ember.computed.collect](http://emberjs.com/api/classes/Ember.computed.html#method_collect)
@@ -313,21 +329,51 @@ export const bool = decoratedPropertyWithRequiredParams(Ember.computed.bool, &ap
  * dependent properties.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { collect } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { collect } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   light: &apos;strobe&apos;,
- *   lens: &apos;35mm prime&apos;,
+ * export default class CameraEquipmentComponent extends Component {
+ *   light = &apos;strobe&apos;;
+ *   lens = &apos;35mm prime&apos;;
  *
- *   @collect(&apos;light&apos;, &apos;lens&apos;) equipment // [&apos;strobe&apos;, &apos;35mm prime&apos;]
- * });
+ *   @collect(&apos;light&apos;, &apos;lens&apos;) equipment; // [&apos;strobe&apos;, &apos;35mm prime&apos;]
+ * }
  * ```
  *
  * @function
  * @param {...String} dependentKeys - Keys for the properties to collect
  */
-export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collect, &apos;Cannot use `collect` without parameters&apos;);
+export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collect);
+
+/**
+ * Decorator that wraps [Ember.computed.deprecatingAlias](http://emberjs.com/api/classes/Ember.computed.html#method_deprecatingAlias)
+ *
+ * Creates a new property that is an alias for another property on an object.
+ * Calls to get or set this property behave as though they were called on
+ * the original property, but will also trigger a deprecation warning.
+ *
+ * ```javascript
+ * import Component from &apos;@ember/component&apos;;
+ * import { deprecatingAlias } from &apos;ember-decorators/object/computed&apos;;
+ *
+ * export default class UserProfileComponent extends {
+ *   person = {
+ *     first: &apos;Joe&apos;
+ *   };
+ *
+ *   @deprecatingAlias(&apos;person.first&apos;, {
+ *     id: &apos;user-profile.firstName&apos;,
+ *     until: &apos;3.0.0&apos;,
+ *     url: &apos;https://example.com/deprecations/user-profile.firstName&apos;
+ *   }) firstName;
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to alias
+ * @param {Object} options
+ */
+export const deprecatingAlias = decoratedPropertyWithRequiredParams(Ember.computed.deprecatingAlias);
 
 /**
  * Decorator that wraps [Ember.computed.empty](http://emberjs.com/api/classes/Ember.computed.html#method_empty)
@@ -336,20 +382,21 @@ export const collect = decoratedPropertyWithRequiredParams(Ember.computed.collec
  * property is null, an empty string, empty array, or empty function.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { empty } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { empty } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   items: Ember.A([&apos;taco&apos;, &apos;burrito&apos;]),
+ * export default class FoodItemsComponent extends Component {
+ *   items = A([&apos;taco&apos;, &apos;burrito&apos;]);
  *
- *   @empty(&apos;items&apos;) isEmpty // false
- * });
+ *   @empty(&apos;items&apos;) isEmpty; // false
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key of the property to check emptiness of
  */
-export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty, &apos;Cannot use `empty` without parameters&apos;);
+export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty);
 
 /**
  * Decorator that wraps [Ember.computed.equal](http://emberjs.com/api/classes/Ember.computed.html#method_equal)
@@ -357,20 +404,21 @@ export const empty = decoratedPropertyWithRequiredParams(Ember.computed.empty, &
  * A computed property that returns true if the dependent properties are equal.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { equal } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { equal } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   state: &apos;sleepy&apos;,
+ * export default class NapTimeComponent extends Component {
+ *   state = &apos;sleepy&apos;;
  *
- *   @equal(&apos;state&apos;, &apos;sleepy&apos;) napTime // true
- * });
+ *   @equal(&apos;state&apos;, &apos;sleepy&apos;) napTime; // true
+ * }
+ * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to check
  * @param {Any} value - Value to compare the dependent property to
  */
-export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal, &apos;Cannot use `equal` without parameters&apos;);
+export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal);
 
 /**
  * Decorator that wraps [Ember.computed.filter](http://emberjs.com/api/classes/Ember.computed.html#method_filter)
@@ -378,27 +426,35 @@ export const equal = decoratedPropertyWithRequiredParams(Ember.computed.equal, &
  * Filters the items in the array by the provided callback.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { filter } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { filter } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   chores: Ember.A([
+ * export default class ChoresListComponent extends Component {
+ *   chores = A([
  *     { name: &apos;cook&apos;, done: true },
  *     { name: &apos;clean&apos;, done: true },
  *     { name: &apos;write more unit tests&apos;, done: false }
- *   ]),
+ *   ]);
+ *
+ *   @filter(&apos;chores&apos;)
+ *   remainingChores(chore, index, array) {
+ *     return !chore.done;
+ *   } // [{name: &apos;write more unit tests&apos;, done: false}]
+ *
+ *   // alternative syntax:
  *
  *   @filter(&apos;chores&apos;, function(chore, index, array) {
  *     return !chore.done;
- *   }) remainingChores // [{name: &apos;write more unit tests&apos;, done: false}]
- * });
+ *   }) remainingChores; // [{name: &apos;write more unit tests&apos;, done: false}]
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the array to filter
  * @param {Function(item: Any, index: Number, array: Array&lt;Any&gt;): Boolean} callback - The function to filter with
  */
-export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter, &apos;Cannot use `filter` without parameters&apos;);
+export const filter = decoratedPropertyWithOptionalCallback(Ember.computed.filter);
 
 /**
  * Decorator that wraps [Ember.computed.filterBy](http://emberjs.com/api/classes/Ember.computed.html#method_filterBy)
@@ -406,18 +462,19 @@ export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter,
  * Filters the array by the property and value.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { filterBy } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { filterBy } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   chores: Ember.A([
+ * export default class ChoresListComponent extends Component {
+ *   chores = A([
  *     { name: &apos;cook&apos;, done: true },
  *     { name: &apos;clean&apos;, done: true },
  *     { name: &apos;write more unit tests&apos;, done: false }
- *   ]),
+ *   ]);
  *
- *   @filterBy(&apos;chores&apos;, &apos;done&apos;, false) remainingChores // [{name: &apos;write more unit tests&apos;, done: false}]
- * });
+ *   @filterBy(&apos;chores&apos;, &apos;done&apos;, false) remainingChores; // [{name: &apos;write more unit tests&apos;, done: false}]
+ * }
  * ```
  *
  * @function
@@ -425,7 +482,7 @@ export const filter = decoratedPropertyWithRequiredParams(Ember.computed.filter,
  * @param {String} propertyKey - Property of the array items to filter by
  * @param {Any} value - Value to filter by
  */
-export const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filterBy, &apos;Cannot use `filterBy` without parameters&apos;);
+export const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filterBy);
 
 /**
  * Decorator that wraps [Ember.computed.gt](http://emberjs.com/api/classes/Ember.computed.html#method_gt)
@@ -434,21 +491,21 @@ export const filterBy = decoratedPropertyWithRequiredParams(Ember.computed.filte
  * is greater than the provided value.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { gt } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { gt } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   totalCats: 11,
+ * export default class CatPartyComponent extends Component {
+ *   totalCats = 11;
  *
- *   @gt(&apos;totalCats&apos;, 10) isCatParty // true
- * });
+ *   @gt(&apos;totalCats&apos;, 10) isCatParty; // true
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt, &apos;Cannot use `gt` without parameters&apos;);
+export const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt);
 
 /**
  * Decorator that wraps [Ember.computed.gte](http://emberjs.com/api/classes/Ember.computed.html#method_gte)
@@ -457,21 +514,21 @@ export const gt = decoratedPropertyWithRequiredParams(Ember.computed.gt, &apos;C
  * is greater than or equal to the provided value.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { gte } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { gte } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   totalPlayers: 14,
+ * export default class PlayerListComponent extends Component {
+ *   totalPlayers = 14;
  *
- *   @gte(&apos;totalPlayers&apos;, 14) hasEnoughPlayers // true
- * });
+ *   @gte(&apos;totalPlayers&apos;, 14) hasEnoughPlayers; // true
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte, &apos;Cannot use `gte` without parameters&apos;);
+export const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte);
 
 /**
  * Decorator that wraps [Ember.computed.intersect](http://emberjs.com/api/classes/Ember.computed.html#method_intersect)
@@ -480,21 +537,22 @@ export const gte = decoratedPropertyWithRequiredParams(Ember.computed.gte, &apos
  * elements from two or more dependent arrays.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { intersect } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { intersect } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
- *   foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;]),
+ * export default class FoodListComponent extends Component {
+ *   likes = A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]);
+ *   foods = A([&apos;tacos&apos;, &apos;pizza&apos;]);
  *
- *   @intersect(&apos;likes&apos;, &apos;foods&apos;) favoriteFoods // [&apos;tacos&apos;, &apos;pizza&apos;]
- * });
+ *   @intersect(&apos;likes&apos;, &apos;foods&apos;) favoriteFoods; // [&apos;tacos&apos;, &apos;pizza&apos;]
+ * }
  * ```
  *
  * @function
  * @param {...String} dependentKeys - Keys of the arrays to intersect
  */
-export const intersect = decoratedPropertyWithRequiredParams(Ember.computed.intersect, &apos;Cannot use `intersect` without parameters&apos;);
+export const intersect = decoratedPropertyWithRequiredParams(Ember.computed.intersect);
 
 /**
  * Decorator that wraps [Ember.computed.lt](http://emberjs.com/api/classes/Ember.computed.html#method_lt)
@@ -503,21 +561,21 @@ export const intersect = decoratedPropertyWithRequiredParams(Ember.computed.inte
  * is less than the provided value.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { lt } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { lt } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   totalDogs: 3,
+ * export default class DogPartyComponent extends Component {
+ *   totalDogs = 3;
  *
- *   @lt(&apos;totalDogs&apos;, 10) isDogParty // true
- * });
+ *   @lt(&apos;totalDogs&apos;, 10) isDogParty; // true
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt, &apos;Cannot use `lt` without parameters&apos;);
+export const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt);
 
 /**
  * Decorator that wraps [Ember.computed.lte](http://emberjs.com/api/classes/Ember.computed.html#method_lte)
@@ -526,21 +584,21 @@ export const lt = decoratedPropertyWithRequiredParams(Ember.computed.lt, &apos;C
  * is less than or equal to the provided value.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { lte } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { lte } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   totalPlayers: 14,
+ * export default class PlayerListComponent extends Component {
+ *   totalPlayers = 14;
  *
- *   @lte(&apos;totalPlayers&apos;, 14) hasEnoughPlayers // true
- * });
+ *   @lte(&apos;totalPlayers&apos;, 14) hasEnoughPlayers; // true
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte, &apos;Cannot use `lte` without parameters&apos;);
+export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte);
 
 /**
  * Decorator that wraps [Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)
@@ -548,23 +606,31 @@ export const lte = decoratedPropertyWithRequiredParams(Ember.computed.lte, &apos
  * Returns an array mapped via the callback
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { map } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { map } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   chores: Ember.A([&apos;clean&apos;, &apos;write more unit tests&apos;]),
+ * export default class ChoresListComponent extends Component {
+ *   chores = A([&apos;clean&apos;, &apos;write more unit tests&apos;]);
+ *
+ *   @map(&apos;chores&apos;)
+ *   loudChores(chore, index) {
+ *     return chore.toUpperCase() + &apos;!&apos;;
+ *   } // [&apos;CLEAN!&apos;, &apos;WRITE MORE UNIT TESTS!&apos;]
+ *
+ *   // alternative syntax:
  *
  *   @map(&apos;chores&apos;, function(chore, index) {
  *     return chore.toUpperCase() + &apos;!&apos;;
- *   }) loudChores // [&apos;CLEAN!&apos;, &apos;WRITE MORE UNIT TESTS!&apos;]
- * });
+ *   }) loudChores; // [&apos;CLEAN!&apos;, &apos;WRITE MORE UNIT TESTS!&apos;]
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the array to map over
  * @param {Function(item: Any, index: Number): Any} callback - Function to map over the array
  */
-export const map = decoratedPropertyWithRequiredParams(Ember.computed.map, &apos;Cannot use `map` without parameters&apos;);
+export const map = decoratedPropertyWithOptionalCallback(Ember.computed.map);
 
 /**
  * Decorator that wraps [Ember.computed.mapBy](http://emberjs.com/api/classes/Ember.computed.html#method_mapBy)
@@ -572,25 +638,26 @@ export const map = decoratedPropertyWithRequiredParams(Ember.computed.map, &apos
  * Returns an array mapped to the specified key.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { mapBy } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { mapBy } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   people: Ember.A([
+ * export default class PeopleListComponent extends Component {
+ *   people = A([
  *     {name: &quot;George&quot;, age: 5},
  *     {name: &quot;Stella&quot;, age: 10},
  *     {name: &quot;Violet&quot;, age: 7}
- *   ]),
+ *   ]);
  *
- *   @mapBy(&apos;people&apos;, &apos;age&apos;) ages // [5, 10, 7]
- * });
+ *   @mapBy(&apos;people&apos;, &apos;age&apos;) ages; // [5, 10, 7]
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the array to map over
  * @param {String} propertyKey - Property of the array items to map by
  */
-export const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy, &apos;Cannot use `mapBy` without parameters&apos;);
+export const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy);
 
 /**
  * Decorator that wraps [Ember.computed.match](http://emberjs.com/api/classes/Ember.computed.html#method_match)
@@ -600,21 +667,21 @@ export const mapBy = decoratedPropertyWithRequiredParams(Ember.computed.mapBy, &
  * the RegExp and `false` if it does not.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { match } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { match } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   email: &apos;tomster@emberjs.com&apos;,
+ * export default class IsEmailValidComponent extends Component {
+ *   email = &apos;tomster@emberjs.com&apos;;
  *
- *   @match(&apos;email&apos;, /^.+@.+\..+$/) validEmail
- * });
+ *   @match(&apos;email&apos;, /^.+@.+\..+$/) validEmail;
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - The property to match
  * @param {RegExp} pattern - The pattern to match against
  */
-export const match = decoratedPropertyWithRequiredParams(Ember.computed.match, &apos;Cannot use `match` without parameters&apos;);
+export const match = decoratedPropertyWithRequiredParams(Ember.computed.match);
 
 /**
  * Decorator that wraps [Ember.computed.max](http://emberjs.com/api/classes/Ember.computed.html#method_max)
@@ -623,20 +690,21 @@ export const match = decoratedPropertyWithRequiredParams(Ember.computed.match, &
  * array. This will return `-Infinity` when the dependent array is empty.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { max } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { max } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   values: Ember.A([1, 2, 5, 10]),
+ * export default class MaxValueComponent extends Component {
+ *   values = A([1, 2, 5, 10]);
  *
- *   @max(&apos;values&apos;) maxValue // 10
- * });
+ *   @max(&apos;values&apos;) maxValue; // 10
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the array to find the max value of
  */
-export const max = decoratedPropertyWithRequiredParams(Ember.computed.max, &apos;Cannot use `max` without parameters&apos;);
+export const max = decoratedPropertyWithRequiredParams(Ember.computed.max);
 
 /**
  * Decorator that wraps [Ember.computed.min](http://emberjs.com/api/classes/Ember.computed.html#method_min)
@@ -645,20 +713,21 @@ export const max = decoratedPropertyWithRequiredParams(Ember.computed.max, &apos
  * array. This will return `Infinity` when the dependent array is empty.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { min } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { min } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   values: Ember.A([1, 2, 5, 10]),
+ * export default class MinValueComponent extends Component {
+ *   values = A([1, 2, 5, 10]);
  *
- *   @min(&apos;values&apos;) minValue // 1
- * });
+ *   @min(&apos;values&apos;) minValue; // 1
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the array to find the max value of
  */
-export const min = decoratedPropertyWithRequiredParams(Ember.computed.min, &apos;Cannot use `min` without parameters&apos;);
+export const min = decoratedPropertyWithRequiredParams(Ember.computed.min);
 
 /**
  * Decorator that wraps [Ember.computed.none](http://emberjs.com/api/classes/Ember.computed.html#method_none)
@@ -668,20 +737,20 @@ export const min = decoratedPropertyWithRequiredParams(Ember.computed.min, &apos
  * of `==`, which can be technically confusing.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { none } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { none } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   firstName: null,
+ * export default class NameDisplayComponent extends Component {
+ *   firstName = null;
  *
- *   @none(&apos;firstName&apos;) isNameless // true until firstName is defined
- * });
+ *   @none(&apos;firstName&apos;) isNameless; // true unless firstName is defined
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to check
  */
-export const none = decoratedPropertyWithRequiredParams(Ember.computed.none, &apos;Cannot use `none` without parameters&apos;);
+export const none = decoratedPropertyWithRequiredParams(Ember.computed.none);
 
 /**
  * Decorator that wraps [Ember.computed.not](http://emberjs.com/api/classes/Ember.computed.html#method_not)
@@ -690,20 +759,20 @@ export const none = decoratedPropertyWithRequiredParams(Ember.computed.none, &ap
  * value for the dependent property.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { not } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { not } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   loggedIn: false,
+ * export default class UserInfoComponent extends Component {
+ *   loggedIn = false;
  *
- *   @not(&apos;loggedIn&apos;) isAnonymous // true
- * });
+ *   @not(&apos;loggedIn&apos;) isAnonymous; // true
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to `not`
  */
-export const not = decoratedPropertyWithRequiredParams(Ember.computed.not, &apos;Cannot use `not` without parameters&apos;);
+export const not = decoratedPropertyWithRequiredParams(Ember.computed.not);
 
 /**
  * Decorator that wraps [Ember.computed.notEmpty](http://emberjs.com/api/classes/Ember.computed.html#method_notEmpty)
@@ -712,20 +781,21 @@ export const not = decoratedPropertyWithRequiredParams(Ember.computed.not, &apos
  * property is NOT null, an empty string, empty array, or empty function.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { notEmpty } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { notEmpty } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   groceryBag: Ember.A([&apos;milk&apos;, &apos;eggs&apos;, &apos;apples&apos;]),
+ * export default class GroceryBagComponent extends Component {
+ *   groceryBag = A([&apos;milk&apos;, &apos;eggs&apos;, &apos;apples&apos;]);
  *
- *   @notEmpty(&apos;groceryBag&apos;) hasGroceriesToPutAway // true
- * });
+ *   @notEmpty(&apos;groceryBag&apos;) hasGroceriesToPutAway; // true
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to check
  */
-export const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEmpty, &apos;Cannot use `notEmpty` without parameters&apos;);
+export const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEmpty);
 
 /**
  * Decorator that wraps [Ember.computed.oneWay](http://emberjs.com/api/classes/Ember.computed.html#method_oneWay)
@@ -737,20 +807,20 @@ export const notEmpty = decoratedPropertyWithRequiredParams(Ember.computed.notEm
  * diverge from the upstream property.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { oneWay } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { oneWay } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   firstName: &apos;Joe&apos;,
+ * export default class UserProfileComponent extends Component {
+ *   firstName = &apos;Joe&apos;;
  *
- *   @oneWay(&apos;firstName&apos;) originalName // will always be &apos;Joe&apos;
- * });
+ *   @oneWay(&apos;firstName&apos;) originalName; // will always be &apos;Joe&apos;
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to alias
  */
-export const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay, &apos;Cannot use `oneWay` without parameters&apos;);
+export const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay);
 
 /**
  * Decorator that wraps [Ember.computed.or](http://emberjs.com/api/classes/Ember.computed.html#method_or)
@@ -759,21 +829,21 @@ export const oneWay = decoratedPropertyWithRequiredParams(Ember.computed.oneWay,
  * the provided dependent properties.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { or } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { or } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   hasJacket: true,
- *   hasUmbrella: false,
+ * export default class OutfitFeaturesComponent extends Component {
+ *   hasJacket = true;
+ *   hasUmbrella = false;
  *
- *   @or(&apos;hasJacket&apos;, &apos;hasUmbrella&apos;) isReadyForRain // true
- * });
+ *   @or(&apos;hasJacket&apos;, &apos;hasUmbrella&apos;) isReadyForRain; // true
+ * }
  * ```
  *
  * @function
  * @param {...String} dependentKey - Key for the properties to `or`
  */
-export const or = decoratedPropertyWithRequiredParams(Ember.computed.or, &apos;Cannot use `or` without parameters&apos;);
+export const or = decoratedPropertyWithRequiredParams(Ember.computed.or);
 
 /**
  * Decorator that wraps [Ember.computed.reads](http://emberjs.com/api/classes/Ember.computed.html#method_reads)
@@ -782,18 +852,21 @@ export const or = decoratedPropertyWithRequiredParams(Ember.computed.or, &apos;C
  * name is somewhat ambiguous as to which direction the data flows.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { reads } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { reads } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   @reads(&apos;first&apos;) firstName
- * });
+ * export default class UserProfileComponent extends Component {
+ *   first = &apos;Tomster&apos;;
+ *
+ *   @reads(&apos;first&apos;) firstName;
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key for the property to read
  */
-export const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads, &apos;Cannot use `reads` without parameters&apos;);
+export const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads);
 
 /**
  * Decorator that wraps [Ember.computed.setDiff](http://emberjs.com/api/classes/Ember.computed.html#method_setDiff)
@@ -802,22 +875,23 @@ export const reads = decoratedPropertyWithRequiredParams(Ember.computed.reads, &
  * the first dependent array that are not in the second dependent array.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { setDiff } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { setDiff } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
- *   foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;]),
+ * export default class FavoriteThingsComponent extends Component {
+ *   likes = A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]);
+ *   foods = A([&apos;tacos&apos;, &apos;pizza&apos;]);
  *
- *   @setDiff(&apos;likes&apos;, &apos;foods&apos;) favoriteThingsThatArentFood // [&apos;puppies&apos;]
- * });
+ *   @setDiff(&apos;likes&apos;, &apos;foods&apos;) favoriteThingsThatArentFood; // [&apos;puppies&apos;]
+ * }
  * ```
  *
  * @function
  * @param {String} setAProperty - Keys for the first set
  * @param {String} setBProperty - Keys for the first set
  */
-export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDiff, &apos;Cannot use `setDiff` without parameters&apos;);
+export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDiff);
 
 /**
  * Decorator that wraps [Ember.computed.sort](http://emberjs.com/api/classes/Ember.computed.html#method_sort)
@@ -844,11 +918,26 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  * instead of series of `if`.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { sort } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { sort } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   this.names = Ember.A([{name:&apos;Link&apos;},{name:&apos;Zelda&apos;},{name:&apos;Ganon&apos;},{name:&apos;Navi&apos;}]);
+ * export default class SortNamesComponent extends Component {
+ *   names = A([{name:&apos;Link&apos;},{name:&apos;Zelda&apos;},{name:&apos;Ganon&apos;},{name:&apos;Navi&apos;}]);
+ *
+ *   @sort(&apos;names&apos;)
+ *   sortedNames(a, b){
+ *     if (a.name &gt; b.name) {
+ *       return 1;
+ *     } else if (a.name &lt; b.name) {
+ *       return -1;
+ *     }
+ *
+ *     return 0;
+ *   } // [{name:&apos;Ganon&apos;},{name:&apos;Link&apos;},{name:&apos;Navi&apos;},{name:&apos;Zelda&apos;}]
+ *
+ *   // alternative syntax:
+ *
  *   @sort(&apos;names&apos;, function(a, b){
  *     if (a.name &gt; b.name) {
  *       return 1;
@@ -857,15 +946,15 @@ export const setDiff = decoratedPropertyWithRequiredParams(Ember.computed.setDif
  *     }
  *
  *     return 0;
- *   }) sortedNames // [{name:&apos;Ganon&apos;},{name:&apos;Link&apos;},{name:&apos;Navi&apos;},{name:&apos;Zelda&apos;}]
- * });
+ *   }) sortedNames; // [{name:&apos;Ganon&apos;},{name:&apos;Link&apos;},{name:&apos;Navi&apos;},{name:&apos;Zelda&apos;}]
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - The key for the array that should be sorted
  * @param {Array&lt;String&gt;|Function(Any, Any): Number} sortDefinition - Sorting function or sort descriptor
  */
-export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort, &apos;Cannot use `sort` without parameters&apos;);
+export const sort = decoratedPropertyWithEitherCallbackOrProperty(Ember.computed.sort);
 
 /**
  * Decorator that wraps [Ember.computed.sum](http://emberjs.com/api/classes/Ember.computed.html#method_sum)
@@ -874,20 +963,21 @@ export const sort = decoratedPropertyWithRequiredParams(Ember.computed.sort, &ap
  * array.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { sum } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { sum } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   values: Ember.A([1, 2, 3]),
+ * export default class SumValuesComponent extends Component {
+ *   values = A([1, 2, 3]);
  *
- *   @sum(&apos;values&apos;) total // 6
- * });
+ *   @sum(&apos;values&apos;) total; // 6
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key of the array to sum up
  */
-export const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum, &apos;Cannot use `sum` without parameters&apos;);
+export const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum);
 
 /**
  * Decorator that wraps [Ember.computed.union](http://emberjs.com/api/classes/Ember.computed.html#method_union)
@@ -895,21 +985,22 @@ export const sum = decoratedPropertyWithRequiredParams(Ember.computed.sum, &apos
  * Alias for [union](http://emberjs.com/api/classes/Ember.computed.html#method_uniq).
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { union } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { union } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
- *   foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;, &apos;ramen&apos;]),
+ * export default class LikesAndFoodsComponent extends Component {
+ *   likes = A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]);
+ *   foods = A([&apos;tacos&apos;, &apos;pizza&apos;, &apos;ramen&apos;]);
  *
- *   @union(&apos;likes&apos;, &apos;foods&apos;) favorites // [&apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos;, &apos;ramen&apos;]
- * });
+ *   @union(&apos;likes&apos;, &apos;foods&apos;) favorites; // [&apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos;, &apos;ramen&apos;]
+ * }
  * ```
  *
  * @function
  * @param {...String} dependentKeys - Keys of the arrays to union
  */
-export const union = decoratedPropertyWithRequiredParams(Ember.computed.union, &apos;Cannot use `union` without parameters&apos;);
+export const union = decoratedPropertyWithRequiredParams(Ember.computed.union);
 
 /**
  * Decorator that wraps [Ember.computed.uniq](http://emberjs.com/api/classes/Ember.computed.html#method_uniq)
@@ -917,21 +1008,61 @@ export const union = decoratedPropertyWithRequiredParams(Ember.computed.union, &
  * A computed property which returns a new array with all the unique elements from one or more dependent arrays.
  *
  * ```javascript
- * import Ember from &apos;ember&apos;;
- * import { uniq } from &apos;ember-decorators/computed&apos;;
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { uniq } from &apos;ember-decorators/object/computed&apos;;
  *
- * export default Ember.Component.extend({
- *   likes: Ember.A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]),
- *   foods: Ember.A([&apos;tacos&apos;, &apos;pizza&apos;, &apos;ramen&apos;]),
+ * export default class FavoriteThingsComponent extends Component {
+ *   likes = A([ &apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos; ]);
+ *   foods = A([&apos;tacos&apos;, &apos;pizza&apos;, &apos;ramen&apos;]);
  *
- *   @uniq(&apos;likes&apos;, &apos;foods&apos;) favorites // [&apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos;, &apos;ramen&apos;]
- * });
+ *   @uniq(&apos;likes&apos;, &apos;foods&apos;) favorites; // [&apos;tacos&apos;, &apos;puppies&apos;, &apos;pizza&apos;, &apos;ramen&apos;]
+ * }
  * ```
  *
  * @function
  * @param {String} dependentKey - Key of the array to uniq
  */
-export const uniq = decoratedPropertyWithRequiredParams(Ember.computed.uniq, &apos;Cannot use `uniq` without parameters&apos;);
+export const uniq = decoratedPropertyWithRequiredParams(Ember.computed.uniq);
+
+/**
+ * Decorator that wraps [Ember.computed.uniqBy](http://emberjs.com/api/classes/Ember.computed.html#method_uniqBy)
+ *
+ * A computed property which returns a new array with all the unique elements
+ * from an array, with uniqueness determined by a specific key.
+ *
+ * ```javascript
+ * import Component from &apos;@ember/component&apos;;
+ * import { A } from &apos;@ember/array&apos;;
+ * import { uniqBy } from &apos;ember-decorators/object/computed&apos;;
+ *
+ * export default class FruitBowlComponent extends Component {
+ *   fruits = A([
+ *     { name: &apos;banana&apos;, color: &apos;yellow&apos; },
+ *     { name: &apos;apple&apos;,  color: &apos;red&apos; },
+ *     { name: &apos;kiwi&apos;,   color: &apos;brown&apos; },
+ *     { name: &apos;cherry&apos;, color: &apos;red&apos; },
+ *     { name: &apos;lemon&apos;,  color: &apos;yellow&apos; }
+ *   ]);
+ *
+ *   @uniqBy(&apos;fruits&apos;, &apos;color&apos;) oneOfEachColor;
+ *   // [
+ *   //  { name: &apos;banana&apos;, color: &apos;yellow&apos;},
+ *   //  { name: &apos;apple&apos;,  color: &apos;red&apos;},
+ *   //  { name: &apos;kiwi&apos;,   color: &apos;brown&apos;}
+ *   // ]
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key of the array to uniq
+ * @param {String} propertyKey - Key of the property on the objects of the array to determine uniqueness by
+ */
+export const uniqBy = SUPPORTS_UNIQ_BY_COMPUTED ?
+  decoratedPropertyWithRequiredParams(Ember.computed.uniqBy) :
+  () =&gt; {
+    assert(&apos;uniqBy is only available from Ember.js v2.7 onwards.&apos;, false);
+  };
 </code></pre>
 
 </div>
