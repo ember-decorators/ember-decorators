@@ -2,6 +2,7 @@ import { IS_EMBER_2 } from 'ember-compatibility-helpers';
 
 import { decoratorWithParams } from './decorator-wrappers';
 import extractValue from './extract-value';
+import collapseProto from './collapse-proto';
 
 import { assert } from '@ember/debug';
 
@@ -68,4 +69,23 @@ export function decoratedPropertyWithEitherCallbackOrProperty(fn) {
 
     return fn(...params, value);
   });
+}
+
+export function decoratedConcatenatedProperty(concatProperty) {
+  return function(target, key, desc) {
+    collapseProto(target);
+
+    if (!target.hasOwnProperty(concatProperty)) {
+      let parentValue = target[concatProperty];
+      target[concatProperty] = Array.isArray(parentValue) ? parentValue.slice() : [];
+    }
+
+    target[concatProperty].push(key);
+
+    // Set the value on the prototype in the case of class fields
+    desc.value = extractValue(desc);
+    desc.initializer = undefined;
+
+    return desc;
+  }
 }
