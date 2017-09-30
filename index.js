@@ -57,11 +57,13 @@ module.exports = {
     let disableTransforms = parentOptions.emberDecorators && parentOptions.emberDecorators.disableTransforms;
 
     if (!this._registeredWithBabel && !disableTransforms) {
-      let checker = new VersionChecker(this.parent).for('ember-cli-babel', 'npm');
+      let emberChecker = new VersionChecker(this.app).forEmber();
+      let babelChecker = new VersionChecker(this.parent).for('ember-cli-babel', 'npm');
 
-      if (checker.satisfies('^6.0.0-beta.1')) {
+      if (babelChecker.satisfies('^6.0.0-beta.1')) {
         let TransformDecoratorsLegacy = requireTransform('babel-plugin-transform-decorators-legacy');
         let TransformClassProperties = requireTransform('babel-plugin-transform-class-properties');
+        let EmberLegacyClassConstructor = requireTransform('babel-plugin-ember-legacy-class-constructor');
 
         // Create babel options if they do not exist
         parentOptions.babel = parentOptions.babel || {};
@@ -76,6 +78,10 @@ module.exports = {
 
         if (!hasPlugin('transform-class-properties')) {
           plugins.push(TransformClassProperties);
+        }
+
+        if (!emberChecker.isAbove('2.13.0') && !hasPlugin('ember-legacy-class-constructor')) {
+          plugins.push(EmberLegacyClassConstructor);
         }
       } else {
         app.project.ui.writeWarnLine(
