@@ -1,8 +1,13 @@
 {
-  "coverage": "97.61%",
-  "expectCount": 42,
-  "actualCount": 41,
+  "coverage": "97.82%",
+  "expectCount": 46,
+  "actualCount": 45,
   "files": {
+    "addon/component/index.js": {
+      "expectCount": 4,
+      "actualCount": 4,
+      "undocumentLines": []
+    },
     "addon/controller/index.js": {
       "expectCount": 1,
       "actualCount": 1,
@@ -27,7 +32,7 @@
       "expectCount": 5,
       "actualCount": 4,
       "undocumentLines": [
-        20
+        21
       ]
     },
     "addon/service/index.js": {

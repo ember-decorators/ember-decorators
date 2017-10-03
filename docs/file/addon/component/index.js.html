@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../">
-  <title data-ice="title">addon/controller/index.js | ember-decorators</title>
+  <title data-ice="title">addon/component/index.js | ember-decorators</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -258,28 +258,121 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">addon/controller/index.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import Ember from &apos;ember&apos;;
-import { decoratorWithKeyReflection } from &apos;../utils/decorator-macros&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">addon/component/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { assert } from &apos;@ember/debug&apos;;
+
+import collapseProto from &apos;../utils/collapse-proto&apos;;
+import { decoratedConcatenatedProperty } from &apos;../utils/decorator-macros&apos;;
 
 /**
- * Decorator that wraps `Ember.inject.controller`
+ * Decorator which indicates that the field or computed should be bound
+ * to an attribute value on the component. This replaces `attributeBindings`
+ * by directly allowing you to specify which properties should be bound.
  *
- * Injects a controller into a Controller as the decorated property
+ * ```js
+ * import Component from &apos;@ember/component&apos;;
+ * import { attribute } from &apos;ember-decorators/component&apos;;
+ * import { computed } from &apos;ember-decorators/object&apos;;
  *
- *  ```javascript
- * import Controller from &apos;@ember/controller&apos;;
- * import { controller } from &apos;ember-decorators/controller&apos;;
+ * export default class AttributeDemoComponent extends Component {
+ *   @attribute role = &apos;button&apos;;
  *
- * export default class IndexController extends Controller {
- *   @controller application;
+ *   @attribute
+ *   @computed
+ *   get id() {
+ *     // return generated id
+ *   }
  * }
  * ```
  *
  * @function
- * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used
  */
-export const controller = decoratorWithKeyReflection(Ember.inject.controller);
+export const attribute = decoratedConcatenatedProperty(&apos;attributeBindings&apos;);
+
+/**
+ * Decorator which indicates that the field or computed should be bound to
+ * the component class names. This replaces `classNameBindings` by directly
+ * allowing you to specify which properties should be bound.
+ *
+ * ```js
+ * import Component from &apos;@ember/component&apos;;
+ * import { className } from &apos;ember-decorators/component&apos;;
+ * import { computed } from &apos;ember-decorators/object&apos;;
+ *
+ * export default class ClassNameDemoComponent extends Component {
+ *   @className boundField = &apos;default-class&apos;;
+ *
+ *   @className
+ *   @computed
+ *   get boundComputed() {
+ *     // return generated class
+ *   }
+ * }
+ * ```
+ *
+ * @function
+ */
+export const className = decoratedConcatenatedProperty(&apos;classNameBindings&apos;);
+
+/**
+ * Class decorator which specifies the class names to be applied to a component.
+ * This replaces the `classNames` property on components in the traditional Ember
+ * object model.
+ *
+ * ```js
+ * import Component from &apos;@ember/component&apos;;
+ * import { classNames } from &apos;ember-decorators/component&apos;;
+ *
+ * @classNames(&apos;a-static-class&apos;, &apos;another-static-class&apos;)
+ * export default class ClassNamesDemoComponent extends Component {}
+ * ```
+ *
+ * @param {...String} classNames - The list of classes to be applied to the component
+ */
+export function classNames(...classNames) {
+  assert(`The @classNames decorator must be provided strings, received: ${classNames}`, classNames.reduce((allStrings, name) =&gt; {
+    return allStrings &amp;&amp; typeof name === &apos;string&apos;
+  }, true));
+
+  return function(klass) {
+    let { prototype } = klass;
+
+    collapseProto(prototype);
+
+    if (&apos;classNames&apos; in prototype) {
+      let parentClasses = prototype.classNames;
+      classNames.unshift(...parentClasses);
+    }
+
+    prototype.classNames = classNames;
+
+    return klass;
+  }
+}
+
+/**
+ * Class decorator which specifies the tag name of the component. This replaces
+ * the `tagName` property on components in the traditional Ember object model.
+ *
+ * ```js
+ * import Component from &apos;@ember/component&apos;;
+ * import { tagName } from &apos;ember-decorators/component&apos;;
+ *
+ * @tagName(&apos;button&apos;)
+ * export default class TagNameDemoComponent extends Component {}
+ * ```
+ *
+ * @param {String} tagName - The HTML tag to be used for the component
+ */
+export function tagName(tagName) {
+  assert(`The @tagName decorator must be provided exactly one argument, received: ${tagName}`, arguments.length === 1);
+  assert(`The @tagName decorator must be provided a string, received: ${tagName}`, typeof tagName === &apos;string&apos;);
+
+  return function(klass) {
+    klass.prototype.tagName = tagName;
+    return klass;
+  }
+}
 </code></pre>
 
 </div>
