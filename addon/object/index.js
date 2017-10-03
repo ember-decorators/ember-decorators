@@ -3,6 +3,7 @@ import { DEBUG } from '@glimmer/env';
 import Ember from 'ember';
 import macroComputed from 'ember-macro-helpers/computed';
 
+import collapseProto from '../utils/collapse-proto';
 import extractValue from '../utils/extract-value';
 import {
   decorator,
@@ -49,14 +50,7 @@ export const action = decorator(function(target, key, desc) {
 
   assert('The @action decorator must be applied to functions', typeof value === 'function');
 
-  // We must collapse the superclass prototype to make sure that the `actions`
-  // object will exist. Since collapsing doesn't generally happen until a class is
-  // instantiated, we have to do it manually.
-  let superClass = Object.getPrototypeOf(target.constructor);
-
-  if (superClass.hasOwnProperty('proto') && typeof superClass.proto === 'function') {
-    superClass.proto();
-  }
+  collapseProto(target);
 
   if (HAS_UNDERSCORE_ACTIONS) {
     if (!target.hasOwnProperty('_actions')) {
