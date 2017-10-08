@@ -1,4 +1,6 @@
 import { IS_EMBER_2 } from 'ember-compatibility-helpers';
+import { validationsForKey } from '@ember-decorators/utils/debug';
+
 
 import { decoratorWithParams } from './decorator-wrappers';
 import extractValue from './extract-value';
@@ -72,6 +74,10 @@ export function decoratedPropertyWithEitherCallbackOrProperty(fn) {
 
 export function decoratedConcatenatedProperty(concatProperty) {
   return function(target, key, desc) {
+    // Set these properties as attributes in validation meta so validation
+    // libraries know how to treat them if they are passed into the component
+    validationsForKey(target, key).isAttribute = true;
+
     // Make sure the descriptor is correctly defined, defaults to false
     desc.writable = true;
     desc.configurable = true;

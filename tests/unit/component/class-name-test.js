@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { className } from 'ember-decorators/component';
 import { computed } from 'ember-decorators/object';
+import { validationsForKey } from '@ember-decorators/utils/debug';
 
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent } from 'ember-qunit';
@@ -127,4 +128,12 @@ test('decorator allows attributes to be overriden by subclasses', function(asser
 
   assert.equal(findAll('.foo').length, 1);
   assert.equal(findAll('.bar').length, 1);
+});
+
+test('marks itself as an attribute in validations meta', function(assert) {
+  class FooComponent extends Ember.Component {
+    @className foo = 'foo';
+  }
+
+  assert.equal(validationsForKey(FooComponent.prototype, 'foo').isAttribute, true);
 });
