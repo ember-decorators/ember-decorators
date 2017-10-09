@@ -29,6 +29,21 @@ test('decorator adds attributes to component', function(assert) {
   assert.ok(find('#bar'));
 });
 
+test('attributes can be overriden', function(assert) {
+  class FooComponent extends Ember.Component {
+    @attribute foo = 'button';
+    @attribute bar;
+  }
+
+  this.register('component:foo-component', FooComponent);
+  this.register('template:components/foo-component', hbs`Hello, world!`);
+
+  this.render(hbs`{{foo-component foo="baz" bar="bip"}}`);
+
+  assert.ok(find('[foo="baz"]'));
+  assert.ok(find('[bar="bip"]'));
+});
+
 test('decorator does not add attribute to superclass', function(assert) {
   class FooComponent extends Ember.Component {
     @attribute role = 'button';
