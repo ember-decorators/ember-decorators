@@ -72,6 +72,10 @@ export function decoratedPropertyWithEitherCallbackOrProperty(fn) {
 
 export function decoratedConcatenatedProperty(concatProperty) {
   return function(target, key, desc) {
+    // Make sure the descriptor is correctly defined, defaults to false
+    desc.writable = true;
+    desc.configurable = true;
+
     collapseProto(target);
 
     if (!target.hasOwnProperty(concatProperty)) {

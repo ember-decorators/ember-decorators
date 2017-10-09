@@ -29,6 +29,20 @@ test('decorator adds class to component', function(assert) {
   assert.ok(find('.bar'));
 });
 
+test('class names can be overriden', function(assert) {
+  class FooComponent extends Ember.Component {
+    @className foo = 'button';
+    @className bar;
+  }
+
+  this.register('component:foo-component', FooComponent);
+  this.register('template:components/foo-component', hbs`Hello, world!`);
+
+  this.render(hbs`{{foo-component foo="baz" bar="bip"}}`);
+
+  assert.ok(find('.baz'));
+  assert.ok(find('.bip'));
+});
 
 test('decorator does not add class to superclass', function(assert) {
   class FooComponent extends Ember.Component {
