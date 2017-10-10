@@ -12,7 +12,7 @@ import {
 
 import { decoratorWithRequiredParams } from '../utils/decorator-macros';
 
-import { assert } from '@ember/debug';
+import { assert, deprecate } from '@ember/debug';
 import {
   HAS_UNDERSCORE_ACTIONS,
   SUPPORTS_NEW_COMPUTED
@@ -206,6 +206,11 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
       return emberComputed(...params, callback);
     }
   } else {
+    deprecate(
+      'using @computed with functions directly will be removed in future versions, using ES getter/setter functions instead',
+      false,
+      { until: '2.0.0', id: 'macro-computed-deprecated' }
+    );
     return macroComputed(...params, extractValue(desc));
   }
 });
