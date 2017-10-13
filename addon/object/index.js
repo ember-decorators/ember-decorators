@@ -72,64 +72,13 @@ export const action = decorator(function(target, key, desc) {
 });
 
 /**
- * Decorator that turns a function into a computed property.
- *
- * #### With Dependent Keys
- *
- * The values of the dependent properties are passed as arguments to the
- * function. You can also use
- * [property brace expansion](https://www.emberjs.com/blog/2014/02/12/ember-1-4-0-and-ember-1-5-0-beta-released.html#toc_property-brace-expansion).
- *
- * ```javascript
- * import EmberObject from '@ember/object';
- * import computed from 'ember-decorators/object';
- *
- * export default class User extends EmberObject {
- *   someKey = 'foo';
- *   otherKey = 'bar';
- *
- *   person = {
- *     firstName: 'John',
- *     lastName: 'Smith'
- *   };
- *
- *   @computed('someKey', 'otherKey')
- *   foo(someKey, otherKey) {
- *     return `${someKey} - ${otherKey}`; // => 'foo - bar'
- *   }
- *
- *   @computed('person.{firstName,lastName}')
- *   fullName(firstName, lastName) {
- *     return `${firstName} ${lastName}`; // => 'John Smith'
- *   }
- * }
- * ```
- *
- * #### Without Dependent Keys
- *
- * Computed properties without dependent keys are cached for the whole life span
- * of the object. You can only force a recomputation by calling
- * [`notifyPropertyChange`](https://www.emberjs.com/api/ember/2.14/classes/Ember.Observable/methods/notifyPropertyChange?anchor=notifyPropertyChange)
- * on the computed property.
- *
- * ```javascript
- * import EmberObject from '@ember/object';
- * import computed from 'ember-decorators/object';
- *
- * export default class FooBar extends EmberObject {
- *   @computed
- *   foo() {
- *     // calculate stuff
- *     return stuff;
- *   }
- * }
- * ```
- *
- * #### Getter and Setter
+ * Decorator that turns a function into a computed property. The decorators should
+ * be applied to native getter and setter functions. Note that though they use getters
+ * and setters, you must still use the Ember `get`/`set` functions to get and set their
+ * values.
  *
  * ```javascript
  * import Component from '@ember/component';
- * import { setProperties } from ''@ember/object';
  * import computed from 'ember-decorators/object';
  *
  * export default class UserProfileComponent extends Component {
@@ -137,22 +86,23 @@ export const action = decorator(function(target, key, desc) {
  *   last = 'Smith';
  *
  *   @computed('first', 'last')
- *   name = {
- *     get(first, last) {
- *       return `${first} ${last}`; // => 'John Smith'
- *     },
+ *   get name() {
+ *     const first = this.get('first');
+ *     const last = this.get('last');
  *
- *     set(value, first, last) {
- *       if (typeof value !== 'string' || !value.test(/^[a-z]+ [a-z]+$/i)) {
- *         throw new TypeError('Invalid name');
- *       }
+ *     return `${first} ${last}`; // => 'John Smith'
+ *   }
  *
- *       const [first, last] = value.split(' ');
- *       setProperties(this, { first, last });
- *
- *       return value;
+ *   set name(value) {
+ *     if (typeof value !== 'string' || !value.test(/^[a-z]+ [a-z]+$/i)) {
+ *       throw new TypeError('Invalid name');
  *     }
- *   };
+ *
+ *     const [first, last] = value.split(' ');
+ *     this.setProperties({ first, last });
+ *
+ *     return value;
+ *   }
  * }
  * ```
  *
