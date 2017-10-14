@@ -1,12 +1,9 @@
 import isDescriptor from './is-descriptor';
 
 function handleDescriptor(target, key, desc, fn, params = []) {
-  return {
-    enumerable: desc.enumerable,
-    configurable: desc.configurable,
-    writeable: desc.writeable,
-    value: fn(target, key, desc, params)
-  };
+  desc.value = fn(target, key, desc, params);
+  desc.initializer = undefined; // unset the initializer if it exists
+  return desc;
 }
 
 export function decorator(fn) {
