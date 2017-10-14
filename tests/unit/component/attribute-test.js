@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import { attribute } from 'ember-decorators/component';
 import { computed } from 'ember-decorators/object';
+import { validationsForKey } from '@ember-decorators/utils/debug';
 
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent } from 'ember-qunit';
@@ -119,4 +120,12 @@ test('decorator allows attributes to be overriden by subclasses', function(asser
 
   assert.equal(findAll('[role="button"]').length, 1);
   assert.equal(findAll('[role="list"]').length, 1);
+});
+
+test('marks itself as an attribute in validations meta', function(assert) {
+  class FooComponent extends Ember.Component {
+    @attribute role = 'button';
+  }
+
+  assert.equal(validationsForKey(FooComponent.prototype, 'role').isAttribute, true);
 });
