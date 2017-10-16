@@ -3,6 +3,7 @@ import { IS_EMBER_2 } from 'ember-compatibility-helpers';
 import { decoratorWithParams } from './decorator-wrappers';
 import extractValue from './extract-value';
 import collapseProto from './collapse-proto';
+import normalizeDescriptor from './normalize-descriptor';
 
 import { assert } from '@ember/debug';
 
@@ -72,10 +73,7 @@ export function decoratedPropertyWithEitherCallbackOrProperty(fn) {
 
 export function decoratedConcatenatedProperty(concatProperty) {
   return function(target, key, desc) {
-    // Make sure the descriptor is correctly defined, defaults to false
-    desc.writable = true;
-    desc.configurable = true;
-
+    normalizeDescriptor(desc);
     collapseProto(target);
 
     if (!target.hasOwnProperty(concatProperty)) {

@@ -112,7 +112,7 @@ export const action = decorator(function(target, key, desc) {
 export const computed = decoratorWithParams(function(target, key, desc, params) {
   assert(`ES6 property getters/setters only need to be decorated once, '${key}' was decorated on both the getter and the setter`, !(desc.value instanceof Ember.ComputedProperty));
 
-  if (desc.writable === undefined) {
+  if ('get' in desc || 'set' in desc) {
     let { get, set } = desc;
 
     assert(`Using @computed for only a setter does not make sense. Add a getter for '${key}' as well or remove the @computed decorator.`, typeof get === 'function');
