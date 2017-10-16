@@ -29,6 +29,44 @@ test('decorator adds class to component', function(assert) {
   assert.ok(find('.bar'));
 });
 
+test('decorator applies true/false class names', function(assert) {
+  class FooComponent extends Ember.Component {
+    @className('is-foo') foo = true;
+    @className('', 'is-not-bar') bar = false;
+    @className('', 'inactive') active = true;
+    @className('is-baz') baz = false;
+  }
+
+  this.register('component:foo-component', FooComponent);
+  this.register('template:components/foo-component', hbs`Hello, world!`);
+
+  this.render(hbs`{{foo-component}}`);
+
+  assert.ok(find('.is-foo'));
+  assert.ok(find('.is-not-bar'));
+  assert.notOk(find('.inactive'));
+  assert.notOk(find('.is-baz'));
+});
+
+test('decorator throws on incorrect parameter usage', function(assert) {
+  assert.throws(() => {
+    class Foo extends Ember.Object {
+      @className('is-foo', 'is-bar', 'is-baz') foo = true;
+    }
+
+    Foo.create();
+  }, /The @className decorator may take up to two parameters/);
+
+  assert.throws(() => {
+    class Foo extends Ember.Object {
+      @className('is-foo', 123) foo = true;
+    }
+
+    Foo.create();
+  }, /The @className decorator may only receive strings as parameters/);
+});
+
+
 test('class names can be overriden', function(assert) {
   class FooComponent extends Ember.Component {
     @className foo = 'button';
