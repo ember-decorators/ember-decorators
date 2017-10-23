@@ -262,11 +262,12 @@
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { assert } from &apos;@ember/debug&apos;;
 
 import collapseProto from &apos;../utils/collapse-proto&apos;;
-import { decoratedConcatenatedProperty } from &apos;../utils/decorator-macros&apos;;
+import extractValue from &apos;../utils/extract-value&apos;;
+import { decorator, decoratorWithParams } from &apos;../utils/decorator-wrappers&apos;;
 
 /**
  * Decorator which indicates that the field or computed should be bound
- * to an attribute value on the component. This replaces `attributeBindings`
+ * to an attribute value on the component. This replaces `classNameBindings`
  * by directly allowing you to specify which properties should be bound.
  *
  * ```js
@@ -287,7 +288,18 @@ import { decoratedConcatenatedProperty } from &apos;../utils/decorator-macros&ap
  *
  * @function
  */
-export const attribute = decoratedConcatenatedProperty(&apos;attributeBindings&apos;);
+export const attribute = decorator(function(target, key, desc) {
+  collapseProto(target);
+
+  if (!target.hasOwnProperty(&apos;attributeBindings&apos;)) {
+    let parentValue = target.attributeBindings;
+    target.attributeBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
+  }
+
+  target.attributeBindings.push(key);
+
+  return extractValue(desc);
+});
 
 /**
  * Decorator which indicates that the field or computed should be bound to
@@ -302,6 +314,9 @@ export const attribute = decoratedConcatenatedProperty(&apos;attributeBindings&a
  * export default class ClassNameDemoComponent extends Component {
  *   @className boundField = &apos;default-class&apos;;
  *
+ *   // With provided true/false class names
+ *   @className(&apos;active&apos;, &apos;inactive&apos;) isActive = true;
+ *
  *   @className
  *   @computed
  *   get boundComputed() {
@@ -312,7 +327,23 @@ export const attribute = decoratedConcatenatedProperty(&apos;attributeBindings&a
  *
  * @function
  */
-export const className = decoratedConcatenatedProperty(&apos;classNameBindings&apos;);
+export const className = decoratorWithParams(function(target, key, desc, params) {
+  assert(`The @className decorator may take up to two parameters, the truthy class and falsy class for the class binding. Received: ${params.length}`, params.length &lt;= 2);
+  assert(`The @className decorator may only receive strings as parameters. Received: ${params}`, params.every(s =&gt; typeof s === &apos;string&apos;));
+
+  collapseProto(target);
+
+  if (!target.hasOwnProperty(&apos;classNameBindings&apos;)) {
+    let parentValue = target.classNameBindings;
+    target.classNameBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
+  }
+
+  let binding = params.length &gt; 0 ? `${key}:${params.join(&apos;:&apos;)}` : key ;
+
+  target.classNameBindings.push(binding);
+
+  return extractValue(desc);
+});
 
 /**
  * Class decorator which specifies the class names to be applied to a component.

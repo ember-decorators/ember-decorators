@@ -273,7 +273,7 @@ import {
 
 import { decoratorWithRequiredParams } from &apos;../utils/decorator-macros&apos;;
 
-import { assert } from &apos;@ember/debug&apos;;
+import { assert, deprecate } from &apos;@ember/debug&apos;;
 import {
   HAS_UNDERSCORE_ACTIONS,
   SUPPORTS_NEW_COMPUTED
@@ -333,64 +333,13 @@ export const action = decorator(function(target, key, desc) {
 });
 
 /**
- * Decorator that turns a function into a computed property.
- *
- * #### With Dependent Keys
- *
- * The values of the dependent properties are passed as arguments to the
- * function. You can also use
- * [property brace expansion](https://www.emberjs.com/blog/2014/02/12/ember-1-4-0-and-ember-1-5-0-beta-released.html#toc_property-brace-expansion).
- *
- * ```javascript
- * import EmberObject from &apos;@ember/object&apos;;
- * import computed from &apos;ember-decorators/object&apos;;
- *
- * export default class User extends EmberObject {
- *   someKey = &apos;foo&apos;;
- *   otherKey = &apos;bar&apos;;
- *
- *   person = {
- *     firstName: &apos;John&apos;,
- *     lastName: &apos;Smith&apos;
- *   };
- *
- *   @computed(&apos;someKey&apos;, &apos;otherKey&apos;)
- *   foo(someKey, otherKey) {
- *     return `${someKey} - ${otherKey}`; // =&gt; &apos;foo - bar&apos;
- *   }
- *
- *   @computed(&apos;person.{firstName,lastName}&apos;)
- *   fullName(firstName, lastName) {
- *     return `${firstName} ${lastName}`; // =&gt; &apos;John Smith&apos;
- *   }
- * }
- * ```
- *
- * #### Without Dependent Keys
- *
- * Computed properties without dependent keys are cached for the whole life span
- * of the object. You can only force a recomputation by calling
- * [`notifyPropertyChange`](https://www.emberjs.com/api/ember/2.14/classes/Ember.Observable/methods/notifyPropertyChange?anchor=notifyPropertyChange)
- * on the computed property.
- *
- * ```javascript
- * import EmberObject from &apos;@ember/object&apos;;
- * import computed from &apos;ember-decorators/object&apos;;
- *
- * export default class FooBar extends EmberObject {
- *   @computed
- *   foo() {
- *     // calculate stuff
- *     return stuff;
- *   }
- * }
- * ```
- *
- * #### Getter and Setter
+ * Decorator that turns a function into a computed property. The decorators should
+ * be applied to native getter and setter functions. Note that though they use getters
+ * and setters, you must still use the Ember `get`/`set` functions to get and set their
+ * values.
  *
  * ```javascript
  * import Component from &apos;@ember/component&apos;;
- * import { setProperties } from &apos;&apos;@ember/object&apos;;
  * import computed from &apos;ember-decorators/object&apos;;
  *
  * export default class UserProfileComponent extends Component {
@@ -398,22 +347,23 @@ export const action = decorator(function(target, key, desc) {
  *   last = &apos;Smith&apos;;
  *
  *   @computed(&apos;first&apos;, &apos;last&apos;)
- *   name = {
- *     get(first, last) {
- *       return `${first} ${last}`; // =&gt; &apos;John Smith&apos;
- *     },
+ *   get name() {
+ *     const first = this.get(&apos;first&apos;);
+ *     const last = this.get(&apos;last&apos;);
  *
- *     set(value, first, last) {
- *       if (typeof value !== &apos;string&apos; || !value.test(/^[a-z]+ [a-z]+$/i)) {
- *         throw new TypeError(&apos;Invalid name&apos;);
- *       }
+ *     return `${first} ${last}`; // =&gt; &apos;John Smith&apos;
+ *   }
  *
- *       const [first, last] = value.split(&apos; &apos;);
- *       setProperties(this, { first, last });
- *
- *       return value;
+ *   set name(value) {
+ *     if (typeof value !== &apos;string&apos; || !value.test(/^[a-z]+ [a-z]+$/i)) {
+ *       throw new TypeError(&apos;Invalid name&apos;);
  *     }
- *   };
+ *
+ *     const [first, last] = value.split(&apos; &apos;);
+ *     this.setProperties({ first, last });
+ *
+ *     return value;
+ *   }
  * }
  * ```
  *
@@ -423,7 +373,7 @@ export const action = decorator(function(target, key, desc) {
 export const computed = decoratorWithParams(function(target, key, desc, params) {
   assert(`ES6 property getters/setters only need to be decorated once, &apos;${key}&apos; was decorated on both the getter and the setter`, !(desc.value instanceof Ember.ComputedProperty));
 
-  if (desc.writable === undefined) {
+  if (&apos;get&apos; in desc || &apos;set&apos; in desc) {
     let { get, set } = desc;
 
     assert(`Using @computed for only a setter does not make sense. Add a getter for &apos;${key}&apos; as well or remove the @computed decorator.`, typeof get === &apos;function&apos;);
@@ -467,6 +417,11 @@ export const computed = decoratorWithParams(function(target, key, desc, params) 
       return emberComputed(...params, callback);
     }
   } else {
+    deprecate(
+      &apos;using @computed with functions directly will be removed in future versions, using ES getter/setter functions instead&apos;,
+      false,
+      { until: &apos;2.0.0&apos;, id: &apos;macro-computed-deprecated&apos; }
+    );
     return macroComputed(...params, extractValue(desc));
   }
 });
