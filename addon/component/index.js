@@ -1,11 +1,12 @@
 import { assert } from '@ember/debug';
 
 import collapseProto from '../utils/collapse-proto';
-import { decoratedConcatenatedProperty } from '../utils/decorator-macros';
+import extractValue from '../utils/extract-value';
+import { decorator, decoratorWithParams } from '../utils/decorator-wrappers';
 
 /**
  * Decorator which indicates that the field or computed should be bound
- * to an attribute value on the component. This replaces `attributeBindings`
+ * to an attribute value on the component. This replaces `classNameBindings`
  * by directly allowing you to specify which properties should be bound.
  *
  * ```js
@@ -26,7 +27,18 @@ import { decoratedConcatenatedProperty } from '../utils/decorator-macros';
  *
  * @function
  */
-export const attribute = decoratedConcatenatedProperty('attributeBindings');
+export const attribute = decorator(function(target, key, desc) {
+  collapseProto(target);
+
+  if (!target.hasOwnProperty('attributeBindings')) {
+    let parentValue = target.attributeBindings;
+    target.attributeBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
+  }
+
+  target.attributeBindings.push(key);
+
+  return extractValue(desc);
+});
 
 /**
  * Decorator which indicates that the field or computed should be bound to
@@ -41,6 +53,9 @@ export const attribute = decoratedConcatenatedProperty('attributeBindings');
  * export default class ClassNameDemoComponent extends Component {
  *   @className boundField = 'default-class';
  *
+ *   // With provided true/false class names
+ *   @className('active', 'inactive') isActive = true;
+ *
  *   @className
  *   @computed
  *   get boundComputed() {
@@ -51,7 +66,23 @@ export const attribute = decoratedConcatenatedProperty('attributeBindings');
  *
  * @function
  */
-export const className = decoratedConcatenatedProperty('classNameBindings');
+export const className = decoratorWithParams(function(target, key, desc, params) {
+  assert(`The @className decorator may take up to two parameters, the truthy class and falsy class for the class binding. Received: ${params.length}`, params.length <= 2);
+  assert(`The @className decorator may only receive strings as parameters. Received: ${params}`, params.every(s => typeof s === 'string'));
+
+  collapseProto(target);
+
+  if (!target.hasOwnProperty('classNameBindings')) {
+    let parentValue = target.classNameBindings;
+    target.classNameBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
+  }
+
+  let binding = params.length > 0 ? `${key}:${params.join(':')}` : key ;
+
+  target.classNameBindings.push(binding);
+
+  return extractValue(desc);
+});
 
 /**
  * Class decorator which specifies the class names to be applied to a component.
