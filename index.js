@@ -34,57 +34,75 @@ function hasPlugin(plugins, name) {
 module.exports = {
   name: 'ember-decorators',
 
-  _getParentOptions: function() {
-    let options;
+  init(parent, project) {
+    this._super.init.apply(this, arguments);
 
-    // The parent can either be an Addon or a Project. If it's an addon,
-    // we want to use the app instead. This public method probably wasn't meant
-    // for this, but it's named well enough that we can use it for this purpose.
-    if (this.parent && !this.parent.isEmberCLIProject) {
-      options = this.parent.options = this.parent.options || {};
-    } else {
-      options = this.app.options = this.app.options || {};
+    // Checker works with the actual parent, which may be an Addon or Project.
+    // We have enough information at this point to check the ember-cli-babel
+    // version, so do it.
+    let checker = new VersionChecker(parent).for('ember-cli-babel', 'npm');
+
+    if (!checker.satisfies('^6.0.0-beta.1')) {
+      project.ui.writeWarnLine(
+        'ember-decorators: You are using an unsupported ember-cli-babel version, ' +
+        'decorator/class-property transforms will not be included automatically'
+      );
+
+      // Opt out of registering since the version is incorrect
+      this._registeredWithBabel = true;
     }
 
-    return options;
+    // Parent can either be an Addon or Project. If it is a Project, then ember-decorators is
+    // being included in a root level project and needs to register itself on the EmberApp or
+    // EmberAddon's options instead
+    if (!parent.isEmberCLIProject) {
+      this.registerTransformsWithParent(parent);
+    }
   },
 
   included(app) {
     this._super.included.apply(this, arguments);
 
-    let parentOptions = this._getParentOptions();
+    // This hook only gets called from top level applications. If it is called and the addon
+    // has not already registered itself, it should register itself with the application
+    this.registerTransformsWithParent(app);
+  },
 
-    let disableTransforms = parentOptions.emberDecorators && parentOptions.emberDecorators.disableTransforms;
+  /**
+   * Registers the decorators and class fields transforms with the parent addon or application
+   *
+   * @param {Addon|EmberAddon|EmberApp} parent
+   */
+  registerTransformsWithParent(parent) {
+    if (this._registeredWithBabel) return;
 
-    if (!this._registeredWithBabel && !disableTransforms) {
-      let checker = new VersionChecker(this.parent).for('ember-cli-babel', 'npm');
+    const parentOptions = parent.options = parent.options || {};
+    const decoratorOptions = parentOptions.emberDecorators || {};
 
-      if (checker.satisfies('^6.0.0-beta.1')) {
-        let TransformDecoratorsLegacy = requireTransform('babel-plugin-transform-decorators-legacy');
-        let TransformClassProperties = requireTransform('babel-plugin-transform-class-properties');
-
-        // Create babel options if they do not exist
-        parentOptions.babel = parentOptions.babel || {};
-
-        // Create and pull off babel plugins
-        let plugins = parentOptions.babel.plugins = parentOptions.babel.plugins || [];
-
-        if (!hasPlugin(plugins, 'transform-decorators-legacy')) {
-          // unshift the transform because it always must come before class properties
-          plugins.unshift(TransformDecoratorsLegacy);
-        }
-
-        if (!hasPlugin('transform-class-properties')) {
-          plugins.push(TransformClassProperties);
-        }
-      } else {
-        app.project.ui.writeWarnLine(
-          'ember-decorators: You are using an unsupported ember-cli-babel version,' +
-          'decorator/class-property transforms will not be included automatically'
-        );
-      }
-
+    if (decoratorOptions.disableTransforms === true) {
+      // Opt out of babel transforms
       this._registeredWithBabel = true;
+      return;
     }
+
+    let TransformDecoratorsLegacy = requireTransform('babel-plugin-transform-decorators-legacy');
+    let TransformClassProperties = requireTransform('babel-plugin-transform-class-properties');
+
+    // Create babel options if they do not exist
+    parentOptions.babel = parentOptions.babel || {};
+
+    // Create and pull off babel plugins
+    let plugins = parentOptions.babel.plugins = parentOptions.babel.plugins || [];
+
+    if (!hasPlugin(plugins, 'transform-decorators-legacy')) {
+      // unshift the transform because it always must come before class properties
+      plugins.unshift(TransformDecoratorsLegacy);
+    }
+
+    if (!hasPlugin(plugins, 'transform-class-properties')) {
+      plugins.push(TransformClassProperties);
+    }
+
+    this._registeredWithBabel = true;
   }
 };
