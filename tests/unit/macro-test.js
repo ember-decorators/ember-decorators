@@ -122,11 +122,11 @@ test('bool', function(assert) {
     @bool('null') isNullRad: null
   }).create();
 
-  assert.equal(obj.get('isOneAwesome'),true);
-  assert.equal(obj.get('isZeroSad'),false);
-  assert.equal(obj.get('isStringCool'),true);
-  assert.equal(obj.get('isUndefinedAlright'),false);
-  assert.equal(obj.get('isNullRad'),false);
+  assert.equal(obj.get('isOneAwesome'), true);
+  assert.equal(obj.get('isZeroSad'), false);
+  assert.equal(obj.get('isStringCool'), true);
+  assert.equal(obj.get('isUndefinedAlright'), false);
+  assert.equal(obj.get('isNullRad'), false);
 });
 
 test('collect', function(assert) {
@@ -141,8 +141,8 @@ test('collect', function(assert) {
     @collect('topping', 'shell') quesadilla: null
   }).create();
 
-  assert.deepEqual(obj.get('taco').toArray(),['cheese', 'beef', 'tortilla']);
-  assert.deepEqual(obj.get('quesadilla').toArray(),['cheese', 'tortilla']);
+  assert.deepEqual(obj.get('taco').toArray(), ['cheese', 'beef', 'tortilla']);
+  assert.deepEqual(obj.get('quesadilla').toArray(), ['cheese', 'tortilla']);
 });
 
 test('deprecatingAlias', function(assert) {
@@ -163,7 +163,7 @@ test('empty', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.names = Ember.A(['one','two','three']);
+      this.names = Ember.A(['one', 'two', 'three']);
     },
     @empty('names') hasNames: null
   }).create();
@@ -183,7 +183,7 @@ test('equal', function(assert) {
       this._super(...arguments);
       this.name = 'Tom';
     },
-    @equal('name','Tomster') isMascot: null
+    @equal('name', 'Tomster') isMascot: null
   }).create();
 
   assert.equal(obj.get('isMascot'), false);
@@ -196,10 +196,10 @@ test('filter', function(assert) {
     init() {
       this._super(...arguments);
       this.names = Ember.A([
-        {name:'b', valid: true},
-        {name:'z', valid: true},
-        {name:'a', valid: true},
-        {name:'foo', valid: false}
+        { name: 'b', valid: true },
+        { name: 'z', valid: true },
+        { name: 'a', valid: true },
+        { name: 'foo', valid: false }
       ]);
     },
     @filter('names', function(item) {
@@ -207,7 +207,7 @@ test('filter', function(assert) {
     }) validNames: null
   }).create();
 
-  assert.deepEqual(obj.get('validNames').mapBy('name'), ['b','z','a']);
+  assert.deepEqual(obj.get('validNames').mapBy('name'), ['b', 'z', 'a']);
 });
 
 test('filter (no callback, use descriptor value)', function(assert) {
@@ -215,10 +215,10 @@ test('filter (no callback, use descriptor value)', function(assert) {
     init() {
       this._super(...arguments);
       this.names = Ember.A([
-        {name:'b', valid: true},
-        {name:'z', valid: true},
-        {name:'a', valid: true},
-        {name:'foo', valid: false}
+        { name: 'b', valid: true },
+        { name: 'z', valid: true },
+        { name: 'a', valid: true },
+        { name: 'foo', valid: false }
       ]);
     },
     @filter('names')
@@ -227,7 +227,7 @@ test('filter (no callback, use descriptor value)', function(assert) {
     }
   }).create();
 
-  assert.deepEqual(obj.get('validNames').mapBy('name'), ['b','z','a']);
+  assert.deepEqual(obj.get('validNames').mapBy('name'), ['b', 'z', 'a']);
 });
 
 test('filterBy', function(assert) {
@@ -235,16 +235,16 @@ test('filterBy', function(assert) {
     init() {
       this._super(...arguments);
       this.names = Ember.A([
-        {name:'b', valid: true},
-        {name:'z', valid: true},
-        {name:'a', valid: true},
-        {name:'foo', valid: false}
+        { name: 'b', valid: true },
+        { name: 'z', valid: true },
+        { name: 'a', valid: true },
+        { name: 'foo', valid: false }
       ]);
     },
     @filterBy('names', 'valid') validNames: null
   }).create();
 
-  assert.deepEqual(obj.get('validNames').mapBy('name'), ['b','z','a']);
+  assert.deepEqual(obj.get('validNames').mapBy('name'), ['b', 'z', 'a']);
 });
 
 test('gt', function(assert) {
@@ -284,7 +284,7 @@ test('intersect', function(assert) {
       this.cool = Ember.A(['tacos', 'unicorns', 'pirates']);
       this.rad = Ember.A(['tacos', 'zombies', 'ninjas']);
     },
-    @intersect('cool','rad') coolRad: null
+    @intersect('cool', 'rad') coolRad: null
   }).create();
 
   assert.deepEqual(obj.get('coolRad').toArray(), ['tacos']);
@@ -324,21 +324,21 @@ test('map', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.names = Ember.A(['one','two','three']);
+      this.names = Ember.A(['one', 'two', 'three']);
     },
-    @map('names',  function(name) {
+    @map('names', function(name) {
       return name.toUpperCase() + '!';
     }) loudNames: null
   }).create();
 
-  assert.deepEqual(obj.get('loudNames').toArray(),['ONE!','TWO!','THREE!']);
+  assert.deepEqual(obj.get('loudNames').toArray(), ['ONE!', 'TWO!', 'THREE!']);
 });
 
 test('map (no callback, use descriptor value)', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.names = Ember.A(['one','two','three']);
+      this.names = Ember.A(['one', 'two', 'three']);
     },
     @map('names')
     loudNames(name) {
@@ -346,7 +346,7 @@ test('map (no callback, use descriptor value)', function(assert) {
     }
   }).create();
 
-  assert.deepEqual(obj.get('loudNames').toArray(),['ONE!','TWO!','THREE!']);
+  assert.deepEqual(obj.get('loudNames').toArray(), ['ONE!', 'TWO!', 'THREE!']);
 });
 
 test('mapBy', function(assert) {
@@ -354,15 +354,15 @@ test('mapBy', function(assert) {
     init() {
       this._super(...arguments);
       this.names = Ember.A([
-          {name:'b', valid: true},
-          {name:'z', valid: true},
-          {name:'a', valid: true}
-        ]);
+        { name: 'b', valid: true },
+        { name: 'z', valid: true },
+        { name: 'a', valid: true }
+      ]);
     },
     @mapBy('names', 'name') nameValues: null
   }).create();
 
-  assert.deepEqual(obj.get('nameValues').toArray(), ['b','z','a']);
+  assert.deepEqual(obj.get('nameValues').toArray(), ['b', 'z', 'a']);
 });
 
 test('match', function(assert) {
@@ -384,28 +384,122 @@ test('max', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.values = Ember.A([1,2,3,4,5]);
+      this.values = Ember.A([1, 2, 3, 4, 5]);
     },
     @max('values') maxValue: null
   }).create();
 
-  assert.equal(obj.get('maxValue'),5);
+  assert.equal(obj.get('maxValue'), 5);
   obj.get('values').pushObject(10);
-  assert.equal(obj.get('maxValue'),10);
+  assert.equal(obj.get('maxValue'), 10);
 });
 
 test('min', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.values = Ember.A([5,6,7,8,9,10]);
+      this.values = Ember.A([5, 6, 7, 8, 9, 10]);
     },
     @min('values') minValue: null
   }).create();
 
-  assert.equal(obj.get('minValue'),5);
+  assert.equal(obj.get('minValue'), 5);
   obj.get('values').pushObject(1);
-  assert.equal(obj.get('minValue'),1);
+  assert.equal(obj.get('minValue'), 1);
+});
+
+test('gt(min)', function(assert) {
+  var klass = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.values = Ember.A([5, 6, 7, 8, 9, 10]);
+    },
+    @gt(min('values'), 4) minValueGreaterThan4: null
+  });
+  var obj = klass.create();
+
+  assert.ok(obj.get('minValueGreaterThan4'), 'minValueGreaterThan4 5');
+  obj.get('values').pushObject(1);
+  assert.notOk(obj.get('minValueGreaterThan4'));
+});
+
+test('min/max(mapBy(people, "age"))', function(assert) {
+  const people = Ember.A([
+    { name: "George", age: 5 },
+    { name: "Stella", age: 10 },
+    { name: "Violet", age: 7 }]
+  );
+  var klass = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.people = people;
+    },
+    @max(mapBy('people', 'age')) oldestAge: null,
+    @min(mapBy('people', 'age')) youngestAge: null,
+  });
+  var obj = klass.create();
+
+  assert.equal(obj.get('oldestAge'), people.sortBy('age').get('lastObject.age'));
+  assert.equal(obj.get('youngestAge'), people.sortBy('age').get('firstObject.age'));
+  const zoey = { name: "Zoey", age: 24 };
+  people.pushObject(zoey);
+  const canary = { name: "Canary", age: 2 };
+  people.pushObject(canary);
+  assert.equal(obj.get('oldestAge'), zoey.age);
+  assert.equal(obj.get('youngestAge'), canary.age);
+});
+
+test('bool(min/max(mapBy(people, "age")))', function(assert) {
+  const people = Ember.A([
+    { name: "George", age: 5 },
+    { name: "Stella", age: 10 },
+    { name: "Violet", age: 7 }]
+  );
+  var klass = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.people = people;
+    },
+    @max(mapBy('people', 'age')) oldestAge: null,
+    @bool(max(mapBy('people', 'age'))) isOldestTruthy: null,
+    @min(mapBy('people', 'age')) youngestAge: null,
+    @bool(min(mapBy('people', 'age'))) isYoungestTruthy: null,
+  });
+  var obj = klass.create();
+
+  const sortedAges = people.sortBy('age');
+  assert.equal(obj.get('oldestAge'), sortedAges.get('lastObject.age'));
+  assert.equal(obj.get('isOldestTruthy'), !!sortedAges.get('lastObject.age'));
+  assert.equal(obj.get('youngestAge'), sortedAges.get('firstObject.age'));
+  assert.equal(obj.get('isYoungestTruthy'), !!sortedAges.get('firstObject.age'));
+  const zoey = { name: "Zoey", age: 24 };
+  people.pushObject(zoey);
+  const canary = { name: "Canary", age: 0 };
+  people.pushObject(canary);
+  assert.equal(obj.get('oldestAge'), zoey.age);
+  assert.equal(obj.get('isOldestTruthy'), !!zoey.age);
+  assert.equal(obj.get('youngestAge'), canary.age);
+  assert.equal(obj.get('isYoungestTruthy'), !!canary.age);
+});
+
+test('union(mapBy(people, "age"), mapBy(people, "wistfulAge"), mapBy(people, "dreadedAge"))', function(assert) {
+  const people = Ember.A([
+    { name: "George", age: 5, wistfulAge: 13, dreadedAge: 4 },
+    { name: "Stella", age: 13, wistfulAge: 16, dreadedAge: 16 },
+    { name: "Violet", age: 18, wistfulAge: 21, dreadedAge: 30 }]
+  );
+  var klass = Ember.Object.extend({
+    init() {
+      this._super(...arguments);
+      this.people = people;
+    },
+    @union(mapBy("people", "age"), mapBy("people", "wistfulAge"), mapBy("people", "dreadedAge")) ageRanges: null,
+  });
+  var obj = klass.create();
+
+  const [ages, wistfulAges, dreadedAges] = [people.mapBy('age'), people.mapBy('wistfulAge'), people.mapBy('dreadedAge')];
+  const allAges = Ember.A([...ages, ...wistfulAges, ...dreadedAges]).uniq();
+  assert.deepEqual(obj.get('ageRanges'), allAges);
 });
 
 test('none', function(assert) {
@@ -440,7 +534,7 @@ test('notEmpty', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.names = Ember.A(['one','one','two','three']);
+      this.names = Ember.A(['one', 'one', 'two', 'three']);
     },
     @notEmpty('names') isNamesEmpty: null
   }).create();
@@ -476,7 +570,7 @@ test('or', function(assert) {
     @or('cool', 'rad') orValue: null
   }).create();
 
-  assert.equal(obj.get('orValue'),true);
+  assert.equal(obj.get('orValue'), true);
   obj.set('cool', undefined);
   assert.equal(obj.get('orValue'), 'rad');
 });
@@ -488,7 +582,7 @@ test('readOnly', function(assert) {
       this.userName = 'Brohuda';
     },
     @readOnly
-    @alias('userName') finalName: null
+      @alias('userName') finalName: null
   }).create();
 
   assert.equal(obj.get('finalName'), 'Brohuda');
@@ -523,22 +617,22 @@ test('setDiff', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.numbers = Ember.A(['one','two','three']);
-      this.oddNumbers = Ember.A(['one','three']);
+      this.numbers = Ember.A(['one', 'two', 'three']);
+      this.oddNumbers = Ember.A(['one', 'three']);
     },
     @setDiff('numbers', 'oddNumbers') evenNumbers: null
   }).create();
 
-  assert.deepEqual(obj.get('evenNumbers'),['two']);
+  assert.deepEqual(obj.get('evenNumbers'), ['two']);
 });
 
 test('sort', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.names = Ember.A([{name:'b'},{name:'z'},{name:'a'},{name:'foo'}]);
+      this.names = Ember.A([{ name: 'b' }, { name: 'z' }, { name: 'a' }, { name: 'foo' }]);
     },
-    @sort('names',function(a, b){
+    @sort('names', function(a, b) {
       if (a.name > b.name) {
         return 1;
       } else if (a.name < b.name) {
@@ -550,17 +644,17 @@ test('sort', function(assert) {
     sortedNames: null
   }).create();
 
-  assert.deepEqual(obj.get('sortedNames').mapBy('name'), ['a','b','foo','z']);
+  assert.deepEqual(obj.get('sortedNames').mapBy('name'), ['a', 'b', 'foo', 'z']);
 });
 
 test('sort (no callback, use descriptor value)', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.names = Ember.A([{name:'b'},{name:'z'},{name:'a'},{name:'foo'}]);
+      this.names = Ember.A([{ name: 'b' }, { name: 'z' }, { name: 'a' }, { name: 'foo' }]);
     },
     @sort('names')
-    sortedNames(a, b){
+    sortedNames(a, b) {
       if (a.name > b.name) {
         return 1;
       } else if (a.name < b.name) {
@@ -571,7 +665,7 @@ test('sort (no callback, use descriptor value)', function(assert) {
     }
   }).create();
 
-  assert.deepEqual(obj.get('sortedNames').mapBy('name'), ['a','b','foo','z']);
+  assert.deepEqual(obj.get('sortedNames').mapBy('name'), ['a', 'b', 'foo', 'z']);
 });
 
 if (IS_EMBER_2) {
@@ -579,7 +673,7 @@ if (IS_EMBER_2) {
     var obj = Ember.Object.extend({
       init() {
         this._super(...arguments);
-        this.names = Ember.A([{name:'b'},{name:'z'},{name:'a'},{name:'foo'}]);
+        this.names = Ember.A([{ name: 'b' }, { name: 'z' }, { name: 'a' }, { name: 'foo' }]);
       },
 
       sorts: ['name:asc'],
@@ -588,7 +682,7 @@ if (IS_EMBER_2) {
     }).create();
 
     var actual = obj.get('sortedNames').mapBy('name');
-    assert.deepEqual(actual, ['a','b','foo','z']);
+    assert.deepEqual(actual, ['a', 'b', 'foo', 'z']);
   });
 
   test('sort (no callback, use property value, es6)', function(assert) {
@@ -596,7 +690,7 @@ if (IS_EMBER_2) {
       constructor() {
         super();
 
-        this.names = Ember.A([{name:'b'},{name:'z'},{name:'a'},{name:'foo'}]);
+        this.names = Ember.A([{ name: 'b' }, { name: 'z' }, { name: 'a' }, { name: 'foo' }]);
       }
 
       sorts = ['name:asc'];
@@ -604,7 +698,7 @@ if (IS_EMBER_2) {
     }
 
     var actual = new TestSort().get('sortedNames').mapBy('name');
-    assert.deepEqual(actual, ['a','b','foo','z']);
+    assert.deepEqual(actual, ['a', 'b', 'foo', 'z']);
   });
 }
 
@@ -613,7 +707,7 @@ test('sum', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.things = Ember.A([1,2,3]);
+      this.things = Ember.A([1, 2, 3]);
     },
     @sum('things') countTotal: null
   }).create();
@@ -627,25 +721,25 @@ test('union', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.names = Ember.A(['one','one','two','three']);
+      this.names = Ember.A(['one', 'one', 'two', 'three']);
       this.numbers = Ember.A(['twenty', 'two']);
     },
     @union('names', 'numbers') unionNames: null
   }).create();
 
-  assert.deepEqual(obj.get('unionNames').toArray(),['one','two','three','twenty']);
+  assert.deepEqual(obj.get('unionNames').toArray(), ['one', 'two', 'three', 'twenty']);
 });
 
 test('uniq', function(assert) {
   var obj = Ember.Object.extend({
     init() {
       this._super(...arguments);
-      this.names = Ember.A(['one','one','two','three']);
+      this.names = Ember.A(['one', 'one', 'two', 'three']);
     },
     @uniq('names') uniqNames: null
   }).create();
 
-  assert.deepEqual(obj.get('uniqNames').toArray(),['one','two','three']);
+  assert.deepEqual(obj.get('uniqNames').toArray(), ['one', 'two', 'three']);
 });
 
 if (hasEmberVersion(2, 7)) {
@@ -655,10 +749,10 @@ if (hasEmberVersion(2, 7)) {
         this._super(...arguments);
         this.fruits = Ember.A([
           { name: 'banana', color: 'yellow' },
-          { name: 'apple',  color: 'red' },
-          { name: 'kiwi',   color: 'brown' },
+          { name: 'apple', color: 'red' },
+          { name: 'kiwi', color: 'brown' },
           { name: 'cherry', color: 'red' },
-          { name: 'lemon',  color: 'yellow' }
+          { name: 'lemon', color: 'yellow' }
         ]);
       },
       @uniqBy('fruits', 'color') oneOfEachColor: null
@@ -667,9 +761,9 @@ if (hasEmberVersion(2, 7)) {
     assert.deepEqual(
       obj.get('oneOfEachColor').toArray(),
       [
-        { name: 'banana', color: 'yellow'},
-        { name: 'apple',  color: 'red'},
-        { name: 'kiwi',   color: 'brown'}
+        { name: 'banana', color: 'yellow' },
+        { name: 'apple', color: 'red' },
+        { name: 'kiwi', color: 'brown' }
       ]
     );
   }, 'is available in Ember 2.7+ and works correctly');

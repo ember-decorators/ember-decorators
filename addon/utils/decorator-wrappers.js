@@ -24,8 +24,17 @@ export function decoratorWithParams(fn) {
     if (isDescriptor(params[params.length - 1])) {
       return handleDescriptor(...arguments, fn);
     } else {
-      return function(/* target, key, desc */) {
-        return handleDescriptor(...arguments, fn, params);
+      return function(target, key, desc) {
+        const hasDecorator = (typeof params[0]) === "function";
+        const decorators = hasDecorator ? params.filter(param => (typeof param) === "function") : [];
+        const nonDecorators = hasDecorator ? params.filter(param => (typeof param) !== "function") : params;
+        const newProperties = decorators.map((func, index) => {
+          const prop = `_private_${key}_${index}`;
+          Object.defineProperty(target, prop, func(target, prop, desc));
+          return prop;
+        });
+        const properties = [...newProperties, ...nonDecorators];
+        return handleDescriptor(...arguments, fn, properties);
       };
     }
   };
