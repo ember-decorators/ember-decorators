@@ -472,7 +472,7 @@ be applied to native getter and setter functions. Note that though they use gett
 and setters, you must still use the Ember <code>get</code>/<code>set</code> functions to get and set their
 values.</p>
 <pre><code class="lang-javascript"><code class="source-code prettyprint">import Component from &apos;@ember/component&apos;;
-import computed from &apos;ember-decorators/object&apos;;
+import { computed } from &apos;ember-decorators/object&apos;;
 
 export default class UserProfileComponent extends Component {
   first = &apos;John&apos;;

@@ -300,7 +300,9 @@ export default class ExampleComponent extends Component {
   @service foo
 
   @computed(&apos;someKey&apos;, &apos;otherKey&apos;)
-  bar(someKey, otherKey) {
+  get bar() {
+    const someKey = this.get(&apos;someKey&apos;);
+    const otherKey = this.get(&apos;otherKey&apos;);
     return `${someKey} - ${otherKey}`;
   }
 
