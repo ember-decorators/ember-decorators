@@ -263,7 +263,7 @@
 
 import collapseProto from &apos;../utils/collapse-proto&apos;;
 import extractValue from &apos;../utils/extract-value&apos;;
-import { decorator, decoratorWithParams } from &apos;../utils/decorator-wrappers&apos;;
+import { decoratorWithParams } from &apos;../utils/decorator-wrappers&apos;;
 
 /**
  * Decorator which indicates that the field or computed should be bound
@@ -278,6 +278,9 @@ import { decorator, decoratorWithParams } from &apos;../utils/decorator-wrappers
  * export default class AttributeDemoComponent extends Component {
  *   @attribute role = &apos;button&apos;;
  *
+ *   // With provided attribute name
+ *   @attribute(&apos;data-foo&apos;) foo = &apos;lol&apos;;
+ *
  *   @attribute
  *   @computed
  *   get id() {
@@ -288,7 +291,10 @@ import { decorator, decoratorWithParams } from &apos;../utils/decorator-wrappers
  *
  * @function
  */
-export const attribute = decorator(function(target, key, desc) {
+export const attribute = decoratorWithParams(function(target, key, desc, params) {
+  assert(`The @attribute decorator may take up to one parameter, the bound attribute name. Received: ${params.length}`, params.length &lt;= 1);
+  assert(`The @attribute decorator may only receive strings as parameters. Received: ${params}`, params.every(s =&gt; typeof s === &apos;string&apos;));
+
   collapseProto(target);
 
   if (!target.hasOwnProperty(&apos;attributeBindings&apos;)) {
@@ -296,7 +302,9 @@ export const attribute = decorator(function(target, key, desc) {
     target.attributeBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
   }
 
-  target.attributeBindings.push(key);
+  let binding = params[0] ? `${key}:${params[0]}` : key;
+
+  target.attributeBindings.push(binding);
 
   return extractValue(desc);
 });
