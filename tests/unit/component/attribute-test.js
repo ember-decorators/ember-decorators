@@ -13,6 +13,8 @@ test('decorator adds attributes to component', function(assert) {
   class FooComponent extends Ember.Component {
     @attribute role = 'button';
 
+    @attribute('data-foo') foo = 'lol';
+
     @attribute
     @computed
     get id() {
@@ -26,6 +28,7 @@ test('decorator adds attributes to component', function(assert) {
   this.render(hbs`{{foo-component}}`);
 
   assert.ok(find('[role="button"]'));
+  assert.ok(find('[data-foo="lol"]'));
   assert.ok(find('#bar'));
 });
 
