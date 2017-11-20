@@ -1,6 +1,11 @@
 /* eslint-env node */
 'use strict';
 
-module.exports = {
-  name: 'ember-decorators'
-};
+const BabelTransforms = require('@ember-decorators/babel-transforms');
+
+module.exports = Object.create(BabelTransforms, {
+  name: {
+    enumerable: true,
+    value: 'ember-decorators'
+  }
+});
