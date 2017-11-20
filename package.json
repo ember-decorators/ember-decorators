@@ -21,12 +21,12 @@
     "test": "ember try:each"
   },
   "dependencies": {
+    "@ember-decorators/babel-transforms": "^0.0.0",
     "ember-cli-babel": "^6.0.0",
     "ember-compatibility-helpers": "^0.1.0",
     "ember-macro-helpers": "^0.16.0"
   },
   "devDependencies": {
-    "@ember-decorators/babel-transforms": "^0.0.0",
     "babel-eslint": "^7.2.3",
     "broccoli-asset-rev": "^2.4.5",
     "ember-cli": "2.13.2",
