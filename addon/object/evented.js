@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 import {
   decoratorWithRequiredParams
-} from '../utils/decorator-macros';
+} from '@ember-decorators/utils/decorator-macros';
 
 
 /**

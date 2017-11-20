@@ -29,6 +29,7 @@
     "ember-macro-helpers": "^0.16.0"
   },
   "devDependencies": {
+    "@ember-decorators/utils": "^0.2.0",
     "babel-eslint": "^7.2.3",
     "broccoli-asset-rev": "^2.4.5",
     "ember-cli": "2.13.2",

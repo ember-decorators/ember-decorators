@@ -3,14 +3,14 @@ import { DEBUG } from '@glimmer/env';
 import Ember from 'ember';
 import macroComputed from 'ember-macro-helpers/computed';
 
-import collapseProto from '../utils/collapse-proto';
-import extractValue from '../utils/extract-value';
+import collapseProto from '@ember-decorators/utils/collapse-proto';
+import extractValue from '@ember-decorators/utils/extract-value';
 import {
   decorator,
   decoratorWithParams
-} from '../utils/decorator-wrappers';
+} from '@ember-decorators/utils/decorator-wrappers';
 
-import { decoratorWithRequiredParams } from '../utils/decorator-macros';
+import { decoratorWithRequiredParams } from '@ember-decorators/utils/decorator-macros';
 
 import { assert, deprecate } from '@ember/debug';
 import {

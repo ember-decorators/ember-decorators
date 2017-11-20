@@ -1,8 +1,8 @@
 import { assert } from '@ember/debug';
 
-import collapseProto from '../utils/collapse-proto';
-import extractValue from '../utils/extract-value';
-import { decoratorWithParams } from '../utils/decorator-wrappers';
+import collapseProto from '@ember-decorators/utils/collapse-proto';
+import extractValue from '@ember-decorators/utils/extract-value';
+import { decoratorWithParams } from '@ember-decorators/utils/decorator-wrappers';
 
 /**
  * Decorator which indicates that the field or computed should be bound
