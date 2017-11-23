@@ -121,7 +121,6 @@ highly recommended that you read the documentation for that addon as well.
 * `git clone <repository-url>` this repository
 * `cd ember-decorators`
 * `npm install`
-* `bower install`
 
 ## Running
 
