@@ -21,6 +21,14 @@ module.exports = {
   included(parent) {
     this._super.included.apply(this, arguments);
 
+    if (!('@ember-decorators/babel-transforms' in this.parent.addonPackages)) {
+      parent.project.ui.writeWarnLine(
+        'ember-decorators: You have not installed @ember-decorators/babel-transforms. ' +
+        '@ember-decorators/babel-transforms has been extracted to a separate addon. See instructions for installation:' +
+        'https://github.com/ember-decorators/babel-transforms#readme'
+      );
+    }
+
     // shim support for `emberDecorators.disableTransforms` and forward the
     // setting to `@ember-decorators/babel-transforms.disable`
     if (parent.options && parent.options.emberDecorators && parent.options.emberDecorators.disableTransforms) {
