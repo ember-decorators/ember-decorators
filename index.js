@@ -77,6 +77,13 @@ module.exports = {
         if (!hasPlugin('transform-class-properties')) {
           plugins.push(TransformClassProperties);
         }
+
+        if (!('@ember-decorators/babel-transforms' in this.parent.addonPackages)) {
+          app.project.ui.writeWarnLine(
+            'ember-decorators: You have not installed @ember-decorators/babel-transforms. ' +
+            '@ember-decorators/babel-transforms has been extracted to a separate addon.  See instructions for installation.'
+          );
+        }
       } else {
         app.project.ui.writeWarnLine(
           'ember-decorators: You are using an unsupported ember-cli-babel version,' +
