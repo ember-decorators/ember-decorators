@@ -4,6 +4,9 @@ import {
   hasMany,
   belongsTo
 } from 'ember-decorators/data';
+import { run } from '@ember/runloop';
+import { get } from '@ember/object';
+import { createStore } from '../helpers/store'; 
 
 import { module, test } from 'qunit';
 
@@ -14,7 +17,7 @@ test('DS macro', function(assert) {
     @attr firstName: null,
     @attr({ defaultTo: 'blue' }) lastName: null,
     @attr('number') age: null,
-    @hasMany user: null,
+    @hasMany users: null,
     @belongsTo car: null
   });
 
@@ -36,30 +39,33 @@ test('DS macro', function(assert) {
   ]);
 
   let relationships = [];
-  ObjectModel.eachRelationship(function(attr) {
-    relationships.push(attr);
+  ObjectModel.eachRelationship(function(attr, meta) {
+    relationships.push({key: attr, type: meta.type});
   });
 
-  assert.deepEqual(relationships, ['user', 'car']);
+  assert.deepEqual(relationships, [
+    {key: 'users', type: 'user'},
+    {key: 'car', type: 'car'}
+  ]);
 });
 
-test('DS macro with ES6 class', function(assert) {
-  class ES6 extends Model {
+test('DS macro with User class', function(assert) {
+  class User extends Model {
     @attr firstName;
     @attr({ defaultTo: 'blue' }) lastName;
     @attr('number') age;
-    @hasMany('user') users;
-    @belongsTo car;
+    @hasMany cars;
+    @belongsTo parent;
   }
 
-  ES6.store = {
+  User.store = {
     modelFor(typeKey) {
       return typeKey;
     }
   };
 
   let attributes = [];
-  ES6.eachAttribute(function(attr, meta) {
+  User.eachAttribute(function(attr, meta) {
     attributes.push({name: attr, type: meta.type});
   });
 
@@ -67,53 +73,39 @@ test('DS macro with ES6 class', function(assert) {
     {name: 'firstName', type: undefined},
     {name: 'lastName',  type: undefined},
     {name: 'age',       type: 'number'}
-  ]);
+  ], 'user attributes are correct');
 
   let relationships = [];
-  ES6.eachRelationship(function(attr, meta) {
+  User.eachRelationship(function(attr, meta) {
     relationships.push({key: attr, type: meta.type});
   });
 
   assert.deepEqual(relationships, [
-    {key: 'users', type: 'user'},
-    {key: 'car', type: 'car'}
+    {key: 'cars', type: 'car'},
+    {key: 'parent', type: 'parent'}
   ]);
 });
 
-test('DS macro with multiple ES6 classes', function(assert) {
-  class Storefront extends Model {
-    @attr address;
-    @hasMany('user') users;
-    @belongsTo car;
+test('DS macro with multiple classes', function(assert) {
+  class Car extends Model {
+    @attr('boolean') electric;
   }
 
   class User extends Model {
     @attr name;
     @attr('number') age;
-    @hasMany('storefront') storefronts;
+    @hasMany cars;
   }
 
-  // Storefront
   let attributes = [];
-  Storefront.eachAttribute(function(attr, meta) {
+  Car.eachAttribute(function(attr, meta) {
     attributes.push({name: attr, type: meta.type});
   });
 
   assert.deepEqual(attributes, [
-    {name: 'address', type: undefined},
-  ]);
+    {name: 'electric', type: 'boolean'},
+  ], 'Car attributes are correct');
 
-  let relationships = [];
-  Storefront.eachRelationship(function(attr, meta) {
-    relationships.push({key: attr, type: meta.type});
-  });
-
-  assert.deepEqual(relationships, [
-    {key: 'users', type: 'user'},
-    {key: 'car', type: 'car'}
-  ]);
-
-  // User
   let user_attributes = [];
   User.eachAttribute(function(attr, meta) {
     user_attributes.push({name: attr, type: meta.type});
@@ -122,7 +114,7 @@ test('DS macro with multiple ES6 classes', function(assert) {
   assert.deepEqual(user_attributes, [
     {name: 'name', type: undefined},
     {name: 'age',  type: 'number'}
-  ]);
+  ], 'User attributes are correct');
 
   let user_relationships = [];
   User.eachRelationship(function(attr, meta) {
@@ -130,6 +122,52 @@ test('DS macro with multiple ES6 classes', function(assert) {
   });
 
   assert.deepEqual(user_relationships, [
-    {key: 'storefronts', type: 'storefront'}
-  ]);
+    {key: 'cars', type: 'car'}
+  ], 'User relationships are correct');
+});
+
+test('can find records in store', function(assert) {
+  class Tag extends Model {
+    @attr name;
+    @hasMany users;
+  }
+
+  class User extends Model {
+    @attr name;
+    @belongsTo tag;
+  }
+
+  let store = createStore({ tag: Tag, user: User });
+
+  run(() => {
+    store.push({
+      data: [{
+        type: 'tag',
+        id: '5',
+        attributes: {
+          name: 'friendly'
+        }
+      }, {
+        type: 'user',
+        id: '1',
+        attributes: {
+          name: 'Tom Dale'
+        },
+        relationships: {
+          // tag: {
+          //   data: { type: 'tag', id: '5' }
+          // }
+        }
+      }]
+    });
+  });
+
+  return run(() => {
+    const tag = store.peekRecord('tag', 5);
+    assert.equal(get(tag, 'name'), 'friendly', 'retrieves tag record from store');
+    const user = store.peekRecord('user', 1);
+    assert.equal(get(user, 'name'), 'Tom Dale', 'retrieves user record from store');
+    // assert.equal(get(user, 'tag') instanceof Tag, true, 'the tag property should return a tag');
+    // assert.equal(get(user, 'tag.name'), 'friendly', 'the tag shuld have name');
+  });
 });
