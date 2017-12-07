@@ -144,7 +144,52 @@ test('DS macro with multiple classes', function(assert) {
   ], 'User relationships are correct');
 });
 
-test('can find records in store', function(assert) {
+test('can find records in store with object protos', function(assert) {
+  let Tag = Model.extend({
+    @attr name: null,
+    @hasMany users: null
+  });
+
+  let User = Model.extend({
+    @attr name: null,
+    @belongsTo tag: null
+  });
+
+  let store = createStore({ tag: Tag, user: User });
+
+  run(() => {
+    store.push({
+      data: [{
+        type: 'tag',
+        id: '5',
+        attributes: {
+          name: 'friendly'
+        }
+      }, {
+        type: 'user',
+        id: '1',
+        attributes: {
+          name: 'Tom Dale'
+        },
+        relationships: {
+          tag: {
+            data: { type: 'tag', id: '5' }
+          }
+        }
+      }]
+    });
+  });
+
+  return run(() => {
+    const tag = store.peekRecord('tag', 5);
+    assert.equal(get(tag, 'name'), 'friendly', 'retrieves tag record from store');
+    const user = store.peekRecord('user', 1);
+    assert.equal(get(user, 'name'), 'Tom Dale', 'retrieves user record from store');
+    assert.equal(get(user, 'tag.name'), 'friendly', 'the tag should have name');
+  });
+});
+
+test('can find records in store with ES6 classes', function(assert) {
   class Tag extends Model {
     @attr name;
     @hasMany users;
@@ -171,11 +216,11 @@ test('can find records in store', function(assert) {
         attributes: {
           name: 'Tom Dale'
         },
-        relationships: {
-          // tag: {
-          //   data: { type: 'tag', id: '5' }
-          // }
-        }
+        // relationships: {
+        //   tag: {
+        //     data: { type: 'tag', id: '5' }
+        //   }
+        // }
       }]
     });
   });
@@ -186,6 +231,6 @@ test('can find records in store', function(assert) {
     const user = store.peekRecord('user', 1);
     assert.equal(get(user, 'name'), 'Tom Dale', 'retrieves user record from store');
     // assert.equal(get(user, 'tag') instanceof Tag, true, 'the tag property should return a tag');
-    // assert.equal(get(user, 'tag.name'), 'friendly', 'the tag shuld have name');
+    // assert.equal(get(user, 'tag.name'), 'friendly', 'the tag should have name');
   });
 });
