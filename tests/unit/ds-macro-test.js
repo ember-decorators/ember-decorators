@@ -21,14 +21,8 @@ test('DS macro', function(assert) {
     @belongsTo car: null
   });
 
-  ObjectModel.store = {
-    modelFor(typeKey) {
-      return typeKey;
-    }
-  };
-
   let attributes = [];
-  ObjectModel.eachAttribute(function(attr, meta) {
+  ObjectModel.eachAttribute((attr, meta) => {
     attributes.push({name: attr, type: meta.type});
   });
 
@@ -39,7 +33,7 @@ test('DS macro', function(assert) {
   ]);
 
   let relationships = [];
-  ObjectModel.eachRelationship(function(attr, meta) {
+  ObjectModel.eachRelationship((attr, meta) => {
     relationships.push({key: attr, type: meta.type});
   });
 
@@ -58,14 +52,8 @@ test('DS macro with User class', function(assert) {
     @belongsTo parent;
   }
 
-  User.store = {
-    modelFor(typeKey) {
-      return typeKey;
-    }
-  };
-
   let attributes = [];
-  User.eachAttribute(function(attr, meta) {
+  User.eachAttribute((attr, meta) => {
     attributes.push({name: attr, type: meta.type});
   });
 
@@ -76,13 +64,43 @@ test('DS macro with User class', function(assert) {
   ], 'user attributes are correct');
 
   let relationships = [];
-  User.eachRelationship(function(attr, meta) {
+  User.eachRelationship((attr, meta) => {
     relationships.push({key: attr, type: meta.type});
   });
 
   assert.deepEqual(relationships, [
     {key: 'cars', type: 'car'},
     {key: 'parent', type: 'parent'}
+  ]);
+});
+
+test('User class with dasherized type', function(assert) {
+  class MyUser extends Model {
+    @hasMany blogPosts;
+  }
+
+  let relationships = [];
+  MyUser.eachRelationship((attr, meta) => {
+    relationships.push({key: attr, type: meta.type});
+  });
+
+  assert.deepEqual(relationships, [
+    {key: 'blogPosts', type: 'blog-post'}
+  ]);
+});
+
+test('User class with a different type', function(assert) {
+  class MyUser extends Model {
+    @hasMany('blogger') blogPosts;
+  }
+
+  let relationships = [];
+  MyUser.eachRelationship((attr, meta) => {
+    relationships.push({key: attr, type: meta.type});
+  });
+
+  assert.deepEqual(relationships, [
+    {key: 'blogPosts', type: 'blogger'}
   ]);
 });
 
@@ -98,7 +116,7 @@ test('DS macro with multiple classes', function(assert) {
   }
 
   let attributes = [];
-  Car.eachAttribute(function(attr, meta) {
+  Car.eachAttribute((attr, meta) => {
     attributes.push({name: attr, type: meta.type});
   });
 
@@ -107,7 +125,7 @@ test('DS macro with multiple classes', function(assert) {
   ], 'Car attributes are correct');
 
   let user_attributes = [];
-  User.eachAttribute(function(attr, meta) {
+  User.eachAttribute((attr, meta) => {
     user_attributes.push({name: attr, type: meta.type});
   });
 
@@ -117,7 +135,7 @@ test('DS macro with multiple classes', function(assert) {
   ], 'User attributes are correct');
 
   let user_relationships = [];
-  User.eachRelationship(function(attr, meta) {
+  User.eachRelationship((attr, meta) => {
     user_relationships.push({key: attr, type: meta.type});
   });
 
