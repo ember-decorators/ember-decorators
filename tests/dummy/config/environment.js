@@ -1,8 +1,8 @@
 /* eslint-env node */
-'use-strict';
+'use strict';
 
 module.exports = function(environment) {
-  var ENV = {
+  let ENV = {
     modulePrefix: 'dummy',
     environment,
     rootURL: '/',
@@ -46,7 +46,6 @@ module.exports = function(environment) {
   if (environment === 'production') {
     ENV.locationType = 'hash';
     ENV.rootURL = '/ember-decorators/';
-
   }
 
   return ENV;
