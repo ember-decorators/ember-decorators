@@ -1,6 +1,6 @@
 import DS from 'ember-data';
-import { decoratorWithParams } from '../utils/decorator-wrappers';
-import { decoratorWithKeyReflection } from '../utils/decorator-macros';
+import { decoratorWithParams } from '@ember-decorators/utils/decorator-wrappers';
+import { decoratorWithKeyReflection } from '@ember-decorators/utils/decorator-macros';
 
 /**
  * Decorator that turns the property into an Ember Data attribute

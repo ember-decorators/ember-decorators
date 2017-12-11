@@ -4,7 +4,7 @@ import {
   decoratedPropertyWithRequiredParams,
   decoratedPropertyWithOptionalCallback,
   decoratedPropertyWithEitherCallbackOrProperty
-} from '../utils/decorator-macros';
+} from '@ember-decorators/utils/decorator-macros';
 
 import {
   SUPPORTS_UNIQ_BY_COMPUTED

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import { decoratorWithKeyReflection } from '../utils/decorator-macros';
+import { decoratorWithKeyReflection } from '@ember-decorators/utils/decorator-macros';
 
 /**
  * Decorator that wraps `Ember.inject.controller`
