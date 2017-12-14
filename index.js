@@ -21,7 +21,9 @@ module.exports = {
   included(parent) {
     this._super.included.apply(this, arguments);
 
-    if (!('@ember-decorators/babel-transforms' in this.parent.addonPackages)) {
+    const addons = parent.addonPackages || parent.dependencies && parent.dependencies() || {};
+
+    if (!('@ember-decorators/babel-transforms' in addons)) {
       parent.project.ui.writeWarnLine(
         'ember-decorators (used in ' + parent.name +
         '): You have not installed @ember-decorators/babel-transforms. ' +
