@@ -1,7 +1,7 @@
 /* eslint-env node */
 'use strict';
 
-const setupBabel = require('@ember-decorators/babel-transforms/setup-babel');
+const setupBabel = require('@ember-decorators/babel-transforms/private/setup-babel');
 
 module.exports = {
   name: 'ember-decorators',
