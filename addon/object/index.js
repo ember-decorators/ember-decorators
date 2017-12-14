@@ -18,7 +18,10 @@ import {
   SUPPORTS_NEW_COMPUTED
 } from 'ember-compatibility-helpers';
 
-const { computed: emberComputed } = Ember;
+const { 
+  computed: emberComputed,
+  run: { bind }
+} = Ember;
 
 /**
  * Decorator that turns the target function into an Action
@@ -68,7 +71,7 @@ export const action = decorator(function(target, key, desc) {
     target.actions[key] = value;
   }
 
-  return value;
+  return bind(target, value);
 });
 
 /**

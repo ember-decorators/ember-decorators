@@ -26,9 +26,11 @@ test('action decorator works with standard Ember Object model', function(assert)
 
 
 test('action decorator works with ES6 class', function(assert) {
+  assert.expect(2);
   this.register('component:foo-bar', class FooComponent extends Ember.Component {
     @action
     foo() {
+      assert.ok(this instanceof FooComponent);
       assert.ok(true, 'called!');
     }
   });
