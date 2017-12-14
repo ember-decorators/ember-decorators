@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/ember-decorators.svg)](https://badge.fury.io/js/ember-decorators)
 [![Build Status](https://travis-ci.org/ember-decorators/ember-decorators.svg?branch=master)](https://travis-ci.org/ember-decorators/ember-decorators)
-![Ember Version](https://embadge.io/v1/badge.svg?start=2.4.0)
+![Ember Version](https://embadge.io/v1/badge.svg?start=1.11.0)
 
 This addon adds decorator support to Ember, allowing you to DRY-up your code and write modern ES6 classes.
 
