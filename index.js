@@ -23,7 +23,8 @@ module.exports = {
 
     if (!('@ember-decorators/babel-transforms' in this.parent.addonPackages)) {
       parent.project.ui.writeWarnLine(
-        'ember-decorators: You have not installed @ember-decorators/babel-transforms. ' +
+        'ember-decorators (used in ' + parent.name +
+        '): You have not installed @ember-decorators/babel-transforms. ' +
         'It has been extracted to a separate addon. See instructions for installation: ' +
         'https://github.com/ember-decorators/babel-transforms#readme'
       );
