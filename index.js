@@ -6,6 +6,18 @@ const setupBabel = require('@ember-decorators/babel-transforms/setup-babel');
 module.exports = {
   name: 'ember-decorators',
 
+  // The addon code itself uses no decorators, therefore we can disable
+  // `@ember-decorators/babel-transforms`. The only reason this addon is added
+  // as a `dependency` (as opposed to `devDependency`) is that we need to shim
+  // support for transpilation in the consuming app or addon, since it was
+  // originally done inside of `ember-decorators`, but was later extracted into
+  // `@ember-decorators/babel-transforms`.
+  options: {
+    '@ember-decorators/babel-transforms': {
+      disable: true
+    }
+  },
+
   included(parent) {
     this._super.included.apply(this, arguments);
 
