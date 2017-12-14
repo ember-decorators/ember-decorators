@@ -28,22 +28,22 @@ module.exports = {
         'It has been extracted to a separate addon. See instructions for installation: ' +
         'https://github.com/ember-decorators/babel-transforms#readme'
       );
-    }
 
-    // shim support for `emberDecorators.disableTransforms` and forward the
-    // setting to `@ember-decorators/babel-transforms.disable`
-    if (parent.options && parent.options.emberDecorators && parent.options.emberDecorators.disableTransforms) {
-      parent.options['@ember-decorators/babel-transforms'] = parent.options['@ember-decorators/babel-transforms'] || {};
-      parent.options['@ember-decorators/babel-transforms'].disable = true;
-    }
+      // shim support for `emberDecorators.disableTransforms` and forward the
+      // setting to `@ember-decorators/babel-transforms.disable`
+      if (parent.options && parent.options.emberDecorators && parent.options.emberDecorators.disableTransforms) {
+        parent.options['@ember-decorators/babel-transforms'] = parent.options['@ember-decorators/babel-transforms'] || {};
+        parent.options['@ember-decorators/babel-transforms'].disable = true;
+      }
 
-    const isDisabled = parent.options &&
-      parent.options['@ember-decorators/babel-transforms'] &&
-      parent.options['@ember-decorators/babel-transforms'].disable;
+      const isDisabled = parent.options &&
+        parent.options['@ember-decorators/babel-transforms'] &&
+        parent.options['@ember-decorators/babel-transforms'].disable;
 
-    if (!this._registeredWithBabel && !isDisabled) {
-      setupBabel(parent);
-      this._registeredWithBabel = true;
+      if (!this._registeredWithBabel && !isDisabled) {
+        setupBabel(parent);
+        this._registeredWithBabel = true;
+      }
     }
   }
 };
