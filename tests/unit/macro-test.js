@@ -151,7 +151,11 @@ test('deprecatingAlias', function(assert) {
       this._super(...arguments);
       this.friend = 'Guy';
     },
-    @deprecatingAlias('friend') buddy: null
+    @deprecatingAlias('friend', {
+      id: 'user-profile.firstName',
+      until: '3.0.0',
+      url: 'https://example.com/deprecations/user-profile.firstName'
+    }) buddy: null
   }).create();
 
   assert.equal(obj.get('buddy'), 'Guy');
