@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 650,
+  "end": 665,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 650,
+    "end": 665,
     "loc": {
       "start": {
         "line": 1,
@@ -100,7 +100,7 @@
       {
         "type": "ImportDeclaration",
         "start": 27,
-        "end": 98,
+        "end": 113,
         "loc": {
           "start": {
             "line": 2,
@@ -108,7 +108,7 @@
           },
           "end": {
             "line": 2,
-            "column": 71
+            "column": 86
           }
         },
         "specifiers": [
@@ -165,7 +165,7 @@
         "source": {
           "type": "StringLiteral",
           "start": 70,
-          "end": 97,
+          "end": 112,
           "loc": {
             "start": {
               "line": 2,
@@ -173,21 +173,21 @@
             },
             "end": {
               "line": 2,
-              "column": 70
+              "column": 85
             }
           },
           "extra": {
-            "rawValue": "../utils/decorator-macros",
-            "raw": "'../utils/decorator-macros'"
+            "rawValue": "@ember-decorators/utils/decorator-macros",
+            "raw": "'@ember-decorators/utils/decorator-macros'"
           },
-          "value": "../utils/decorator-macros"
+          "value": "@ember-decorators/utils/decorator-macros"
         },
         "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that wraps `Ember.inject.service`\n *\n * Injects a service into the object as the decorated property\n *\n *  ```javascript\n * import Component from '@ember/component';\n * import { service } from 'ember-decorators/service';\n *\n * export default class StoreInjectedComponent extends Component\n *   @service store;\n * }\n * ```\n *\n * @function\n * @param {String} [serviceName] - The name of the service to inject. If not provided, the property name will be used\n ",
-            "start": 100,
-            "end": 576,
+            "start": 115,
+            "end": 591,
             "loc": {
               "start": {
                 "line": 4,
@@ -203,8 +203,8 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 577,
-        "end": 649,
+        "start": 592,
+        "end": 664,
         "loc": {
           "start": {
             "line": 21,
@@ -219,8 +219,8 @@
         "source": null,
         "declaration": {
           "type": "VariableDeclaration",
-          "start": 584,
-          "end": 649,
+          "start": 599,
+          "end": 664,
           "loc": {
             "start": {
               "line": 21,
@@ -234,8 +234,8 @@
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 590,
-              "end": 648,
+              "start": 605,
+              "end": 663,
               "loc": {
                 "start": {
                   "line": 21,
@@ -248,8 +248,8 @@
               },
               "id": {
                 "type": "Identifier",
-                "start": 590,
-                "end": 597,
+                "start": 605,
+                "end": 612,
                 "loc": {
                   "start": {
                     "line": 21,
@@ -266,8 +266,8 @@
               },
               "init": {
                 "type": "CallExpression",
-                "start": 600,
-                "end": 648,
+                "start": 615,
+                "end": 663,
                 "loc": {
                   "start": {
                     "line": 21,
@@ -280,8 +280,8 @@
                 },
                 "callee": {
                   "type": "Identifier",
-                  "start": 600,
-                  "end": 626,
+                  "start": 615,
+                  "end": 641,
                   "loc": {
                     "start": {
                       "line": 21,
@@ -298,8 +298,8 @@
                 "arguments": [
                   {
                     "type": "MemberExpression",
-                    "start": 627,
-                    "end": 647,
+                    "start": 642,
+                    "end": 662,
                     "loc": {
                       "start": {
                         "line": 21,
@@ -312,8 +312,8 @@
                     },
                     "object": {
                       "type": "MemberExpression",
-                      "start": 627,
-                      "end": 639,
+                      "start": 642,
+                      "end": 654,
                       "loc": {
                         "start": {
                           "line": 21,
@@ -326,8 +326,8 @@
                       },
                       "object": {
                         "type": "Identifier",
-                        "start": 627,
-                        "end": 632,
+                        "start": 642,
+                        "end": 647,
                         "loc": {
                           "start": {
                             "line": 21,
@@ -343,8 +343,8 @@
                       },
                       "property": {
                         "type": "Identifier",
-                        "start": 633,
-                        "end": 639,
+                        "start": 648,
+                        "end": 654,
                         "loc": {
                           "start": {
                             "line": 21,
@@ -362,8 +362,8 @@
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 640,
-                      "end": 647,
+                      "start": 655,
+                      "end": 662,
                       "loc": {
                         "start": {
                           "line": 21,
@@ -389,8 +389,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Decorator that wraps `Ember.inject.service`\n *\n * Injects a service into the object as the decorated property\n *\n *  ```javascript\n * import Component from '@ember/component';\n * import { service } from 'ember-decorators/service';\n *\n * export default class StoreInjectedComponent extends Component\n *   @service store;\n * }\n * ```\n *\n * @function\n * @param {String} [serviceName] - The name of the service to inject. If not provided, the property name will be used\n ",
-              "start": 100,
-              "end": 576,
+              "start": 115,
+              "end": 591,
               "loc": {
                 "start": {
                   "line": 4,
@@ -409,8 +409,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that wraps `Ember.inject.service`\n *\n * Injects a service into the object as the decorated property\n *\n *  ```javascript\n * import Component from '@ember/component';\n * import { service } from 'ember-decorators/service';\n *\n * export default class StoreInjectedComponent extends Component\n *   @service store;\n * }\n * ```\n *\n * @function\n * @param {String} [serviceName] - The name of the service to inject. If not provided, the property name will be used\n ",
-            "start": 100,
-            "end": 576,
+            "start": 115,
+            "end": 591,
             "loc": {
               "start": {
                 "line": 4,
@@ -431,8 +431,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that wraps `Ember.inject.service`\n *\n * Injects a service into the object as the decorated property\n *\n *  ```javascript\n * import Component from '@ember/component';\n * import { service } from 'ember-decorators/service';\n *\n * export default class StoreInjectedComponent extends Component\n *   @service store;\n * }\n * ```\n *\n * @function\n * @param {String} [serviceName] - The name of the service to inject. If not provided, the property name will be used\n ",
-      "start": 100,
-      "end": 576,
+      "start": 115,
+      "end": 591,
       "loc": {
         "start": {
           "line": 4,
@@ -722,9 +722,9 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "../utils/decorator-macros",
+      "value": "@ember-decorators/utils/decorator-macros",
       "start": 70,
-      "end": 97,
+      "end": 112,
       "loc": {
         "start": {
           "line": 2,
@@ -732,7 +732,7 @@
         },
         "end": {
           "line": 2,
-          "column": 70
+          "column": 85
         }
       }
     },
@@ -749,24 +749,24 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 97,
-      "end": 98,
+      "start": 112,
+      "end": 113,
       "loc": {
         "start": {
           "line": 2,
-          "column": 70
+          "column": 85
         },
         "end": {
           "line": 2,
-          "column": 71
+          "column": 86
         }
       }
     },
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that wraps `Ember.inject.service`\n *\n * Injects a service into the object as the decorated property\n *\n *  ```javascript\n * import Component from '@ember/component';\n * import { service } from 'ember-decorators/service';\n *\n * export default class StoreInjectedComponent extends Component\n *   @service store;\n * }\n * ```\n *\n * @function\n * @param {String} [serviceName] - The name of the service to inject. If not provided, the property name will be used\n ",
-      "start": 100,
-      "end": 576,
+      "start": 115,
+      "end": 591,
       "loc": {
         "start": {
           "line": 4,
@@ -793,8 +793,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 577,
-      "end": 583,
+      "start": 592,
+      "end": 598,
       "loc": {
         "start": {
           "line": 21,
@@ -821,8 +821,8 @@
         "updateContext": null
       },
       "value": "const",
-      "start": 584,
-      "end": 589,
+      "start": 599,
+      "end": 604,
       "loc": {
         "start": {
           "line": 21,
@@ -847,8 +847,8 @@
         "binop": null
       },
       "value": "service",
-      "start": 590,
-      "end": 597,
+      "start": 605,
+      "end": 612,
       "loc": {
         "start": {
           "line": 21,
@@ -874,8 +874,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 598,
-      "end": 599,
+      "start": 613,
+      "end": 614,
       "loc": {
         "start": {
           "line": 21,
@@ -900,8 +900,8 @@
         "binop": null
       },
       "value": "decoratorWithKeyReflection",
-      "start": 600,
-      "end": 626,
+      "start": 615,
+      "end": 641,
       "loc": {
         "start": {
           "line": 21,
@@ -925,8 +925,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 626,
-      "end": 627,
+      "start": 641,
+      "end": 642,
       "loc": {
         "start": {
           "line": 21,
@@ -951,8 +951,8 @@
         "binop": null
       },
       "value": "Ember",
-      "start": 627,
-      "end": 632,
+      "start": 642,
+      "end": 647,
       "loc": {
         "start": {
           "line": 21,
@@ -977,8 +977,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 632,
-      "end": 633,
+      "start": 647,
+      "end": 648,
       "loc": {
         "start": {
           "line": 21,
@@ -1003,8 +1003,8 @@
         "binop": null
       },
       "value": "inject",
-      "start": 633,
-      "end": 639,
+      "start": 648,
+      "end": 654,
       "loc": {
         "start": {
           "line": 21,
@@ -1029,8 +1029,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 639,
-      "end": 640,
+      "start": 654,
+      "end": 655,
       "loc": {
         "start": {
           "line": 21,
@@ -1055,8 +1055,8 @@
         "binop": null
       },
       "value": "service",
-      "start": 640,
-      "end": 647,
+      "start": 655,
+      "end": 662,
       "loc": {
         "start": {
           "line": 21,
@@ -1080,8 +1080,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 647,
-      "end": 648,
+      "start": 662,
+      "end": 663,
       "loc": {
         "start": {
           "line": 21,
@@ -1106,8 +1106,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 648,
-      "end": 649,
+      "start": 663,
+      "end": 664,
       "loc": {
         "start": {
           "line": 21,
@@ -1132,8 +1132,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 650,
-      "end": 650,
+      "start": 665,
+      "end": 665,
       "loc": {
         "start": {
           "line": 22,

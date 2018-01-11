@@ -261,13 +261,13 @@
 <div class="content" data-ice="content"><h1 data-ice="title">addon/component/index.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import { assert } from &apos;@ember/debug&apos;;
 
-import collapseProto from &apos;../utils/collapse-proto&apos;;
-import extractValue from &apos;../utils/extract-value&apos;;
-import { decoratorWithParams } from &apos;../utils/decorator-wrappers&apos;;
+import collapseProto from &apos;@ember-decorators/utils/collapse-proto&apos;;
+import extractValue from &apos;@ember-decorators/utils/extract-value&apos;;
+import { decoratorWithParams } from &apos;@ember-decorators/utils/decorator-wrappers&apos;;
 
 /**
  * Decorator which indicates that the field or computed should be bound
- * to an attribute value on the component. This replaces `classNameBindings`
+ * to an attribute value on the component. This replaces `attributeBindings`
  * by directly allowing you to specify which properties should be bound.
  *
  * ```js

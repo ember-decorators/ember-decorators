@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 638,
+  "end": 653,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 638,
+    "end": 653,
     "loc": {
       "start": {
         "line": 1,
@@ -100,7 +100,7 @@
       {
         "type": "ImportDeclaration",
         "start": 28,
-        "end": 102,
+        "end": 117,
         "loc": {
           "start": {
             "line": 3,
@@ -108,7 +108,7 @@
           },
           "end": {
             "line": 5,
-            "column": 35
+            "column": 50
           }
         },
         "specifiers": [
@@ -165,7 +165,7 @@
         "source": {
           "type": "StringLiteral",
           "start": 74,
-          "end": 101,
+          "end": 116,
           "loc": {
             "start": {
               "line": 5,
@@ -173,21 +173,21 @@
             },
             "end": {
               "line": 5,
-              "column": 34
+              "column": 49
             }
           },
           "extra": {
-            "rawValue": "../utils/decorator-macros",
-            "raw": "'../utils/decorator-macros'"
+            "rawValue": "@ember-decorators/utils/decorator-macros",
+            "raw": "'@ember-decorators/utils/decorator-macros'"
           },
-          "value": "../utils/decorator-macros"
+          "value": "@ember-decorators/utils/decorator-macros"
         },
         "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that wraps [Ember.on](https://emberjs.com/api/#method_on)\n *\n * Triggers the target function on events\n *\n * ```javascript\n * import Component from '@ember/component';\n * import { on } from 'ember-decorators/object/evented';\n *\n * export default class EventDemoComponent extends Component\n *   @on('init')\n *   setupStuff() {\n *     //...\n *   }\n * }\n * ```\n *\n * @function\n * @param {...String} eventNames - Names of the events that trigger the function\n ",
-            "start": 105,
-            "end": 580,
+            "start": 120,
+            "end": 595,
             "loc": {
               "start": {
                 "line": 8,
@@ -203,8 +203,8 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 581,
-        "end": 637,
+        "start": 596,
+        "end": 652,
         "loc": {
           "start": {
             "line": 28,
@@ -219,8 +219,8 @@
         "source": null,
         "declaration": {
           "type": "VariableDeclaration",
-          "start": 588,
-          "end": 637,
+          "start": 603,
+          "end": 652,
           "loc": {
             "start": {
               "line": 28,
@@ -234,8 +234,8 @@
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 594,
-              "end": 636,
+              "start": 609,
+              "end": 651,
               "loc": {
                 "start": {
                   "line": 28,
@@ -248,8 +248,8 @@
               },
               "id": {
                 "type": "Identifier",
-                "start": 594,
-                "end": 596,
+                "start": 609,
+                "end": 611,
                 "loc": {
                   "start": {
                     "line": 28,
@@ -266,8 +266,8 @@
               },
               "init": {
                 "type": "CallExpression",
-                "start": 599,
-                "end": 636,
+                "start": 614,
+                "end": 651,
                 "loc": {
                   "start": {
                     "line": 28,
@@ -280,8 +280,8 @@
                 },
                 "callee": {
                   "type": "Identifier",
-                  "start": 599,
-                  "end": 626,
+                  "start": 614,
+                  "end": 641,
                   "loc": {
                     "start": {
                       "line": 28,
@@ -298,8 +298,8 @@
                 "arguments": [
                   {
                     "type": "MemberExpression",
-                    "start": 627,
-                    "end": 635,
+                    "start": 642,
+                    "end": 650,
                     "loc": {
                       "start": {
                         "line": 28,
@@ -312,8 +312,8 @@
                     },
                     "object": {
                       "type": "Identifier",
-                      "start": 627,
-                      "end": 632,
+                      "start": 642,
+                      "end": 647,
                       "loc": {
                         "start": {
                           "line": 28,
@@ -329,8 +329,8 @@
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 633,
-                      "end": 635,
+                      "start": 648,
+                      "end": 650,
                       "loc": {
                         "start": {
                           "line": 28,
@@ -356,8 +356,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Decorator that wraps [Ember.on](https://emberjs.com/api/#method_on)\n *\n * Triggers the target function on events\n *\n * ```javascript\n * import Component from '@ember/component';\n * import { on } from 'ember-decorators/object/evented';\n *\n * export default class EventDemoComponent extends Component\n *   @on('init')\n *   setupStuff() {\n *     //...\n *   }\n * }\n * ```\n *\n * @function\n * @param {...String} eventNames - Names of the events that trigger the function\n ",
-              "start": 105,
-              "end": 580,
+              "start": 120,
+              "end": 595,
               "loc": {
                 "start": {
                   "line": 8,
@@ -376,8 +376,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that wraps [Ember.on](https://emberjs.com/api/#method_on)\n *\n * Triggers the target function on events\n *\n * ```javascript\n * import Component from '@ember/component';\n * import { on } from 'ember-decorators/object/evented';\n *\n * export default class EventDemoComponent extends Component\n *   @on('init')\n *   setupStuff() {\n *     //...\n *   }\n * }\n * ```\n *\n * @function\n * @param {...String} eventNames - Names of the events that trigger the function\n ",
-            "start": 105,
-            "end": 580,
+            "start": 120,
+            "end": 595,
             "loc": {
               "start": {
                 "line": 8,
@@ -398,8 +398,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that wraps [Ember.on](https://emberjs.com/api/#method_on)\n *\n * Triggers the target function on events\n *\n * ```javascript\n * import Component from '@ember/component';\n * import { on } from 'ember-decorators/object/evented';\n *\n * export default class EventDemoComponent extends Component\n *   @on('init')\n *   setupStuff() {\n *     //...\n *   }\n * }\n * ```\n *\n * @function\n * @param {...String} eventNames - Names of the events that trigger the function\n ",
-      "start": 105,
-      "end": 580,
+      "start": 120,
+      "end": 595,
       "loc": {
         "start": {
           "line": 8,
@@ -689,9 +689,9 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "../utils/decorator-macros",
+      "value": "@ember-decorators/utils/decorator-macros",
       "start": 74,
-      "end": 101,
+      "end": 116,
       "loc": {
         "start": {
           "line": 5,
@@ -699,7 +699,7 @@
         },
         "end": {
           "line": 5,
-          "column": 34
+          "column": 49
         }
       }
     },
@@ -716,24 +716,24 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 101,
-      "end": 102,
+      "start": 116,
+      "end": 117,
       "loc": {
         "start": {
           "line": 5,
-          "column": 34
+          "column": 49
         },
         "end": {
           "line": 5,
-          "column": 35
+          "column": 50
         }
       }
     },
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that wraps [Ember.on](https://emberjs.com/api/#method_on)\n *\n * Triggers the target function on events\n *\n * ```javascript\n * import Component from '@ember/component';\n * import { on } from 'ember-decorators/object/evented';\n *\n * export default class EventDemoComponent extends Component\n *   @on('init')\n *   setupStuff() {\n *     //...\n *   }\n * }\n * ```\n *\n * @function\n * @param {...String} eventNames - Names of the events that trigger the function\n ",
-      "start": 105,
-      "end": 580,
+      "start": 120,
+      "end": 595,
       "loc": {
         "start": {
           "line": 8,
@@ -760,8 +760,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 581,
-      "end": 587,
+      "start": 596,
+      "end": 602,
       "loc": {
         "start": {
           "line": 28,
@@ -788,8 +788,8 @@
         "updateContext": null
       },
       "value": "const",
-      "start": 588,
-      "end": 593,
+      "start": 603,
+      "end": 608,
       "loc": {
         "start": {
           "line": 28,
@@ -814,8 +814,8 @@
         "binop": null
       },
       "value": "on",
-      "start": 594,
-      "end": 596,
+      "start": 609,
+      "end": 611,
       "loc": {
         "start": {
           "line": 28,
@@ -841,8 +841,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 597,
-      "end": 598,
+      "start": 612,
+      "end": 613,
       "loc": {
         "start": {
           "line": 28,
@@ -867,8 +867,8 @@
         "binop": null
       },
       "value": "decoratorWithRequiredParams",
-      "start": 599,
-      "end": 626,
+      "start": 614,
+      "end": 641,
       "loc": {
         "start": {
           "line": 28,
@@ -892,8 +892,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 626,
-      "end": 627,
+      "start": 641,
+      "end": 642,
       "loc": {
         "start": {
           "line": 28,
@@ -918,8 +918,8 @@
         "binop": null
       },
       "value": "Ember",
-      "start": 627,
-      "end": 632,
+      "start": 642,
+      "end": 647,
       "loc": {
         "start": {
           "line": 28,
@@ -944,8 +944,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 632,
-      "end": 633,
+      "start": 647,
+      "end": 648,
       "loc": {
         "start": {
           "line": 28,
@@ -970,8 +970,8 @@
         "binop": null
       },
       "value": "on",
-      "start": 633,
-      "end": 635,
+      "start": 648,
+      "end": 650,
       "loc": {
         "start": {
           "line": 28,
@@ -995,8 +995,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 635,
-      "end": 636,
+      "start": 650,
+      "end": 651,
       "loc": {
         "start": {
           "line": 28,
@@ -1021,8 +1021,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 636,
-      "end": 637,
+      "start": 651,
+      "end": 652,
       "loc": {
         "start": {
           "line": 28,
@@ -1047,8 +1047,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 638,
-      "end": 638,
+      "start": 653,
+      "end": 653,
       "loc": {
         "start": {
           "line": 29,

@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 1453,
+  "end": 1483,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 1453,
+    "end": 1483,
     "loc": {
       "start": {
         "line": 1,
@@ -100,7 +100,7 @@
       {
         "type": "ImportDeclaration",
         "start": 29,
-        "end": 95,
+        "end": 110,
         "loc": {
           "start": {
             "line": 2,
@@ -108,7 +108,7 @@
           },
           "end": {
             "line": 2,
-            "column": 66
+            "column": 81
           }
         },
         "specifiers": [
@@ -165,7 +165,7 @@
         "source": {
           "type": "StringLiteral",
           "start": 65,
-          "end": 94,
+          "end": 109,
           "loc": {
             "start": {
               "line": 2,
@@ -173,20 +173,20 @@
             },
             "end": {
               "line": 2,
-              "column": 65
+              "column": 80
             }
           },
           "extra": {
-            "rawValue": "../utils/decorator-wrappers",
-            "raw": "'../utils/decorator-wrappers'"
+            "rawValue": "@ember-decorators/utils/decorator-wrappers",
+            "raw": "'@ember-decorators/utils/decorator-wrappers'"
           },
-          "value": "../utils/decorator-wrappers"
+          "value": "@ember-decorators/utils/decorator-wrappers"
         }
       },
       {
         "type": "ImportDeclaration",
-        "start": 96,
-        "end": 167,
+        "start": 111,
+        "end": 197,
         "loc": {
           "start": {
             "line": 3,
@@ -194,14 +194,14 @@
           },
           "end": {
             "line": 3,
-            "column": 71
+            "column": 86
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 105,
-            "end": 131,
+            "start": 120,
+            "end": 146,
             "loc": {
               "start": {
                 "line": 3,
@@ -214,8 +214,8 @@
             },
             "imported": {
               "type": "Identifier",
-              "start": 105,
-              "end": 131,
+              "start": 120,
+              "end": 146,
               "loc": {
                 "start": {
                   "line": 3,
@@ -231,8 +231,8 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 105,
-              "end": 131,
+              "start": 120,
+              "end": 146,
               "loc": {
                 "start": {
                   "line": 3,
@@ -250,8 +250,8 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 139,
-          "end": 166,
+          "start": 154,
+          "end": 196,
           "loc": {
             "start": {
               "line": 3,
@@ -259,21 +259,21 @@
             },
             "end": {
               "line": 3,
-              "column": 70
+              "column": 85
             }
           },
           "extra": {
-            "rawValue": "../utils/decorator-macros",
-            "raw": "'../utils/decorator-macros'"
+            "rawValue": "@ember-decorators/utils/decorator-macros",
+            "raw": "'@ember-decorators/utils/decorator-macros'"
           },
-          "value": "../utils/decorator-macros"
+          "value": "@ember-decorators/utils/decorator-macros"
         },
         "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that turns the property into an Ember Data attribute\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { attr } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @attr firstName: null\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the attribute\n ",
-            "start": 169,
-            "end": 495,
+            "start": 199,
+            "end": 525,
             "loc": {
               "start": {
                 "line": 5,
@@ -289,8 +289,8 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 496,
-        "end": 606,
+        "start": 526,
+        "end": 636,
         "loc": {
           "start": {
             "line": 20,
@@ -305,8 +305,8 @@
         "source": null,
         "declaration": {
           "type": "VariableDeclaration",
-          "start": 503,
-          "end": 606,
+          "start": 533,
+          "end": 636,
           "loc": {
             "start": {
               "line": 20,
@@ -320,8 +320,8 @@
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 509,
-              "end": 605,
+              "start": 539,
+              "end": 635,
               "loc": {
                 "start": {
                   "line": 20,
@@ -334,8 +334,8 @@
               },
               "id": {
                 "type": "Identifier",
-                "start": 509,
-                "end": 513,
+                "start": 539,
+                "end": 543,
                 "loc": {
                   "start": {
                     "line": 20,
@@ -352,8 +352,8 @@
               },
               "init": {
                 "type": "CallExpression",
-                "start": 516,
-                "end": 605,
+                "start": 546,
+                "end": 635,
                 "loc": {
                   "start": {
                     "line": 20,
@@ -366,8 +366,8 @@
                 },
                 "callee": {
                   "type": "Identifier",
-                  "start": 516,
-                  "end": 535,
+                  "start": 546,
+                  "end": 565,
                   "loc": {
                     "start": {
                       "line": 20,
@@ -384,8 +384,8 @@
                 "arguments": [
                   {
                     "type": "FunctionExpression",
-                    "start": 536,
-                    "end": 604,
+                    "start": 566,
+                    "end": 634,
                     "loc": {
                       "start": {
                         "line": 20,
@@ -403,8 +403,8 @@
                     "params": [
                       {
                         "type": "Identifier",
-                        "start": 545,
-                        "end": 551,
+                        "start": 575,
+                        "end": 581,
                         "loc": {
                           "start": {
                             "line": 20,
@@ -420,8 +420,8 @@
                       },
                       {
                         "type": "Identifier",
-                        "start": 553,
-                        "end": 556,
+                        "start": 583,
+                        "end": 586,
                         "loc": {
                           "start": {
                             "line": 20,
@@ -437,8 +437,8 @@
                       },
                       {
                         "type": "Identifier",
-                        "start": 558,
-                        "end": 562,
+                        "start": 588,
+                        "end": 592,
                         "loc": {
                           "start": {
                             "line": 20,
@@ -454,8 +454,8 @@
                       },
                       {
                         "type": "Identifier",
-                        "start": 564,
-                        "end": 570,
+                        "start": 594,
+                        "end": 600,
                         "loc": {
                           "start": {
                             "line": 20,
@@ -472,8 +472,8 @@
                     ],
                     "body": {
                       "type": "BlockStatement",
-                      "start": 572,
-                      "end": 604,
+                      "start": 602,
+                      "end": 634,
                       "loc": {
                         "start": {
                           "line": 20,
@@ -487,8 +487,8 @@
                       "body": [
                         {
                           "type": "ReturnStatement",
-                          "start": 576,
-                          "end": 602,
+                          "start": 606,
+                          "end": 632,
                           "loc": {
                             "start": {
                               "line": 21,
@@ -501,8 +501,8 @@
                           },
                           "argument": {
                             "type": "CallExpression",
-                            "start": 583,
-                            "end": 601,
+                            "start": 613,
+                            "end": 631,
                             "loc": {
                               "start": {
                                 "line": 21,
@@ -515,8 +515,8 @@
                             },
                             "callee": {
                               "type": "MemberExpression",
-                              "start": 583,
-                              "end": 590,
+                              "start": 613,
+                              "end": 620,
                               "loc": {
                                 "start": {
                                   "line": 21,
@@ -529,8 +529,8 @@
                               },
                               "object": {
                                 "type": "Identifier",
-                                "start": 583,
-                                "end": 585,
+                                "start": 613,
+                                "end": 615,
                                 "loc": {
                                   "start": {
                                     "line": 21,
@@ -546,8 +546,8 @@
                               },
                               "property": {
                                 "type": "Identifier",
-                                "start": 586,
-                                "end": 590,
+                                "start": 616,
+                                "end": 620,
                                 "loc": {
                                   "start": {
                                     "line": 21,
@@ -566,8 +566,8 @@
                             "arguments": [
                               {
                                 "type": "SpreadElement",
-                                "start": 591,
-                                "end": 600,
+                                "start": 621,
+                                "end": 630,
                                 "loc": {
                                   "start": {
                                     "line": 21,
@@ -580,8 +580,8 @@
                                 },
                                 "argument": {
                                   "type": "Identifier",
-                                  "start": 594,
-                                  "end": 600,
+                                  "start": 624,
+                                  "end": 630,
                                   "loc": {
                                     "start": {
                                       "line": 21,
@@ -613,8 +613,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Decorator that turns the property into an Ember Data attribute\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { attr } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @attr firstName: null\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the attribute\n ",
-              "start": 169,
-              "end": 495,
+              "start": 199,
+              "end": 525,
               "loc": {
                 "start": {
                   "line": 5,
@@ -631,8 +631,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Decorator that turns the property into an Ember Data `hasMany` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { hasMany } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @hasMany users: null\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the `hasMany` relationship\n ",
-              "start": 608,
-              "end": 962,
+              "start": 638,
+              "end": 992,
               "loc": {
                 "start": {
                   "line": 24,
@@ -650,8 +650,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that turns the property into an Ember Data attribute\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { attr } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @attr firstName: null\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the attribute\n ",
-            "start": 169,
-            "end": 495,
+            "start": 199,
+            "end": 525,
             "loc": {
               "start": {
                 "line": 5,
@@ -668,8 +668,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that turns the property into an Ember Data `hasMany` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { hasMany } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @hasMany users: null\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the `hasMany` relationship\n ",
-            "start": 608,
-            "end": 962,
+            "start": 638,
+            "end": 992,
             "loc": {
               "start": {
                 "line": 24,
@@ -685,8 +685,8 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 963,
-        "end": 1025,
+        "start": 993,
+        "end": 1055,
         "loc": {
           "start": {
             "line": 39,
@@ -701,8 +701,8 @@
         "source": null,
         "declaration": {
           "type": "VariableDeclaration",
-          "start": 970,
-          "end": 1025,
+          "start": 1000,
+          "end": 1055,
           "loc": {
             "start": {
               "line": 39,
@@ -716,8 +716,8 @@
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 976,
-              "end": 1024,
+              "start": 1006,
+              "end": 1054,
               "loc": {
                 "start": {
                   "line": 39,
@@ -730,8 +730,8 @@
               },
               "id": {
                 "type": "Identifier",
-                "start": 976,
-                "end": 983,
+                "start": 1006,
+                "end": 1013,
                 "loc": {
                   "start": {
                     "line": 39,
@@ -748,8 +748,8 @@
               },
               "init": {
                 "type": "CallExpression",
-                "start": 986,
-                "end": 1024,
+                "start": 1016,
+                "end": 1054,
                 "loc": {
                   "start": {
                     "line": 39,
@@ -762,8 +762,8 @@
                 },
                 "callee": {
                   "type": "Identifier",
-                  "start": 986,
-                  "end": 1012,
+                  "start": 1016,
+                  "end": 1042,
                   "loc": {
                     "start": {
                       "line": 39,
@@ -780,8 +780,8 @@
                 "arguments": [
                   {
                     "type": "MemberExpression",
-                    "start": 1013,
-                    "end": 1023,
+                    "start": 1043,
+                    "end": 1053,
                     "loc": {
                       "start": {
                         "line": 39,
@@ -794,8 +794,8 @@
                     },
                     "object": {
                       "type": "Identifier",
-                      "start": 1013,
-                      "end": 1015,
+                      "start": 1043,
+                      "end": 1045,
                       "loc": {
                         "start": {
                           "line": 39,
@@ -811,8 +811,8 @@
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 1016,
-                      "end": 1023,
+                      "start": 1046,
+                      "end": 1053,
                       "loc": {
                         "start": {
                           "line": 39,
@@ -838,8 +838,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Decorator that turns the property into an Ember Data `hasMany` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { hasMany } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @hasMany users: null\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the `hasMany` relationship\n ",
-              "start": 608,
-              "end": 962,
+              "start": 638,
+              "end": 992,
               "loc": {
                 "start": {
                   "line": 24,
@@ -856,8 +856,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Decorator that turns the property into an Ember Data `belongsTo` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { belongsTo } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @belongsTo user: null\n * });\n * ```\n * @function\n * @param {String} [type] - Type of the `belongsTo` relationship\n ",
-              "start": 1027,
-              "end": 1385,
+              "start": 1057,
+              "end": 1415,
               "loc": {
                 "start": {
                   "line": 41,
@@ -875,8 +875,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that turns the property into an Ember Data `hasMany` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { hasMany } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @hasMany users: null\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the `hasMany` relationship\n ",
-            "start": 608,
-            "end": 962,
+            "start": 638,
+            "end": 992,
             "loc": {
               "start": {
                 "line": 24,
@@ -893,8 +893,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that turns the property into an Ember Data `belongsTo` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { belongsTo } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @belongsTo user: null\n * });\n * ```\n * @function\n * @param {String} [type] - Type of the `belongsTo` relationship\n ",
-            "start": 1027,
-            "end": 1385,
+            "start": 1057,
+            "end": 1415,
             "loc": {
               "start": {
                 "line": 41,
@@ -910,8 +910,8 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 1386,
-        "end": 1452,
+        "start": 1416,
+        "end": 1482,
         "loc": {
           "start": {
             "line": 55,
@@ -926,8 +926,8 @@
         "source": null,
         "declaration": {
           "type": "VariableDeclaration",
-          "start": 1393,
-          "end": 1452,
+          "start": 1423,
+          "end": 1482,
           "loc": {
             "start": {
               "line": 55,
@@ -941,8 +941,8 @@
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 1399,
-              "end": 1451,
+              "start": 1429,
+              "end": 1481,
               "loc": {
                 "start": {
                   "line": 55,
@@ -955,8 +955,8 @@
               },
               "id": {
                 "type": "Identifier",
-                "start": 1399,
-                "end": 1408,
+                "start": 1429,
+                "end": 1438,
                 "loc": {
                   "start": {
                     "line": 55,
@@ -973,8 +973,8 @@
               },
               "init": {
                 "type": "CallExpression",
-                "start": 1411,
-                "end": 1451,
+                "start": 1441,
+                "end": 1481,
                 "loc": {
                   "start": {
                     "line": 55,
@@ -987,8 +987,8 @@
                 },
                 "callee": {
                   "type": "Identifier",
-                  "start": 1411,
-                  "end": 1437,
+                  "start": 1441,
+                  "end": 1467,
                   "loc": {
                     "start": {
                       "line": 55,
@@ -1005,8 +1005,8 @@
                 "arguments": [
                   {
                     "type": "MemberExpression",
-                    "start": 1438,
-                    "end": 1450,
+                    "start": 1468,
+                    "end": 1480,
                     "loc": {
                       "start": {
                         "line": 55,
@@ -1019,8 +1019,8 @@
                     },
                     "object": {
                       "type": "Identifier",
-                      "start": 1438,
-                      "end": 1440,
+                      "start": 1468,
+                      "end": 1470,
                       "loc": {
                         "start": {
                           "line": 55,
@@ -1036,8 +1036,8 @@
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 1441,
-                      "end": 1450,
+                      "start": 1471,
+                      "end": 1480,
                       "loc": {
                         "start": {
                           "line": 55,
@@ -1063,8 +1063,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Decorator that turns the property into an Ember Data `belongsTo` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { belongsTo } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @belongsTo user: null\n * });\n * ```\n * @function\n * @param {String} [type] - Type of the `belongsTo` relationship\n ",
-              "start": 1027,
-              "end": 1385,
+              "start": 1057,
+              "end": 1415,
               "loc": {
                 "start": {
                   "line": 41,
@@ -1083,8 +1083,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that turns the property into an Ember Data `belongsTo` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { belongsTo } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @belongsTo user: null\n * });\n * ```\n * @function\n * @param {String} [type] - Type of the `belongsTo` relationship\n ",
-            "start": 1027,
-            "end": 1385,
+            "start": 1057,
+            "end": 1415,
             "loc": {
               "start": {
                 "line": 41,
@@ -1105,8 +1105,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that turns the property into an Ember Data attribute\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { attr } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @attr firstName: null\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the attribute\n ",
-      "start": 169,
-      "end": 495,
+      "start": 199,
+      "end": 525,
       "loc": {
         "start": {
           "line": 5,
@@ -1121,8 +1121,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that turns the property into an Ember Data `hasMany` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { hasMany } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @hasMany users: null\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the `hasMany` relationship\n ",
-      "start": 608,
-      "end": 962,
+      "start": 638,
+      "end": 992,
       "loc": {
         "start": {
           "line": 24,
@@ -1137,8 +1137,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that turns the property into an Ember Data `belongsTo` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { belongsTo } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @belongsTo user: null\n * });\n * ```\n * @function\n * @param {String} [type] - Type of the `belongsTo` relationship\n ",
-      "start": 1027,
-      "end": 1385,
+      "start": 1057,
+      "end": 1415,
       "loc": {
         "start": {
           "line": 41,
@@ -1428,9 +1428,9 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "../utils/decorator-wrappers",
+      "value": "@ember-decorators/utils/decorator-wrappers",
       "start": 65,
-      "end": 94,
+      "end": 109,
       "loc": {
         "start": {
           "line": 2,
@@ -1438,7 +1438,7 @@
         },
         "end": {
           "line": 2,
-          "column": 65
+          "column": 80
         }
       }
     },
@@ -1455,16 +1455,16 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 94,
-      "end": 95,
+      "start": 109,
+      "end": 110,
       "loc": {
         "start": {
           "line": 2,
-          "column": 65
+          "column": 80
         },
         "end": {
           "line": 2,
-          "column": 66
+          "column": 81
         }
       }
     },
@@ -1483,8 +1483,8 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 96,
-      "end": 102,
+      "start": 111,
+      "end": 117,
       "loc": {
         "start": {
           "line": 3,
@@ -1508,8 +1508,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 103,
-      "end": 104,
+      "start": 118,
+      "end": 119,
       "loc": {
         "start": {
           "line": 3,
@@ -1534,8 +1534,8 @@
         "binop": null
       },
       "value": "decoratorWithKeyReflection",
-      "start": 105,
-      "end": 131,
+      "start": 120,
+      "end": 146,
       "loc": {
         "start": {
           "line": 3,
@@ -1559,8 +1559,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 132,
-      "end": 133,
+      "start": 147,
+      "end": 148,
       "loc": {
         "start": {
           "line": 3,
@@ -1585,8 +1585,8 @@
         "binop": null
       },
       "value": "from",
-      "start": 134,
-      "end": 138,
+      "start": 149,
+      "end": 153,
       "loc": {
         "start": {
           "line": 3,
@@ -1611,9 +1611,9 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "../utils/decorator-macros",
-      "start": 139,
-      "end": 166,
+      "value": "@ember-decorators/utils/decorator-macros",
+      "start": 154,
+      "end": 196,
       "loc": {
         "start": {
           "line": 3,
@@ -1621,7 +1621,7 @@
         },
         "end": {
           "line": 3,
-          "column": 70
+          "column": 85
         }
       }
     },
@@ -1638,24 +1638,24 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 166,
-      "end": 167,
+      "start": 196,
+      "end": 197,
       "loc": {
         "start": {
           "line": 3,
-          "column": 70
+          "column": 85
         },
         "end": {
           "line": 3,
-          "column": 71
+          "column": 86
         }
       }
     },
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that turns the property into an Ember Data attribute\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { attr } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @attr firstName: null\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the attribute\n ",
-      "start": 169,
-      "end": 495,
+      "start": 199,
+      "end": 525,
       "loc": {
         "start": {
           "line": 5,
@@ -1682,8 +1682,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 496,
-      "end": 502,
+      "start": 526,
+      "end": 532,
       "loc": {
         "start": {
           "line": 20,
@@ -1710,8 +1710,8 @@
         "updateContext": null
       },
       "value": "const",
-      "start": 503,
-      "end": 508,
+      "start": 533,
+      "end": 538,
       "loc": {
         "start": {
           "line": 20,
@@ -1736,8 +1736,8 @@
         "binop": null
       },
       "value": "attr",
-      "start": 509,
-      "end": 513,
+      "start": 539,
+      "end": 543,
       "loc": {
         "start": {
           "line": 20,
@@ -1763,8 +1763,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 514,
-      "end": 515,
+      "start": 544,
+      "end": 545,
       "loc": {
         "start": {
           "line": 20,
@@ -1789,8 +1789,8 @@
         "binop": null
       },
       "value": "decoratorWithParams",
-      "start": 516,
-      "end": 535,
+      "start": 546,
+      "end": 565,
       "loc": {
         "start": {
           "line": 20,
@@ -1814,8 +1814,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 535,
-      "end": 536,
+      "start": 565,
+      "end": 566,
       "loc": {
         "start": {
           "line": 20,
@@ -1841,8 +1841,8 @@
         "binop": null
       },
       "value": "function",
-      "start": 536,
-      "end": 544,
+      "start": 566,
+      "end": 574,
       "loc": {
         "start": {
           "line": 20,
@@ -1866,8 +1866,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 544,
-      "end": 545,
+      "start": 574,
+      "end": 575,
       "loc": {
         "start": {
           "line": 20,
@@ -1892,8 +1892,8 @@
         "binop": null
       },
       "value": "target",
-      "start": 545,
-      "end": 551,
+      "start": 575,
+      "end": 581,
       "loc": {
         "start": {
           "line": 20,
@@ -1918,8 +1918,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 551,
-      "end": 552,
+      "start": 581,
+      "end": 582,
       "loc": {
         "start": {
           "line": 20,
@@ -1944,8 +1944,8 @@
         "binop": null
       },
       "value": "key",
-      "start": 553,
-      "end": 556,
+      "start": 583,
+      "end": 586,
       "loc": {
         "start": {
           "line": 20,
@@ -1970,8 +1970,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 556,
-      "end": 557,
+      "start": 586,
+      "end": 587,
       "loc": {
         "start": {
           "line": 20,
@@ -1996,8 +1996,8 @@
         "binop": null
       },
       "value": "desc",
-      "start": 558,
-      "end": 562,
+      "start": 588,
+      "end": 592,
       "loc": {
         "start": {
           "line": 20,
@@ -2022,8 +2022,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 562,
-      "end": 563,
+      "start": 592,
+      "end": 593,
       "loc": {
         "start": {
           "line": 20,
@@ -2048,8 +2048,8 @@
         "binop": null
       },
       "value": "params",
-      "start": 564,
-      "end": 570,
+      "start": 594,
+      "end": 600,
       "loc": {
         "start": {
           "line": 20,
@@ -2073,8 +2073,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 570,
-      "end": 571,
+      "start": 600,
+      "end": 601,
       "loc": {
         "start": {
           "line": 20,
@@ -2098,8 +2098,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 572,
-      "end": 573,
+      "start": 602,
+      "end": 603,
       "loc": {
         "start": {
           "line": 20,
@@ -2126,8 +2126,8 @@
         "updateContext": null
       },
       "value": "return",
-      "start": 576,
-      "end": 582,
+      "start": 606,
+      "end": 612,
       "loc": {
         "start": {
           "line": 21,
@@ -2152,8 +2152,8 @@
         "binop": null
       },
       "value": "DS",
-      "start": 583,
-      "end": 585,
+      "start": 613,
+      "end": 615,
       "loc": {
         "start": {
           "line": 21,
@@ -2178,8 +2178,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 585,
-      "end": 586,
+      "start": 615,
+      "end": 616,
       "loc": {
         "start": {
           "line": 21,
@@ -2204,8 +2204,8 @@
         "binop": null
       },
       "value": "attr",
-      "start": 586,
-      "end": 590,
+      "start": 616,
+      "end": 620,
       "loc": {
         "start": {
           "line": 21,
@@ -2229,8 +2229,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 590,
-      "end": 591,
+      "start": 620,
+      "end": 621,
       "loc": {
         "start": {
           "line": 21,
@@ -2255,8 +2255,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 591,
-      "end": 594,
+      "start": 621,
+      "end": 624,
       "loc": {
         "start": {
           "line": 21,
@@ -2281,8 +2281,8 @@
         "binop": null
       },
       "value": "params",
-      "start": 594,
-      "end": 600,
+      "start": 624,
+      "end": 630,
       "loc": {
         "start": {
           "line": 21,
@@ -2306,8 +2306,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 600,
-      "end": 601,
+      "start": 630,
+      "end": 631,
       "loc": {
         "start": {
           "line": 21,
@@ -2332,8 +2332,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 601,
-      "end": 602,
+      "start": 631,
+      "end": 632,
       "loc": {
         "start": {
           "line": 21,
@@ -2357,8 +2357,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 603,
-      "end": 604,
+      "start": 633,
+      "end": 634,
       "loc": {
         "start": {
           "line": 22,
@@ -2382,8 +2382,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 604,
-      "end": 605,
+      "start": 634,
+      "end": 635,
       "loc": {
         "start": {
           "line": 22,
@@ -2408,8 +2408,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 605,
-      "end": 606,
+      "start": 635,
+      "end": 636,
       "loc": {
         "start": {
           "line": 22,
@@ -2424,8 +2424,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that turns the property into an Ember Data `hasMany` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { hasMany } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @hasMany users: null\n * });\n * ```\n *\n * @function\n * @param {String} [type] - Type of the `hasMany` relationship\n ",
-      "start": 608,
-      "end": 962,
+      "start": 638,
+      "end": 992,
       "loc": {
         "start": {
           "line": 24,
@@ -2452,8 +2452,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 963,
-      "end": 969,
+      "start": 993,
+      "end": 999,
       "loc": {
         "start": {
           "line": 39,
@@ -2480,8 +2480,8 @@
         "updateContext": null
       },
       "value": "const",
-      "start": 970,
-      "end": 975,
+      "start": 1000,
+      "end": 1005,
       "loc": {
         "start": {
           "line": 39,
@@ -2506,8 +2506,8 @@
         "binop": null
       },
       "value": "hasMany",
-      "start": 976,
-      "end": 983,
+      "start": 1006,
+      "end": 1013,
       "loc": {
         "start": {
           "line": 39,
@@ -2533,8 +2533,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 984,
-      "end": 985,
+      "start": 1014,
+      "end": 1015,
       "loc": {
         "start": {
           "line": 39,
@@ -2559,8 +2559,8 @@
         "binop": null
       },
       "value": "decoratorWithKeyReflection",
-      "start": 986,
-      "end": 1012,
+      "start": 1016,
+      "end": 1042,
       "loc": {
         "start": {
           "line": 39,
@@ -2584,8 +2584,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1012,
-      "end": 1013,
+      "start": 1042,
+      "end": 1043,
       "loc": {
         "start": {
           "line": 39,
@@ -2610,8 +2610,8 @@
         "binop": null
       },
       "value": "DS",
-      "start": 1013,
-      "end": 1015,
+      "start": 1043,
+      "end": 1045,
       "loc": {
         "start": {
           "line": 39,
@@ -2636,8 +2636,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1015,
-      "end": 1016,
+      "start": 1045,
+      "end": 1046,
       "loc": {
         "start": {
           "line": 39,
@@ -2662,8 +2662,8 @@
         "binop": null
       },
       "value": "hasMany",
-      "start": 1016,
-      "end": 1023,
+      "start": 1046,
+      "end": 1053,
       "loc": {
         "start": {
           "line": 39,
@@ -2687,8 +2687,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1023,
-      "end": 1024,
+      "start": 1053,
+      "end": 1054,
       "loc": {
         "start": {
           "line": 39,
@@ -2713,8 +2713,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1024,
-      "end": 1025,
+      "start": 1054,
+      "end": 1055,
       "loc": {
         "start": {
           "line": 39,
@@ -2729,8 +2729,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that turns the property into an Ember Data `belongsTo` relationship\n *\n * ```javascript\n * import Model from 'ember-data/model';\n * import { belongsTo } from 'ember-decorators/data';\n *\n * export default Model.extend({\n *   @belongsTo user: null\n * });\n * ```\n * @function\n * @param {String} [type] - Type of the `belongsTo` relationship\n ",
-      "start": 1027,
-      "end": 1385,
+      "start": 1057,
+      "end": 1415,
       "loc": {
         "start": {
           "line": 41,
@@ -2757,8 +2757,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 1386,
-      "end": 1392,
+      "start": 1416,
+      "end": 1422,
       "loc": {
         "start": {
           "line": 55,
@@ -2785,8 +2785,8 @@
         "updateContext": null
       },
       "value": "const",
-      "start": 1393,
-      "end": 1398,
+      "start": 1423,
+      "end": 1428,
       "loc": {
         "start": {
           "line": 55,
@@ -2811,8 +2811,8 @@
         "binop": null
       },
       "value": "belongsTo",
-      "start": 1399,
-      "end": 1408,
+      "start": 1429,
+      "end": 1438,
       "loc": {
         "start": {
           "line": 55,
@@ -2838,8 +2838,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 1409,
-      "end": 1410,
+      "start": 1439,
+      "end": 1440,
       "loc": {
         "start": {
           "line": 55,
@@ -2864,8 +2864,8 @@
         "binop": null
       },
       "value": "decoratorWithKeyReflection",
-      "start": 1411,
-      "end": 1437,
+      "start": 1441,
+      "end": 1467,
       "loc": {
         "start": {
           "line": 55,
@@ -2889,8 +2889,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1437,
-      "end": 1438,
+      "start": 1467,
+      "end": 1468,
       "loc": {
         "start": {
           "line": 55,
@@ -2915,8 +2915,8 @@
         "binop": null
       },
       "value": "DS",
-      "start": 1438,
-      "end": 1440,
+      "start": 1468,
+      "end": 1470,
       "loc": {
         "start": {
           "line": 55,
@@ -2941,8 +2941,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1440,
-      "end": 1441,
+      "start": 1470,
+      "end": 1471,
       "loc": {
         "start": {
           "line": 55,
@@ -2967,8 +2967,8 @@
         "binop": null
       },
       "value": "belongsTo",
-      "start": 1441,
-      "end": 1450,
+      "start": 1471,
+      "end": 1480,
       "loc": {
         "start": {
           "line": 55,
@@ -2992,8 +2992,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 1450,
-      "end": 1451,
+      "start": 1480,
+      "end": 1481,
       "loc": {
         "start": {
           "line": 55,
@@ -3018,8 +3018,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1451,
-      "end": 1452,
+      "start": 1481,
+      "end": 1482,
       "loc": {
         "start": {
           "line": 55,
@@ -3044,8 +3044,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 1453,
-      "end": 1453,
+      "start": 1483,
+      "end": 1483,
       "loc": {
         "start": {
           "line": 56,

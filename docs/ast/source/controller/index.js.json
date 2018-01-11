@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 683,
+  "end": 698,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 683,
+    "end": 698,
     "loc": {
       "start": {
         "line": 1,
@@ -100,7 +100,7 @@
       {
         "type": "ImportDeclaration",
         "start": 27,
-        "end": 98,
+        "end": 113,
         "loc": {
           "start": {
             "line": 2,
@@ -108,7 +108,7 @@
           },
           "end": {
             "line": 2,
-            "column": 71
+            "column": 86
           }
         },
         "specifiers": [
@@ -165,7 +165,7 @@
         "source": {
           "type": "StringLiteral",
           "start": 70,
-          "end": 97,
+          "end": 112,
           "loc": {
             "start": {
               "line": 2,
@@ -173,21 +173,21 @@
             },
             "end": {
               "line": 2,
-              "column": 70
+              "column": 85
             }
           },
           "extra": {
-            "rawValue": "../utils/decorator-macros",
-            "raw": "'../utils/decorator-macros'"
+            "rawValue": "@ember-decorators/utils/decorator-macros",
+            "raw": "'@ember-decorators/utils/decorator-macros'"
           },
-          "value": "../utils/decorator-macros"
+          "value": "@ember-decorators/utils/decorator-macros"
         },
         "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Controller from '@ember/controller';\n * import { controller } from 'ember-decorators/controller';\n *\n * export default class IndexController extends Controller {\n *   @controller application;\n * }\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
-            "start": 100,
-            "end": 603,
+            "start": 115,
+            "end": 618,
             "loc": {
               "start": {
                 "line": 4,
@@ -203,8 +203,8 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 604,
-        "end": 682,
+        "start": 619,
+        "end": 697,
         "loc": {
           "start": {
             "line": 21,
@@ -219,8 +219,8 @@
         "source": null,
         "declaration": {
           "type": "VariableDeclaration",
-          "start": 611,
-          "end": 682,
+          "start": 626,
+          "end": 697,
           "loc": {
             "start": {
               "line": 21,
@@ -234,8 +234,8 @@
           "declarations": [
             {
               "type": "VariableDeclarator",
-              "start": 617,
-              "end": 681,
+              "start": 632,
+              "end": 696,
               "loc": {
                 "start": {
                   "line": 21,
@@ -248,8 +248,8 @@
               },
               "id": {
                 "type": "Identifier",
-                "start": 617,
-                "end": 627,
+                "start": 632,
+                "end": 642,
                 "loc": {
                   "start": {
                     "line": 21,
@@ -266,8 +266,8 @@
               },
               "init": {
                 "type": "CallExpression",
-                "start": 630,
-                "end": 681,
+                "start": 645,
+                "end": 696,
                 "loc": {
                   "start": {
                     "line": 21,
@@ -280,8 +280,8 @@
                 },
                 "callee": {
                   "type": "Identifier",
-                  "start": 630,
-                  "end": 656,
+                  "start": 645,
+                  "end": 671,
                   "loc": {
                     "start": {
                       "line": 21,
@@ -298,8 +298,8 @@
                 "arguments": [
                   {
                     "type": "MemberExpression",
-                    "start": 657,
-                    "end": 680,
+                    "start": 672,
+                    "end": 695,
                     "loc": {
                       "start": {
                         "line": 21,
@@ -312,8 +312,8 @@
                     },
                     "object": {
                       "type": "MemberExpression",
-                      "start": 657,
-                      "end": 669,
+                      "start": 672,
+                      "end": 684,
                       "loc": {
                         "start": {
                           "line": 21,
@@ -326,8 +326,8 @@
                       },
                       "object": {
                         "type": "Identifier",
-                        "start": 657,
-                        "end": 662,
+                        "start": 672,
+                        "end": 677,
                         "loc": {
                           "start": {
                             "line": 21,
@@ -343,8 +343,8 @@
                       },
                       "property": {
                         "type": "Identifier",
-                        "start": 663,
-                        "end": 669,
+                        "start": 678,
+                        "end": 684,
                         "loc": {
                           "start": {
                             "line": 21,
@@ -362,8 +362,8 @@
                     },
                     "property": {
                       "type": "Identifier",
-                      "start": 670,
-                      "end": 680,
+                      "start": 685,
+                      "end": 695,
                       "loc": {
                         "start": {
                           "line": 21,
@@ -389,8 +389,8 @@
             {
               "type": "CommentBlock",
               "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Controller from '@ember/controller';\n * import { controller } from 'ember-decorators/controller';\n *\n * export default class IndexController extends Controller {\n *   @controller application;\n * }\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
-              "start": 100,
-              "end": 603,
+              "start": 115,
+              "end": 618,
               "loc": {
                 "start": {
                   "line": 4,
@@ -409,8 +409,8 @@
           {
             "type": "CommentBlock",
             "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Controller from '@ember/controller';\n * import { controller } from 'ember-decorators/controller';\n *\n * export default class IndexController extends Controller {\n *   @controller application;\n * }\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
-            "start": 100,
-            "end": 603,
+            "start": 115,
+            "end": 618,
             "loc": {
               "start": {
                 "line": 4,
@@ -431,8 +431,8 @@
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Controller from '@ember/controller';\n * import { controller } from 'ember-decorators/controller';\n *\n * export default class IndexController extends Controller {\n *   @controller application;\n * }\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
-      "start": 100,
-      "end": 603,
+      "start": 115,
+      "end": 618,
       "loc": {
         "start": {
           "line": 4,
@@ -722,9 +722,9 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "../utils/decorator-macros",
+      "value": "@ember-decorators/utils/decorator-macros",
       "start": 70,
-      "end": 97,
+      "end": 112,
       "loc": {
         "start": {
           "line": 2,
@@ -732,7 +732,7 @@
         },
         "end": {
           "line": 2,
-          "column": 70
+          "column": 85
         }
       }
     },
@@ -749,24 +749,24 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 97,
-      "end": 98,
+      "start": 112,
+      "end": 113,
       "loc": {
         "start": {
           "line": 2,
-          "column": 70
+          "column": 85
         },
         "end": {
           "line": 2,
-          "column": 71
+          "column": 86
         }
       }
     },
     {
       "type": "CommentBlock",
       "value": "*\n * Decorator that wraps `Ember.inject.controller`\n *\n * Injects a controller into a Controller as the decorated property\n *\n *  ```javascript\n * import Controller from '@ember/controller';\n * import { controller } from 'ember-decorators/controller';\n *\n * export default class IndexController extends Controller {\n *   @controller application;\n * }\n * ```\n *\n * @function\n * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used\n ",
-      "start": 100,
-      "end": 603,
+      "start": 115,
+      "end": 618,
       "loc": {
         "start": {
           "line": 4,
@@ -793,8 +793,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 604,
-      "end": 610,
+      "start": 619,
+      "end": 625,
       "loc": {
         "start": {
           "line": 21,
@@ -821,8 +821,8 @@
         "updateContext": null
       },
       "value": "const",
-      "start": 611,
-      "end": 616,
+      "start": 626,
+      "end": 631,
       "loc": {
         "start": {
           "line": 21,
@@ -847,8 +847,8 @@
         "binop": null
       },
       "value": "controller",
-      "start": 617,
-      "end": 627,
+      "start": 632,
+      "end": 642,
       "loc": {
         "start": {
           "line": 21,
@@ -874,8 +874,8 @@
         "updateContext": null
       },
       "value": "=",
-      "start": 628,
-      "end": 629,
+      "start": 643,
+      "end": 644,
       "loc": {
         "start": {
           "line": 21,
@@ -900,8 +900,8 @@
         "binop": null
       },
       "value": "decoratorWithKeyReflection",
-      "start": 630,
-      "end": 656,
+      "start": 645,
+      "end": 671,
       "loc": {
         "start": {
           "line": 21,
@@ -925,8 +925,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 656,
-      "end": 657,
+      "start": 671,
+      "end": 672,
       "loc": {
         "start": {
           "line": 21,
@@ -951,8 +951,8 @@
         "binop": null
       },
       "value": "Ember",
-      "start": 657,
-      "end": 662,
+      "start": 672,
+      "end": 677,
       "loc": {
         "start": {
           "line": 21,
@@ -977,8 +977,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 662,
-      "end": 663,
+      "start": 677,
+      "end": 678,
       "loc": {
         "start": {
           "line": 21,
@@ -1003,8 +1003,8 @@
         "binop": null
       },
       "value": "inject",
-      "start": 663,
-      "end": 669,
+      "start": 678,
+      "end": 684,
       "loc": {
         "start": {
           "line": 21,
@@ -1029,8 +1029,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 669,
-      "end": 670,
+      "start": 684,
+      "end": 685,
       "loc": {
         "start": {
           "line": 21,
@@ -1055,8 +1055,8 @@
         "binop": null
       },
       "value": "controller",
-      "start": 670,
-      "end": 680,
+      "start": 685,
+      "end": 695,
       "loc": {
         "start": {
           "line": 21,
@@ -1080,8 +1080,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 680,
-      "end": 681,
+      "start": 695,
+      "end": 696,
       "loc": {
         "start": {
           "line": 21,
@@ -1106,8 +1106,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 681,
-      "end": 682,
+      "start": 696,
+      "end": 697,
       "loc": {
         "start": {
           "line": 21,
@@ -1132,8 +1132,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 683,
-      "end": 683,
+      "start": 698,
+      "end": 698,
       "loc": {
         "start": {
           "line": 22,

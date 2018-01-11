@@ -265,7 +265,7 @@ import {
   decoratedPropertyWithRequiredParams,
   decoratedPropertyWithOptionalCallback,
   decoratedPropertyWithEitherCallbackOrProperty
-} from &apos;../utils/decorator-macros&apos;;
+} from &apos;@ember-decorators/utils/decorator-macros&apos;;
 
 import {
   SUPPORTS_UNIQ_BY_COMPUTED
@@ -873,7 +873,6 @@ export const or = decoratedPropertyWithRequiredParams(Ember.computed.or);
  *
  * ```javascript
  * import Component from &apos;@ember/component&apos;;
- * import { A } from &apos;@ember/array&apos;;
  * import { reads } from &apos;ember-decorators/object/computed&apos;;
  *
  * export default class UserProfileComponent extends Component {
