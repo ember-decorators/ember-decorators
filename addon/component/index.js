@@ -6,7 +6,7 @@ import { decoratorWithParams } from '@ember-decorators/utils/decorator-wrappers'
 
 /**
  * Decorator which indicates that the field or computed should be bound
- * to an attribute value on the component. This replaces `classNameBindings`
+ * to an attribute value on the component. This replaces `attributeBindings`
  * by directly allowing you to specify which properties should be bound.
  *
  * ```js
