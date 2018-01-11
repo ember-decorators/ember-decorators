@@ -612,7 +612,6 @@ export const or = decoratedPropertyWithRequiredParams(Ember.computed.or);
  *
  * ```javascript
  * import Component from '@ember/component';
- * import { A } from '@ember/array';
  * import { reads } from 'ember-decorators/object/computed';
  *
  * export default class UserProfileComponent extends Component {
