@@ -116,25 +116,32 @@ Note: The `@computed` decorator wraps [ember-macro-helpers](https://github.com/k
 which provides a lot of helpful features on top of standard computeds. It is
 highly recommended that you read the documentation for that addon as well.
 
-## Installation
+Installation
+------------------------------------------------------------------------------
 
 * `git clone <repository-url>` this repository
 * `cd ember-decorators`
-* `npm install`
+* `yarn install`
 
-## Running
+### Linting
+
+* `yarn run lint:js`
+* `yarn run lint:js -- --fix`
+
+### Running tests
+
+* `ember test` – Runs the test suite on the current Ember version
+* `ember test --server` – Runs the test suite in "watch mode"
+* `yarn test` – Runs `ember try:each` to test your addon against multiple Ember versions
+
+### Running the dummy application
 
 * `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-
-## Running Tests
-
-* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
-* `ember test`
-* `ember test --server`
-
-## Building
-
-* `ember build`
+* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
 
 For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+
+License
+------------------------------------------------------------------------------
+
+This project is licensed under the [MIT License](LICENSE.md).

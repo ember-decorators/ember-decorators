@@ -1,21 +1,9 @@
-/* eslint-env node */
 'use strict';
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
-    fingerprint: {
-      enabled: false
-    },
-    esdoc: {
-      enabledEnvironments: ['production'],
-      config: {
-        excludes: ['utils/.*']
-      }
-    },
-    'ember-cli-babel': {
-      includePolyfill: true
-    }
+    // Add options here
   });
 
   /*
