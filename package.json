@@ -22,11 +22,11 @@
     "test": "ember try:each"
   },
   "dependencies": {
-    "@ember-decorators/component": "^v2.0.0-beta.1",
-    "@ember-decorators/controller": "^v2.0.0-beta.1",
-    "@ember-decorators/data": "^v2.0.0-beta.1",
-    "@ember-decorators/object": "^v2.0.0-beta.1",
-    "@ember-decorators/service": "^v2.0.0-beta.1",
+    "@ember-decorators/component": "^2.0.0-beta.1",
+    "@ember-decorators/controller": "^2.0.0-beta.1",
+    "@ember-decorators/data": "^2.0.0-beta.1",
+    "@ember-decorators/object": "^2.0.0-beta.1",
+    "@ember-decorators/service": "^2.0.0-beta.1",
     "ember-cli-babel": "^6.0.0",
     "semver": "^5.5.0"
   },
