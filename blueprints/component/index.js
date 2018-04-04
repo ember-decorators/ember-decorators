@@ -111,7 +111,8 @@ module.exports = {
     return {
       importTemplate: importTemplate,
       contents: contents,
-      path: getPathOption(options)
+      path: getPathOption(options),
+      lastPathSegment: stringUtil.camelize(options.entity.name.split('/').reverse()[0])
     };
   }
 };
