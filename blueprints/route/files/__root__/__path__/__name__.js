@@ -1,4 +1,4 @@
 import Route from '@ember/routing/route';
 
-export default class <%= camelizedModuleName %>Route extends Route {
+export default class <%= classifiedModuleName %>Route extends Route {
 }
