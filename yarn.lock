@@ -55,38 +55,38 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@ember-decorators/component@^v2.0.0-beta.1":
-  version "2.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@ember-decorators/component/-/component-2.0.0-beta.1.tgz#1ea4a83836df336773c37b1ac5055c5930651310"
+"@ember-decorators/component@^2.0.0-beta.1":
+  version "2.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@ember-decorators/component/-/component-2.0.0-beta.2.tgz#46a6927e6cb8a62fcd81a1c91877bd2690cb8d84"
   dependencies:
     "@ember-decorators/utils" "^2.0.0-beta.4"
     ember-cli-babel "^6.6.0"
 
-"@ember-decorators/controller@^v2.0.0-beta.1":
-  version "2.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@ember-decorators/controller/-/controller-2.0.0-beta.1.tgz#750d624dcad58a9111ef4960f165e5f875e7fc4c"
+"@ember-decorators/controller@^2.0.0-beta.1":
+  version "2.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@ember-decorators/controller/-/controller-2.0.0-beta.2.tgz#e2bee35ee84da027f361baedd22b2b5e43ed4642"
   dependencies:
     "@ember-decorators/utils" "^2.0.0-beta.4"
     ember-cli-babel "^6.6.0"
 
-"@ember-decorators/data@^v2.0.0-beta.1":
+"@ember-decorators/data@^2.0.0-beta.1":
   version "2.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/@ember-decorators/data/-/data-2.0.0-beta.1.tgz#9810f12d305577af43c1404c45de726dc872a566"
   dependencies:
     "@ember-decorators/utils" "^2.0.0-beta.4"
     ember-cli-babel "^6.6.0"
 
-"@ember-decorators/object@^v2.0.0-beta.1":
-  version "2.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@ember-decorators/object/-/object-2.0.0-beta.1.tgz#9b95bb248ee09179728437abb81c958ef6f40c36"
+"@ember-decorators/object@^2.0.0-beta.1":
+  version "2.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@ember-decorators/object/-/object-2.0.0-beta.2.tgz#e1f44c1d554a770fd7da5960794c2cd4da1eb359"
   dependencies:
     "@ember-decorators/utils" "^2.0.0-beta.4"
     ember-cli-babel "^6.6.0"
     ember-compatibility-helpers "^0.1.3"
 
-"@ember-decorators/service@^v2.0.0-beta.1":
-  version "2.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@ember-decorators/service/-/service-2.0.0-beta.1.tgz#533fb4296a8bb822a6782119d2441ceffe9f90da"
+"@ember-decorators/service@^2.0.0-beta.1":
+  version "2.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@ember-decorators/service/-/service-2.0.0-beta.2.tgz#da98a186f9bda6c8957de4278f7e01ccbb8430eb"
   dependencies:
     "@ember-decorators/utils" "^2.0.0-beta.4"
     ember-cli-babel "^6.6.0"
