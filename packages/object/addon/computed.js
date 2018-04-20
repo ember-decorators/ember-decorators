@@ -1,0 +1,896 @@
+import {
+  alias as emberAlias,
+  and as emberAnd,
+  bool as emberBool,
+  collect as emberCollect,
+  deprecatingAlias as emberDeprecatingAlias,
+  empty as emberEmpty,
+  equal as emberEqual,
+  filter as emberFilter,
+  filterBy as emberFilterBy,
+  gt as emberGt,
+  gte as emberGte,
+  intersect as emberIntersect,
+  lt as emberLt,
+  lte as emberLte,
+  map as emberMap,
+  mapBy as emberMapBy,
+  match as emberMatch,
+  max as emberMax,
+  min as emberMin,
+  none as emberNone,
+  not as emberNot,
+  notEmpty as emberNotEmpty,
+  oneWay as emberOneWay,
+  or as emberOr,
+  reads as emberReads,
+  readOnly as emberReadOnly,
+  setDiff as emberSetDiff,
+  sort as emberSort,
+  sum as emberSum,
+  union as emberUnion,
+  uniq as emberUniq,
+  uniqBy as emberUniqBy
+} from '@ember/object/computed';
+
+import { assert } from '@ember/debug';
+
+import { computedDecoratorWithRequiredParams } from '@ember-decorators/utils/computed';
+import { SUPPORTS_UNIQ_BY_COMPUTED } from 'ember-compatibility-helpers';
+
+function legacyMacro(fn) {
+  return computedDecoratorWithRequiredParams(function(target, key, desc, params) {
+    if (desc !== undefined && desc.value !== undefined) {
+      return fn(...params, desc.value);
+    }
+
+    return fn(...params);
+  });
+}
+
+function legacyMacroWithRequiredMethod(fn) {
+  return computedDecoratorWithRequiredParams(function(target, key, desc, params) {
+    let method =  desc !== undefined && typeof desc.value === 'function' ? desc.value : params.pop();
+
+    assert(`The @${fn.name} decorator must be used to decorate a method`, typeof method === 'function');
+
+    return fn(...params, method);
+  });
+}
+
+/**
+ * Decorator that wraps [Ember.computed.alias](http://emberjs.com/api/classes/Ember.computed.html#method_alias)
+ *
+ * Creates a new property that is an alias for another property on an object.
+ * Calls to get or set this property behave as though they were called on
+ * the original property.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { alias } from 'ember-decorators/object/computed';
+ *
+ * export default class UserProfileComponent extends Component {
+ *   person = {
+ *     first: 'Joe'
+ *   };
+ *
+ *   @alias('person.first') firstName;
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the aliased property
+ */
+export const alias = legacyMacro(emberAlias);
+
+/**
+ * Decorator that wraps [Ember.computed.and](http://emberjs.com/api/classes/Ember.computed.html#method_and)
+ *
+ * A computed property that performs a logical and on the original values
+ * for the provided dependent properties.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { and } from 'ember-decorators/object/computed';
+ *
+ * export default class UserProfileComponent extends Component {
+ *   person = {
+ *     first: 'Joe'
+ *   };
+ *
+ *   @and('person.{first,last}') hasFullName; // false
+ * }
+ * ```
+ *
+ * @function
+ * @param {...String} dependentKeys - Keys for properties to `and`
+ */
+export const and = legacyMacro(emberAnd);
+
+/**
+ * Decorator that wraps [Ember.computed.bool](http://emberjs.com/api/classes/Ember.computed.html#method_bool)
+ *
+ * A computed property that converts the provided dependent property into a
+ * boolean value.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { bool } from 'ember-decorators/object/computed';
+ *
+ * export default class MessagesNotificationComponent extends Component {
+ *   messageCount = 1;
+ *
+ *   @bool('messageCount') hasMessages; // true
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to convert
+ */
+export const bool = legacyMacro(emberBool);
+
+/**
+ * Decorator that wraps [Ember.computed.collect](http://emberjs.com/api/classes/Ember.computed.html#method_collect)
+ *
+ * A computed property that returns the array of values for the provided
+ * dependent properties.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { collect } from 'ember-decorators/object/computed';
+ *
+ * export default class CameraEquipmentComponent extends Component {
+ *   light = 'strobe';
+ *   lens = '35mm prime';
+ *
+ *   @collect('light', 'lens') equipment; // ['strobe', '35mm prime']
+ * }
+ * ```
+ *
+ * @function
+ * @param {...String} dependentKeys - Keys for the properties to collect
+ */
+export const collect = legacyMacro(emberCollect);
+
+/**
+ * Decorator that wraps [Ember.computed.deprecatingAlias](http://emberjs.com/api/classes/Ember.computed.html#method_deprecatingAlias)
+ *
+ * Creates a new property that is an alias for another property on an object.
+ * Calls to get or set this property behave as though they were called on
+ * the original property, but will also trigger a deprecation warning.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { deprecatingAlias } from 'ember-decorators/object/computed';
+ *
+ * export default class UserProfileComponent extends {
+ *   person = {
+ *     first: 'Joe'
+ *   };
+ *
+ *   @deprecatingAlias('person.first', {
+ *     id: 'user-profile.firstName',
+ *     until: '3.0.0',
+ *     url: 'https://example.com/deprecations/user-profile.firstName'
+ *   }) firstName;
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to alias
+ * @param {Object} options
+ */
+export const deprecatingAlias = legacyMacro(emberDeprecatingAlias);
+
+/**
+ * Decorator that wraps [Ember.computed.empty](http://emberjs.com/api/classes/Ember.computed.html#method_empty)
+ *
+ * A computed property that returns `true` if the value of the dependent
+ * property is null, an empty string, empty array, or empty function.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { empty } from 'ember-decorators/object/computed';
+ *
+ * export default class FoodItemsComponent extends Component {
+ *   items = A(['taco', 'burrito']);
+ *
+ *   @empty('items') isEmpty; // false
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key of the property to check emptiness of
+ */
+export const empty = legacyMacro(emberEmpty);
+
+/**
+ * Decorator that wraps [Ember.computed.equal](http://emberjs.com/api/classes/Ember.computed.html#method_equal)
+ *
+ * A computed property that returns true if the dependent properties are equal.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { equal } from 'ember-decorators/object/computed';
+ *
+ * export default class NapTimeComponent extends Component {
+ *   state = 'sleepy';
+ *
+ *   @equal('state', 'sleepy') napTime; // true
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to check
+ * @param {Any} value - Value to compare the dependent property to
+ */
+export const equal = legacyMacro(emberEqual);
+
+/**
+ * Decorator that wraps [Ember.computed.filter](http://emberjs.com/api/classes/Ember.computed.html#method_filter)
+ *
+ * Filters the items in the array by the provided callback.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { filter } from 'ember-decorators/object/computed';
+ *
+ * export default class ChoresListComponent extends Component {
+ *   chores = A([
+ *     { name: 'cook', done: true },
+ *     { name: 'clean', done: true },
+ *     { name: 'write more unit tests', done: false }
+ *   ]);
+ *
+ *   @filter('chores')
+ *   remainingChores(chore, index, array) {
+ *     return !chore.done;
+ *   } // [{name: 'write more unit tests', done: false}]
+ *
+ *   // alternative syntax:
+ *
+ *   @filter('chores', function(chore, index, array) {
+ *     return !chore.done;
+ *   }) remainingChores; // [{name: 'write more unit tests', done: false}]
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the array to filter
+ * @param {Function(item: Any, index: Number, array: Array<Any>): Boolean} callback - The function to filter with
+ */
+export const filter = legacyMacroWithRequiredMethod(emberFilter);
+
+/**
+ * Decorator that wraps [Ember.computed.filterBy](http://emberjs.com/api/classes/Ember.computed.html#method_filterBy)
+ *
+ * Filters the array by the property and value.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { filterBy } from 'ember-decorators/object/computed';
+ *
+ * export default class ChoresListComponent extends Component {
+ *   chores = A([
+ *     { name: 'cook', done: true },
+ *     { name: 'clean', done: true },
+ *     { name: 'write more unit tests', done: false }
+ *   ]);
+ *
+ *   @filterBy('chores', 'done', false) remainingChores; // [{name: 'write more unit tests', done: false}]
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the array to filter
+ * @param {String} propertyKey - Property of the array items to filter by
+ * @param {Any} value - Value to filter by
+ */
+export const filterBy = legacyMacro(emberFilterBy);
+
+/**
+ * Decorator that wraps [Ember.computed.gt](http://emberjs.com/api/classes/Ember.computed.html#method_gt)
+ *
+ * A computed property that returns `true` if the provided dependent property
+ * is greater than the provided value.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { gt } from 'ember-decorators/object/computed';
+ *
+ * export default class CatPartyComponent extends Component {
+ *   totalCats = 11;
+ *
+ *   @gt('totalCats', 10) isCatParty; // true
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to compare
+ * @param {Number} value - Value to compare against
+ */
+export const gt = legacyMacro(emberGt);
+
+/**
+ * Decorator that wraps [Ember.computed.gte](http://emberjs.com/api/classes/Ember.computed.html#method_gte)
+ *
+ * A computed property that returns `true` if the provided dependent property
+ * is greater than or equal to the provided value.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { gte } from 'ember-decorators/object/computed';
+ *
+ * export default class PlayerListComponent extends Component {
+ *   totalPlayers = 14;
+ *
+ *   @gte('totalPlayers', 14) hasEnoughPlayers; // true
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to compare
+ * @param {Number} value - Value to compare against
+ */
+export const gte = legacyMacro(emberGte);
+
+/**
+ * Decorator that wraps [Ember.computed.intersect](http://emberjs.com/api/classes/Ember.computed.html#method_intersect)
+ *
+ * A computed property which returns a new array with all the duplicated
+ * elements from two or more dependent arrays.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { intersect } from 'ember-decorators/object/computed';
+ *
+ * export default class FoodListComponent extends Component {
+ *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
+ *   foods = A(['tacos', 'pizza']);
+ *
+ *   @intersect('likes', 'foods') favoriteFoods; // ['tacos', 'pizza']
+ * }
+ * ```
+ *
+ * @function
+ * @param {...String} dependentKeys - Keys of the arrays to intersect
+ */
+export const intersect = legacyMacro(emberIntersect);
+
+/**
+ * Decorator that wraps [Ember.computed.lt](http://emberjs.com/api/classes/Ember.computed.html#method_lt)
+ *
+ * A computed property that returns `true` if the provided dependent property
+ * is less than the provided value.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { lt } from 'ember-decorators/object/computed';
+ *
+ * export default class DogPartyComponent extends Component {
+ *   totalDogs = 3;
+ *
+ *   @lt('totalDogs', 10) isDogParty; // true
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to compare
+ * @param {Number} value - Value to compare against
+ */
+export const lt = legacyMacro(emberLt);
+
+/**
+ * Decorator that wraps [Ember.computed.lte](http://emberjs.com/api/classes/Ember.computed.html#method_lte)
+ *
+ * A computed property that returns `true` if the provided dependent property
+ * is less than or equal to the provided value.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { lte } from 'ember-decorators/object/computed';
+ *
+ * export default class PlayerListComponent extends Component {
+ *   totalPlayers = 14;
+ *
+ *   @lte('totalPlayers', 14) hasEnoughPlayers; // true
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to compare
+ * @param {Number} value - Value to compare against
+ */
+export const lte = legacyMacro(emberLte);
+
+/**
+ * Decorator that wraps [Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)
+ *
+ * Returns an array mapped via the callback
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { map } from 'ember-decorators/object/computed';
+ *
+ * export default class ChoresListComponent extends Component {
+ *   chores = A(['clean', 'write more unit tests']);
+ *
+ *   @map('chores')
+ *   loudChores(chore, index) {
+ *     return chore.toUpperCase() + '!';
+ *   } // ['CLEAN!', 'WRITE MORE UNIT TESTS!']
+ *
+ *   // alternative syntax:
+ *
+ *   @map('chores', function(chore, index) {
+ *     return chore.toUpperCase() + '!';
+ *   }) loudChores; // ['CLEAN!', 'WRITE MORE UNIT TESTS!']
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the array to map over
+ * @param {Function(item: Any, index: Number): Any} callback - Function to map over the array
+ */
+export const map = legacyMacroWithRequiredMethod(emberMap);
+
+/**
+ * Decorator that wraps [Ember.computed.mapBy](http://emberjs.com/api/classes/Ember.computed.html#method_mapBy)
+ *
+ * Returns an array mapped to the specified key.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { mapBy } from 'ember-decorators/object/computed';
+ *
+ * export default class PeopleListComponent extends Component {
+ *   people = A([
+ *     {name: "George", age: 5},
+ *     {name: "Stella", age: 10},
+ *     {name: "Violet", age: 7}
+ *   ]);
+ *
+ *   @mapBy('people', 'age') ages; // [5, 10, 7]
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the array to map over
+ * @param {String} propertyKey - Property of the array items to map by
+ */
+export const mapBy = legacyMacro(emberMapBy);
+
+/**
+ * Decorator that wraps [Ember.computed.match](http://emberjs.com/api/classes/Ember.computed.html#method_match)
+ *
+ * A computed property which matches the original value for the dependent
+ * property against a given RegExp, returning `true` if they values matches
+ * the RegExp and `false` if it does not.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { match } from 'ember-decorators/object/computed';
+ *
+ * export default class IsEmailValidComponent extends Component {
+ *   email = 'tomster@emberjs.com';
+ *
+ *   @match('email', /^.+@.+\..+$/) validEmail;
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - The property to match
+ * @param {RegExp} pattern - The pattern to match against
+ */
+export const match = legacyMacro(emberMatch);
+
+/**
+ * Decorator that wraps [Ember.computed.max](http://emberjs.com/api/classes/Ember.computed.html#method_max)
+ *
+ * A computed property that calculates the maximum value in the dependent
+ * array. This will return `-Infinity` when the dependent array is empty.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { max } from 'ember-decorators/object/computed';
+ *
+ * export default class MaxValueComponent extends Component {
+ *   values = A([1, 2, 5, 10]);
+ *
+ *   @max('values') maxValue; // 10
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the array to find the max value of
+ */
+export const max = legacyMacro(emberMax);
+
+/**
+ * Decorator that wraps [Ember.computed.min](http://emberjs.com/api/classes/Ember.computed.html#method_min)
+ *
+ * A computed property that calculates the minimum value in the dependent
+ * array. This will return `Infinity` when the dependent array is empty.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { min } from 'ember-decorators/object/computed';
+ *
+ * export default class MinValueComponent extends Component {
+ *   values = A([1, 2, 5, 10]);
+ *
+ *   @min('values') minValue; // 1
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the array to find the max value of
+ */
+export const min = legacyMacro(emberMin);
+
+/**
+ * Decorator that wraps [Ember.computed.none](http://emberjs.com/api/classes/Ember.computed.html#method_none)
+ *
+ * A computed property that returns true if the value of the dependent property
+ * is null or undefined. This avoids errors from JSLint complaining about use
+ * of `==`, which can be technically confusing.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { none } from 'ember-decorators/object/computed';
+ *
+ * export default class NameDisplayComponent extends Component {
+ *   firstName = null;
+ *
+ *   @none('firstName') isNameless; // true unless firstName is defined
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to check
+ */
+export const none = legacyMacro(emberNone);
+
+/**
+ * Decorator that wraps [Ember.computed.not](http://emberjs.com/api/classes/Ember.computed.html#method_not)
+ *
+ * A computed property that returns the inverse boolean value of the original
+ * value for the dependent property.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { not } from 'ember-decorators/object/computed';
+ *
+ * export default class UserInfoComponent extends Component {
+ *   loggedIn = false;
+ *
+ *   @not('loggedIn') isAnonymous; // true
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to `not`
+ */
+export const not = legacyMacro(emberNot);
+
+/**
+ * Decorator that wraps [Ember.computed.notEmpty](http://emberjs.com/api/classes/Ember.computed.html#method_notEmpty)
+ *
+ * A computed property that returns `true` if the value of the dependent
+ * property is NOT null, an empty string, empty array, or empty function.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { notEmpty } from 'ember-decorators/object/computed';
+ *
+ * export default class GroceryBagComponent extends Component {
+ *   groceryBag = A(['milk', 'eggs', 'apples']);
+ *
+ *   @notEmpty('groceryBag') hasGroceriesToPutAway; // true
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to check
+ */
+export const notEmpty = legacyMacro(emberNotEmpty);
+
+/**
+ * Decorator that wraps [Ember.computed.oneWay](http://emberjs.com/api/classes/Ember.computed.html#method_oneWay)
+ *
+ * Where `computed.alias` aliases `get` and `set`, and allows for bidirectional
+ * data flow, `computed.oneWay` only provides an aliased `get`. The `set` will
+ * not mutate the upstream property, rather causes the current property to
+ * become the value set. This causes the downstream property to permanently
+ * diverge from the upstream property.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { oneWay } from 'ember-decorators/object/computed';
+ *
+ * export default class UserProfileComponent extends Component {
+ *   firstName = 'Joe';
+ *
+ *   @oneWay('firstName') originalName; // will always be 'Joe'
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to alias
+ */
+export const oneWay = legacyMacro(emberOneWay);
+
+/**
+ * Decorator that wraps [Ember.computed.or](http://emberjs.com/api/classes/Ember.computed.html#method_or)
+ *
+ * A computed property which performs a logical or on the original values for
+ * the provided dependent properties.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { or } from 'ember-decorators/object/computed';
+ *
+ * export default class OutfitFeaturesComponent extends Component {
+ *   hasJacket = true;
+ *   hasUmbrella = false;
+ *
+ *   @or('hasJacket', 'hasUmbrella') isReadyForRain; // true
+ * }
+ * ```
+ *
+ * @function
+ * @param {...String} dependentKey - Key for the properties to `or`
+ */
+export const or = legacyMacro(emberOr);
+
+/**
+ * Decorator that wraps [Ember.computed.reads](http://emberjs.com/api/classes/Ember.computed.html#method_reads)
+ *
+ * This is a more semantically meaningful alias of `computed.oneWay`, whose
+ * name is somewhat ambiguous as to which direction the data flows.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { reads } from 'ember-decorators/object/computed';
+ *
+ * export default class UserProfileComponent extends Component {
+ *   first = 'Tomster';
+ *
+ *   @reads('first') firstName;
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to read
+ */
+export const reads = legacyMacro(emberReads);
+
+/**
+ * Decorator that wraps [Ember.computed.reads](http://emberjs.com/api/classes/Ember.computed.html#method_reads)
+ *
+ * computed property which creates a one way computed property to the original
+ * value for property. Where computed.oneWay provides oneWay bindings,
+ * computed.readOnly provides a readOnly one way binding. Very often when using
+ * computed.oneWay one does not also want changes to propagate back up, as they
+ * will replace the value.
+ *
+ * This prevents the reverse flow, and also throws an exception when it occurs.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { readOnly } from 'ember-decorators/object/computed';
+ *
+ * export default class UserProfileComponent extends Component {
+ *   first = 'Tomster';
+ *
+ *   @readOnly('first') firstName;
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key for the property to read
+ */
+export const readOnly = legacyMacro(emberReadOnly);
+
+/**
+ * Decorator that wraps [Ember.computed.setDiff](http://emberjs.com/api/classes/Ember.computed.html#method_setDiff)
+ *
+ * A computed property which returns a new array with all the properties from
+ * the first dependent array that are not in the second dependent array.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { setDiff } from 'ember-decorators/object/computed';
+ *
+ * export default class FavoriteThingsComponent extends Component {
+ *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
+ *   foods = A(['tacos', 'pizza']);
+ *
+ *   @setDiff('likes', 'foods') favoriteThingsThatArentFood; // ['puppies']
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} setAProperty - Keys for the first set
+ * @param {String} setBProperty - Keys for the first set
+ */
+export const setDiff = legacyMacro(emberSetDiff);
+
+/**
+ * Decorator that wraps [Ember.computed.sort](http://emberjs.com/api/classes/Ember.computed.html#method_sort)
+ *
+ * A computed property which returns a new array with all the properties from
+ * the first dependent array sorted based on a property or sort function.
+ *
+ *
+ * The callback method you provide should have the following signature:
+ *
+ * ```javascript
+ * function(itemA, itemB);
+ * ```
+ * - `itemA` the first item to compare.
+ * - `itemB` the second item to compare.
+ *
+ * This function should return negative number (e.g. `-1`) when `itemA` should
+ * come before `itemB`. It should return positive number (e.g. `1`) when
+ * `itemA` should come after `itemB`. If the `itemA` and `itemB` are equal this
+ * function should return `0`.
+ *
+ * Therefore, if this function is comparing some numeric values, simple
+ * `itemA - itemB` or `itemA.get( 'foo' ) - itemB.get( 'foo' )` can be used
+ * instead of series of `if`.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { sort } from 'ember-decorators/object/computed';
+ *
+ * export default class SortNamesComponent extends Component {
+ *   names = A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);
+ *
+ *   @sort('names')
+ *   sortedNames(a, b){
+ *     if (a.name > b.name) {
+ *       return 1;
+ *     } else if (a.name < b.name) {
+ *       return -1;
+ *     }
+ *
+ *     return 0;
+ *   } // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
+ *
+ *   // alternative syntax:
+ *
+ *   @sort('names', function(a, b){
+ *     if (a.name > b.name) {
+ *       return 1;
+ *     } else if (a.name < b.name) {
+ *       return -1;
+ *     }
+ *
+ *     return 0;
+ *   }) sortedNames; // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - The key for the array that should be sorted
+ * @param {Array<String>|Function(Any, Any): Number} sortDefinition - Sorting function or sort descriptor
+ */
+export const sort = legacyMacro(emberSort);
+
+/**
+ * Decorator that wraps [Ember.computed.sum](http://emberjs.com/api/classes/Ember.computed.html#method_sum)
+ *
+ * A computed property that returns the sum of the value in the dependent
+ * array.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { sum } from 'ember-decorators/object/computed';
+ *
+ * export default class SumValuesComponent extends Component {
+ *   values = A([1, 2, 3]);
+ *
+ *   @sum('values') total; // 6
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key of the array to sum up
+ */
+export const sum = legacyMacro(emberSum);
+
+/**
+ * Decorator that wraps [Ember.computed.union](http://emberjs.com/api/classes/Ember.computed.html#method_union)
+ *
+ * Alias for [union](http://emberjs.com/api/classes/Ember.computed.html#method_uniq).
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { union } from 'ember-decorators/object/computed';
+ *
+ * export default class LikesAndFoodsComponent extends Component {
+ *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
+ *   foods = A(['tacos', 'pizza', 'ramen']);
+ *
+ *   @union('likes', 'foods') favorites; // ['tacos', 'puppies', 'pizza', 'ramen']
+ * }
+ * ```
+ *
+ * @function
+ * @param {...String} dependentKeys - Keys of the arrays to union
+ */
+export const union = legacyMacro(emberUnion);
+
+/**
+ * Decorator that wraps [Ember.computed.uniq](http://emberjs.com/api/classes/Ember.computed.html#method_uniq)
+ *
+ * A computed property which returns a new array with all the unique elements from one or more dependent arrays.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { uniq } from 'ember-decorators/object/computed';
+ *
+ * export default class FavoriteThingsComponent extends Component {
+ *   likes = A([ 'tacos', 'puppies', 'pizza' ]);
+ *   foods = A(['tacos', 'pizza', 'ramen']);
+ *
+ *   @uniq('likes', 'foods') favorites; // ['tacos', 'puppies', 'pizza', 'ramen']
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key of the array to uniq
+ */
+export const uniq = legacyMacro(emberUniq);
+
+/**
+ * Decorator that wraps [Ember.computed.uniqBy](http://emberjs.com/api/classes/Ember.computed.html#method_uniqBy)
+ *
+ * A computed property which returns a new array with all the unique elements
+ * from an array, with uniqueness determined by a specific key.
+ *
+ * ```javascript
+ * import Component from '@ember/component';
+ * import { A } from '@ember/array';
+ * import { uniqBy } from 'ember-decorators/object/computed';
+ *
+ * export default class FruitBowlComponent extends Component {
+ *   fruits = A([
+ *     { name: 'banana', color: 'yellow' },
+ *     { name: 'apple',  color: 'red' },
+ *     { name: 'kiwi',   color: 'brown' },
+ *     { name: 'cherry', color: 'red' },
+ *     { name: 'lemon',  color: 'yellow' }
+ *   ]);
+ *
+ *   @uniqBy('fruits', 'color') oneOfEachColor;
+ *   // [
+ *   //  { name: 'banana', color: 'yellow'},
+ *   //  { name: 'apple',  color: 'red'},
+ *   //  { name: 'kiwi',   color: 'brown'}
+ *   // ]
+ * }
+ * ```
+ *
+ * @function
+ * @param {String} dependentKey - Key of the array to uniq
+ * @param {String} propertyKey - Key of the property on the objects of the array to determine uniqueness by
+ */
+export const uniqBy = SUPPORTS_UNIQ_BY_COMPUTED ? legacyMacro(emberUniqBy) : () => {
+  assert('uniqBy is only available from Ember.js v2.7 onwards.', false);
+};
