@@ -15,13 +15,14 @@ would result in the following model:
 
 ```js
 import DS from 'ember-data';
-const { Model, belongsTo, hasMany, attr} = DS;
+const { Model } = DS;
+import { belongsTo, hasMany, attr } from 'ember-decorators/data';
 
 export default class TacoModel extends Model {
-  filling = belongsTo('protein');
-  toppings = DS.hasMany('topping');
-  name = attr('string');
-  price = attr('number');
-  misc = attr()
+  @belongsTo(protein) filling(){};
+  @hasMany('topping') toppings(){};
+  @attr('string') name(){};
+  @attr('number') price(){};
+  @attr() misc(){};
 }
 ```

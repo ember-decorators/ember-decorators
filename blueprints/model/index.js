@@ -1,78 +1,49 @@
 /* eslint-env node */
+const EOL = require('os').EOL;
+const ModelBlueprint = require('ember-data/blueprints/model');
 
-var inflection  = require('inflection');
-var stringUtils = require('ember-cli-string-utils');
-var EOL         = require('os').EOL;
+const _superLocals = ModelBlueprint.locals;
 
-module.exports = {
-  description: 'Generates an ember-data model.',
+ModelBlueprint.locals = function(options) {
+  let generatorImports = {};
+  let result = _superLocals.call(ModelBlueprint, options);
 
-  anonymousOptions: [
-    'name',
-    'attr:type'
-  ],
-
-  locals: function(options) {
-    var attrs = [];
-    var needs = [];
-    var entityOptions = options.entity.options;
-
-    for (var name in entityOptions) {
-      var type = entityOptions[name] || '';
-      var foreignModel = name;
-      if (type.indexOf(':') > -1) {
-        foreignModel = type.split(':')[1];
-        type = type.split(':')[0];
+  // transform to the class format
+  result.attrs = result.attrs
+    .split(',' + EOL)
+    .map(i => i.trim())
+    .map(i => {
+      // toppings: DS.hasMany('topping') => [ 'toppings', 'hasMany', 'topping' ]
+      const regex = /^(.+):\sDS.(\w+)\((.*)\)$/g;
+      let str = i;
+      let m;
+      let result = [];
+      while ((m = regex.exec(str)) !== null) {
+        // This is necessary to avoid infinite loops with zero-width matches
+        if (m.index === regex.lastIndex) {
+          regex.lastIndex++;
+        }
+        // The result can be accessed through the `m`-variable.
+        m.forEach((match) => {
+          result.push(match)
+        });
       }
-      var dasherizedName = stringUtils.dasherize(name);
-      var camelizedName = stringUtils.camelize(name);
-      var dasherizedType = stringUtils.dasherize(type);
-      var dasherizedForeignModel = stringUtils.dasherize(foreignModel);
-      var dasherizedForeignModelSingular = inflection.singularize(dasherizedForeignModel);
-
-      var attr;
-      if (/has-many/.test(dasherizedType)) {
-        var camelizedNamePlural = inflection.pluralize(camelizedName);
-        attr = dsAttr(dasherizedForeignModelSingular, dasherizedType);
-        attrs.push(camelizedNamePlural + '= ' + attr);
-      } else if (/belongs-to/.test(dasherizedType)) {
-        attr = dsAttr(dasherizedForeignModel, dasherizedType);
-        attrs.push(camelizedName + '= ' + attr);
-      } else {
-        attr = dsAttr(dasherizedName, dasherizedType);
-        attrs.push(camelizedName + '= ' + attr);
+      return result.slice(1, 4);
+    })
+    .map(i => {
+      // [ 'toppings', 'hasMany', 'topping' ] => '@hasMany(\'topping\') toppings(){}'
+      let result = '';
+      if (i.length === 3) {
+        generatorImports[i[1]] = true;
+        result = `  @${i[1]}(${i[2]}) ${i[0]}(){};`
       }
+      return result;
+    })
+    .join(EOL);
 
-      if (/has-many|belongs-to/.test(dasherizedType)) {
-        needs.push("'model:" + dasherizedForeignModelSingular + "'");
-      }
-    }
-
-    var needsDeduplicated = needs.filter(function(need, i) {
-      return needs.indexOf(need) === i;
-    });
-
-    attrs = attrs.join('; ' + EOL + '  ');
-    needs = '  needs = [' + needsDeduplicated.join(', ') + '];';
-
-    return {
-      attrs: attrs,
-      needs: needs
-    };
-  }
-};
-
-function dsAttr(name, type) {
-  switch (type) {
-  case 'belongs-to':
-    return 'belongsTo(\'' + name + '\')';
-  case 'has-many':
-    return 'hasMany(\'' + name + '\')';
-  case '':
-    //"If you don't specify the type of the attribute, it will be whatever was provided by the server"
-    //https://emberjs.com/guides/models/defining-models/
-    return 'attr()';
-  default:
-    return 'attr(\'' + type + '\')';
-  }
+  //add import for generators
+  result.generatorImports = Object.keys(generatorImports).join(', ');
+  return result;
 }
+
+module.exports = ModelBlueprint;
