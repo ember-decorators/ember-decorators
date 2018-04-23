@@ -52,8 +52,8 @@ You replace it with this:
 
 ```javascript
 import Component from '@ember/component';
-import { action, computed } from 'ember-decorators/object';
-import { service } from 'ember-decorators/service';
+import { action, computed } from '@ember-decorators/object';
+import { service } from '@ember-decorators/service';
 
 export default class ExampleComponent extends Component {
   @service foo
@@ -81,31 +81,31 @@ import {
   attr,
   hasMany,
   belongsTo
-} from 'ember-decorators/data';
+} from '@ember-decorators/data';
 
 import {
   controller
-} from 'ember-decorators/controller';
+} from '@ember-decorators/controller';
 
 import {
   action,
   computed,
   observes
-} from 'ember-decorators/object';
+} from '@ember-decorators/object';
 
 import {
   alias,
   or,
   reads
-} from 'ember-decorators/object/computed';
+} from '@ember-decorators/object/computed';
 
 import {
   on
-} from 'ember-decorators/object/evented';
+} from '@ember-decorators/object/evented';
 
 import {
   service
-} from 'ember-decorators/service';
+} from '@ember-decorators/service';
 
 ```
 
