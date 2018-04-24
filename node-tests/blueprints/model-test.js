@@ -59,7 +59,7 @@ describe('Acceptance: ember generate and destroy model', function() {
       }));
   });
 
-  it('model taco toppings:has-many:toppings name:string', function() {
+  it('model taco price:number misc', function() {
     let args = ['model', 'taco', 'price:number', 'misc'];
 
     // pass any additional command line options in the arguments array

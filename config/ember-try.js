@@ -14,17 +14,20 @@ module.exports = function() {
           bower: {
             dependencies: {
               'ember': '~1.11.0',
-              'ember-cli-shims': '0.0.6'
+              'ember-cli-shims': '0.0.6',
+              'ember-data': '^1.13.0'
             },
             resolutions: {
               'ember': '~1.11.0',
-              'ember-cli-shims': '0.0.6'
+              'ember-cli-shims': '0.0.6',
+              'ember-data': '^1.13.0'
             }
           },
           npm: {
             devDependencies: {
               'ember-cli-shims': null,
-              'ember-source': null
+              'ember-source': null,
+              'ember-data': null
             }
           }
         },
@@ -89,22 +92,27 @@ module.exports = function() {
         },
         {
           name: 'ember-lts-2.16',
+          command: 'yarn nodetest && ember test',
           npm: {
             devDependencies: {
-              'ember-source': '~2.16.0'
+              'ember-source': '~2.16.0',
+              'ember-data': '~2.16.0'
             }
           }
         },
         {
           name: 'ember-lts-2.18',
+          command: 'yarn nodetest && ember test',
           npm: {
             devDependencies: {
-              'ember-source': '~2.18.0'
+              'ember-source': '~2.18.0',
+              'ember-data': '~2.18.0'
             }
           }
         },
         {
           name: 'ember-release',
+          command: 'yarn nodetest && ember test',
           npm: {
             devDependencies: {
               'ember-source': urls[0]
@@ -113,6 +121,7 @@ module.exports = function() {
         },
         {
           name: 'ember-beta',
+          command: 'yarn nodetest && ember test',
           npm: {
             devDependencies: {
               'ember-source': urls[1]
@@ -121,6 +130,7 @@ module.exports = function() {
         },
         {
           name: 'ember-canary',
+          command: 'yarn nodetest && ember test',
           npm: {
             devDependencies: {
               'ember-source': urls[2]
