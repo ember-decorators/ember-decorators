@@ -19,10 +19,10 @@ const { Model } = DS;
 import { belongsTo, hasMany, attr } from 'ember-decorators/data';
 
 export default class TacoModel extends Model {
-  @belongsTo('protein') filling(){};
-  @hasMany('topping') toppings(){};
-  @attr('string') name(){};
-  @attr('number') price(){};
-  @attr() misc(){};
+  @belongsTo('protein') filling;
+  @hasMany('topping') toppings;
+  @attr('string') name;
+  @attr('number') price;
+  @attr() misc;
 }
 ```

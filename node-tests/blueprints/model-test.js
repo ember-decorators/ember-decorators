@@ -37,7 +37,7 @@ describe('Acceptance: ember generate and destroy model', function() {
           'import { belongsTo } from \'ember-decorators/data\';' + EOL +
           '' + EOL +
           'export default class TacoModel extends Model {' + EOL +
-          '  @belongsTo(\'protein\') filling(){};' + EOL +
+          '  @belongsTo(\'protein\') filling;' + EOL +
           '}' + EOL);
       }));
   });
@@ -53,8 +53,8 @@ describe('Acceptance: ember generate and destroy model', function() {
           'import { hasMany, attr } from \'ember-decorators/data\';' + EOL +
           '' + EOL +
           'export default class TacoModel extends Model {' + EOL +
-          '  @hasMany(\'topping\') toppings(){};' + EOL +
-          '  @attr(\'string\') name(){};' + EOL +
+          '  @hasMany(\'topping\') toppings;' + EOL +
+          '  @attr(\'string\') name;' + EOL +
           '}' + EOL);
       }));
   });
@@ -70,8 +70,8 @@ describe('Acceptance: ember generate and destroy model', function() {
           'import { attr } from \'ember-decorators/data\';' + EOL +
           '' + EOL +
           'export default class TacoModel extends Model {' + EOL +
-          '  @attr(\'number\') price(){};' + EOL +
-          '  @attr() misc(){};' + EOL +
+          '  @attr(\'number\') price;' + EOL +
+          '  @attr() misc;' + EOL +
           '}' + EOL);
       }));
   });

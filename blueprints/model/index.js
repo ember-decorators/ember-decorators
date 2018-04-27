@@ -35,7 +35,7 @@ ModelBlueprint.locals = function(options) {
       let result = '';
       if (i.length === 3) {
         generatorImports[i[1]] = true;
-        result = `  @${i[1]}(${i[2]}) ${i[0]}(){};`
+        result = `  @${i[1]}(${i[2]}) ${i[0]};`
       }
       return result;
     })
