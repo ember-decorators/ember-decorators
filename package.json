@@ -29,6 +29,7 @@
     "@ember-decorators/object": "^2.0.0",
     "@ember-decorators/service": "^2.0.0",
     "ember-cli-babel": "^6.0.0",
+    "mocha": "^4.0.1",
     "semver": "^5.5.0"
   },
   "devDependencies": {

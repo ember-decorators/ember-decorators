@@ -1,5 +1,2 @@
-'use strict';
-
-module.exports = {
-  description: 'Generates a service.'
-};
+const ServiceBlueprintGenerator = require('ember-source/blueprints/service');
+module.exports = ServiceBlueprintGenerator;
