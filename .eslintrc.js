@@ -15,8 +15,7 @@ module.exports = {
   env: {
     browser: true
   },
-  rules: {
-  },
+  rules: {},
   overrides: [
     // node files
     {
@@ -25,7 +24,8 @@ module.exports = {
         'testem.js',
         'ember-cli-build.js',
         'config/**/*.js',
-        'tests/dummy/config/**/*.js'
+        'tests/dummy/config/**/*.js',
+        'node-tests/blueprints/**/*.js'
       ],
       excludedFiles: [
         'app/**',
@@ -39,6 +39,10 @@ module.exports = {
       env: {
         browser: false,
         node: true
+      },
+      globals: {
+        'describe': true,
+        'it': true
       },
       plugins: ['node'],
       rules: Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
