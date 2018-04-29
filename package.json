@@ -1,6 +1,5 @@
 {
 	"name": "@ember-decorators/ember-decorators",
-	"private": true,
 	"description": "Core library for Ember Decorators",
 	"license": "MIT",
 	"scripts": {
