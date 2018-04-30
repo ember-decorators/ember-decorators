@@ -11,9 +11,6 @@ dist: trusty
 addons:
   chrome: stable
 
-cache:
-  yarn: true
-
 env:
   global:
     # See https://git.io/vdao3 for details.
@@ -35,18 +32,12 @@ env:
 
 matrix:
   fast_finish: true
-  allow_failures:
-    - env: EMBER_TRY_SCENARIO=ember-canary
-
-before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - export PATH=$HOME/.yarn/bin:$PATH
 
 install:
-  - yarn install --no-lockfile --non-interactive
+  - npm install
 
 script:
   - npm run lint:js
   # Usually, it's ok to finish the test scenario without reverting
   #  to the addon's original dependency state, skipping "cleanup".
-  - node_modules/.bin/ember try:one $EMBER_TRY_SCENARIO --skip-cleanup
+  - npm test $EMBER_TRY_SCENARIO --skip-cleanup
