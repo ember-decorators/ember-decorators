@@ -3,7 +3,20 @@ const fs = require('fs');
 const walkSync = require('walk-sync');
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
+const UnwatchedDir = require('broccoli-source').UnwatchedDir;
+const MergeTrees = require('broccoli-merge-trees');
+const Funnel = require('broccoli-funnel');
+
+function treeForPackage(packageName) {
+  let addonFiles = new Funnel(`../${packageName}/addon`, {
+    destDir: `@ember-decorators/${packageName}`
+  });
+
+  return addonFiles;
+}
+
 module.exports = function(defaults) {
+  // Generate typescript test files
   walkSync('tests').forEach((path) => {
     if (path.includes('-test.js') && !path.includes('temp-typescript')) {
       let fullPath = `tests/${path}`;
@@ -16,9 +29,26 @@ module.exports = function(defaults) {
     }
   });
 
+  // Build addon docs tree
+  let baseFiles = new Funnel(new UnwatchedDir('./'), {
+    include: ['package.json', 'README.md']
+  });
+
+  let tree = new MergeTrees([
+    baseFiles,
+    treeForPackage('component'),
+    treeForPackage('controller'),
+    treeForPackage('data'),
+    treeForPackage('object'),
+    treeForPackage('service'),
+  ]);
 
   var app = new EmberAddon(defaults, {
-    // Add options here
+    'ember-cli-addon-docs': {
+      projects: {
+        main: tree
+      }
+    }
   });
 
   /*

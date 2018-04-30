@@ -26,7 +26,8 @@ module.exports = function() {
             devDependencies: {
               'ember-cli-shims': null,
               'ember-data': '~1.13.0',
-              'ember-source': null
+              'ember-source': null,
+              'ember-cli-addon-docs': null
             }
           }
         },
@@ -48,7 +49,8 @@ module.exports = function() {
             devDependencies: {
               'ember-cli-shims': null,
               'ember-data': '~1.13.0',
-              'ember-source': null
+              'ember-source': null,
+              'ember-cli-addon-docs': null
             }
           }
         },
@@ -68,7 +70,8 @@ module.exports = function() {
             devDependencies: {
               'ember-source': null,
               'ember-data': '~2.4.0',
-              'ember-cli-shims': null
+              'ember-cli-shims': null,
+              'ember-cli-addon-docs': null
             }
           }
         },
