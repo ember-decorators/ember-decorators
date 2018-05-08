@@ -19,7 +19,8 @@
     "build": "ember build",
     "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
     "start": "ember server",
-    "test": "mocha node-tests --recursive && ember try:one"
+    "test": "mocha node-tests --recursive && ember try:one",
+    "node-test": "mocha node-tests --recursive"
   },
   "dependencies": {
     "@ember-decorators/component": "^2.0.0",

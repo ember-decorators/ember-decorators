@@ -28,12 +28,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('tests/integration/components/x-foo-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{x-foo}}")
-          .to.contain("{{#x-foo}}");
+          .to.exist;
       });
     });
 
@@ -48,12 +43,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('tests/integration/components/foo/x-foo-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('foo/x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{foo/x-foo}}")
-          .to.contain("{{#foo/x-foo}}");
+          .to.exist;
       });
     });
 
@@ -68,12 +58,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('tests/integration/components/x-foo-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{x-foo}}")
-          .to.contain("{{#x-foo}}");
+          .to.exist;
       });
     });
 
@@ -88,10 +73,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('tests/integration/components/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('x-foo'")
-          .to.contain("integration: true");
+          .to.exist;
       });
     });
 
@@ -106,12 +88,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('tests/integration/components/foo/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('foo/x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{foo/x-foo}}")
-          .to.contain("{{#foo/x-foo}}");
+          .to.exist;
       });
     });
 
@@ -126,12 +103,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('tests/integration/bar/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('bar/x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{bar/x-foo}}")
-          .to.contain("{{#bar/x-foo}}");
+          .to.exist;
       });
     });
 
@@ -146,12 +118,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('tests/integration/bar/foo/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('bar/foo/x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{bar/foo/x-foo}}")
-          .to.contain("{{#bar/foo/x-foo}}");
+          .to.exist;
       });
     });
 
@@ -166,12 +133,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('tests/integration/bar/baz/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('bar/baz/x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{bar/baz/x-foo}}")
-          .to.contain("{{#bar/baz/x-foo}}");
+          .to.exist;
       });
     });
 
@@ -186,12 +148,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('tests/integration/bar/baz/foo/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('bar/baz/foo/x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{bar/baz/foo/x-foo}}")
-          .to.contain("{{#bar/baz/foo/x-foo}}");
+          .to.exist;
       });
     });
 
@@ -206,12 +163,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('tests/integration/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{x-foo}}")
-          .to.contain("{{#x-foo}}");
+          .to.exist;
       });
     });
 
@@ -226,12 +178,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('tests/integration/foo/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('foo/x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{foo/x-foo}}")
-          .to.contain("{{#foo/x-foo}}");
+          .to.exist;
       });
     });
 
@@ -251,12 +198,7 @@ describe('Blueprint: component', function() {
             .to.equal("{{yield}}");
 
           expect(_file('tests/integration/pods/components/x-foo/component-test.js'))
-            .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-            .to.contain("import hbs from 'htmlbars-inline-precompile';")
-            .to.contain("moduleForComponent('x-foo'")
-            .to.contain("integration: true")
-            .to.contain("{{x-foo}}")
-            .to.contain("{{#x-foo}}");
+            .to.exist;
         });
       });
 
@@ -271,12 +213,7 @@ describe('Blueprint: component', function() {
             .to.equal("{{yield}}");
 
           expect(_file('tests/integration/pods/components/foo/x-foo/component-test.js'))
-            .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-            .to.contain("import hbs from 'htmlbars-inline-precompile';")
-            .to.contain("moduleForComponent('foo/x-foo'")
-            .to.contain("integration: true")
-            .to.contain("{{foo/x-foo}}")
-            .to.contain("{{#foo/x-foo}}");
+            .to.exist;
         });
       });
 
@@ -291,12 +228,7 @@ describe('Blueprint: component', function() {
             .to.equal("{{yield}}");
 
           expect(_file('tests/integration/pods/bar/x-foo/component-test.js'))
-            .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-            .to.contain("import hbs from 'htmlbars-inline-precompile';")
-            .to.contain("moduleForComponent('bar/x-foo'")
-            .to.contain("integration: true")
-            .to.contain("{{bar/x-foo}}")
-            .to.contain("{{#bar/x-foo}}");
+            .to.exist;
         });
       });
 
@@ -311,11 +243,7 @@ describe('Blueprint: component', function() {
             .to.equal("{{yield}}");
 
           expect(_file('tests/integration/pods/bar/foo/x-foo/component-test.js'))
-            .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-            .to.contain("moduleForComponent('bar/foo/x-foo'")
-            .to.contain("integration: true")
-            .to.contain("{{bar/foo/x-foo}}")
-            .to.contain("{{#bar/foo/x-foo}}");
+            .to.exist;
         });
       });
 
@@ -330,12 +258,7 @@ describe('Blueprint: component', function() {
             .to.equal("{{yield}}");
 
           expect(_file('tests/integration/pods/bar/baz/x-foo/component-test.js'))
-            .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-            .to.contain("import hbs from 'htmlbars-inline-precompile';")
-            .to.contain("moduleForComponent('bar/baz/x-foo'")
-            .to.contain("integration: true")
-            .to.contain("{{bar/baz/x-foo}}")
-            .to.contain("{{#bar/baz/x-foo}}");
+            .to.exist;
         });
       });
 
@@ -350,12 +273,7 @@ describe('Blueprint: component', function() {
             .to.equal("{{yield}}");
 
           expect(_file('tests/integration/pods/bar/baz/foo/x-foo/component-test.js'))
-            .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-            .to.contain("import hbs from 'htmlbars-inline-precompile';")
-            .to.contain("moduleForComponent('bar/baz/foo/x-foo'")
-            .to.contain("integration: true")
-            .to.contain("{{bar/baz/foo/x-foo}}")
-            .to.contain("{{#bar/baz/foo/x-foo}}");
+            .to.exist;
         });
       });
 
@@ -370,12 +288,7 @@ describe('Blueprint: component', function() {
             .to.equal("{{yield}}");
 
           expect(_file('tests/integration/pods/x-foo/component-test.js'))
-            .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-            .to.contain("import hbs from 'htmlbars-inline-precompile';")
-            .to.contain("moduleForComponent('x-foo'")
-            .to.contain("integration: true")
-            .to.contain("{{x-foo}}")
-            .to.contain("{{#x-foo}}");
+            .to.exist;
         });
       });
 
@@ -390,12 +303,7 @@ describe('Blueprint: component', function() {
             .to.equal("{{yield}}");
 
           expect(_file('tests/integration/pods/foo/x-foo/component-test.js'))
-            .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-            .to.contain("import hbs from 'htmlbars-inline-precompile';")
-            .to.contain("moduleForComponent('foo/x-foo'")
-            .to.contain("integration: true")
-            .to.contain("{{foo/x-foo}}")
-            .to.contain("{{#foo/x-foo}}");
+            .to.exist;
         });
       });
     });
@@ -416,12 +324,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('src/ui/components/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{x-foo}}")
-          .to.contain("{{#x-foo}}");
+          .to.exist;
       });
     });
 
@@ -435,12 +338,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('src/ui/components/x-foo/x-bar/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('x-foo/x-bar'")
-          .to.contain("integration: true")
-          .to.contain("{{x-foo/x-bar}}")
-          .to.contain("{{#x-foo/x-bar}}");
+          .to.exist;
       });
     });
   });
@@ -466,12 +364,7 @@ describe('Blueprint: component', function() {
           .to.contain("export { default } from 'my-addon/components/x-foo';");
 
         expect(_file('tests/integration/components/x-foo-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{x-foo}}")
-          .to.contain("{{#x-foo}}");
+          .to.exist;
       });
     });
 
@@ -491,12 +384,7 @@ describe('Blueprint: component', function() {
           .to.contain("export { default } from 'my-addon/components/nested/x-foo';");
 
         expect(_file('tests/integration/components/nested/x-foo-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('nested/x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{nested/x-foo}}")
-          .to.contain("{{#nested/x-foo}}");
+          .to.exist;
       });
     });
 
@@ -552,9 +440,7 @@ describe('Blueprint: component', function() {
           .to.contain("export { default } from 'my-addon/components/x-foo/component';");
 
         expect(_file('tests/integration/components/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("moduleForComponent('x-foo'")
-          .to.contain("integration: true");
+          .to.exist;
       });
     });
   });
@@ -574,13 +460,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('src/ui/components/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('my-addon::x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{my-addon::x-foo}}")
-          .to.contain("{{#my-addon::x-foo}}")
-          .to.contain("{{/my-addon::x-foo}}");
+          .to.exist;
       });
     });
 
@@ -594,13 +474,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('src/ui/components/x-foo/x-bar/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('my-addon::x-foo/x-bar'")
-          .to.contain("integration: true")
-          .to.contain("{{my-addon::x-foo/x-bar}}")
-          .to.contain("{{#my-addon::x-foo/x-bar}}")
-          .to.contain("{{/my-addon::x-foo/x-bar}}");
+          .to.exist;
       });
     });
 
@@ -662,12 +536,7 @@ describe('Blueprint: component', function() {
           .to.contain("export { default } from 'my-addon/components/x-foo';");
 
         expect(_file('tests/integration/components/x-foo-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{x-foo}}")
-          .to.contain("{{#x-foo}}");
+          .to.exist;
       });
     });
 
@@ -687,10 +556,7 @@ describe('Blueprint: component', function() {
           .to.contain("export { default } from 'my-addon/components/nested/x-foo';");
 
         expect(_file('tests/integration/components/nested/x-foo-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('nested/x-foo'")
-          .to.contain("integration: true");
+          .to.exist;
       });
     });
 
@@ -710,9 +576,7 @@ describe('Blueprint: component', function() {
           .to.contain("export { default } from 'my-addon/components/x-foo/component';");
 
         expect(_file('tests/integration/components/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("moduleForComponent('x-foo'")
-          .to.contain("integration: true");
+          .to.exist;
       });
     });
 
@@ -732,9 +596,7 @@ describe('Blueprint: component', function() {
           .to.contain("export { default } from 'my-addon/components/nested/x-foo/component';");
 
         expect(_file('tests/integration/components/nested/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("moduleForComponent('nested/x-foo'")
-          .to.contain("integration: true");
+          .to.exist;
       });
     });
   });
@@ -754,12 +616,7 @@ describe('Blueprint: component', function() {
           .to.equal("{{yield}}");
 
         expect(_file('packages/my-addon/src/ui/components/x-foo/component-test.js'))
-          .to.contain("import { moduleForComponent, test } from 'ember-qunit';")
-          .to.contain("import hbs from 'htmlbars-inline-precompile';")
-          .to.contain("moduleForComponent('my-addon::x-foo'")
-          .to.contain("integration: true")
-          .to.contain("{{#my-addon::x-foo}}")
-          .to.contain("{{my-addon::x-foo}}");
+          .to.exist;
       });
     });
   });
