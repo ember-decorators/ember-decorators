@@ -24,8 +24,7 @@ describe('Blueprint: service', function() {
           .to.contain('export default class FooService extends Service {\n}');
 
         expect(_file('tests/unit/services/foo-test.js'))
-          .to.contain("import { moduleFor, test } from 'ember-qunit';")
-          .to.contain("moduleFor('service:foo'");
+          .to.exist;
       });
     });
 
@@ -36,8 +35,7 @@ describe('Blueprint: service', function() {
           .to.contain('export default class FooBarService extends Service {\n}');
 
         expect(_file('tests/unit/services/foo/bar-test.js'))
-          .to.contain("import { moduleFor, test } from 'ember-qunit';")
-          .to.contain("moduleFor('service:foo/bar'");
+          .to.exist;
       });
     });
 
@@ -48,8 +46,7 @@ describe('Blueprint: service', function() {
           .to.contain('export default class FooService extends Service {\n}');
 
         expect(_file('tests/unit/foo/service-test.js'))
-          .to.contain("import { moduleFor, test } from 'ember-qunit';")
-          .to.contain("moduleFor('service:foo'");
+          .to.exist;
       });
     });
 
@@ -65,8 +62,7 @@ describe('Blueprint: service', function() {
             .to.contain('export default class FooService extends Service {\n}');
 
           expect(_file('tests/unit/pods/foo/service-test.js'))
-            .to.contain("import { moduleFor, test } from 'ember-qunit';")
-            .to.contain("moduleFor('service:foo'");
+            .to.exist;
         });
       });
     });
@@ -87,8 +83,7 @@ describe('Blueprint: service', function() {
           .to.contain("export { default } from 'my-addon/services/foo';");
 
         expect(_file('tests/unit/services/foo-test.js'))
-          .to.contain("import { moduleFor, test } from 'ember-qunit';")
-          .to.contain("moduleFor('service:foo'");
+          .to.exist;
       });
     });
   });

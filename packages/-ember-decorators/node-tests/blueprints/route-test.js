@@ -9,7 +9,6 @@ const setupPodConfig = blueprintHelpers.setupPodConfig;
 const chai = require('ember-cli-blueprint-test-helpers/chai');
 const expect = chai.expect;
 const file = chai.file;
-const fs = require('fs-extra');
 
 describe('Blueprint: route', function() {
   setupTestHooks(this);
@@ -29,8 +28,7 @@ describe('Blueprint: route', function() {
           .to.equal('{{outlet}}');
 
         expect(_file('tests/unit/routes/foo-test.js'))
-          .to.contain('import { moduleFor, test } from \'ember-qunit\';')
-          .to.contain('moduleFor(\'route:foo\'');
+          .to.exist;
 
         expect(file('app/router.js'))
           .to.contain('this.route(\'foo\')');
@@ -51,8 +49,7 @@ describe('Blueprint: route', function() {
           .to.equal('{{outlet}}');
 
         expect(_file('tests/unit/routes/child-test.js'))
-          .to.contain('import { moduleFor, test } from \'ember-qunit\';')
-          .to.contain('moduleFor(\'route:child\'');
+          .to.exist;
 
         expect(file('app/router.js'))
           .to.contain('this.route(\'parent\', {')
@@ -72,8 +69,7 @@ describe('Blueprint: route', function() {
           .to.equal('{{outlet}}');
 
         expect(_file('tests/unit/foo/route-test.js'))
-          .to.contain('import { moduleFor, test } from \'ember-qunit\';')
-          .to.contain('moduleFor(\'route:foo\'');
+          .to.exist;
 
         expect(file('app/router.js'))
           .to.contain('this.route(\'foo\')');
@@ -99,8 +95,7 @@ describe('Blueprint: route', function() {
             .to.equal('{{outlet}}');
 
           expect(_file('tests/unit/pods/foo/route-test.js'))
-            .to.contain('import { moduleFor, test } from \'ember-qunit\';')
-            .to.contain('moduleFor(\'route:foo\'');
+            .to.exist;
 
           expect(file('app/router.js'))
             .to.contain('this.route(\'foo\')');
@@ -134,8 +129,7 @@ describe('Blueprint: route', function() {
           .to.contain('export { default } from \'my-addon/templates/foo\';');
 
         expect(_file('tests/unit/routes/foo-test.js'))
-          .to.contain('import { moduleFor, test } from \'ember-qunit\';')
-          .to.contain('moduleFor(\'route:foo\'');
+          .to.exist;
 
         expect(file('tests/dummy/app/router.js'))
           .to.not.contain('this.route(\'foo\')');
@@ -162,8 +156,7 @@ describe('Blueprint: route', function() {
           .to.contain('export { default } from \'my-addon/templates/foo/bar\';');
 
         expect(_file('tests/unit/routes/foo/bar-test.js'))
-          .to.contain('import { moduleFor, test } from \'ember-qunit\';')
-          .to.contain('moduleFor(\'route:foo/bar\'');
+          .to.exist;
 
         expect(file('tests/dummy/app/router.js'))
           .to.not.contain('this.route(\'bar\')');
@@ -196,8 +189,7 @@ describe('Blueprint: route', function() {
           .to.contain('export { default } from \'my-addon/templates/foo\';');
 
         expect(_file('tests/unit/routes/foo-test.js'))
-          .to.contain('import { moduleFor, test } from \'ember-qunit\';')
-          .to.contain('moduleFor(\'route:foo\'');
+          .to.exist;
       });
     });
 
@@ -217,8 +209,7 @@ describe('Blueprint: route', function() {
           .to.contain('export { default } from \'my-addon/templates/foo/bar\';');
 
         expect(_file('tests/unit/routes/foo/bar-test.js'))
-          .to.contain('import { moduleFor, test } from \'ember-qunit\';')
-          .to.contain('moduleFor(\'route:foo/bar\'');
+          .to.exist;
       });
     });
   });
