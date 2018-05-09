@@ -15,8 +15,8 @@
   "scripts": {
     "build": "ember build",
     "lint:js": "eslint ./*.js addon addon-test-support app config lib server test-support tests",
-    "start": "ember serve",
-    "test": "ember try:one"
+    "start": "echo \"Run serve in the main ember-decorators package\" && false",
+    "test": "echo \"Run tests in the main ember-decorators package\" && false"
   },
   "dependencies": {
     "@ember-decorators/utils": "^2.0.0",

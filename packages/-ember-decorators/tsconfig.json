@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "baseUrl": ".",
+    "module": "es6",
+    "paths": {
+      "dummy/tests/*": [
+        "tests/*"
+      ],
+      "dummy/*": [
+        "tests/dummy/app/*",
+        "app/*"
+      ],
+      "ember-decorators": [
+        "addon"
+      ],
+      "ember-decorators/*": [
+        "addon/*"
+      ],
+      "*": [
+        "types/*"
+      ]
+    }
+  },
+  "include": [
+    "app",
+    "addon",
+    "tests",
+    "types"
+  ]
+}

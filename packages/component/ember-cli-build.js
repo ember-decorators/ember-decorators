@@ -1,19 +1,6 @@
-const fs = require('fs');
-const walkSync = require('walk-sync');
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
-  walkSync('tests').forEach((path) => {
-    if (path.includes('-test.js') && !path.includes('temp-typescript')) {
-      let fullPath = `tests/${path}`;
-
-      let file = fs.readFileSync(fullPath, { encoding: 'utf8' });
-
-      file = file.replace('javascript |', 'typescript |');
-
-      fs.writeFileSync(fullPath.replace('-test.js', '-temp-typescript-test.ts'), file);
-    }
-  });
 
   let app = new EmberAddon(defaults, {
     // Add options here
