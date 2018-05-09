@@ -1,4 +1,4 @@
-import { ModelRegistry } from "ember-data";
+import DS, { ModelRegistry, TransformRegistry } from "ember-data";
 
 /**
  * Decorator that turns the property into an Ember Data attribute
@@ -13,7 +13,6 @@ import { ModelRegistry } from "ember-data";
  * ```
  *
  * @function
- * @param {String} [type] - Type of the attribute
  */
 export function attr(): PropertyDecorator;
 /**
@@ -24,14 +23,19 @@ export function attr(): PropertyDecorator;
  * import { attr } from 'ember-decorators/data';
  *
  * export default Model.extend({
- *   @attr firstName: null
+ *   @attr('string') firstName: null,
+ *   @attr('boolean', { allowNull: true }) isCool: null
  * });
  * ```
  *
  * @function
  * @param {String} [type] - Type of the attribute
+ * @param {Object} [options] - Optional attribute options
  */
-export function attr<K extends keyof ModelRegistry>(type: K): PropertyDecorator;
+export function attr<K extends keyof TransformRegistry>(
+  type: K,
+  options?: DS.AttrOptions<TransformRegistry[K]>
+): PropertyDecorator;
 
 /**
  * Decorator that turns the property into an Ember Data `hasMany` relationship
@@ -46,7 +50,6 @@ export function attr<K extends keyof ModelRegistry>(type: K): PropertyDecorator;
  * ```
  *
  * @function
- * @param {String} [type] - Type of the `hasMany` relationship
  */
 export function hasMany(): PropertyDecorator;
 /**
@@ -57,15 +60,18 @@ export function hasMany(): PropertyDecorator;
  * import { hasMany } from 'ember-decorators/data';
  *
  * export default Model.extend({
- *   @hasMany users: null
+ *   @hasMany('user') users: null,
+ *   @hasMany('car', { async: false }) cars: null
  * });
  * ```
  *
  * @function
  * @param {String} [type] - Type of the `hasMany` relationship
+ * @param {Object} [options] - Optional relationship options
  */
 export function hasMany<K extends keyof ModelRegistry>(
-  type: K
+  type: K,
+  options?: DS.RelationshipOptions<ModelRegistry[K]>
 ): PropertyDecorator;
 
 /**
@@ -80,7 +86,6 @@ export function hasMany<K extends keyof ModelRegistry>(
  * });
  * ```
  * @function
- * @param {String} [type] - Type of the `belongsTo` relationship
  */
 export function belongsTo(): PropertyDecorator;
 /**
@@ -91,11 +96,15 @@ export function belongsTo(): PropertyDecorator;
  * import { belongsTo } from 'ember-decorators/data';
  *
  * export default Model.extend({
- *   @belongsTo user: null
+ *   @belongsTo('user') user: null,
+ *   @belongsTo('car', { async: false }) car: null
  * });
  * ```
  * @function
  * @param {String} [type] - Type of the `belongsTo` relationship
- */ export function belongsTo<K extends keyof ModelRegistry>(
-  type?: K
+ * @param {Object} [options] - Optional relationship options
+ */
+export function belongsTo<K extends keyof ModelRegistry>(
+  type: K,
+  options?: DS.RelationshipOptions<ModelRegistry[K]>
 ): PropertyDecorator;
