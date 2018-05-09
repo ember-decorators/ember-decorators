@@ -6,7 +6,8 @@
 	"scripts": {
 		"postinstall": "lerna bootstrap",
 		"lint:js": "lerna run lint:js",
-		"test": "lerna run --concurrency 1 test"
+		"start": "cd packages/-ember-decorators && npm start",
+		"test": "cd packages/-ember-decorators && npm test"
 	},
 	"devDependencies": {
 		"lerna": "^2.10.2"
