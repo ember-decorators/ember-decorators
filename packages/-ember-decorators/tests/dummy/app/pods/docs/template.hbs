@@ -1,0 +1,25 @@
+{{#docs-viewer as |viewer|}}
+
+  {{#viewer.nav as |nav|}}
+    {{nav.section 'Introduction'}}
+
+    {{nav.item 'What is Ember Decorators?' 'docs.index'}}
+    {{nav.item 'Why Go Native?' 'docs.why-go-native'}}
+    {{nav.item 'Stability & Support' 'docs.stability-and-support'}}
+
+    {{nav.section 'Usage'}}
+
+    {{nav.item 'Quickstart' 'docs.quickstart'}}
+    {{nav.item 'Native Class Basics' 'docs.native-class-basics'}}
+    {{nav.item 'Class Fields' 'docs.class-fields'}}
+    {{nav.item 'Decorators' 'docs.decorators'}}
+    {{nav.item 'Cheat Sheet' 'docs.cheat-sheet'}}
+  {{/viewer.nav}}
+
+  {{#viewer.main}}
+    <div class="docs-section">
+      {{outlet}}
+    </div>
+  {{/viewer.main}}
+
+{{/docs-viewer}}
