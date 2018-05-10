@@ -200,6 +200,30 @@ module('javascript | @computed', function() {
     );
   });
 
+  test('can decorate the same property in multiple subclasses', function(assert) {
+    assert.expect(0);
+
+    class Foo {
+      @computed('bar')
+      get fullName() {}
+    }
+
+    class Bar extends Foo {
+      @computed('foo')
+      get fullName() {}
+    }
+
+    class Baz extends Foo {
+      @computed('bar')
+      get fullName() {}
+    }
+
+    // shouldn't cause any errors
+    new Foo();
+    new Bar();
+    new Baz();
+  });
+
   module('@readOnly', function() {
 
     test('it works', function(assert) {
