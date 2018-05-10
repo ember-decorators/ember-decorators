@@ -1,0 +1,8 @@
+{
+  "deploy/fix-git-deployment": {
+    "path": "deploy/fix-git-deployment",
+    "name": "deploy/fix-git-deployment",
+    "sha": "ddfd2f5659616b9534a129370ab532fdf42cadeb",
+    "tag": null
+  }
+}
