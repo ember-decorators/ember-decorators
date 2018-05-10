@@ -31,8 +31,9 @@ export function computedDescriptorFor(obj, keyName) {
   if (HAS_NATIVE_COMPUTED_GETTERS) {
     let meta = Ember.meta(obj);
 
-    if (meta !== undefined) {
-      return meta.peekDescriptors(keyName);
+    if (meta !== undefined && typeof meta._descriptors === 'object') {
+      // TODO: Just return the standard descriptor
+      return meta._descriptors[keyName];
     }
   } else if (Object.hasOwnProperty.call(obj, keyName)) {
     let { value: possibleDesc, get: possibleCPGetter } = Object.getOwnPropertyDescriptor(obj, keyName);

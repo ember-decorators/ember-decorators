@@ -4,7 +4,7 @@ import collapseProto from '@ember-decorators/utils/collapse-proto';
 import { computed as emberComputed } from '@ember-decorators/utils/compatibility';
 import { computedDecorator, computedDecoratorWithParams } from '@ember-decorators/utils/computed';
 
-import { assert } from '@ember/debug';
+import { deprecate, assert } from '@ember/debug';
 import { HAS_UNDERSCORE_ACTIONS } from 'ember-compatibility-helpers';
 
 /**
@@ -145,6 +145,12 @@ export const computed = computedDecoratorWithParams((target, key, desc, params) 
 export const readOnly = computedDecorator((target, name, desc) => {
   assert(`Attempted to apply @readOnly to '${name}', but it was not a computed property. Note that @readOnly must come before computed decorators`, desc && desc.isDescriptor);
   assert(`Attempted to apply @readOnly to a computed property that didn't have a setter, which is unnecessary`, !desc._setter || !desc._setter.isMissingSetter);
+
+  deprecate(
+    `Used @readOnly decorator on ${name}. The @readOnly decorator (imported from '@ember-decorators/object) has been deprecated and will be removed in future releases. To make a computed property readOnly, remove its 'set' function`,
+    false,
+    { until: '3.0.0', id: 'ember-decorators-read-only-decorator' }
+  );
 
   return desc.readOnly();
 });
