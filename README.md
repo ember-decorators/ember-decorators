@@ -1,32 +1,43 @@
-# ember-decorators
+Ember Decorators
+==============================================================================
 
 [![npm version](https://badge.fury.io/js/ember-decorators.svg)](https://badge.fury.io/js/ember-decorators)
 [![Build Status](https://travis-ci.org/ember-decorators/ember-decorators.svg?branch=master)](https://travis-ci.org/ember-decorators/ember-decorators)
-![Ember Version](https://embadge.io/v1/badge.svg?start=1.11.0)
 
-This addon adds decorator support to Ember, allowing you to DRY-up your code and write modern ES6 classes.
+Ember Decorators is a project dedicated to exploring and unlocking the future
+of native classes in Ember.js. Its goal is to provide a set of decorators which
+can be used to write native classes with every standard feature that is
+available in Ember, along with the transforms and build system required to
+polyfill and ship them in your app today!
 
-More details:
+The [documentation website](https://ember-decorators.github.io/ember-decorators)
+for Ember Decorators contains a detailed guide on using native classes with
+Ember today, along with detailed API documentation for all the decorators
+included in this library.
 
-* [javascript-decorators proposal](https://github.com/wycats/javascript-decorators)
-* [babel blog post](http://babeljs.io/blog/2015/03/31/5.0.0/#stage-1:-decorators)
+Usage
+------------------------------------------------------------------------------
 
-## Usage
+First install the main `ember-decorators` addon.
 
-### Installation
+```sh
+ember install ember-decorators
+```
 
-`ember install ember-decorators`
+This addon doesn't contain any decorators itself, but includes the core set of
+subaddons that are necessary to begin writing Ember using native classes:
 
-If you're using **ember-decorators** in an addon, pass the `-S` option to save
-this as a `dependency` as opposed to the default `devDependency`:
+* `@ember-decorators/component`
+* `@ember-decorators/controller`
+* `@ember-decorators/data`
+* `@ember-decorators/object`
+* `@ember-decorators/service`
 
-`ember install -S ember-decorators`
-
-### Application Usage
+### Usage in Applications
 
 In your application where you would normally have:
 
-```javascript
+```js
 import Ember from 'ember';
 
 export default Ember.Component.extend({
@@ -50,7 +61,7 @@ export default Ember.Component.extend({
 
 You replace it with this:
 
-```javascript
+```js
 import Component from '@ember/component';
 import { action, computed } from '@ember-decorators/object';
 import { service } from '@ember-decorators/service';
@@ -70,76 +81,51 @@ export default class ExampleComponent extends Component {
     // do stuff
   }
 }
-
 ```
 
-The packages in `ember-decorators` are setup to mirror Ember's [javascript module](https://github.com/emberjs/rfcs/blob/master/text/0176-javascript-module-api.md)
-API. Decorators can be imported from the packages that they belong to:
-
-```javascript
-import {
-  attr,
-  hasMany,
-  belongsTo
-} from '@ember-decorators/data';
-
-import {
-  controller
-} from '@ember-decorators/controller';
-
-import {
-  action,
-  computed,
-  observes
-} from '@ember-decorators/object';
-
-import {
-  alias,
-  or,
-  reads
-} from '@ember-decorators/object/computed';
-
-import {
-  on
-} from '@ember-decorators/object/evented';
-
-import {
-  service
-} from '@ember-decorators/service';
-
-```
-
-See the [API Documentation](https://ember-decorators.github.io/ember-decorators/docs/index.html)
+See the [API Documentation](https://ember-decorators.github.io/ember-decorators)
 for detailed examples and documentation of the individual decorators.
 
-Note: The `@computed` decorator wraps [ember-macro-helpers](https://github.com/kellyselden/ember-macro-helpers)
-which provides a lot of helpful features on top of standard computeds. It is
-highly recommended that you read the documentation for that addon as well.
-
-Installation
+Development
 ------------------------------------------------------------------------------
 
-* `git clone <repository-url>` this repository
+### Organization
+
+This repository consists of multiple packages managed with [lerna.js](https://lernajs.io/).
+The decorators all reside in their own individual packages under `/packages`,
+along with the main `ember-decorators` package.
+
+The main package serves three purposes:
+
+1. A quick way to install all of the subpackages and get new projects up and
+  running. Installing the main package also adds any necessary babel transforms,
+  and sets up ESLint properly.
+2. A place for common functionality, such as the native class blueprints that
+  overwrite the default Ember blueprints.
+3. A place for the documentation site and tests for all of the other addons.
+  Tests were consolidated from the other addons in order to speed up the testing
+  and development process.
+
+### Setting up
+
+* Fork the repository
+* `git clone <your-fork-url>`
 * `cd ember-decorators`
-* `yarn install`
+* `npm install`
 
 ### Linting
 
-* `yarn run lint:js`
-* `yarn run lint:js -- --fix`
+* `npm run lint:js`
+* `npm run lint:js -- --fix`
 
 ### Running tests
 
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `yarn test` – Runs `ember try:each` to test your addon against multiple Ember versions
+* `npm test` – Runs the test suite on the current Ember version
 
 ### Running the dummy application
 
-* `ember serve`
+* `npm start`
 * Visit the dummy application at [http://localhost:4200](http://localhost:4200).
-
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
 
 License
 ------------------------------------------------------------------------------
