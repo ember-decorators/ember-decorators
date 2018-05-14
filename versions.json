@@ -1,16 +1,4 @@
 {
-  "deploy/fix-git-deployment": {
-    "path": "deploy/fix-git-deployment",
-    "name": "deploy/fix-git-deployment",
-    "sha": "ddfd2f5659616b9534a129370ab532fdf42cadeb",
-    "tag": null
-  },
-  "master": {
-    "path": "master",
-    "name": "master",
-    "sha": "8c3ad904d18d1c7ff1c25ffe3ad217e4fa18d891",
-    "tag": null
-  },
   "v2.0.0": {
     "path": "v2.0.0",
     "name": "v2.0.0",
