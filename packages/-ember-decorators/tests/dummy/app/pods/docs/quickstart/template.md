@@ -12,6 +12,7 @@ This will add the package, and should also add several babel packages to your
 app. You should see the following added to you `package.json`:
 
 ```json
+"ember-decorators": "{{latest version}}",
 "@ember-decorators/babel-transforms": "{{latest version}}",
 "babel-eslint": "{{latest version}}",
 ```
