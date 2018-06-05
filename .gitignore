@@ -16,8 +16,8 @@ libpeerconnection.log
 npm-debug.log*
 yarn-error.log
 testem.log
+package-lock.json
 
-packages/*/package-lock.json
 **/*-temp-typescript-test.ts
 
 # ember-try

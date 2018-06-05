@@ -83,7 +83,7 @@
     "loader.js": "^4.2.3",
     "mocha": "^4.0.1",
     "os": "^0.1.1",
-    "typescript": "^2.8.3",
+    "typescript": "~2.8.3",
     "walk-sync": "^0.3.2"
   },
   "engines": {
