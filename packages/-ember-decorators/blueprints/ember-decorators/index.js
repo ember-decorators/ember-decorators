@@ -63,8 +63,8 @@ module.exports = {
     }
 
     // If tsconfig file found, add experimentalDecorators support
-    if (tsconfig && typeof tsconfig.compilerOptions === 'object' && !tsconfig.compilerOptions.experimentalDecorators) {
-      tsconfig.compilerOptions.experimentalDecorators = true;
+    if (tsconfig && (typeof tsconfig.compilerOptions === 'object' || !tsconfig.compilerOptions)) {
+      tsconfig.compilerOptions = Object.assign(tsconfig.compilerOptions || {}, { experimentalDecorators: true });
       fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
     }
 
