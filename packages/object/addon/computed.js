@@ -35,7 +35,11 @@ import {
 
 import { assert } from '@ember/debug';
 
-import { computedDecoratorWithRequiredParams } from '@ember-decorators/utils/computed';
+import {
+  computedDecoratorWithParams,
+  computedDecoratorWithRequiredParams
+} from '@ember-decorators/utils/computed';
+
 import { SUPPORTS_UNIQ_BY_COMPUTED } from 'ember-compatibility-helpers';
 
 function legacyMacro(fn) {
@@ -55,6 +59,55 @@ function legacyMacroWithRequiredMethod(fn) {
     assert(`The @${fn.name} decorator must be used to decorate a method`, typeof method === 'function');
 
     return fn(...params, method);
+  });
+}
+
+/**
+  Creates a new decorator from a computed macro function. For instance, you can
+  use this utility function to create decorators from the macros provided by
+  addons such as [ember-awesome-macros](https://github.com/kellyselden/ember-awesome-macros).
+
+  ```js
+  import { macro } from '@ember-decorators/object/computed';
+  import firstMacro from 'ember-awesome-macros/array/first';
+
+  const first = macro(firstMacro);
+
+  export default class LeaderBoardComponent extends Component {
+    ranking = ['Natalie', 'Emma', 'Thomas'];
+
+    @first('ranking') winner; // => 'Natalie'
+
+  }
+  ```
+
+  You can also make use of [partial application](http://2ality.com/2011/09/currying-vs-part-eval.html)
+  of arguments:
+
+  ```js
+  import { macro } from '@ember-decorators/object/computed';
+  import { computed } from '@ember/object';
+
+  const titleGeneratorMacro = (prefix, titleKey) => computed(function() {
+    return `${prefix}: ${String(get(this, titleKey)).toUpperCase()}!`;
+  });
+
+  const newsFlash = macro(titleGeneratorMacro, 'News Flash');
+
+  export default class NewsPaperComponent extends Component {
+    title = 'Ember chosen best framework of the year again';
+
+    @newsFlash('title') attentionGrabber; // => 'News Flash: EMBER CHOSEN BEST FRAMEWORK OF THE YEAR AGAIN!'
+  }
+  ```
+
+  @param {function} fn - The macro function to create a decorator from
+  @param {...any} params - Parameters to be partially applied to the macro fn
+  @return {ComputedProperty}
+ */
+export function macro(fn, ...params) {
+  return computedDecoratorWithParams(function(target, key, desc, paramsOnDecorator) {
+    return fn(...params, ...paramsOnDecorator);
   });
 }
 

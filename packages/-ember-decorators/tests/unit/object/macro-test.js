@@ -1,8 +1,9 @@
-import { get, set } from '@ember/object';
+import { get, set, computed } from '@ember/object';
 import { A as emberA } from '@ember/array';
 import { gte } from 'ember-compatibility-helpers';
 
 import {
+  macro,
   alias,
   and,
   bool,
@@ -41,6 +42,41 @@ import { module, test } from 'qunit';
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 
 module('javascript | macros', function() {
+
+  test('@macro', function (assert) {
+    // computed macro that returns the provided arguments as an array
+    const passthroughMacro = (...args) => computed(() => args);
+
+    class Foo {
+      @macro(passthroughMacro) noArgs;
+      @macro(passthroughMacro)('a', 'b') argsOnDecorator;
+      @macro(passthroughMacro, 'a', 'b') argsOnMacro;
+      @macro(passthroughMacro, 'a', 'b')('c', 'd') argsOnBoth;
+    }
+
+    const obj = new Foo();
+
+    assert.deepEqual(
+      get(obj, 'noArgs'),
+      [],
+      'invocation without arguments: @myMacro prop;'
+    );
+    assert.deepEqual(
+      get(obj, 'argsOnDecorator'),
+      ['a', 'b'],
+      'invocation with arguments passed to decorator: @myMacro(a, b) prop;'
+    );
+    assert.deepEqual(
+      get(obj, 'argsOnMacro'),
+      ['a', 'b'],
+      'invocation with arguments on macro (partial application): const myMacro = macro(macroFn, a, b);'
+    );
+    assert.deepEqual(
+      get(obj, 'argsOnBoth'),
+      ['a', 'b', 'c', 'd'],
+      'invocation with arguments on both'
+    );
+  });
 
   test('@alias', function(assert) {
     class Foo {
