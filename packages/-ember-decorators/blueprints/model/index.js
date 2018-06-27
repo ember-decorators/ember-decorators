@@ -1,6 +1,19 @@
 /* eslint-env node */
 const EOL = require('os').EOL;
-const ModelBlueprint = require('ember-data/blueprints/model');
+
+// Ember Data may not be installed.
+let ModelBlueprint;
+try {
+  ModelBlueprint = require('ember-data/blueprints/model');
+} catch (e) {
+  if (e.code === 'MODULE_NOT_FOUND') {
+    ModelBlueprint = {
+      locals() { return {} }
+    };
+  } else {
+    throw e;
+  }
+}
 
 const _superLocals = ModelBlueprint.locals;
 
