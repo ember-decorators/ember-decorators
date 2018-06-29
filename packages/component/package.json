@@ -1,6 +1,6 @@
 {
   "name": "@ember-decorators/component",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
@@ -22,12 +22,12 @@
     "test": "echo \"Run tests in the main ember-decorators package\" && false"
   },
   "dependencies": {
-    "@ember-decorators/utils": "^2.1.0",
+    "@ember-decorators/utils": "^2.2.0",
     "ember-cli-babel": "^6.6.0"
   },
   "devDependencies": {
     "@ember-decorators/babel-transforms": "^2.0.0",
-    "@ember-decorators/object": "^2.1.0",
+    "@ember-decorators/object": "^2.2.0",
     "@types/ember": "^2.8.12",
     "@types/ember-data": "^2.14.9",
     "@types/ember-test-helpers": "^0.7.1",
