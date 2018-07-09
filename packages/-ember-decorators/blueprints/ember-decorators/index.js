@@ -49,8 +49,8 @@ module.exports = {
 
     if (parserIndex > -1) {
       this.project.ui.writeWarnLine(
-        `Found an ESLint parser already defined, and so could not automatically set the eslint parser. You 
-         may need to add \`parser: 'babel-eslint'\` to your eslintrc.js. Note: if specifically using another 
+        `Found an ESLint parser already defined, and so could not automatically set the eslint parser. You
+         may need to add \`parser: 'babel-eslint'\` to your eslintrc.js. Note: if specifically using another
          parser (like, \`parser: 'typescript-eslint-parser'\`), this may not be necessary.`
       );
     } else if (eslintrcLines && rootIndex > -1) {
@@ -68,12 +68,11 @@ module.exports = {
       fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2));
     }
 
-    return Promise.all([
+    return this.addPackageToProject('babel-eslint', '^8.0.0').then(() => {
       addScopedAddonToProject(this, {
         name: '@ember-decorators/babel-transforms',
         target: '^2.0.0'
-      }),
-      this.addPackageToProject('babel-eslint', '^8.0.0')
-    ]);
+      });
+    });
   }
 };
