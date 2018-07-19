@@ -247,7 +247,7 @@ class EmberObject {
 ```
 
 This means that the properties passed to `.create()` end up getting assigned
-_before_ the constructors for for any subclasses run. This means that when we
+_before_ the constructors for any subclasses run. This means that when we
 define a class that extends from `EmberObject`, class fields that are defined on
 our class will _always_ overwrite properties passed to `.create()`:
 
