@@ -6,7 +6,7 @@ import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
 
    ```javascript
   import Component from '@ember/component';
-  import { service } from 'ember-decorators/service';
+  import { service } from '@ember-decorators/service';
 
   export default class StoreInjectedComponent extends Component
     @service store;
