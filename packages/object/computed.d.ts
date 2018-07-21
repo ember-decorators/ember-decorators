@@ -341,6 +341,70 @@ export function lt(dependentKey: string, value: Number): PropertyDecorator;
  */
 export function lte(dependentKey: string, value: Number): PropertyDecorator;
 /**
+  Creates a new decorator from a computed macro function. For instance, you can
+  use this utility function to create decorators from the macros provided by
+  addons such as [ember-awesome-macros](https://github.com/kellyselden/ember-awesome-macros).
+
+  ```js
+  import { macro } from '@ember-decorators/object/computed';
+  import firstMacro from 'ember-awesome-macros/array/first';
+
+  const first = macro(firstMacro);
+
+  export default class LeaderBoardComponent extends Component {
+    ranking = ['Natalie', 'Emma', 'Thomas'];
+
+    @first('ranking') winner; // => 'Natalie'
+
+  }
+  ```
+
+  You can also make use of [partial application](http://2ality.com/2011/09/currying-vs-part-eval.html)
+  of arguments:
+
+  ```js
+  import { macro } from '@ember-decorators/object/computed';
+  import { computed } from '@ember/object';
+
+  const titleGeneratorMacro = (prefix, titleKey) => computed(function() {
+    return `${prefix}: ${String(get(this, titleKey)).toUpperCase()}!`;
+  });
+
+  const newsFlash = macro(titleGeneratorMacro, 'News Flash');
+
+  export default class NewsPaperComponent extends Component {
+    title = 'Ember chosen best framework of the year again';
+
+    @newsFlash('title') attentionGrabber; // => 'News Flash: EMBER CHOSEN BEST FRAMEWORK OF THE YEAR AGAIN!'
+  }
+  ```
+
+  @param {function} fn - The macro function to create a decorator from
+  @param {...any} params - Parameters to be partially applied to the macro fn
+  @return {ComputedProperty}
+ */
+export function macro<TResult>(fn: () => TResult): PropertyDecorator;
+export function macro<T1, TResult>(fn: (a: T1) => TResult): (a: T1) => PropertyDecorator;
+export function macro<T1, TResult>(fn: (a: T1) => TResult, a: T1): PropertyDecorator;
+export function macro<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): (a: T1, b: T2) => PropertyDecorator;
+export function macro<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult, a: T1): (b: T2) => PropertyDecorator;
+export function macro<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult, a: T1, b: T2): PropertyDecorator;
+export function macro<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): (a: T1, b: T2, c: T3) => PropertyDecorator;
+export function macro<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult, a: T1): (b: T2, c: T3) => PropertyDecorator;
+export function macro<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult, a: T1, b: T2): (c: T3) => PropertyDecorator;
+export function macro<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult, a: T1, b: T2, c: T3): PropertyDecorator;
+export function macro<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): (a: T1, b: T2, c: T3, d: T4) => PropertyDecorator;
+export function macro<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult, a: T1): (b: T2, c: T3, d: T4) => PropertyDecorator;
+export function macro<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult, a: T1, b: T2): (c: T3, d: T4) => PropertyDecorator;
+export function macro<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult, a: T1, b: T2, c: T3): (d: T4) => PropertyDecorator;
+export function macro<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult, a: T1, b: T2, c: T3, d: T4): PropertyDecorator;
+export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult): (a: T1, b: T2, c: T3, d: T4, e: T5) => PropertyDecorator;
+export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult, a: T1): (b: T2, c: T3, d: T4, e: T5) => PropertyDecorator;
+export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult, a: T1, b: T2): (c: T3, d: T4, e: T5) => PropertyDecorator;
+export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult, a: T1, b: T2, c: T3): (d: T4, e: T5) => PropertyDecorator;
+export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult, a: T1, b: T2, c: T3, d: T4): (e: T5) => PropertyDecorator;
+export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult, a: T1, b: T2, c: T3, d: T4, e: T5): PropertyDecorator;
+/**
  * Decorator that wraps [Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)
  *
  * Returns an array mapped via the callback
