@@ -103,7 +103,7 @@ function legacyMacroWithRequiredMethod(fn) {
 
   @param {function} fn - The macro function to create a decorator from
   @param {...any} params - Parameters to be partially applied to the macro fn
-  @return {ComputedProperty}
+  @return {PropertyDecorator}
  */
 export function macro(fn, ...params) {
   return computedDecoratorWithParams(function(target, key, desc, paramsOnDecorator) {
