@@ -381,7 +381,7 @@ export function lte(dependentKey: string, value: Number): PropertyDecorator;
 
   @param {function} fn - The macro function to create a decorator from
   @param {...any} params - Parameters to be partially applied to the macro fn
-  @return {ComputedProperty}
+  @return {PropertyDecorator}
  */
 export function macro<TResult>(fn: () => TResult): PropertyDecorator;
 export function macro<T1, TResult>(fn: (a: T1) => TResult): (a: T1) => PropertyDecorator;
