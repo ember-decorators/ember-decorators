@@ -153,3 +153,39 @@ export function tagName(tagName) {
     return klass;
   }
 }
+
+/**
+  Class decorator which specifies the layout for the component. This replaces
+  the `layout` property on components in the traditional Ember object model.
+
+  ```js
+  import template from '../templates/components/x-foo';
+
+  @layout(template)
+  export default class TagNameDemoComponent extends Component {}
+  ```
+
+  ```js
+  import hbs from 'htmlbars-inline-precompile';
+
+  @layout(hbs`<h1>Hello {{ name }}</h1>`)
+  export default class TagNameDemoComponent extends Component {
+    constructor() {
+      super(...arguments);
+      this.set('name', 'Tomster');
+    }
+  }
+  ```
+
+  @param {TemplateFactory} template - The compiled template to be used for the component
+*/
+export function layout(template) {
+  assert(`The @layout decorator must be provided exactly one argument, received: ${template}`, arguments.length === 1);
+  assert(`The @layout decorator must be provided a template, received: ${template}. If you want to compile strings to templates, be sure to use 'htmlbars-inline-precompile'`, typeof template !== 'string');
+  assert(`The @layout decorator must be provided a template, received: ${template}`, (() => typeof template === 'object' && typeof template.indexOf === 'undefined')());
+
+  return function(klass) {
+    klass.prototype.layout = template;
+    return klass;
+  }
+}
