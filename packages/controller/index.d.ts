@@ -1,4 +1,4 @@
-import { Registry } from "@ember/controller";
+import { Registry } from '@ember/controller';
 
 /**
  * Decorator that wraps `Ember.inject.controller`
@@ -17,7 +17,7 @@ import { Registry } from "@ember/controller";
  * @function
  * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used
  */
-export function service(target: any, key: any): any;
+export function controller(target: any, key: any): any;
 /**
  * Decorator that wraps `Ember.inject.controller`
  *
@@ -35,7 +35,7 @@ export function service(target: any, key: any): any;
  * @function
  * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used
  */
-export function service(
+export function controller(
   target: any,
   key: any,
   descriptor: PropertyDescriptor
