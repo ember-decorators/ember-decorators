@@ -8,8 +8,8 @@
   "latest": {
     "path": "latest",
     "name": "latest",
-    "sha": "0c379b7e0831a6f61e774deb2f081a7e80f31b8e",
-    "tag": "v2.2.1"
+    "sha": "7e1e15e8f39ff93d1952d13529e1b36154257b86",
+    "tag": "v2.3.0"
   },
   "v2.2.0": {
     "path": "v2.2.0",

@@ -7974,7 +7974,8 @@ Object.defineProperty(e,"__esModule",{value:!0}),e.className=e.attribute=void 0,
 return function(e){var n=e.prototype
 if((0,t.default)(n),"classNames"in n){var i=n.classNames
 r.unshift.apply(r,function(e){if(Array.isArray(e)){for(var t=0,r=Array(e.length);t<e.length;t++)r[t]=e[t]
-return r}return Array.from(e)}(i))}return n.classNames=r,e}},e.tagName=function(e){return function(t){return t.prototype.tagName=e,t}}
+return r}return Array.from(e)}(i))}return n.classNames=r,e}},e.tagName=function(e){return function(t){return t.prototype.tagName=e,t}},e.layout=function(e){return function(t){return t.prototype.layout=e,t}}
+"function"==typeof Symbol&&Symbol.iterator
 e.attribute=(0,r.decoratorWithParams)(function(e,r,n,i){if((0,t.default)(e),!e.hasOwnProperty("attributeBindings")){var o=e.attributeBindings
 e.attributeBindings=Array.isArray(o)?o.slice():[]}var s=i[0]?r+":"+i[0]:r
 return e.attributeBindings.push(s),n&&(n.configurable=!0),n}),e.className=(0,r.decoratorWithParams)(function(e,r,n,i){if((0,t.default)(e),!e.hasOwnProperty("classNameBindings")){var o=e.classNameBindings
