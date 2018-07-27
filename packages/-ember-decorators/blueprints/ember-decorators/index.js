@@ -69,7 +69,7 @@ module.exports = {
     }
 
     return this.addPackageToProject('babel-eslint', '^8.0.0').then(() => {
-      addScopedAddonToProject(this, {
+      return addScopedAddonToProject(this, {
         name: '@ember-decorators/babel-transforms',
         target: '^2.0.0'
       });
