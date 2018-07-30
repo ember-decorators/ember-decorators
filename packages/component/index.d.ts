@@ -1,3 +1,5 @@
+import { TemplateFactory } from 'htmlbars-inline-precompile';
+
 /**
  * Decorator which indicates that the field or computed should be bound
  * to an attribute value on the component. This replaces `attributeBindings`
@@ -205,3 +207,30 @@ export function classNames(...classNames: string[]): ClassDecorator;
  * @param {String} tagName - The HTML tag to be used for the component
  */
 export function tagName(tagName: string): ClassDecorator;
+
+/**
+  Class decorator which specifies the layout for the component. This replaces
+  the `layout` property on components in the traditional Ember object model.
+
+  ```js
+  import template from '../templates/components/x-foo';
+
+  @layout(template)
+  export default class TagNameDemoComponent extends Component {}
+  ```
+
+  ```js
+  import hbs from 'htmlbars-inline-precompile';
+
+  @layout(hbs`<h1>Hello {{ name }}</h1>`)
+  export default class TagNameDemoComponent extends Component {
+    constructor() {
+      super(...arguments);
+      this.set('name', 'Tomster');
+    }
+  }
+  ```
+
+  @param {TemplateFactory} template - The compiled template to be used for the component
+*/
+export function layout(template: TemplateFactory): ClassDecorator;
