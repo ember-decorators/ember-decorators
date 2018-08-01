@@ -105,7 +105,7 @@ import {
 import {
   action,
   computed,
-  observes
+  readOnly
 } from '@ember-decorators/object';
 
 import {
@@ -113,10 +113,6 @@ import {
   or,
   reads
 } from '@ember-decorators/object/computed';
-
-import {
-  on
-} from '@ember-decorators/object/evented';
 
 import {
   service
