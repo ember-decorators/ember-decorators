@@ -105,6 +105,7 @@ import {
 import {
   action,
   computed,
+  observes,
   readOnly
 } from '@ember-decorators/object';
 
