@@ -23,6 +23,22 @@ export function attr(): PropertyDecorator;
  * import { attr } from 'ember-decorators/data';
  *
  * export default Model.extend({
+ *   @attr({ defaultValue: () => [] }) personalItems;
+ * });
+ * ```
+ *
+ * @function
+ * @param {Object} [options] - Optional attribute options
+ */
+export function attr(options?: DS.AttrOptions<any>): PropertyDecorator;
+/**
+ * Decorator that turns the property into an Ember Data attribute
+ *
+ * ```javascript
+ * import Model from 'ember-data/model';
+ * import { attr } from 'ember-decorators/data';
+ *
+ * export default Model.extend({
  *   @attr('string') firstName: null,
  *   @attr('boolean', { allowNull: true }) isCool: null
  * });
