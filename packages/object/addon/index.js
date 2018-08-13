@@ -3,8 +3,10 @@ import { DEBUG } from '@glimmer/env';
 import collapseProto from '@ember-decorators/utils/collapse-proto';
 import { computed as emberComputed } from '@ember-decorators/utils/compatibility';
 import { computedDecorator, computedDecoratorWithParams } from '@ember-decorators/utils/computed';
+import { decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
 
 import { deprecate, assert } from '@ember/debug';
+import { addObserver, removeObserver } from '@ember/object/observers';
 import { HAS_UNDERSCORE_ACTIONS } from 'ember-compatibility-helpers';
 
 /**
@@ -120,6 +122,59 @@ export const computed = computedDecoratorWithParams((target, key, desc, params) 
   }
 
   return emberComputed(...params, { get, set: setter });
+});
+
+/**
+  Triggers the target function when the dependent properties have changed
+
+  ```javascript
+  import Component from '@ember/component';
+  import { observes } from '@ember-decorators/object';
+
+  export default class extends Component {
+    @observes('foo')
+    bar() {
+      //...
+    }
+  }
+  ```
+
+  @function
+  @param {...String} eventNames - Names of the events that trigger the function
+ */
+export const observes = decoratorWithRequiredParams((target, key, desc, params) => {
+  assert('The @observes decorator must be applied to functions', desc && typeof desc.value === 'function');
+
+  for (let path of params) {
+    addObserver(target, path, this, key);
+  }
+});
+
+/**
+  Removes observers from the target function.
+
+  ```javascript
+  import { observes, unobserves } from '@ember-decorators/object';
+
+  class Foo {
+    @observes('foo')
+    bar() {
+      //...
+    }
+  }
+
+  class Bar {
+    @unobserves('foo') bar;
+  }
+  ```
+
+  @function
+  @param {...String} eventNames - Names of the events that trigger the function
+ */
+export const unobserves = decoratorWithRequiredParams((target, key, desc, params) => {
+  for (let path of params) {
+    removeObserver(target, path, this, key);
+  }
 });
 
 /**
