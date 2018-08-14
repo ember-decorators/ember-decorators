@@ -63,7 +63,7 @@ export function action(target, key, desc) {
 
   ```js
   import Component from '@ember/component';
-  import { computed } from 'ember-decorators/object';
+  import { computed } from '@ember-decorators/object';
 
   export default class UserProfileComponent extends Component {
     first = 'John';
