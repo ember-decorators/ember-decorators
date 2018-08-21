@@ -6,6 +6,7 @@ import { computedDecorator, computedDecoratorWithParams } from '@ember-decorator
 import { decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
 
 import { deprecate, assert } from '@ember/debug';
+import { addListener, removeListener } from '@ember/object/events';
 import { addObserver, removeObserver } from '@ember/object/observers';
 import { HAS_UNDERSCORE_ACTIONS } from 'ember-compatibility-helpers';
 
@@ -174,6 +175,58 @@ export const observes = decoratorWithRequiredParams((target, key, desc, params) 
 export const unobserves = decoratorWithRequiredParams((target, key, desc, params) => {
   for (let path of params) {
     removeObserver(target, path, this, key);
+  }
+});
+
+/**
+  Adds an event listener to the target function.
+
+  ```javascript
+  import { on } from '@ember-decorators/object';
+
+  class Foo {
+    @on('fooEvent', 'barEvent')
+    bar() {
+      //...
+    }
+  }
+  ```
+
+  @function
+  @param {...String} eventNames - Names of the events that trigger the function
+ */
+export const on = decoratorWithRequiredParams((target, key, desc, params) => {
+  assert('The @on decorator must be applied to functions', desc && typeof desc.value === 'function');
+
+  for (let eventName of params) {
+    addListener(target, eventName, this, key);
+  }
+});
+
+/**
+  Removes an event listener from the target function.
+
+  ```javascript
+  import { on, off } from '@ember-decorators/object';
+
+  class Foo {
+    @on('fooEvent', 'barEvent')
+    bar() {
+      //...
+    }
+  }
+
+  class Bar extends Foo {
+    @off('fooEvent', 'barEvent') bar;
+  }
+  ```
+
+  @function
+  @param {...String} eventNames - Names of the events that trigger the function
+ */
+export const off = decoratorWithRequiredParams((target, key, desc, params) => {
+  for (let eventName of params) {
+    removeListener(target, eventName, this, key);
   }
 });
 
