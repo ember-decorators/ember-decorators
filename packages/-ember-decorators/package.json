@@ -1,6 +1,6 @@
 {
   "name": "ember-decorators",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "Useful decorators for Ember applications.",
   "keywords": [
     "ember-addon"
@@ -23,11 +23,11 @@
     "node-test": "mocha node-tests --recursive"
   },
   "dependencies": {
-    "@ember-decorators/component": "^2.3.1",
-    "@ember-decorators/controller": "^2.3.1",
-    "@ember-decorators/data": "^2.3.1",
-    "@ember-decorators/object": "^2.3.1",
-    "@ember-decorators/service": "^2.3.1",
+    "@ember-decorators/component": "^2.4.0",
+    "@ember-decorators/controller": "^2.4.0",
+    "@ember-decorators/data": "^2.4.0",
+    "@ember-decorators/object": "^2.4.0",
+    "@ember-decorators/service": "^2.4.0",
     "ember-cli-babel": "^6.0.0",
     "semver": "^5.5.0"
   },
