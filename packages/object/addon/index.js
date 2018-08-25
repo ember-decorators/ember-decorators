@@ -129,10 +129,9 @@ export const computed = computedDecoratorWithParams((target, key, desc, params) 
   Triggers the target function when the dependent properties have changed
 
   ```javascript
-  import Component from '@ember/component';
   import { observes } from '@ember-decorators/object';
 
-  export default class extends Component {
+  class Foo {
     @observes('foo')
     bar() {
       //...
@@ -141,7 +140,7 @@ export const computed = computedDecoratorWithParams((target, key, desc, params) 
   ```
 
   @function
-  @param {...String} eventNames - Names of the events that trigger the function
+  @param {...String} propertyNames - Names of the properties that trigger the function
  */
 export const observes = decoratorWithRequiredParams((target, key, desc, params) => {
   assert('The @observes decorator must be applied to functions', desc && typeof desc.value === 'function');
@@ -164,13 +163,13 @@ export const observes = decoratorWithRequiredParams((target, key, desc, params) 
     }
   }
 
-  class Bar {
+  class Bar extends Foo {
     @unobserves('foo') bar;
   }
   ```
 
   @function
-  @param {...String} eventNames - Names of the events that trigger the function
+  @param {...String} propertyNames - Names of the properties that no longer trigger the function
  */
 export const unobserves = decoratorWithRequiredParams((target, key, desc, params) => {
   for (let path of params) {
@@ -222,7 +221,7 @@ export const on = decoratorWithRequiredParams((target, key, desc, params) => {
   ```
 
   @function
-  @param {...String} eventNames - Names of the events that trigger the function
+  @param {...String} eventNames - Names of the events that no longer trigger the function
  */
 export const off = decoratorWithRequiredParams((target, key, desc, params) => {
   for (let eventName of params) {
