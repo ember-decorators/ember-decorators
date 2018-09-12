@@ -224,6 +224,27 @@ module('javascript | @computed', function() {
     new Baz();
   });
 
+  test('it throws if user attempts to override the computed', function(assert) {
+    assert.throws(
+      () => {
+        class Foo {
+          first = 'rob';
+          last = 'jackson';
+
+          @computed('first', 'last')
+          get name() {
+            return `${this.first} ${this.last}`;
+          }
+        }
+
+        let foo = new Foo();
+
+        set(foo, 'name', 'bar');
+      },
+      /Assertion Failed: Attempted to set name, but it does not have a setter. Overriding a computed property without a setter has been deprecated./
+    );
+  });
+
   module('@readOnly', function() {
 
     test('it works', function(assert) {

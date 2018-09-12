@@ -16,6 +16,7 @@ Router.map(function() {
     this.route('class-fields');
     this.route('decorators');
     this.route('cheat-sheet');
+    this.route('configuration');
   });
 
   this.route('not-found', { path: '/*path' });
