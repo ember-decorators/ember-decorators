@@ -6,7 +6,6 @@ import { computedDecorator, computedDecoratorWithParams } from '@ember-decorator
 import { decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
 
 import { deprecate, assert } from '@ember/debug';
-import { get as emberGet, set as emberSet, defineProperty } from '@ember/object';
 import { addListener, removeListener } from '@ember/object/events';
 import { addObserver, removeObserver } from '@ember/object/observers';
 import { HAS_UNDERSCORE_ACTIONS } from 'ember-compatibility-helpers';
@@ -94,6 +93,27 @@ export function action(target, key, desc) {
   }
   ```
 
+  Additionally, `computed.readOnly` can be used to create read-only properties
+  if the `shouldThrowOnComputedOverride` has been disabled:
+
+  ```js
+  import Component from '@ember/component';
+  import { computed } from '@ember-decorators/object';
+
+  export default class UserProfileComponent extends Component {
+    first = 'John';
+    last = 'Smith';
+
+    @computed.readOnly('first', 'last')
+    get name() {
+      const first = this.get('first');
+      const last = this.get('last');
+
+      return `${first} ${last}`; // => 'John Smith'
+    }
+  }
+  ```
+
   @function
   @param {...string} propertyNames - List of property keys this computed is dependent on
   @return {ComputedProperty}
@@ -116,22 +136,11 @@ export const computed = computedDecoratorWithParams((target, key, desc, params) 
       let ret = set.call(this, value);
       return typeof ret === 'undefined' ? get.call(this) : ret;
     };
-  } else if (DEBUG) {
-    setter = function(key, value) {
-      let message = `Attempted to set ${
+  } else if (DEBUG && THROW_ON_COMPUTED_OVERRIDE) {
+    setter = function(key) {
+      assert(`Attempted to set ${
         key
-      }, but it does not have a setter. Overriding a computed property without a setter has been deprecated.`;
-
-      if (THROW_ON_COMPUTED_OVERRIDE) {
-        assert(message, false);
-      } else {
-        deprecate(message, { until: '3.0.0', id: '@ember-decorators/computed-overridability' });
-
-        let cachedValue = emberGet(this, key);
-        defineProperty(this, key, null, cachedValue);
-        emberSet(this, key, value);
-        return value;
-      }
+      }, but it does not have a setter. Overriding a computed property without a setter has been deprecated.`, false);
     };
 
     // Set flag to assert on redundant @readOnly

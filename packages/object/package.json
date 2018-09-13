@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "@ember-decorators/utils": "^2.4.1",
-    "babel-plugin-debug-macros": "^0.1.11",
     "ember-cli-babel": "^6.6.0",
     "ember-compatibility-helpers": "^1.0.0"
   },

@@ -39,6 +39,9 @@ import {
 } from '@ember-decorators/object/computed';
 import { readOnly as readOnlyModifier } from '@ember-decorators/object';
 import { module, test } from 'qunit';
+
+import { computedDescriptorFor } from '@ember-decorators/utils/-private';
+
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 
 module('javascript | macros', function() {
@@ -756,5 +759,62 @@ module('javascript | macros', function() {
     );
 
     assert.equal(get(obj, 'finalName'), 'Brohuda');
+  });
+
+  module('modifiers', function() {
+    test('readOnly', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            first = 'rob';
+
+            @alias.readOnly('first') given;
+          }
+
+          let obj = new Foo();
+          set(obj, 'given', 'al');
+        },
+        /computed overrides have been disabled in decorators, theres no need to use `readOnly` on computed properties/
+      );
+    });
+
+    test('property', function(assert) {
+      class Foo {
+        constructor() {
+          this.filterText = 'a';
+
+          this.names = emberA([
+            { name:'b' },
+            { name:'z' },
+            { name:'a' },
+          ]);
+        }
+
+        @(filter('names').property('filterText'))
+        validNames(item) {
+          return item.name === get(this, 'filterText');
+        }
+      }
+
+      let obj = new Foo();
+
+      assert.deepEqual(get(obj, 'validNames').mapBy('name'), ['a']);
+
+      set(obj, 'filterText', 'b');
+
+      assert.deepEqual(get(obj, 'validNames').mapBy('name'), ['b']);
+    });
+
+    test('meta', function(assert) {
+      let meta = {};
+
+      class Foo {
+        first = 'rob';
+
+        @(alias('first').meta(meta)) given;
+      }
+
+      assert.equal(meta, computedDescriptorFor(Foo.prototype, 'given').meta(), 'meta value set properly');
+    });
   });
 });

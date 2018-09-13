@@ -19,6 +19,27 @@ function isDescriptorTrap(possibleDesc) {
   }
 }
 
+export function isDescriptor(possibleDesc) {
+  if (possibleDesc.length === 3) {
+    let [target, key, desc] = possibleDesc;
+
+    return typeof target === 'object'
+      && target !== null
+      && typeof key === 'string'
+      && (
+        (
+          typeof desc === 'object'
+          && desc !== null
+          && 'enumerable' in desc
+          && 'configurable' in desc
+        )
+        || desc === undefined // TS compatibility
+      );
+  }
+
+  return false;
+}
+
 export function isComputedDescriptor(possibleDesc) {
   return possibleDesc !== null && typeof possibleDesc === 'object' && possibleDesc.isDescriptor;
 }
