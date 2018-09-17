@@ -16,18 +16,20 @@ function treeForPackage(packageName) {
 }
 
 module.exports = function(defaults) {
-  // Generate typescript test files
-  walkSync('tests').forEach((path) => {
-    if (path.includes('-test.js') && !path.includes('temp-typescript')) {
-      let fullPath = `tests/${path}`;
+  if (process.env.GENERATE_TYPESCRIPT_TESTS) {
+    // Generate typescript test files
+    walkSync('tests').forEach((path) => {
+      if (path.includes('-test.js') && !path.includes('temp-typescript')) {
+        let fullPath = `tests/${path}`;
 
-      let file = fs.readFileSync(fullPath, { encoding: 'utf8' });
+        let file = fs.readFileSync(fullPath, { encoding: 'utf8' });
 
-      file = file.replace('javascript |', 'typescript |');
+        file = file.replace('javascript |', 'typescript |');
 
-      fs.writeFileSync(fullPath.replace('-test.js', '-temp-typescript-test.ts'), file);
-    }
-  });
+        fs.writeFileSync(fullPath.replace('-test.js', '-temp-typescript-test.ts'), file);
+      }
+    });
+  }
 
   // Build addon docs tree
   let baseFiles = new Funnel(new UnwatchedDir('./'), {

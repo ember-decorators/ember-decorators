@@ -15,24 +15,6 @@ env:
   global:
     # See https://git.io/vdao3 for details.
     - JOBS=1
-  matrix:
-    # we recommend new addons test the current and previous LTS
-    # as well as latest stable release (bonus points to beta/canary)
-    - EMBER_TRY_SCENARIO=ember-1.11
-    - EMBER_TRY_SCENARIO=ember-1.13
-    - EMBER_TRY_SCENARIO=ember-lts-2.4
-    - EMBER_TRY_SCENARIO=ember-lts-2.8
-    - EMBER_TRY_SCENARIO=ember-lts-2.12
-    - EMBER_TRY_SCENARIO=ember-lts-2.16
-    - EMBER_TRY_SCENARIO=ember-lts-2.18
-    - EMBER_TRY_SCENARIO=ember-release
-    - EMBER_TRY_SCENARIO=ember-beta
-    - EMBER_TRY_SCENARIO=ember-canary
-    - EMBER_TRY_SCENARIO=ember-default
-    - EMBER_DECORATORS_THROW_ON_COMPUTED_OVERRIDE=false EMBER_TRY_SCENARIO=ember-default
-
-matrix:
-  fast_finish: true
 
 before_install:
   # Fixes an issue where the max file watch count is exceeded, triggering ENOSPC
@@ -40,10 +22,41 @@ before_install:
   - echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
 install:
-  - npm install
+  - yarn install
 
 script:
-  - npm run lint:js
   # Usually, it's ok to finish the test scenario without reverting
   #  to the addon's original dependency state, skipping "cleanup".
-  - npm test $EMBER_TRY_SCENARIO --skip-cleanup
+  - yarn try $EMBER_TRY_SCENARIO --skip-cleanup
+
+notifications:
+  email: false
+
+jobs:
+  fail_fast: true
+
+  include:
+    - stage: Locked Dependencies
+      name: Lint
+      script: yarn lint:js
+    - name: Tests
+      script: yarn test
+    - name: Node Tests
+      script: yarn node-test
+
+    - stage: Floating Dependencies
+      name: Tests
+      # ember-try runs --no-lockfile install by default
+      env: EMBER_TRY_SCENARIO=ember-default
+    - name: Node Tests
+      install: yarn install --no-lockfile --non-interactive
+      script: yarn node-test
+
+    - stage: Scenarios
+      env: EMBER_TRY_SCENARIO=ember-release
+    - env: EMBER_TRY_SCENARIO=ember-beta
+    - env: EMBER_TRY_SCENARIO=ember-canary
+    - env: EMBER_TRY_SCENARIO=ember-lts-2.16
+    - env: EMBER_TRY_SCENARIO=ember-lts-2.18
+    - env: EMBER_TRY_SCENARIO=throw-on-computed-override
+

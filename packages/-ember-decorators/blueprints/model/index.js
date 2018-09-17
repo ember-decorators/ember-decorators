@@ -1,4 +1,3 @@
-/* eslint-env node */
 const EOL = require('os').EOL;
 
 // Ember Data may not be installed.

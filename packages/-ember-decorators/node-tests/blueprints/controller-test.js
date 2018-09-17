@@ -1,6 +1,5 @@
 'use strict';
 
-const EOL = require('os').EOL;
 const blueprintHelpers = require('ember-cli-blueprint-test-helpers/helpers');
 const setupTestHooks = blueprintHelpers.setupTestHooks;
 const emberNew = blueprintHelpers.emberNew;
