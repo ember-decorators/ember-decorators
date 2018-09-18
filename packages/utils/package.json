@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "ember-cli-babel": "^6.6.0",
+    "babel-plugin-debug-macros": "^0.1.11",
     "ember-compatibility-helpers": "^1.0.0"
   },
   "devDependencies": {

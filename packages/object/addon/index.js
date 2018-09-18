@@ -2,10 +2,14 @@ import { DEBUG } from '@glimmer/env';
 
 import collapseProto from '@ember-decorators/utils/collapse-proto';
 import { computed as emberComputed } from '@ember-decorators/utils/compatibility';
-import { computedDecorator, computedDecoratorWithParams } from '@ember-decorators/utils/computed';
 import { decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
+import {
+  computedDescriptorFor,
+  computedDecoratorWithParams,
+  getOrCreateModifierMeta,
+} from '@ember-decorators/utils/computed';
 
-import { deprecate, assert } from '@ember/debug';
+import { assert } from '@ember/debug';
 import { addListener, removeListener } from '@ember/object/events';
 import { addObserver, removeObserver } from '@ember/object/observers';
 import { HAS_UNDERSCORE_ACTIONS } from 'ember-compatibility-helpers';
@@ -121,9 +125,6 @@ export const computed = computedDecoratorWithParams((target, key, desc, params) 
         key
       }, but it does not have a setter. Overriding a computed property without a setter has been deprecated.`, false);
     };
-
-    // Set flag to assert on redundant @readOnly
-    setter.isMissingSetter = true;
   }
 
   return emberComputed(...params, { get, set: setter });
@@ -249,19 +250,67 @@ export const off = decoratorWithRequiredParams((target, key, desc, params) => {
   }
   ```
 
-  @deprecated
+  @return {ComputedProperty}
+*/
+export function readOnly(target, key) {
+  let computedDesc = computedDescriptorFor(target, key)
+
+  if (DEBUG) {
+    let modifierMeta = getOrCreateModifierMeta(target, name);
+
+    assert('A computed property cannot be both readOnly and volatile. Use a native setter instead', modifierMeta[key] !== 'volatile');
+  }
+
+  if (computedDesc !== undefined) {
+    if (DEBUG) {
+      let modifierMeta = getOrCreateModifierMeta(target, name);
+      modifierMeta[key] = 'readOnly';
+    }
+
+    computedDesc.readOnly();
+  } else {
+    let modifierMeta = getOrCreateModifierMeta(target, name);
+    modifierMeta[key] = 'readOnly';
+  }
+}
+
+/**
+  Decorator that modifies a computed property to be volatile.
+
+  ```js
+  import Component from '@ember/component';
+  import { computed, readOnly } from 'ember-decorators/object';
+
+  export default class extends Component {
+    @volatile
+    @computed('first', 'last')
+    name(first, last) {
+      return `${first} ${last}`;
+    }
+  }
+  ```
+
   @function
   @return {ComputedProperty}
 */
-export const readOnly = computedDecorator((target, name, desc) => {
-  assert(`Attempted to apply @readOnly to '${name}', but it was not a computed property. Note that @readOnly must come before computed decorators`, desc && desc.isDescriptor);
-  assert(`Attempted to apply @readOnly to a computed property that didn't have a setter, which is unnecessary`, !desc._setter || !desc._setter.isMissingSetter);
+export function volatile(target, key) {
+  let computedDesc = computedDescriptorFor(target, key)
 
-  deprecate(
-    `Used @readOnly decorator on ${name}. The @readOnly decorator (imported from '@ember-decorators/object) has been deprecated and will be removed in future releases. To make a computed property readOnly, remove its 'set' function`,
-    false,
-    { until: '3.0.0', id: 'ember-decorators-read-only-decorator' }
-  );
+  if (DEBUG) {
+    let modifierMeta = getOrCreateModifierMeta(target, name);
 
-  return desc.readOnly();
-});
+    assert('A computed property cannot be both readOnly and volatile. Use a native getter instead', modifierMeta[key] !== 'readOnly');
+  }
+
+  if (computedDesc !== undefined) {
+    if (DEBUG) {
+      let modifierMeta = getOrCreateModifierMeta(target, name);
+      modifierMeta[key] = 'volatile';
+    }
+
+    computedDesc.volatile();
+  } else {
+    let modifierMeta = getOrCreateModifierMeta(target, name);
+    modifierMeta[key] = 'volatile';
+  }
+}
