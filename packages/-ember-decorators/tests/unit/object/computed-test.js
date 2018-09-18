@@ -1,8 +1,10 @@
 import { module, test } from 'ember-qunit';
 import { get, set, setProperties } from '@ember/object';
 
-import { computed, readOnly } from '@ember-decorators/object';
+import { computed, readOnly, observes } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
+
+import { computedDescriptorFor } from '@ember-decorators/utils/-private';
 
 import { SUPPORTS_NEW_COMPUTED } from 'ember-compatibility-helpers';
 
@@ -243,6 +245,93 @@ module('javascript | @computed', function() {
       },
       /Assertion Failed: Attempted to set name, but it does not have a setter. Overriding a computed property without a setter has been deprecated./
     );
+  });
+
+  module('modifiers', function() {
+    test('readOnly', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            first = 'rob';
+            last = 'jackson';
+
+            @computed.readOnly('first', 'last')
+            get name() {
+              return `${this.first} ${this.last}`;
+            }
+          }
+
+          let obj = new Foo();
+          set(obj, 'name', 'al');
+        },
+        /computed overrides have been disabled in decorators, theres no need to use `readOnly` on computed properties/
+      );
+    });
+
+    test('volatile', function(assert) {
+      assert.expect(2);
+
+      class Foo {
+        _count = 0;
+
+        @computed.volatile('first')
+        get counter() {
+          return this._count++;
+        }
+
+        set counter(value) {
+          this._count = value;
+        }
+
+        @observes('counter')
+        countObserver() {
+          assert.ok(false, 'observer called')
+        }
+      }
+
+      let obj = new Foo();
+
+      assert.equal(get(obj, 'counter'), 0, 'getter works');
+      assert.equal(get(obj, 'counter'), 1, 'getter called each time');
+
+      set(obj, 'counter', 2);
+    });
+
+    test('property', function(assert) {
+      class Foo {
+        first = 'rob';
+        last = 'jackson';
+
+        @(computed().property('first', 'last'))
+        get name() {
+          return `${this.first} ${this.last}`;
+        }
+      }
+
+      let obj = new Foo();
+
+      assert.equal(get(obj, 'name'), 'rob jackson', 'name is correct');
+
+      set(obj, 'first', 'tom');
+
+      assert.equal(get(obj, 'name'), 'tom jackson', 'name updates correctly');
+    });
+
+    test('meta', function(assert) {
+      let meta = {};
+
+      class Foo {
+        first = 'rob';
+        last = 'jackson';
+
+        @(computed('first', 'last').meta(meta))
+        get name() {
+          return `${this.first} ${this.last}`;
+        }
+      }
+
+      assert.equal(meta, computedDescriptorFor(Foo.prototype, 'name').meta(), 'meta value set properly');
+    });
   });
 
   module('@readOnly', function() {

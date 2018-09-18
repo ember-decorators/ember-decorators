@@ -1,25 +1,5 @@
 import { assert } from '@ember/debug';
-
-function isDescriptor(possibleDesc) {
-  if (possibleDesc.length === 3) {
-    let [target, key, desc] = possibleDesc;
-
-    return typeof target === 'object'
-      && target !== null
-      && typeof key === 'string'
-      && (
-        (
-          typeof desc === 'object'
-          && desc !== null
-          && 'enumerable' in desc
-          && 'configurable' in desc
-        )
-        || desc === undefined // TS compatibility
-      );
-  }
-
-  return false;
-}
+import { isDescriptor } from './-private/descriptor';
 
 /**
  * A macro that takes a decorator function and allows it to optionally

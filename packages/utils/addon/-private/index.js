@@ -1,2 +1,5 @@
-export { computedDescriptorFor } from './descriptor';
-export { isComputedDescriptor } from './descriptor';
+export {
+  computedDescriptorFor,
+  isComputedDescriptor,
+  isDescriptor,
+} from './descriptor';

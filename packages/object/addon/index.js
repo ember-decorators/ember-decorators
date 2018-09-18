@@ -93,6 +93,27 @@ export function action(target, key, desc) {
   }
   ```
 
+  Additionally, `computed.readOnly` can be used to create read-only properties
+  if the `shouldThrowOnComputedOverride` has been disabled:
+
+  ```js
+  import Component from '@ember/component';
+  import { computed } from '@ember-decorators/object';
+
+  export default class UserProfileComponent extends Component {
+    first = 'John';
+    last = 'Smith';
+
+    @computed.readOnly('first', 'last')
+    get name() {
+      const first = this.get('first');
+      const last = this.get('last');
+
+      return `${first} ${last}`; // => 'John Smith'
+    }
+  }
+  ```
+
   @function
   @param {...string} propertyNames - List of property keys this computed is dependent on
   @return {ComputedProperty}
