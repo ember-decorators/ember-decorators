@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { alias as emberAlias } from '@ember/object/computed';
 import { computed } from '@ember-decorators/utils/compatibility';
 import { computedDecorator, computedDecoratorWithRequiredParams } from '@ember-decorators/utils/computed';
-import { computedDescriptorFor, isComputedDescriptor } from '@ember-decorators/utils/-private';
+import { computedDescriptorFor, isComputedDescriptor } from '@ember-decorators/utils/-private/descriptor';
 
 module('computed decorator helpers', function() {
 

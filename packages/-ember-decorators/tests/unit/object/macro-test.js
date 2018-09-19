@@ -757,4 +757,29 @@ module('javascript | macros', function() {
 
     assert.equal(get(obj, 'finalName'), 'Brohuda');
   });
+
+  test('@readOnly modifier can be applied in an order', function(assert) {
+    class Foo {
+      constructor() {
+        this.userName = 'Brohuda';
+      }
+
+      @alias('userName')
+      @readOnlyModifier
+      finalName;
+    }
+
+    let obj = new Foo();
+
+    assert.equal(get(obj, 'finalName'), 'Brohuda');
+    assert.throws(
+      () => {
+        set(obj, 'finalName', 'Brotom');
+      },
+      /Cannot set read-only property ['"]finalName['"] on object/,
+      'error message thrown when trying to set readOnly property'
+    );
+
+    assert.equal(get(obj, 'finalName'), 'Brohuda');
+  });
 });

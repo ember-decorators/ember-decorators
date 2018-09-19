@@ -1,9 +1,13 @@
 import { defineProperty } from '@ember/object';
 import { decoratorWithParams, decoratorWithRequiredParams } from './decorator';
-import { computedDescriptorFor, isComputedDescriptor } from './-private';
 import { HAS_NATIVE_COMPUTED_GETTERS } from 'ember-compatibility-helpers';
 
+import { computedDescriptorFor, isComputedDescriptor } from './-private/descriptor';
+import { getModifierMeta, getOrCreateModifierMeta } from './-private/modifier-meta';
+
 import { assert } from '@ember/debug';
+
+export { computedDescriptorFor, getModifierMeta, getOrCreateModifierMeta };
 
 /**
  * A macro that receives a decorator function which returns a ComputedProperty,
@@ -20,6 +24,12 @@ export function computedDecorator(fn) {
     let computedDesc = fn(target, key, previousDesc, params);
 
     assert(`computed decorators must return an instance of an Ember ComputedProperty descriptor, received ${computedDesc}`, isComputedDescriptor(computedDesc));
+
+    let modifierMeta = getModifierMeta(target);
+
+    if (modifierMeta !== undefined && modifierMeta[key] !== undefined) {
+      computedDesc[modifierMeta[key]]();
+    }
 
     if (!HAS_NATIVE_COMPUTED_GETTERS) {
       // Until recent versions of Ember, computed properties would be defined

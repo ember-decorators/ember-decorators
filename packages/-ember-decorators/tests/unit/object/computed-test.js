@@ -1,10 +1,10 @@
 import { module, test } from 'ember-qunit';
 import { get, set, setProperties } from '@ember/object';
 
-import { computed, readOnly } from '@ember-decorators/object';
-import { alias } from '@ember-decorators/object/computed';
+import { computed, readOnly, volatile, observes } from '@ember-decorators/object';
 
-import { SUPPORTS_NEW_COMPUTED } from 'ember-compatibility-helpers';
+import { gte } from 'ember-compatibility-helpers';
+import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
 
 module('javascript | @computed', function() {
 
@@ -224,50 +224,88 @@ module('javascript | @computed', function() {
     new Baz();
   });
 
-  test('it throws if user attempts to override the computed', function(assert) {
-    assert.throws(
-      () => {
-        class Foo {
-          first = 'rob';
-          last = 'jackson';
+  if (THROW_ON_COMPUTED_OVERRIDE) {
+    test('it throws if user attempts to override the computed', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            first = 'rob';
+            last = 'jackson';
 
-          @computed('first', 'last')
-          get name() {
-            return `${this.first} ${this.last}`;
+            @computed('first', 'last')
+            get name() {
+              return `${this.first} ${this.last}`;
+            }
+          }
+
+          let foo = new Foo();
+
+          set(foo, 'name', 'bar');
+        },
+        /Assertion Failed: Attempted to set name, but it does not have a setter. Overriding a computed property without a setter has been deprecated./
+      );
+    });
+  }
+
+  module('modifiers', function() {
+    if (gte('2.0.0')) {
+      test('volatile', function(assert) {
+        assert.expect(2);
+        class Foo {
+          _count = 0;
+
+          @volatile
+          @computed('first')
+          get counter() {
+            return this._count++;
+          }
+            set counter(value) {
+            this._count = value;
+          }
+
+          @observes('counter')
+          countObserver() {
+            assert.ok(false, 'observer called')
           }
         }
 
-        let foo = new Foo();
+        let obj = new Foo();
+        assert.equal(get(obj, 'counter'), 0, 'getter works');
+        assert.equal(get(obj, 'counter'), 1, 'getter called each time');
 
-        set(foo, 'name', 'bar');
-      },
-      /Assertion Failed: Attempted to set name, but it does not have a setter. Overriding a computed property without a setter has been deprecated./
-    );
-  });
+        set(obj, 'counter', 2);
+      });
 
-  module('@readOnly', function() {
+      test('volatile can be applied in any order', (assert) => {
+        assert.expect(2);
+        class Foo {
+          _count = 0;
 
-    test('it works', function(assert) {
-      class Foo {
-        first = 'rob';
+          @computed('first')
+          @volatile
+          get counter() {
+            return this._count++;
+          }
+            set counter(value) {
+            this._count = value;
+          }
 
-        @readOnly @alias('first') given;
-      }
+          @observes('counter')
+          countObserver() {
+            assert.ok(false, 'observer called')
+          }
+        }
 
-      let obj = new Foo();
+        let obj = new Foo();
+        assert.equal(get(obj, 'counter'), 0, 'getter works');
+        assert.equal(get(obj, 'counter'), 1, 'getter called each time');
 
-      assert.throws(
-        () => {
-          set(obj, 'given', 'al');
-        },
-        /Cannot set read-only property/
-      );
-    });
+        set(obj, 'counter', 2);
+      });
 
-    if (SUPPORTS_NEW_COMPUTED) {
-      test('it throws if used unnecessarily when setter was not defined', function(assert) {
-        assert.throws(
-          () => {
+      if (THROW_ON_COMPUTED_OVERRIDE) {
+        test('readOnly', function(assert) {
+          assert.throws(() => {
             class Foo {
               first = 'rob';
               last = 'jackson';
@@ -279,11 +317,70 @@ module('javascript | @computed', function() {
               }
             }
 
-            new Foo();
-          },
-          /Attempted to apply @readOnly to a computed property that didn't have a setter, which is unnecessary/
-        );
-      });
+            let obj = new Foo();
+
+            set(obj, 'name', 'al');
+          }, /Computed properties that define a setter using the new syntax cannot be read-only/);
+        });
+      } else {
+        test('readOnly', function(assert) {
+          class Foo {
+            first = 'rob';
+            last = 'jackson';
+
+            @readOnly
+            @computed('first', 'last')
+            get name() {
+              return `${this.first} ${this.last}`;
+            }
+          }
+
+          let obj = new Foo();
+
+          assert.throws(() => {
+            set(obj, 'name', 'al');
+          }, /Cannot set read-only property "name" on object: {first: rob, last: jackson}/);
+        });
+
+        test('readOnly can be applied in any order', function(assert) {
+          class Foo {
+            first = 'rob';
+            last = 'jackson';
+
+            @computed('first', 'last')
+            @readOnly
+            get name() {
+              return `${this.first} ${this.last}`;
+            }
+          }
+
+          let obj = new Foo();
+
+          assert.throws(() => {
+            set(obj, 'name', 'al');
+          }, /Cannot set read-only property "name" on object: {first: rob, last: jackson}/);
+        });
+
+        test('volatile and readOnly cannot be applied together', (assert) => {
+          assert.throws(() => {
+            class Foo {
+              first = 'rob';
+              last = 'jackson';
+
+              @volatile
+              @computed('first', 'last')
+              @readOnly
+              get name() {
+                return `${this.first} ${this.last}`;
+              }
+            }
+
+            let obj = new Foo();
+
+            set(obj, 'name', 'al');
+          }, /A computed property cannot be both readOnly and volatile. Use a native getter instead/);
+        });
+      }
     }
   });
 });
