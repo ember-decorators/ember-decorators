@@ -91,7 +91,8 @@
     "node": "6.* || >= 7.*"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "after": "ember-source"
   },
   "homepage": "https://ember-decorators.github.io/ember-decorators"
 }
