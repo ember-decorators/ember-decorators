@@ -47,7 +47,7 @@ module.exports = {
   name: '@ember-decorators/utils',
 
   included(includer) {
-    this._super.apply(this, arguments);
+    this._super.included.apply(this, arguments);
 
     let host = this._findHost();
     let hostOptions = host.options ? host.options['@ember-decorators'] : null;
