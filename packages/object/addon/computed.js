@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import {
   alias as emberAlias,
   and as emberAnd,
@@ -40,24 +42,33 @@ import {
 } from '@ember-decorators/utils/computed';
 
 import { SUPPORTS_UNIQ_BY_COMPUTED } from 'ember-compatibility-helpers';
+import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
 
-function legacyMacro(fn) {
+function legacyMacro(fn, shouldThrowOnOverride = true) {
   return computedDecoratorWithRequiredParams(function(target, key, desc, params) {
     if (desc !== undefined && desc.value !== undefined) {
       return fn(...params, desc.value);
     }
 
-    return fn(...params);
+    if (DEBUG && THROW_ON_COMPUTED_OVERRIDE && shouldThrowOnOverride) {
+      return fn(...params).readOnly();
+    } else {
+      return fn(...params);
+    }
   });
 }
 
-function legacyMacroWithRequiredMethod(fn) {
+function legacyMacroWithRequiredMethod(fn, shouldThrowOnOverride = true) {
   return computedDecoratorWithRequiredParams(function(target, key, desc, params) {
-    let method =  desc !== undefined && typeof desc.value === 'function' ? desc.value : params.pop();
+    let method = desc !== undefined && typeof desc.value === 'function' ? desc.value : params.pop();
 
     assert(`The @${fn.name} decorator must be used to decorate a method`, typeof method === 'function');
 
-    return fn(...params, method);
+    if (DEBUG && THROW_ON_COMPUTED_OVERRIDE && shouldThrowOnOverride) {
+      return fn(...params, method).readOnly();
+    } else {
+      return fn(...params, method);
+    }
   });
 }
 
@@ -129,7 +140,7 @@ export function macro(fn, ...params) {
   @param {string} dependentKey - Key for the aliased property
   @return {any}
 */
-export const alias = legacyMacro(emberAlias);
+export const alias = legacyMacro(emberAlias, false);
 
 /**
   A computed property that performs a logical and on the original values for the
@@ -219,7 +230,7 @@ export const collect = legacyMacro(emberCollect);
   @param {string} dependentKey - Key for the property to alias
   @param {object} options
 */
-export const deprecatingAlias = legacyMacro(emberDeprecatingAlias);
+export const deprecatingAlias = legacyMacro(emberDeprecatingAlias, false);
 
 /**
   A computed property that returns `true` if the value of the dependent
@@ -642,7 +653,7 @@ export const or = legacyMacro(emberOr);
   @param {string} dependentKey - Key for the property to alias
   @return {any}
 */
-export const overridableReads = legacyMacro(emberOneWay);
+export const overridableReads = legacyMacro(emberOneWay, false);
 
 /**
   A computed property which creates a one way read-only alias to the original

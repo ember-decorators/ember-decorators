@@ -71,7 +71,7 @@ module.exports = function() {
         {
           name: 'throw-on-computed-override',
           env: {
-            EMBER_DECORATORS_THROW_ON_COMPUTED_OVERRIDE: false,
+            EMBER_DECORATORS_THROW_ON_COMPUTED_OVERRIDE: true,
           },
           npm: {
             devDependencies: {}
