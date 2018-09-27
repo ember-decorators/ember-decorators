@@ -23,7 +23,6 @@ import {
   notEmpty as emberNotEmpty,
   oneWay as emberOneWay,
   or as emberOr,
-  reads as emberReads,
   readOnly as emberReadOnly,
   setDiff as emberSetDiff,
   sort as emberSort,
@@ -601,29 +600,6 @@ export const not = legacyMacro(emberNot);
 export const notEmpty = legacyMacro(emberNotEmpty);
 
 /**
-  Where `computed.alias` aliases `get` and `set`, and allows for bidirectional
-  data flow, `computed.oneWay` only provides an aliased `get`. The `set` will
-  not mutate the upstream property, rather causes the current property to
-  become the value set. This causes the downstream property to permanently
-  diverge from the upstream property.
-
-  Equivalent to the Ember [oneWay](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/oneWay) macro.
-
-  ```js
-  export default class UserProfileComponent extends Component {
-    firstName = 'Joe';
-
-    @oneWay('firstName') originalName; // 'Joe'
-  }
-  ```
-
-  @function
-  @param {string} dependentKey - Key for the property to alias
-  @return {any}
-*/
-export const oneWay = legacyMacro(emberOneWay);
-
-/**
   A computed property which performs a logical or on the original values for the
   provided dependent properties.
 
@@ -645,10 +621,46 @@ export const oneWay = legacyMacro(emberOneWay);
 export const or = legacyMacro(emberOr);
 
 /**
-  This is a more semantically meaningful alias of `oneWay`, whose name is
-  somewhat ambiguous as to which direction the data flows.
+  Where `@alias` aliases `get` and `set`, and allows for bidirectional
+  data flow, `@overrideableReads` only provides an aliased `get`. Setting the
+  property removes the alias and causes it to be overridden entirely. This means
+  that the property will not update any longer once it has been set once, making
+  it a one way trap.
 
-  Equivalent to the Ember [reads](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/reads) macro.
+  Equivalent to the Ember [oneWay](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/oneWay)
+  and Ember [reads](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/reads) macros
+
+  ```js
+  export default class UserProfileComponent extends Component {
+    firstName = 'Joe';
+
+    @overridableReads('firstName') originalName; // 'Joe'
+  }
+  ```
+
+  @function
+  @param {string} dependentKey - Key for the property to alias
+  @return {any}
+*/
+export const overridableReads = legacyMacro(emberOneWay);
+
+/**
+  A computed property which creates a one way read-only alias to the original
+  value for property. Where `@alias` aliases `get` and `set`, and
+  `@overridableReads` aliases get but can be overridden when set, `@reads`
+  provides a read only one way binding that will throw if a set is attempted.
+  Very often when using `@reads` one wants to explicitly prevent users from ever
+  setting the property. This prevents the reverse flow, and also throws an
+  exception when it occurs.
+
+  Equivalent to the Ember [readOnly](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/readOnly) macro.
+
+  It is very important to note that this is ___not___ the same as
+  `Ember.computed.reads`, which creates an overridable one way alias. The reason
+  `ember-decorators` has chosen to change the name of this computed macro is to
+  avoid conflicting with the `@readOnly` decorator which is used to mark any
+  computed property as read-only. For an equivalent to `Ember.computed.reads`,
+  see `@overridableReads`.
 
   ```js
   export default class UserProfileComponent extends Component {
@@ -662,30 +674,7 @@ export const or = legacyMacro(emberOr);
   @param {string} dependentKey - Key for the property to read
   @return {any}
 */
-export const reads = legacyMacro(emberReads);
-
-/**
-  A computed property which creates a one way computed property to the original
-  value for property. Where `@reads` provides a one way bindings, `@readOnly`
-  provides a read only one way binding. Very often when using `@reads` one wants
-  to explicitly prevent users from ever setting the property. This prevents the
-  reverse flow, and also throws an exception when it occurs.
-
-  Equivalent to the Ember [readOnly](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/readOnly) macro.
-
-  ```js
-  export default class UserProfileComponent extends Component {
-    first = 'Tomster';
-
-    @readOnly('first') firstName;
-  }
-  ```
-
-  @function
-  @param {string} dependentKey - Key for the property to read
-  @return {any}
-*/
-export const readOnly = legacyMacro(emberReadOnly);
+export const reads = legacyMacro(emberReadOnly);
 
 /**
   A computed property which returns a new array with all the properties from the

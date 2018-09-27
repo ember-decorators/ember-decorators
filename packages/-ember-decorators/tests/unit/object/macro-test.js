@@ -26,10 +26,9 @@ import {
   none,
   not,
   notEmpty,
-  oneWay,
   or,
+  overridableReads,
   reads,
-  readOnly,
   setDiff,
   sort,
   sum,
@@ -484,23 +483,6 @@ module('javascript | macros', function() {
     assert.equal(get(obj, 'isNamesEmpty'), false);
   });
 
-  test('@oneWay', function(assert) {
-    class Foo {
-      constructor() {
-        this.names = 'Tom';
-        this.nick = 'Tomster';
-      }
-      @oneWay('nick') nickName;
-    }
-
-    let obj = new Foo();
-
-    assert.equal(get(obj, 'nickName'), 'Tomster');
-    set(obj, 'nickName', 'Honeybadger');
-    assert.equal(get(obj, 'nickName'), 'Honeybadger');
-    assert.equal(get(obj, 'nick'), 'Tomster');
-  });
-
   test('@or', function(assert) {
     class Foo {
       constructor() {
@@ -517,13 +499,13 @@ module('javascript | macros', function() {
     assert.equal(get(obj, 'orValue'), 'rad');
   });
 
-  test('@reads', function(assert) {
+  test('@overridableReads', function(assert) {
     class Foo {
       constructor() {
         this.names = 'Tom';
         this.nick = 'Tomster';
       }
-      @reads('nick') nickName;
+      @overridableReads('nick') nickName;
     }
 
     let obj = new Foo();
@@ -534,13 +516,13 @@ module('javascript | macros', function() {
     assert.equal(get(obj, 'nick'), 'Tomster');
   });
 
-  test('@readOnly', function(assert) {
+  test('@reads', function(assert) {
     class Foo {
       constructor() {
         this.names = 'Tom';
         this.nick = 'Tomster';
       }
-      @readOnly('nick') nickName;
+      @reads('nick') nickName;
     }
 
     let obj = new Foo();
