@@ -1,4 +1,3 @@
-/* eslint-env node */
 'use strict';
 
 // TODO: This shouldn't fail on unpublish

@@ -7,7 +7,6 @@
 .bowerrc
 .editorconfig
 .ember-cli
-.eslintrc.js
 .gitignore
 .watchmanconfig
 .travis.yml

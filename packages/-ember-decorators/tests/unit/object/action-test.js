@@ -50,7 +50,6 @@ componentModule('javascript | @action', function() {
       }
     }
 
-    // eslint-disable-next-line
     class Bar extends Foo {
       @action
       bar() {
