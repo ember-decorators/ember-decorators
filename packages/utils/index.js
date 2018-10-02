@@ -11,7 +11,7 @@ function setupBabelPlugins(addon, options) {
   } else {
     shouldThrowOnComputedOverride = options && 'throwOnComputedOverride' in options
         ? options.throwOnComputedOverride
-        : true;
+        : false;
   }
 
   let pluginOptions = {

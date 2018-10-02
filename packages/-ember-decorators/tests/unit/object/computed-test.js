@@ -339,7 +339,7 @@ module('javascript | @computed', function() {
 
           assert.throws(() => {
             set(obj, 'name', 'al');
-          }, /Cannot set read-only property "name" on object: {first: rob, last: jackson}/);
+          }, /Cannot set read-only property "name" on object:/);
         });
 
         test('readOnly can be applied in any order', function(assert) {
@@ -358,7 +358,7 @@ module('javascript | @computed', function() {
 
           assert.throws(() => {
             set(obj, 'name', 'al');
-          }, /Cannot set read-only property "name" on object: {first: rob, last: jackson}/);
+          }, /Cannot set read-only property "name" on object:/);
         });
 
         test('volatile and readOnly cannot be applied together', (assert) => {
