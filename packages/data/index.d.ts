@@ -1,4 +1,6 @@
-import DS, { ModelRegistry, TransformRegistry } from "ember-data";
+import DS from "ember-data";
+import TransformRegistry from "ember-data/types/registries/transform";
+import ModelRegistry from "ember-data/types/registries/model";
 
 /**
  * Decorator that turns the property into an Ember Data attribute
