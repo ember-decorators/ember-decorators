@@ -28,8 +28,8 @@
   },
   "devDependencies": {
     "@ember-decorators/babel-transforms": "^2.0.0",
-    "@types/ember": "^2.8.12",
-    "@types/ember-data": "^2.14.9",
+    "@types/ember": "^3.0.0",
+    "@types/ember-data": "^3.1.0",
     "@types/ember-test-helpers": "^0.7.1",
     "@types/ember-testing-helpers": "^0.0.3",
     "@types/rsvp": "^4.0.1",
