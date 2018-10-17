@@ -32,14 +32,12 @@ class Foo extends EmberObject {
 That's the only difference. Under the hood, both native classes and EmberObject
 rely on standard prototypical inheritance, making them interoperable.
 
-<aside>
-  **Note**: You can omit the class name from native classes, e.g. `class extends
-  EmberObject`. While this is possible, it is **not** recommended. Giving your
-  classes names will give them actual names in the JS vm, meaning that name will
-  show in the console and developer tools instead of `(unknown mixin)` or the
-  name that the container gives them. In the future, this will make debugging
-  and analyzing your app easier.
-</aside>
+**Note**: You can omit the class name from native classes, e.g. `class extends
+EmberObject`. While this is possible, it is **not** recommended. Giving your
+classes names will give them actual names in the JS vm, meaning that name will
+show in the console and developer tools instead of `(unknown mixin)` or the
+name that the container gives them. In the future, this will make debugging
+and analyzing your app easier.
 
 ### Extending native classes with `.extend()`
 
