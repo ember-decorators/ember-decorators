@@ -170,6 +170,26 @@ export function off(...eventNames: string[]): PropertyDecorator;
  * }
  * ```
  *
- * @function
+ * @return {ComputedProperty}
  */
 export const readOnly: MethodDecorator;
+
+/**
+ * Decorator that modifies a computed property to be volatile.
+ *
+ * ```js
+ * import Component from '@ember/component';
+ * import { computed, readOnly } from 'ember-decorators/object';
+ *
+ * export default class extends Component {
+ *   @volatile
+ *   @computed('first', 'last')
+ *   name(first, last) {
+ *     return `${first} ${last}`;
+ *   }
+ * }
+ * ```
+ *
+ * @return {ComputedProperty}
+*/
+export const volatile: MethodDecorator;
