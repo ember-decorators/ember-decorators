@@ -1,4 +1,9 @@
+const didSetup = new Set;
+
 function setupBabelPlugins(addon, options) {
+  if (didSetup.has(addon)) return;
+  didSetup.add(addon);
+
   addon.options = addon.options || {};
   addon.options.babel = addon.options.babel || {};
 
@@ -40,7 +45,11 @@ function setupBabelPlugins(addon, options) {
     },
   };
 
-  plugins.push([require.resolve('babel-plugin-debug-macros'), pluginOptions]);
+  plugins.push([
+    require.resolve('babel-plugin-debug-macros'),
+    pluginOptions,
+    'ember-decorators-debug-macros'
+  ]);
 }
 
 module.exports = {
