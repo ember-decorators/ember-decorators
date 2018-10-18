@@ -600,30 +600,6 @@ export function not(dependentKey: string): PropertyDecorator;
  */
 export function notEmpty(dependentKey: string): PropertyDecorator;
 /**
- * Decorator that wraps [Ember.computed.oneWay](http://emberjs.com/api/classes/Ember.computed.html#method_oneWay)
- *
- * Where `computed.alias` aliases `get` and `set`, and allows for bidirectional
- * data flow, `computed.oneWay` only provides an aliased `get`. The `set` will
- * not mutate the upstream property, rather causes the current property to
- * become the value set. This causes the downstream property to permanently
- * diverge from the upstream property.
- *
- * ```javascript
- * import Component from '@ember/component';
- * import { oneWay } from 'ember-decorators/object/computed';
- *
- * export default class UserProfileComponent extends Component {
- *   firstName = 'Joe';
- *
- *   @oneWay('firstName') originalName; // will always be 'Joe'
- * }
- * ```
- *
- * @function
- * @param {String} dependentKey - Key for the property to alias
- */
-export function oneWay(dependentKey: string): PropertyDecorator;
-/**
  * Decorator that wraps [Ember.computed.or](http://emberjs.com/api/classes/Ember.computed.html#method_or)
  *
  * A computed property which performs a logical or on the original values for
@@ -646,52 +622,54 @@ export function oneWay(dependentKey: string): PropertyDecorator;
  */
 export function or(...dependentKeys: string[]): PropertyDecorator;
 /**
- * Decorator that wraps [Ember.computed.reads](http://emberjs.com/api/classes/Ember.computed.html#method_reads)
+ * Where `@alias` aliases `get` and `set`, and allows for bidirectional
+ * data flow, `@overrideableReads` only provides an aliased `get`. Setting the
+ * property removes the alias and causes it to be overridden entirely. This means
+ * that the property will not update any longer once it has been set once, making
+ * it a one way trap.
  *
- * This is a more semantically meaningful alias of `computed.oneWay`, whose
- * name is somewhat ambiguous as to which direction the data flows.
+ * Equivalent to the Ember [oneWay](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/oneWay)
+ * and Ember [reads](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/reads) macros
  *
- * ```javascript
- * import Component from '@ember/component';
- * import { reads } from 'ember-decorators/object/computed';
+ * ```js
+ * export default class UserProfileComponent extends Component {
+ *   firstName = 'Joe';
  *
+ *   @overridableReads('firstName') originalName; // 'Joe'
+ * }
+ * ```
+ *
+ * @function
+ * @param {string} dependentKey - Key for the property to alias
+ * @return {any}
+*/
+export function overridableReads(dependentKey: string): PropertyDecorator;
+/**
+ * A computed property which creates a one way read-only alias to the original
+ * value for property. Where `@alias` aliases `get` and `set`, and
+ * `@overridableReads` aliases get but can be overridden when set, `@reads`
+ * provides a read only one way binding that will throw if a set is attempted.
+ * Very often when using `@reads` one wants to explicitly prevent users from ever
+ * setting the property. This prevents the reverse flow, and also throws an
+ * exception when it occurs.
+ *
+ * Equivalent to the Ember [readOnly](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/readOnly) macro.
+ *
+ * It is very important to note that this is ___not___ the same as
+ * `Ember.computed.reads`, which creates an overridable one way alias. The reason
+ * `ember-decorators` has chosen to change the name of this computed macro is to
+ * avoid conflicting with the `@readOnly` decorator which is used to mark any
+ * computed property as read-only. For an equivalent to `Ember.computed.reads`,
+ * see `@overridableReads`.
+ *
+ * ```js
  * export default class UserProfileComponent extends Component {
  *   first = 'Tomster';
  *
  *   @reads('first') firstName;
  * }
- * ```
- *
- * @function
- * @param {String} dependentKey - Key for the property to read
  */
 export function reads(dependentKey: string): PropertyDecorator;
-/**
- * Decorator that wraps [Ember.computed.reads](http://emberjs.com/api/classes/Ember.computed.html#method_reads)
- *
- * computed property which creates a one way computed property to the original
- * value for property. Where computed.oneWay provides oneWay bindings,
- * computed.readOnly provides a readOnly one way binding. Very often when using
- * computed.oneWay one does not also want changes to propagate back up, as they
- * will replace the value.
- *
- * This prevents the reverse flow, and also throws an exception when it occurs.
- *
- * ```javascript
- * import Component from '@ember/component';
- * import { readOnly } from 'ember-decorators/object/computed';
- *
- * export default class UserProfileComponent extends Component {
- *   first = 'Tomster';
- *
- *   @readOnly('first') firstName;
- * }
- * ```
- *
- * @function
- * @param {String} dependentKey - Key for the property to read
- */
-export function readOnly(dependentKey: string): PropertyDecorator;
 /**
  * Decorator that wraps [Ember.computed.setDiff](http://emberjs.com/api/classes/Ember.computed.html#method_setDiff)
  *

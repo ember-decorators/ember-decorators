@@ -290,7 +290,6 @@ export function readOnly(target, key) {
   }
   ```
 
-  @function
   @return {ComputedProperty}
 */
 export function volatile(target, key) {
