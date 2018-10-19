@@ -1,13 +1,13 @@
-const didSetup = new Set;
+const PLUGIN_NAME = 'ember-decorators-debug-macros';
 
 function setupBabelPlugins(addon, options) {
-  if (didSetup.has(addon)) return;
-  didSetup.add(addon);
-
   addon.options = addon.options || {};
   addon.options.babel = addon.options.babel || {};
 
   let plugins = addon.options.babel.plugins = addon.options.babel.plugins || [];
+
+  // If the plugin is already configure, skip.
+  if (plugins.some(p => Array.isArray(p) && p[2] === PLUGIN_NAME)) return;
 
   let shouldThrowOnComputedOverride
 
@@ -48,7 +48,7 @@ function setupBabelPlugins(addon, options) {
   plugins.push([
     require.resolve('babel-plugin-debug-macros'),
     pluginOptions,
-    'ember-decorators-debug-macros'
+    PLUGIN_NAME
   ]);
 }
 
