@@ -159,37 +159,53 @@ export function off(...eventNames: string[]): PropertyDecorator;
  *
  * ```javascript
  * import Component from '@ember/component';
- * import { computed, readOnly } from 'ember-decorators/object';
+ * import { computed, readOnly } from '@ember-decorators/object';
+ * import { collect } from '@ember-decorators/object/computed';
  *
  * export default class extends Component {
  *   @readOnly
  *   @computed('first', 'last')
- *   name(first, last) {
+ *   name() {
+ *     const first = this.get('first');
+ *     const last = this.get('last');
+ *
  *     return `${first} ${last}`;
  *   }
+ * 
+ *   @readOnly
+ *   @collect('foo', 'bar')
+ *   foobar;
  * }
  * ```
  *
  * @return {ComputedProperty}
  */
-export const readOnly: MethodDecorator;
+export const readOnly: MethodDecorator & PropertyDecorator;
 
 /**
  * Decorator that modifies a computed property to be volatile.
  *
  * ```js
  * import Component from '@ember/component';
- * import { computed, readOnly } from 'ember-decorators/object';
+ * import { computed, readOnly } from '@ember-decorators/object';
+ * import { collect } from '@ember-decorators/object/computed';
  *
  * export default class extends Component {
  *   @volatile
  *   @computed('first', 'last')
- *   name(first, last) {
+ *   get name() {
+ *     const first = this.get('first');
+ *     const last = this.get('last');
+ *
  *     return `${first} ${last}`;
  *   }
+ * 
+ *   @readOnly
+ *   @collect('foo', 'bar')
+ *   foobar;
  * }
  * ```
  *
  * @return {ComputedProperty}
 */
-export const volatile: MethodDecorator;
+export const volatile: MethodDecorator & PropertyDecorator;
