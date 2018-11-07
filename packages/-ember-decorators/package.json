@@ -83,7 +83,10 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "after": "ember-source"
+    "after": [
+      "ember-source",
+      "ember-data"
+    ]
   },
   "homepage": "https://ember-decorators.github.io/ember-decorators"
 }
