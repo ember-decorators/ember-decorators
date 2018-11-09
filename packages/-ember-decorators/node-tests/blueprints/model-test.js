@@ -34,7 +34,7 @@ describe('Acceptance: ember generate and destroy model', function() {
       .then(() => emberGenerateDestroy(args, (file) => {
         expect(file('app/models/taco.js')).to.contain('import DS from \'ember-data\';' + EOL +
           'const { Model } = DS;' + EOL +
-          'import { belongsTo } from \'ember-decorators/data\';' + EOL +
+          'import { belongsTo } from \'@ember-decorators/data\';' + EOL +
           '' + EOL +
           'export default class TacoModel extends Model {' + EOL +
           '  @belongsTo(\'protein\') filling;' + EOL +
@@ -50,7 +50,7 @@ describe('Acceptance: ember generate and destroy model', function() {
       .then(() => emberGenerateDestroy(args, (file) => {
         expect(file('app/models/taco.js')).to.contain('import DS from \'ember-data\';' + EOL +
           'const { Model } = DS;' + EOL +
-          'import { hasMany, attr } from \'ember-decorators/data\';' + EOL +
+          'import { hasMany, attr } from \'@ember-decorators/data\';' + EOL +
           '' + EOL +
           'export default class TacoModel extends Model {' + EOL +
           '  @hasMany(\'topping\') toppings;' + EOL +
@@ -67,7 +67,7 @@ describe('Acceptance: ember generate and destroy model', function() {
       .then(() => emberGenerateDestroy(args, (file) => {
         expect(file('app/models/taco.js')).to.contain('import DS from \'ember-data\';' + EOL +
           'const { Model } = DS;' + EOL +
-          'import { attr } from \'ember-decorators/data\';' + EOL +
+          'import { attr } from \'@ember-decorators/data\';' + EOL +
           '' + EOL +
           'export default class TacoModel extends Model {' + EOL +
           '  @attr(\'number\') price;' + EOL +
