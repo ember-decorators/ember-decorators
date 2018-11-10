@@ -31,7 +31,7 @@
     "semver": "^5.5.0"
   },
   "devDependencies": {
-    "@ember-decorators/babel-transforms": "^2.0.1",
+    "@ember-decorators/babel-transforms": "^3.0.2",
     "@ember-decorators/utils": "^3.0.2",
     "@types/ember": "^3.0.0",
     "@types/ember-data": "^3.1.0",
