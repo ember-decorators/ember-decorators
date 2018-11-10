@@ -1,7 +1,7 @@
 {
   "name": "@ember-decorators/controller",
   "version": "3.0.2",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Decorators for Ember Controllers",
   "keywords": [
     "ember-addon"
   ],
@@ -25,7 +25,7 @@
     "ember-cli-babel": "^6.6.0"
   },
   "devDependencies": {
-    "@ember-decorators/babel-transforms": "^2.0.0",
+    "@ember-decorators/babel-transforms": "^3.0.2",
     "@types/ember": "^3.0.0",
     "@types/ember-data": "^3.1.0",
     "@types/ember-test-helpers": "^0.7.1",
