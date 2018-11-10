@@ -10,7 +10,7 @@ import { HAS_UNDERSCORE_ACTIONS } from 'ember-compatibility-helpers';
 
 import { componentModule } from '../../helpers/modules';
 
-componentModule('javascript | @action', function() {
+componentModule('@action', function() {
 
   test('action decorator works with ES6 class', function(assert) {
     class FooComponent extends Component {

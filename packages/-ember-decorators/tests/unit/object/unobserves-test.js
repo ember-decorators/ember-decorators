@@ -3,7 +3,7 @@ import { set } from '@ember/object';
 
 import { observes, unobserves } from '@ember-decorators/object';
 
-module('javascript | @unobserves', function() {
+module('@unobserves', function() {
 
   test('changing the key does not calls the method', function(assert) {
     class Foo {

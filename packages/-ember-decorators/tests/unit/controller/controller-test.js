@@ -4,7 +4,7 @@ import { test } from 'qunit';
 
 import { controller } from '@ember-decorators/controller';
 
-moduleFor('javascript | @controller', { integration: true });
+moduleFor('@controller', { integration: true });
 
 test('it works', function(assert) {
   const FooController = Controller.extend();

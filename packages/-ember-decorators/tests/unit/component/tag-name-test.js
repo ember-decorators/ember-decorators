@@ -6,7 +6,7 @@ import { moduleForComponent } from 'ember-qunit';
 import { test } from 'qunit';
 import { find } from 'ember-native-dom-helpers';
 
-moduleForComponent('javascript | @tagName', { integration: true });
+moduleForComponent('@tagName', { integration: true });
 
 test('decorator sets tag of component', function(assert) {
   @tagName('foo')

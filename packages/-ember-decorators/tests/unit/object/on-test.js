@@ -3,7 +3,7 @@ import { module, test } from 'ember-qunit';
 import { on } from '@ember-decorators/object';
 import { sendEvent } from '@ember/object/events';
 
-module('javascript | @on', function() {
+module('@on', function() {
 
   test('it calls the method', function(assert) {
     assert.expect(2);

@@ -58,5 +58,7 @@ jobs:
     - env: EMBER_TRY_SCENARIO=ember-canary
     - env: EMBER_TRY_SCENARIO=ember-lts-2.16
     - env: EMBER_TRY_SCENARIO=ember-lts-2.18
+    - env: EMBER_TRY_SCENARIO=typescript
+    - env: EMBER_TRY_SCENARIO=stage-1-transforms
     - env: EMBER_TRY_SCENARIO=throw-on-computed-override
 

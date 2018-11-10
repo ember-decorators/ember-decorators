@@ -12,7 +12,7 @@ import { module, test } from 'qunit';
 
 const { Model } = DS;
 
-module('javascript | ember-data macro decorator');
+module('ember-data macro decorator');
 
 test('basic test', function(assert) {
   class User extends Model {

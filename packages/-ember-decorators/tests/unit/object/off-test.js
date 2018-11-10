@@ -3,7 +3,7 @@ import { module, test } from 'ember-qunit';
 import { on, off } from '@ember-decorators/object';
 import { sendEvent } from '@ember/object/events';
 
-module('javascript | @off', function() {
+module('@off', function() {
 
   test('firing the event does not call the method', function(assert) {
     class Foo {

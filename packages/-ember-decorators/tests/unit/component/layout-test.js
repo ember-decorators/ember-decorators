@@ -6,7 +6,7 @@ import { moduleForComponent } from 'ember-qunit';
 import { test } from 'qunit';
 import { find } from 'ember-native-dom-helpers';
 
-moduleForComponent('javascript | @layout', { integration: true });
+moduleForComponent('@layout', { integration: true });
 
 test('decorator sets layout of component', function(assert) {
   @layout(hbs`<section class='foo'>Hello, world!</section>`)

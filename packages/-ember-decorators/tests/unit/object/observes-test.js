@@ -3,7 +3,7 @@ import { set } from '@ember/object';
 
 import { observes } from '@ember-decorators/object';
 
-module('javascript | @observes', function() {
+module('@observes', function() {
 
   test('it calls the method', function(assert) {
     assert.expect(4);
