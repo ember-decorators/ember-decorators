@@ -729,6 +729,14 @@ export function setDiff(
  * export default class SortNamesComponent extends Component {
  *   names = A([{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}]);
  *
+ *   // sortDefinition syntax:
+ *
+ *   sorts = Object.freeze(['name:asc']);
+ *   @sort('names', 'sorts')
+ *   sortedNames; // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
+ *
+ *   // sort function syntax:
+ *
  *   @sort('names')
  *   sortedNames(a, b){
  *     if (a.name > b.name) {
@@ -756,7 +764,7 @@ export function setDiff(
  *
  * @function
  * @param {String} dependentKey - The key for the array that should be sorted
- * @param {Array<String>|Function(Any, Any): Number} sortDefinition - Sorting function or sort descriptor
+ * @param {String|Function(Any, Any): Number} sortDefinition - Sorting function or sort descriptor
  */
 export function sort<T>(
   dependentKey: string,
