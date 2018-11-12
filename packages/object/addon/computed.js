@@ -733,6 +733,14 @@ export const setDiff = legacyMacro(emberSetDiff);
   export default class SortNamesComponent extends Component {
     names = [{name:'Link'},{name:'Zelda'},{name:'Ganon'},{name:'Navi'}];
 
+    // sortDefinition syntax:
+
+    sorts = Object.freeze(['name:asc']);
+    @sort('names', 'sorts')
+    sortedNames; // [{name:'Ganon'},{name:'Link'},{name:'Navi'},{name:'Zelda'}]
+
+    // sort function syntax:
+
     @sort('names')
     sortedNames(a, b){
       if (a.name > b.name) {
@@ -762,7 +770,7 @@ export const setDiff = legacyMacro(emberSetDiff);
 
   @function
   @param {string} dependentKey - The key for the array that should be sorted
-  @param {string[] | (itemA: any, itemB: any) => number} sortDefinition? - Sorting function or sort descriptor
+  @param {string | (itemA: any, itemB: any) => number} sortDefinition? - Sorting function or sort descriptor
   @return {any[]}
 */
 export const sort = legacyMacro(emberSort);
