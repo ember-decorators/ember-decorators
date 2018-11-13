@@ -116,7 +116,7 @@ module('@on', function() {
 
         new Foo();
       },
-      /Cannot decorate member 'onEvent' without parameters/
+      /The @on decorator requires parameters/
     );
   })
 });

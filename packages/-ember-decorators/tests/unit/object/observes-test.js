@@ -134,7 +134,7 @@ module('@observes', function() {
 
         new Foo();
       },
-      /Cannot decorate member 'fullName' without parameters/
+      /The @observes decorator requires parameters/
     );
   })
 });

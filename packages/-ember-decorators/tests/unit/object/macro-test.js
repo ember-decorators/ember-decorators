@@ -714,7 +714,7 @@ module('macros', function() {
 
         new Foo();
       },
-      /Cannot decorate member 'uniqNames' without parameters/,
+      /The @alias decorator requires parameters/,
       'error thrown correctly'
     );
   });

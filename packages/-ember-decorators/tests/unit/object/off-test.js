@@ -63,7 +63,7 @@ module('@off', function() {
 
         new Bar();
       },
-      /Cannot decorate member 'onEvent' without parameters/,
+      /The @off decorator requires parameters/,
     );
   });
 });

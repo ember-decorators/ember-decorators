@@ -9,7 +9,7 @@ module('computed decorator helpers', function() {
   module('computedDecorator', function() {
 
     test('it works', function(assert) {
-      let decorate = computedDecorator((target, key, { get, set }) => {
+      let decorate = computedDecorator(({ descriptor: { get, set } }) => {
         return computed({ get, set });
       });
 
@@ -24,7 +24,7 @@ module('computed decorator helpers', function() {
     });
 
     test('it works on fields', function(assert) {
-      let alias = computedDecoratorWithRequiredParams((target, key, desc, params) => {
+      let alias = computedDecoratorWithRequiredParams((desc, params) => {
         return emberAlias(...params);
       });
 
@@ -36,7 +36,7 @@ module('computed decorator helpers', function() {
     });
 
     test('it works on functions', function(assert) {
-      let alias = computedDecoratorWithRequiredParams((target, key, desc, params) => {
+      let alias = computedDecoratorWithRequiredParams((desc, params) => {
         return emberAlias(...params);
       });
 
@@ -48,33 +48,11 @@ module('computed decorator helpers', function() {
       assert.ok(isComputedDescriptor(computedDescriptorFor(Foo.prototype, 'bar')), 'descriptor correctly assigned');
     });
 
-    test('it passes in the previous computed descriptor if it exists', function(assert) {
-      let decorate = computedDecorator((target, key, { get, set }) => {
-        return computed({ get, set });
-      });
-
-      let decorateAgain = computedDecorator((target, key, desc) => {
-        assert.ok(isComputedDescriptor(desc), 'computed descriptor passed in correctly');
-
-        return desc;
-      });
-
-      class Foo {
-        @decorateAgain
-        @decorate
-        get foo() {}
-
-        set foo(value) {}
-      }
-
-      new Foo();
-    });
-
     test('it throws if the decorator does not return a CP descriptor', function(assert) {
       assert.throws(
         () => {
-          let decorate = computedDecorator((target, key, desc) => {
-            return desc;
+          let decorate = computedDecorator((desc) => {
+            return desc.descriptor;
           });
 
           class Foo {

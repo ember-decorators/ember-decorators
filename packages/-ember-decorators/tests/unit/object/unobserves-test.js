@@ -67,7 +67,7 @@ module('@unobserves', function() {
 
         new Bar();
       },
-      /Cannot decorate member 'fullName' without parameters/,
+      /The @unobserves decorator requires parameters/,
     );
   });
 });

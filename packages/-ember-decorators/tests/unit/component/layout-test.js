@@ -64,7 +64,7 @@ test('decorator throws an error if given no values', function(assert) {
 
       new FooComponent();
     },
-    /The @layout decorator must be provided a template/, // Fails the string test because the class is passed in directly
+    /The @layout decorator requires parameters/,
     'error thrown correctly'
   )
 
@@ -75,7 +75,7 @@ test('decorator throws an error if given no values', function(assert) {
 
       new FooComponent();
     },
-    /The @layout decorator must be provided exactly one argument/,
+    /The @layout decorator requires parameters/,
     'error thrown correctly'
   )
 });

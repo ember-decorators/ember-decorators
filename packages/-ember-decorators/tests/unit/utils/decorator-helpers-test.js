@@ -6,7 +6,7 @@ module('decorator helpers', function() {
   module('decoratorWithParams', function() {
 
     test('it works with params', function(assert) {
-      let decorate = decoratorWithParams((target, key, desc, params) => {
+      let decorate = decoratorWithParams(({ key }, params) => {
         assert.equal(key, 'foo', 'correct key decorated');
         assert.ok(Array.isArray(params), 'array passed in as params');
         assert.equal(params.length, 1, 'params list has correct number of params');
@@ -21,10 +21,9 @@ module('decorator helpers', function() {
     });
 
     test('it works without params', function(assert) {
-      let decorate = decoratorWithParams((target, key, desc, params) => {
+      let decorate = decoratorWithParams(({ key }, params) => {
         assert.equal(key, 'foo', 'correct key decorated');
-        assert.ok(Array.isArray(params), 'array passed in as params');
-        assert.equal(params.length, 0, 'params list is empty');
+        assert.equal(params, undefined, 'no params passed');
       });
 
       class Foo {
@@ -35,7 +34,7 @@ module('decorator helpers', function() {
     });
 
     test('it works with empty params list', function(assert) {
-      let decorate = decoratorWithParams((target, key, desc, params) => {
+      let decorate = decoratorWithParams(({ key }, params) => {
         assert.equal(key, 'foo', 'correct key decorated');
         assert.ok(Array.isArray(params), 'array passed in as params');
         assert.equal(params.length, 0, 'params list is empty');
@@ -52,7 +51,7 @@ module('decorator helpers', function() {
   module('decoratorWithRequiredParams', function() {
 
     test('it works with params', function(assert) {
-      let decorate = decoratorWithRequiredParams((target, key, desc, params) => {
+      let decorate = decoratorWithRequiredParams(({ key }, params) => {
         assert.equal(key, 'foo', 'correct key decorated');
         assert.ok(Array.isArray(params), 'array passed in as params');
         assert.equal(params.length, 1, 'params list has correct number of params');
@@ -71,7 +70,7 @@ module('decorator helpers', function() {
         () => {
           let decorate = decoratorWithRequiredParams(() => {
             assert.ok(false, 'decorator ran');
-          });
+          }, 'decorate');
 
           class Foo {
             @decorate foo() {}
@@ -79,7 +78,7 @@ module('decorator helpers', function() {
 
           new Foo();
         },
-        /Cannot decorate member 'foo' without parameters/
+        /The @decorate decorator requires parameters/
       );
     });
 
@@ -88,7 +87,7 @@ module('decorator helpers', function() {
         () => {
           let decorate = decoratorWithRequiredParams(() => {
             assert.ok(false, 'decorator ran');
-          });
+          }, 'decorate');
 
           class Foo {
             @decorate() foo() {}
@@ -96,7 +95,7 @@ module('decorator helpers', function() {
 
           new Foo();
         },
-        /Cannot decorate member 'foo' without parameters/
+        /The @decorate decorator requires parameters/
       );
     });
   });
