@@ -1,6 +1,7 @@
 import { defineProperty } from '@ember/object';
 import { decoratorWithParams, decoratorWithRequiredParams, decorator } from './decorator';
 import { HAS_NATIVE_COMPUTED_GETTERS } from 'ember-compatibility-helpers';
+import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
 
 import { computedDescriptorFor, isComputedDescriptor } from './-private/descriptor';
 import { getModifierMeta, getOrCreateModifierMeta } from './-private/modifier-meta';
@@ -54,9 +55,11 @@ function computedDecoratorInner(fn) {
 
       defineProperty(prototype, key, computedDesc);
 
-      // There's currently no way to disable redefining the property when decorators
-      // are run, so return the property descriptor we just assigned
-      desc.descriptor = Object.getOwnPropertyDescriptor(prototype, key);
+      if (NEEDS_STAGE_1_DECORATORS) {
+        // There's currently no way to disable redefining the property when decorators
+        // are run, so return the property descriptor we just assigned
+        desc.descriptor = Object.getOwnPropertyDescriptor(prototype, key);
+      }
 
       return target;
     }

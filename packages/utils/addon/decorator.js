@@ -1,7 +1,15 @@
 import { assert } from '@ember/debug';
 
+import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
+
 function isDescriptor(possibleDesc) {
-  return isStage1Descriptor(possibleDesc) || isStage2Descriptor(possibleDesc);
+  let isDescriptor = isStage2Descriptor(possibleDesc);
+
+  if (NEEDS_STAGE_1_DECORATORS) {
+    isDescriptor = isDescriptor || isStage1Descriptor(possibleDesc);
+  }
+
+  return isDescriptor;
 }
 
 function isStage1Descriptor(possibleDesc) {
@@ -69,28 +77,32 @@ function convertStage1ToStage2(desc) {
 }
 
 export function decorator(fn) {
-  return function(...params) {
-    if (isStage2Descriptor(params)) {
-      let desc = params[0];
+  if (NEEDS_STAGE_1_DECORATORS) {
+    return function(...params) {
+      if (isStage2Descriptor(params)) {
+        let desc = params[0];
 
-      return fn(desc);
-    } else {
-      let desc = convertStage1ToStage2(params);
+        return fn(desc);
+      } else {
+        let desc = convertStage1ToStage2(params);
 
-      fn(desc);
+        fn(desc);
 
-      if (desc.finisher) {
-        // Finishers are supposed to run at the end of class finalization,
-        // but we don't get that with stage 1 transforms. We have to be careful
-        // to make sure that we aren't doing any operations which would change
-        // due to timing.
-        let [target] = params;
+        if (desc.finisher) {
+          // Finishers are supposed to run at the end of class finalization,
+          // but we don't get that with stage 1 transforms. We have to be careful
+          // to make sure that we aren't doing any operations which would change
+          // due to timing.
+          let [target] = params;
 
-        desc.finisher(target.prototype ? target : target.constructor);
+          desc.finisher(target.prototype ? target : target.constructor);
+        }
+
+        return desc.descriptor;
       }
-
-      return desc.descriptor;
     }
+  } else {
+    return fn;
   }
 }
 
