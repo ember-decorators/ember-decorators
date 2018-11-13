@@ -6,7 +6,7 @@ import { computed, readOnly, volatile, observes } from '@ember-decorators/object
 import { gte } from 'ember-compatibility-helpers';
 import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
 
-module('javascript | @computed', function() {
+module('@computed', function() {
 
   test('it works', function(assert) {
     assert.expect(2);

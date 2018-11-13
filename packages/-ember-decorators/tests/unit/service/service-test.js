@@ -4,7 +4,7 @@ import { test } from 'qunit';
 
 import { service } from '@ember-decorators/service';
 
-moduleFor('javascript | @service', { integration: true });
+moduleFor('@service', { integration: true });
 
 test('it works', function(assert) {
   const FooService = EmberObject.extend();

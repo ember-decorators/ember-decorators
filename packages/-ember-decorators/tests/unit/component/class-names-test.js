@@ -6,7 +6,7 @@ import { moduleForComponent } from 'ember-qunit';
 import { test } from 'qunit';
 import { find, findAll } from 'ember-native-dom-helpers';
 
-moduleForComponent('javascript | @classNames', { integration: true });
+moduleForComponent('@classNames', { integration: true });
 
 test('decorator adds class to component', function(assert) {
   @classNames('foo')

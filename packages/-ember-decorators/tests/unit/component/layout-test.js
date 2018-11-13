@@ -6,7 +6,7 @@ import { moduleForComponent } from 'ember-qunit';
 import { test } from 'qunit';
 import { find } from 'ember-native-dom-helpers';
 
-moduleForComponent('javascript | @layout', { integration: true });
+moduleForComponent('@layout', { integration: true });
 
 test('decorator sets layout of component', function(assert) {
   @layout(hbs`<section class='foo'>Hello, world!</section>`)
@@ -64,7 +64,7 @@ test('decorator throws an error if given no values', function(assert) {
 
       new FooComponent();
     },
-    /The @layout decorator must be provided a template/, // Fails the string test because the class is passed in directly
+    /The @layout decorator requires parameters/,
     'error thrown correctly'
   )
 
@@ -75,7 +75,7 @@ test('decorator throws an error if given no values', function(assert) {
 
       new FooComponent();
     },
-    /The @layout decorator must be provided exactly one argument/,
+    /The @layout decorator requires parameters/,
     'error thrown correctly'
   )
 });

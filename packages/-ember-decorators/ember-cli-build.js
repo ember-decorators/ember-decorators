@@ -1,6 +1,4 @@
 'use strict';
-const fs = require('fs');
-const walkSync = require('walk-sync');
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 const UnwatchedDir = require('broccoli-source').UnwatchedDir;
@@ -16,21 +14,6 @@ function treeForPackage(packageName) {
 }
 
 module.exports = function(defaults) {
-  if (process.env.GENERATE_TYPESCRIPT_TESTS) {
-    // Generate typescript test files
-    walkSync('tests').forEach((path) => {
-      if (path.includes('-test.js') && !path.includes('temp-typescript')) {
-        let fullPath = `tests/${path}`;
-
-        let file = fs.readFileSync(fullPath, { encoding: 'utf8' });
-
-        file = file.replace('javascript |', 'typescript |');
-
-        fs.writeFileSync(fullPath.replace('-test.js', '-temp-typescript-test.ts'), file);
-      }
-    });
-  }
-
   // Build addon docs tree
   let baseFiles = new Funnel(new UnwatchedDir('./'), {
     include: ['package.json', 'README.md']
@@ -45,7 +28,25 @@ module.exports = function(defaults) {
     treeForPackage('service'),
   ]);
 
+  let trees;
+
+  if (process.env.GENERATE_TYPESCRIPT_TESTS) {
+    trees = {
+      tests: new Funnel('tests', {
+        getDestinationPath(path) {
+          return path.replace('.js', '.ts');
+        },
+      }),
+    };
+  } else {
+    trees = {
+      tests: 'tests'
+    };
+  }
+
   var app = new EmberAddon(defaults, {
+    trees,
+
     'ember-cli-addon-docs': {
       projects: {
         main: tree

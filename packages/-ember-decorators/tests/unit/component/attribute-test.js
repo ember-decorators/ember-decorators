@@ -7,7 +7,7 @@ import { moduleForComponent } from 'ember-qunit';
 import { test } from 'qunit';
 import { find, findAll } from 'ember-native-dom-helpers';
 
-moduleForComponent('javascript | @attribute', { integration: true });
+moduleForComponent('@attribute', { integration: true });
 
 test('decorator adds attributes to component', function(assert) {
   class FooComponent extends Component {

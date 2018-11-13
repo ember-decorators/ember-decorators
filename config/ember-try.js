@@ -11,6 +11,8 @@ module.exports = function() {
       useWorkspaces: true,
       command: 'yarn test',
       scenarios: [
+
+        // Ember Versions
         {
           name: 'ember-lts-2.16',
           npm: {
@@ -58,23 +60,35 @@ module.exports = function() {
         },
         {
           name: 'ember-default',
+        },
+
+        // Alternate Transpilers
+        {
+          name: 'typescript',
           env: {
             GENERATE_TYPESCRIPT_TESTS: true,
           },
+        },
+        {
+          name: 'stage-1-transforms',
           npm: {
             devDependencies: {
-              'ember-cli-typescript': '^1.3.0',
-              'typescript': '~2.8.3',
+              '@ember-decorators/babel-transforms': '^2.0.0',
             }
           }
+        },
+
+        // Build Flags
+        {
+          name: 'forced-stage-1-build',
+          env: {
+            EMBER_DECORATORS_NEEDS_STAGE_1_DECORATORS: true,
+          },
         },
         {
           name: 'throw-on-computed-override',
           env: {
             EMBER_DECORATORS_THROW_ON_COMPUTED_OVERRIDE: true,
-          },
-          npm: {
-            devDependencies: {}
           },
         },
       ],

@@ -15,6 +15,6 @@ import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
   @param {string} controllerName? - The name of the controller to inject. If not provided, the property name will be used
   @return {Controller}
 */
-export const controller = computedDecoratorWithParams((target, key, desc, params) => {
+export const controller = computedDecoratorWithParams(({ key }, params) => {
   return params.length > 0 ? injectController(...params) : injectController(key);
 });

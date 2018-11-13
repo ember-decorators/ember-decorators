@@ -3,7 +3,7 @@ import { set } from '@ember/object';
 
 import { observes } from '@ember-decorators/object';
 
-module('javascript | @observes', function() {
+module('@observes', function() {
 
   test('it calls the method', function(assert) {
     assert.expect(4);
@@ -134,7 +134,7 @@ module('javascript | @observes', function() {
 
         new Foo();
       },
-      /Cannot decorate member 'fullName' without parameters/
+      /The @observes decorator requires parameters/
     );
   })
 });

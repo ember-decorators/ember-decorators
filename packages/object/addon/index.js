@@ -3,6 +3,9 @@ import { DEBUG } from '@glimmer/env';
 import collapseProto from '@ember-decorators/utils/collapse-proto';
 import { computed as emberComputed } from '@ember-decorators/utils/compatibility';
 import { decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
+
+import { decorator } from '@ember-decorators/utils/decorator';
+
 import {
   computedDescriptorFor,
   computedDecoratorWithParams,
@@ -39,29 +42,37 @@ import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
 
   @return {Function}
 */
-export function action(target, key, desc) {
-  assert('The @action decorator must be applied to functions', desc && typeof desc.value === 'function');
+export const action = decorator(desc => {
+  assert(
+    'The @action decorator must be applied to functions',
+    desc && desc.descriptor && typeof desc.descriptor.value === 'function'
+  );
 
-  collapseProto(target);
+  desc.finisher = target => {
+    let { key, descriptor } = desc;
+    let { prototype } = target;
 
-  if (HAS_UNDERSCORE_ACTIONS) {
-    if (!target.hasOwnProperty('_actions')) {
-      let parentActions = target._actions;
-      target._actions = parentActions ? Object.create(parentActions) : {};
+    collapseProto(prototype);
+
+    if (HAS_UNDERSCORE_ACTIONS) {
+      if (!prototype.hasOwnProperty('_actions')) {
+        let parentActions = prototype._actions;
+        prototype._actions = parentActions ? Object.create(parentActions) : {};
+      }
+
+      prototype._actions[key] = descriptor.value;
+    } else {
+      if (!prototype.hasOwnProperty('actions')) {
+        let parentActions = prototype.actions;
+        prototype.actions = parentActions ? Object.create(parentActions) : {};
+      }
+
+      prototype.actions[key] = descriptor.value;
     }
 
-    target._actions[key] = desc.value;
-  } else {
-    if (!target.hasOwnProperty('actions')) {
-      let parentActions = target.actions;
-      target.actions = parentActions ? Object.create(parentActions) : {};
-    }
-
-    target.actions[key] = desc.value;
-  }
-
-  return desc;
-}
+    return target;
+  };
+});
 
 /**
   Decorator that turns a native getter/setter into a computed property. Note
@@ -101,16 +112,21 @@ export function action(target, key, desc) {
   @param {...string} propertyNames - List of property keys this computed is dependent on
   @return {ComputedProperty}
 */
-export const computed = computedDecoratorWithParams((target, key, desc, params) => {
-  assert(`ES6 property getters/setters only need to be decorated once, '${key}' was decorated on both the getter and the setter`, !desc.isDescriptor);
-  assert(`Attempted to apply @computed to ${key}, but it is not a native accessor function. Try converting it to \`get ${key}()\``, 'get' in desc || 'set' in desc);
-  assert(`Using @computed for only a setter does not make sense. Add a getter for '${key}' as well or remove the @computed decorator.`, 'get' in desc && desc.get !== undefined);
+export const computed = computedDecoratorWithParams(({ key, descriptor }, params) => {
+  assert(
+    `Attempted to apply @computed to ${key}, but it is not a native accessor function. Try converting it to \`get ${key}()\``,
+    'get' in descriptor || 'set' in descriptor
+  );
+  assert(
+    `Using @computed for only a setter does not make sense. Add a getter for '${key}' as well or remove the @computed decorator.`,
+    'get' in descriptor && descriptor.get !== undefined
+  );
 
-  let { get, set } = desc;
+  let { get, set } = descriptor;
 
   // Unset the getter and setter so the descriptor just has a plain value
-  desc.get = undefined;
-  desc.set = undefined;
+  descriptor.get = undefined;
+  descriptor.set = undefined;
 
   let setter;
 
@@ -121,9 +137,10 @@ export const computed = computedDecoratorWithParams((target, key, desc, params) 
     };
   } else if (DEBUG && THROW_ON_COMPUTED_OVERRIDE) {
     setter = function(key) {
-      assert(`Attempted to set ${
-        key
-      }, but it does not have a setter. Overriding a computed property without a setter has been deprecated.`, false);
+      assert(
+        `Attempted to set ${key}, but it does not have a setter. Overriding a computed property without a setter has been deprecated.`,
+        false
+      );
     };
   }
 
@@ -147,13 +164,22 @@ export const computed = computedDecoratorWithParams((target, key, desc, params) 
   @function
   @param {...String} propertyNames - Names of the properties that trigger the function
  */
-export const observes = decoratorWithRequiredParams((target, key, desc, params) => {
-  assert('The @observes decorator must be applied to functions', desc && typeof desc.value === 'function');
+export const observes = decoratorWithRequiredParams((desc, params) => {
+  assert(
+    'The @observes decorator must be applied to functions',
+    desc && desc.descriptor && typeof desc.descriptor.value === 'function'
+  );
 
-  for (let path of params) {
-    addObserver(target, path, this, key);
-  }
-});
+  desc.finisher = target => {
+    let { prototype } = target;
+
+    for (let path of params) {
+      addObserver(prototype, path, null, desc.key);
+    }
+
+    return target;
+  };
+}, 'observes');
 
 /**
   Removes observers from the target function.
@@ -176,11 +202,17 @@ export const observes = decoratorWithRequiredParams((target, key, desc, params) 
   @function
   @param {...String} propertyNames - Names of the properties that no longer trigger the function
  */
-export const unobserves = decoratorWithRequiredParams((target, key, desc, params) => {
-  for (let path of params) {
-    removeObserver(target, path, this, key);
-  }
-});
+export const unobserves = decoratorWithRequiredParams((desc, params) => {
+  desc.finisher = target => {
+    let { prototype } = target;
+
+    for (let path of params) {
+      removeObserver(prototype, path, null, desc.key);
+    }
+
+    return target;
+  };
+}, 'unobserves');
 
 /**
   Adds an event listener to the target function.
@@ -199,13 +231,22 @@ export const unobserves = decoratorWithRequiredParams((target, key, desc, params
   @function
   @param {...String} eventNames - Names of the events that trigger the function
  */
-export const on = decoratorWithRequiredParams((target, key, desc, params) => {
-  assert('The @on decorator must be applied to functions', desc && typeof desc.value === 'function');
+export const on = decoratorWithRequiredParams((desc, params) => {
+  assert(
+    'The @on decorator must be applied to functions',
+    desc && desc.descriptor && typeof desc.descriptor.value === 'function'
+  );
 
-  for (let eventName of params) {
-    addListener(target, eventName, this, key);
-  }
-});
+  desc.finisher = target => {
+    let { prototype } = target;
+
+    for (let eventName of params) {
+      addListener(prototype, eventName, null, desc.key);
+    }
+
+    return target;
+  };
+}, 'on');
 
 /**
   Removes an event listener from the target function.
@@ -228,11 +269,17 @@ export const on = decoratorWithRequiredParams((target, key, desc, params) => {
   @function
   @param {...String} eventNames - Names of the events that no longer trigger the function
  */
-export const off = decoratorWithRequiredParams((target, key, desc, params) => {
-  for (let eventName of params) {
-    removeListener(target, eventName, this, key);
-  }
-});
+export const off = decoratorWithRequiredParams((desc, params) => {
+  desc.finisher = target => {
+    let { prototype } = target;
+
+    for (let eventName of params) {
+      removeListener(prototype, eventName, null, desc.key);
+    }
+
+    return target;
+  };
+}, 'off');
 
 /**
   Decorator that modifies a computed property to be read only.
@@ -252,27 +299,38 @@ export const off = decoratorWithRequiredParams((target, key, desc, params) => {
 
   @return {ComputedProperty}
 */
-export function readOnly(target, key) {
-  let computedDesc = computedDescriptorFor(target, key)
+export const readOnly = decorator(desc => {
+  desc.finisher = target => {
+    let { prototype } = target;
+    let { key } = desc;
 
-  if (DEBUG) {
-    let modifierMeta = getOrCreateModifierMeta(target, name);
-
-    assert('A computed property cannot be both readOnly and volatile. Use a native setter instead', modifierMeta[key] !== 'volatile');
-  }
-
-  if (computedDesc !== undefined) {
     if (DEBUG) {
-      let modifierMeta = getOrCreateModifierMeta(target, name);
-      modifierMeta[key] = 'readOnly';
+      let modifierMeta = getOrCreateModifierMeta(prototype, name);
+
+      assert(
+        'A computed property cannot be both readOnly and volatile. Use a native setter instead',
+        modifierMeta[key] !== 'volatile'
+      );
     }
 
-    computedDesc.readOnly();
-  } else {
-    let modifierMeta = getOrCreateModifierMeta(target, name);
-    modifierMeta[key] = 'readOnly';
-  }
-}
+    // TODO(v4): We can't know for sure whether or not the computed descriptor
+    // has already been added, it may have if decorators are stage 1, so we have
+    // to check and modify it if it has.
+    let computedDesc = computedDescriptorFor(prototype, key);
+
+    if (computedDesc !== undefined) {
+      if (DEBUG) {
+        let modifierMeta = getOrCreateModifierMeta(prototype, name);
+        modifierMeta[key] = 'readOnly';
+      }
+
+      computedDesc.readOnly();
+    } else {
+      let modifierMeta = getOrCreateModifierMeta(prototype, name);
+      modifierMeta[key] = 'readOnly';
+    }
+  };
+});
 
 /**
   Decorator that modifies a computed property to be volatile.
@@ -292,24 +350,35 @@ export function readOnly(target, key) {
 
   @return {ComputedProperty}
 */
-export function volatile(target, key) {
-  let computedDesc = computedDescriptorFor(target, key)
+export const volatile = decorator(desc => {
+  desc.finisher = target => {
+    let { prototype } = target;
+    let { key } = desc;
 
-  if (DEBUG) {
-    let modifierMeta = getOrCreateModifierMeta(target, name);
-
-    assert('A computed property cannot be both readOnly and volatile. Use a native getter instead', modifierMeta[key] !== 'readOnly');
-  }
-
-  if (computedDesc !== undefined) {
     if (DEBUG) {
-      let modifierMeta = getOrCreateModifierMeta(target, name);
-      modifierMeta[key] = 'volatile';
+      let modifierMeta = getOrCreateModifierMeta(prototype, name);
+
+      assert(
+        'A computed property cannot be both readOnly and volatile. Use a native getter instead',
+        modifierMeta[key] !== 'readOnly'
+      );
     }
 
-    computedDesc.volatile();
-  } else {
-    let modifierMeta = getOrCreateModifierMeta(target, name);
-    modifierMeta[key] = 'volatile';
-  }
-}
+    // TODO(v4): We can't know for sure whether or not the computed descriptor
+    // has already been added, it may have if decorators are stage 1, so we have
+    // to check and modify it if it has.
+    let computedDesc = computedDescriptorFor(prototype, key);
+
+    if (computedDesc !== undefined) {
+      if (DEBUG) {
+        let modifierMeta = getOrCreateModifierMeta(prototype, name);
+        modifierMeta[key] = 'volatile';
+      }
+
+      computedDesc.volatile();
+    } else {
+      let modifierMeta = getOrCreateModifierMeta(prototype, name);
+      modifierMeta[key] = 'volatile';
+    }
+  };
+});

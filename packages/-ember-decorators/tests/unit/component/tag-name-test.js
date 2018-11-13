@@ -6,7 +6,7 @@ import { moduleForComponent } from 'ember-qunit';
 import { test } from 'qunit';
 import { find } from 'ember-native-dom-helpers';
 
-moduleForComponent('javascript | @tagName', { integration: true });
+moduleForComponent('@tagName', { integration: true });
 
 test('decorator sets tag of component', function(assert) {
   @tagName('foo')
@@ -54,7 +54,7 @@ test('decorator throws an error if given no values', function(assert) {
 
       new FooComponent();
     },
-    /The @tagName decorator must be provided a string/, // Fails the string test because the class is passed in directly
+    /The @tagName decorator requires parameters/, // Fails the string test because the class is passed in directly
     'error thrown correctly'
   )
 
@@ -65,7 +65,7 @@ test('decorator throws an error if given no values', function(assert) {
 
       new FooComponent();
     },
-    /The @tagName decorator must be provided exactly one argument/,
+    /The @tagName decorator requires parameters/,
     'error thrown correctly'
   )
 });

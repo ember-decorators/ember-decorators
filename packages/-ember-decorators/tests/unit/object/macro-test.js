@@ -40,17 +40,19 @@ import { readOnly as readOnlyModifier } from '@ember-decorators/object';
 import { module, test } from 'qunit';
 import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 
-module('javascript | macros', function() {
+module('macros', function() {
 
   test('@macro', function (assert) {
     // computed macro that returns the provided arguments as an array
     const passthroughMacro = (...args) => computed(() => args);
+    const passthroughMacroWithoutArgs = macro(passthroughMacro);
+    const passthroughMacroWithArgs = macro(passthroughMacro, 'a', 'b');
 
     class Foo {
-      @macro(passthroughMacro) noArgs;
-      @macro(passthroughMacro)('a', 'b') argsOnDecorator;
-      @macro(passthroughMacro, 'a', 'b') argsOnMacro;
-      @macro(passthroughMacro, 'a', 'b')('c', 'd') argsOnBoth;
+      @passthroughMacroWithoutArgs noArgs;
+      @passthroughMacroWithoutArgs('a', 'b') argsOnDecorator;
+      @passthroughMacroWithArgs argsOnMacro;
+      @passthroughMacroWithArgs('c', 'd') argsOnBoth;
     }
 
     const obj = new Foo();
@@ -712,7 +714,7 @@ module('javascript | macros', function() {
 
         new Foo();
       },
-      /Cannot decorate member 'uniqNames' without parameters/,
+      /The @alias decorator requires parameters/,
       'error thrown correctly'
     );
   });
