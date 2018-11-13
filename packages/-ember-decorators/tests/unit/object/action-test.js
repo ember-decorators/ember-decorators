@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import EmberObject from '@ember/object';
 import Component from '@ember/component';
 import { action } from '@ember-decorators/object';
@@ -26,20 +28,6 @@ componentModule('@action', function() {
     this.render(hbs`{{foo-bar}}`);
 
     return click('button');
-  });
-
-  test('action decorator throws an error if applied to non-functions', function(assert) {
-    assert.throws(
-      () => {
-        class TestObject extends EmberObject {
-          @action foo = 'bar'
-        }
-
-        new TestObject();
-      },
-      /The @action decorator must be applied to functions/,
-      'error thrown correctly'
-    )
   });
 
   test('action decorator does not add actions to superclass', function(assert) {
@@ -203,46 +191,6 @@ componentModule('@action', function() {
     await click('button');
   });
 
-  test('action decorator throws with parent actions conflicts (method)', function(assert) {
-    assert.throws(() => {
-      const FooComponent = Component.extend({
-        foo() {},
-
-        actions: {
-          foo() {}
-        }
-      });
-
-      // eslint-disable-next-line
-      class BarComponent extends FooComponent {
-        @action
-        foo() {
-          super.foo();
-        }
-      }
-    }, /The foo action may call super/);
-  });
-
-  test('action decorator throws with parent actions conflicts (prop)', function(assert) {
-    assert.throws(() => {
-      const FooComponent = Component.extend({
-        foo: 123,
-
-        actions: {
-          foo() {}
-        }
-      });
-
-      // eslint-disable-next-line
-      class BarComponent extends FooComponent {
-        @action
-        foo() {
-          super.foo();
-        }
-      }
-    }, /The foo action may call super/);
-  });
-
   test('action decorator does not throw with parent actions conflicts without super (method)', function(assert) {
     assert.expect(0);
 
@@ -282,4 +230,60 @@ componentModule('@action', function() {
       }
     }
   });
+
+  if (DEBUG) {
+    test('action decorator throws an error if applied to non-functions', function(assert) {
+      assert.throws(
+        () => {
+          class TestObject extends EmberObject {
+            @action foo = 'bar'
+          }
+
+          new TestObject();
+        },
+        /The @action decorator must be applied to functions/,
+        'error thrown correctly'
+      )
+    });
+
+    test('action decorator throws with parent actions conflicts (method)', function(assert) {
+      assert.throws(() => {
+        const FooComponent = Component.extend({
+          foo() {},
+
+          actions: {
+            foo() {}
+          }
+        });
+
+        // eslint-disable-next-line
+        class BarComponent extends FooComponent {
+          @action
+          foo() {
+            super.foo();
+          }
+        }
+      }, /The foo action may call super/);
+    });
+
+    test('action decorator throws with parent actions conflicts (prop)', function(assert) {
+      assert.throws(() => {
+        const FooComponent = Component.extend({
+          foo: 123,
+
+          actions: {
+            foo() {}
+          }
+        });
+
+        // eslint-disable-next-line
+        class BarComponent extends FooComponent {
+          @action
+          foo() {
+            super.foo();
+          }
+        }
+      }, /The foo action may call super/);
+    });
+  }
 });

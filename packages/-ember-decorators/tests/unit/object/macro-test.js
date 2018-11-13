@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import { get, set, computed } from '@ember/object';
 import { A as emberA } from '@ember/array';
 import { gte } from 'ember-compatibility-helpers';
@@ -38,7 +40,6 @@ import {
 } from '@ember-decorators/object/computed';
 import { readOnly as readOnlyModifier } from '@ember-decorators/object';
 import { module, test } from 'qunit';
-import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 
 module('macros', function() {
 
@@ -666,56 +667,30 @@ module('macros', function() {
     assert.deepEqual(get(obj, 'uniqNames').toArray(),['one','two','three']);
   });
 
-  if (hasEmberVersion(2, 7)) {
-    test('@uniqBy', function(assert) {
-      class Foo {
-        constructor() {
+  test('@uniqBy', function(assert) {
+    class Foo {
+      constructor() {
 
-          this.fruits = emberA([
-            { name: 'banana', color: 'yellow' },
-            { name: 'apple',  color: 'red' },
-            { name: 'kiwi',   color: 'brown' },
-            { name: 'cherry', color: 'red' },
-            { name: 'lemon',  color: 'yellow' }
-          ]);
-        }
-        @uniqBy('fruits', 'color') oneOfEachColor;
+        this.fruits = emberA([
+          { name: 'banana', color: 'yellow' },
+          { name: 'apple',  color: 'red' },
+          { name: 'kiwi',   color: 'brown' },
+          { name: 'cherry', color: 'red' },
+          { name: 'lemon',  color: 'yellow' }
+        ]);
       }
+      @uniqBy('fruits', 'color') oneOfEachColor;
+    }
 
-      let obj = new Foo();
+    let obj = new Foo();
 
-      assert.deepEqual(
-        get(obj, 'oneOfEachColor').toArray(),
-        [
-          { name: 'banana', color: 'yellow'},
-          { name: 'apple',  color: 'red'},
-          { name: 'kiwi',   color: 'brown'}
-        ]
-      );
-    }, 'is available in Ember 2.7+ and works correctly');
-  } else {
-    test('@uniqBy', function(assert) {
-      assert.throws(() => {
-        class Foo {
-          @uniqBy('fruits', 'color') oneOfEachColor;
-        }
-
-        new Foo();
-      }, /Ember\.js v2\.7/, 'is not available in Ember <2.7 and throws an assertion');
-    });
-  }
-
-  test('macros cannot be used without parameters', function(assert) {
-    assert.throws(
-      () => {
-        class Foo {
-          @alias uniqNames;
-        }
-
-        new Foo();
-      },
-      /The @alias decorator requires parameters/,
-      'error thrown correctly'
+    assert.deepEqual(
+      get(obj, 'oneOfEachColor').toArray(),
+      [
+        { name: 'banana', color: 'yellow'},
+        { name: 'apple',  color: 'red'},
+        { name: 'kiwi',   color: 'brown'}
+      ]
     );
   });
 
@@ -766,4 +741,20 @@ module('macros', function() {
 
     assert.equal(get(obj, 'finalName'), 'Brohuda');
   });
+
+  if (DEBUG) {
+    test('macros cannot be used without parameters', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            @alias uniqNames;
+          }
+
+          new Foo();
+        },
+        /The @alias decorator requires parameters/,
+        'error thrown correctly'
+      );
+    });
+  }
 });

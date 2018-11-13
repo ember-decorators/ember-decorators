@@ -41,7 +41,6 @@ import {
   computedDecoratorWithRequiredParams
 } from '@ember-decorators/utils/computed';
 
-import { SUPPORTS_UNIQ_BY_COMPUTED } from 'ember-compatibility-helpers';
 import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
 
 function legacyMacro(fn, shouldThrowOnOverride = true) {
@@ -864,6 +863,4 @@ export const uniq = legacyMacro(emberUniq);
   @param {string} propertyKey - Key of the property on the objects of the array to determine uniqueness by
   @return {any[]}
 */
-export const uniqBy = SUPPORTS_UNIQ_BY_COMPUTED ? legacyMacro(emberUniqBy) : () => {
-  assert('uniqBy is only available from Ember.js v2.7 onwards.', false);
-};
+export const uniqBy = legacyMacro(emberUniqBy);

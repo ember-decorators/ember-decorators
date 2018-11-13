@@ -80,6 +80,12 @@ module.exports = function() {
 
         // Build Flags
         {
+          name: 'production',
+          env: {
+            EMBER_ENV: 'production',
+          },
+        },
+        {
           name: 'forced-stage-1-build',
           env: {
             EMBER_DECORATORS_NEEDS_STAGE_1_DECORATORS: true,

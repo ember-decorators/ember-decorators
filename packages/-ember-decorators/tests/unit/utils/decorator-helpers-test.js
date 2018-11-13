@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import { module, test } from 'qunit';
 import { decoratorWithParams, decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
 
@@ -65,38 +67,40 @@ module('decorator helpers', function() {
       new Foo();
     });
 
-    test('it throws without params', function(assert) {
-      assert.throws(
-        () => {
-          let decorate = decoratorWithRequiredParams(() => {
-            assert.ok(false, 'decorator ran');
-          }, 'decorate');
+    if (DEBUG) {
+      test('it throws without params', function(assert) {
+        assert.throws(
+          () => {
+            let decorate = decoratorWithRequiredParams(() => {
+              assert.ok(false, 'decorator ran');
+            }, 'decorate');
 
-          class Foo {
-            @decorate foo() {}
-          }
+            class Foo {
+              @decorate foo() {}
+            }
 
-          new Foo();
-        },
-        /The @decorate decorator requires parameters/
-      );
-    });
+            new Foo();
+          },
+          /The @decorate decorator requires parameters/
+        );
+      });
 
-    test('it throws with empty params list', function(assert) {
-      assert.throws(
-        () => {
-          let decorate = decoratorWithRequiredParams(() => {
-            assert.ok(false, 'decorator ran');
-          }, 'decorate');
+      test('it throws with empty params list', function(assert) {
+        assert.throws(
+          () => {
+            let decorate = decoratorWithRequiredParams(() => {
+              assert.ok(false, 'decorator ran');
+            }, 'decorate');
 
-          class Foo {
-            @decorate() foo() {}
-          }
+            class Foo {
+              @decorate() foo() {}
+            }
 
-          new Foo();
-        },
-        /The @decorate decorator requires parameters/
-      );
-    });
+            new Foo();
+          },
+          /The @decorate decorator requires parameters/
+        );
+      });
+    }
   });
 });
