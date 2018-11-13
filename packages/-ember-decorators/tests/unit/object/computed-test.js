@@ -1,10 +1,11 @@
-import { module, test } from 'ember-qunit';
-import { get, set, setProperties } from '@ember/object';
+import { DEBUG } from '@glimmer/env';
+import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
 
+import { module, test } from 'ember-qunit';
+
+import { get, set, setProperties } from '@ember/object';
 import { computed, readOnly, volatile, observes } from '@ember-decorators/object';
 
-import { gte } from 'ember-compatibility-helpers';
-import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
 
 module('@computed', function() {
 
@@ -108,41 +109,6 @@ module('@computed', function() {
     assert.equal(callCount, 2);
   });
 
-  test('throws if used on non-getters', function(assert) {
-    assert.throws(
-      () => {
-        class Foo {
-          constructor() {
-            this.first = 'rob';
-            this.last = 'jackson';
-          }
-
-          @computed('first', 'last')
-          fullName() {
-            assert.equal(this.first, 'rob');
-            assert.equal(this.last, 'jackson');
-          }
-        }
-
-        new Foo();
-      },
-      /Attempted to apply @computed to fullName, but it is not a native accessor function/
-    );
-  });
-
-  test('throws if a setter was defined without a getter', function(assert) {
-    assert.throws(
-      () => {
-        // eslint-disable-next-line
-        class Foo {
-          @computed
-          set fullName(name) {}
-        }
-      },
-      /Using @computed for only a setter does not make sense\. Add a getter for 'fullName' as well or remove the @computed decorator./
-    );
-  });
-
   test('return value of ES6 setter is not required, but is not ignored', function(assert) {
     class Foo {
       constructor() {
@@ -183,23 +149,6 @@ module('@computed', function() {
     assert.strictEqual(get(obj, 'fullNameWithReturn'), 'something else', 'if the setter returns a value, it is not ignored');
   });
 
-  test('throws if the same property is decorated more than once', function(assert) {
-    assert.throws(
-      () => {
-        class Foo {
-          @computed
-          @computed('foo')
-          get fullName() {}
-
-          set fullName(name) {}
-        }
-
-        new Foo();
-      },
-      /ES6 property getters\/setters only need to be decorated once, 'fullName' was decorated on both the getter and the setter/
-    );
-  });
-
   test('can decorate the same property in multiple subclasses', function(assert) {
     assert.expect(0);
 
@@ -223,107 +172,141 @@ module('@computed', function() {
     new Bar();
     new Baz();
   });
-
-  if (THROW_ON_COMPUTED_OVERRIDE) {
-    test('it throws if user attempts to override the computed', function(assert) {
+  if (DEBUG) {
+    test('throws if used on non-getters', function(assert) {
       assert.throws(
         () => {
           class Foo {
-            first = 'rob';
-            last = 'jackson';
+            constructor() {
+              this.first = 'rob';
+              this.last = 'jackson';
+            }
 
             @computed('first', 'last')
-            get name() {
-              return `${this.first} ${this.last}`;
+            fullName() {
+              assert.equal(this.first, 'rob');
+              assert.equal(this.last, 'jackson');
             }
           }
 
-          let foo = new Foo();
-
-          set(foo, 'name', 'bar');
+          new Foo();
         },
-        /Assertion Failed: Attempted to set name, but it does not have a setter. Overriding a computed property without a setter has been deprecated./
+        /Attempted to apply @computed to fullName, but it is not a native accessor function/
       );
     });
-  }
 
-  module('modifiers', function() {
-    if (gte('2.0.0')) {
-      test('volatile', function(assert) {
-        assert.expect(2);
-        class Foo {
-          _count = 0;
-
-          @volatile
-          @computed('first')
-          get counter() {
-            return this._count++;
+    test('throws if a setter was defined without a getter', function(assert) {
+      assert.throws(
+        () => {
+          // eslint-disable-next-line
+          class Foo {
+            @computed
+            set fullName(name) {}
           }
-            set counter(value) {
-            this._count = value;
-          }
+        },
+        /Using @computed for only a setter does not make sense\. Add a getter for 'fullName' as well or remove the @computed decorator./
+      );
+    });
 
-          @observes('counter')
-          countObserver() {
-            assert.ok(false, 'observer called')
-          }
-        }
+    test('throws if the same property is decorated more than once', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            @computed
+            @computed('foo')
+            get fullName() {}
 
-        let obj = new Foo();
-        assert.equal(get(obj, 'counter'), 0, 'getter works');
-        assert.equal(get(obj, 'counter'), 1, 'getter called each time');
-
-        set(obj, 'counter', 2);
-      });
-
-      test('volatile can be applied in any order', (assert) => {
-        assert.expect(2);
-        class Foo {
-          _count = 0;
-
-          @computed('first')
-          @volatile
-          get counter() {
-            return this._count++;
-          }
-            set counter(value) {
-            this._count = value;
+            set fullName(name) {}
           }
 
-          @observes('counter')
-          countObserver() {
-            assert.ok(false, 'observer called')
-          }
-        }
+          new Foo();
+        },
+        /ES6 property getters\/setters only need to be decorated once, 'fullName' was decorated on both the getter and the setter/
+      );
+    });
 
-        let obj = new Foo();
-        assert.equal(get(obj, 'counter'), 0, 'getter works');
-        assert.equal(get(obj, 'counter'), 1, 'getter called each time');
-
-        set(obj, 'counter', 2);
-      });
-
-      if (THROW_ON_COMPUTED_OVERRIDE) {
-        test('readOnly', function(assert) {
-          assert.throws(() => {
+    if (THROW_ON_COMPUTED_OVERRIDE) {
+      test('it throws if user attempts to override the computed', function(assert) {
+        assert.throws(
+          () => {
             class Foo {
               first = 'rob';
               last = 'jackson';
 
-              @readOnly
               @computed('first', 'last')
               get name() {
                 return `${this.first} ${this.last}`;
               }
             }
 
-            let obj = new Foo();
+            let foo = new Foo();
 
-            set(obj, 'name', 'al');
-          }, /Computed properties that define a setter using the new syntax cannot be read-only/);
-        });
-      } else {
-        test('readOnly', function(assert) {
+            set(foo, 'name', 'bar');
+          },
+          /Assertion Failed: Attempted to set name, but it does not have a setter. Overriding a computed property without a setter has been deprecated./
+        );
+      });
+    }
+  }
+
+  module('modifiers', function() {
+    test('volatile', function(assert) {
+      assert.expect(2);
+      class Foo {
+        _count = 0;
+
+        @volatile
+        @computed('first')
+        get counter() {
+          return this._count++;
+        }
+          set counter(value) {
+          this._count = value;
+        }
+
+        @observes('counter')
+        countObserver() {
+          assert.ok(false, 'observer called')
+        }
+      }
+
+      let obj = new Foo();
+      assert.equal(get(obj, 'counter'), 0, 'getter works');
+      assert.equal(get(obj, 'counter'), 1, 'getter called each time');
+
+      set(obj, 'counter', 2);
+    });
+
+    test('volatile can be applied in any order', (assert) => {
+      assert.expect(2);
+      class Foo {
+        _count = 0;
+
+        @computed('first')
+        @volatile
+        get counter() {
+          return this._count++;
+        }
+          set counter(value) {
+          this._count = value;
+        }
+
+        @observes('counter')
+        countObserver() {
+          assert.ok(false, 'observer called')
+        }
+      }
+
+      let obj = new Foo();
+      assert.equal(get(obj, 'counter'), 0, 'getter works');
+      assert.equal(get(obj, 'counter'), 1, 'getter called each time');
+
+      set(obj, 'counter', 2);
+    });
+
+    if (DEBUG && THROW_ON_COMPUTED_OVERRIDE) {
+      test('readOnly', function(assert) {
+        assert.throws(() => {
           class Foo {
             first = 'rob';
             last = 'jackson';
@@ -337,30 +320,49 @@ module('@computed', function() {
 
           let obj = new Foo();
 
-          assert.throws(() => {
-            set(obj, 'name', 'al');
-          }, /Cannot set read-only property "name" on object:/);
-        });
+          set(obj, 'name', 'al');
+        }, /Computed properties that define a setter using the new syntax cannot be read-only/);
+      });
+    } else {
+      test('readOnly', function(assert) {
+        class Foo {
+          first = 'rob';
+          last = 'jackson';
 
-        test('readOnly can be applied in any order', function(assert) {
-          class Foo {
-            first = 'rob';
-            last = 'jackson';
-
-            @computed('first', 'last')
-            @readOnly
-            get name() {
-              return `${this.first} ${this.last}`;
-            }
+          @readOnly
+          @computed('first', 'last')
+          get name() {
+            return `${this.first} ${this.last}`;
           }
+        }
 
-          let obj = new Foo();
+        let obj = new Foo();
 
-          assert.throws(() => {
-            set(obj, 'name', 'al');
-          }, /Cannot set read-only property "name" on object:/);
-        });
+        assert.throws(() => {
+          set(obj, 'name', 'al');
+        }, /Cannot set read-only property "name" on object:/);
+      });
 
+      test('readOnly can be applied in any order', function(assert) {
+        class Foo {
+          first = 'rob';
+          last = 'jackson';
+
+          @computed('first', 'last')
+          @readOnly
+          get name() {
+            return `${this.first} ${this.last}`;
+          }
+        }
+
+        let obj = new Foo();
+
+        assert.throws(() => {
+          set(obj, 'name', 'al');
+        }, /Cannot set read-only property "name" on object:/);
+      });
+
+      if (DEBUG) {
         test('volatile and readOnly cannot be applied together', (assert) => {
           assert.throws(() => {
             class Foo {

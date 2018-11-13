@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import Component from '@ember/component';
 import { classNames } from '@ember-decorators/component';
 
@@ -60,15 +62,17 @@ test('decorator works correctly through traditional and ES6 hierarchy', function
   assert.equal(findAll('.bar').length, 1);
 });
 
-test('decorator throws an error if given non-string values', function(assert) {
-  assert.throws(
-    () => {
-      @classNames(1, true, {})
-      class FooComponent extends Component {}
+if (DEBUG) {
+  test('decorator throws an error if given non-string values', function(assert) {
+    assert.throws(
+      () => {
+        @classNames(1, true, {})
+        class FooComponent extends Component {}
 
-      new FooComponent();
-    },
-    /The @classNames decorator must be provided strings, received:/,
-    'error thrown correctly'
-  )
-});
+        new FooComponent();
+      },
+      /The @classNames decorator must be provided strings, received:/,
+      'error thrown correctly'
+    )
+  });
+}

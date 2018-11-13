@@ -1,23 +1,18 @@
 import { DEBUG } from '@glimmer/env';
+import { assert } from '@ember/debug';
+import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
+
+import { computed as emberComputed } from '@ember/object';
+import { addListener, removeListener } from '@ember/object/events';
+import { addObserver, removeObserver } from '@ember/object/observers';
 
 import collapseProto from '@ember-decorators/utils/collapse-proto';
-import { computed as emberComputed } from '@ember-decorators/utils/compatibility';
-import { decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
-
-import { decorator } from '@ember-decorators/utils/decorator';
-
+import { decorator, decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
 import {
   computedDescriptorFor,
   computedDecoratorWithParams,
   getOrCreateModifierMeta,
 } from '@ember-decorators/utils/computed';
-
-import { assert } from '@ember/debug';
-import { addListener, removeListener } from '@ember/object/events';
-import { addObserver, removeObserver } from '@ember/object/observers';
-import { HAS_UNDERSCORE_ACTIONS } from 'ember-compatibility-helpers';
-
-import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
 
 /**
   Decorator that turns the target function into an Action
@@ -54,21 +49,12 @@ export const action = decorator(desc => {
 
     collapseProto(prototype);
 
-    if (HAS_UNDERSCORE_ACTIONS) {
-      if (!prototype.hasOwnProperty('_actions')) {
-        let parentActions = prototype._actions;
-        prototype._actions = parentActions ? Object.create(parentActions) : {};
-      }
-
-      prototype._actions[key] = descriptor.value;
-    } else {
-      if (!prototype.hasOwnProperty('actions')) {
-        let parentActions = prototype.actions;
-        prototype.actions = parentActions ? Object.create(parentActions) : {};
-      }
-
-      prototype.actions[key] = descriptor.value;
+    if (!prototype.hasOwnProperty('actions')) {
+      let parentActions = prototype.actions;
+      prototype.actions = parentActions ? Object.create(parentActions) : {};
     }
+
+    prototype.actions[key] = descriptor.value;
 
     return target;
   };

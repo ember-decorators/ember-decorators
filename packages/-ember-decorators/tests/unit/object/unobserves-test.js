@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import { module, test } from 'ember-qunit';
 import { set } from '@ember/object';
 
@@ -45,29 +47,31 @@ module('@unobserves', function() {
     obj.fullName();
   });
 
-  test('throws if decorator params are not provided', function(assert) {
-    assert.throws(
-      () => {
-        class Foo {
-          first = 'rob';
-          last = 'jackson';
+  if (DEBUG) {
+    test('throws if decorator params are not provided', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            first = 'rob';
+            last = 'jackson';
 
-          @observes('first', 'last')
-          fullName() {
+            @observes('first', 'last')
+            fullName() {
 
+            }
           }
-        }
 
-        class Bar extends Foo {
-          @unobserves
-          fullName() {
-            assert.ok(false, 'method has been called');
+          class Bar extends Foo {
+            @unobserves
+            fullName() {
+              assert.ok(false, 'method has been called');
+            }
           }
-        }
 
-        new Bar();
-      },
-      /The @unobserves decorator requires parameters/,
-    );
-  });
+          new Bar();
+        },
+        /The @unobserves decorator requires parameters/,
+      );
+    });
+  }
 });

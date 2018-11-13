@@ -1,6 +1,7 @@
+import { DEBUG } from '@glimmer/env';
+
 import { get, set, computed } from '@ember/object';
 import { A as emberA } from '@ember/array';
-import { gte } from 'ember-compatibility-helpers';
 
 import {
   macro,
@@ -14,7 +15,7 @@ import {
   filter,
   filterBy,
   gt,
-  gte as macroGte,
+  gte,
   intersect,
   lt,
   lte,
@@ -38,7 +39,6 @@ import {
 } from '@ember-decorators/object/computed';
 import { readOnly as readOnlyModifier } from '@ember-decorators/object';
 import { module, test } from 'qunit';
-import hasEmberVersion from 'ember-test-helpers/has-ember-version';
 
 module('macros', function() {
 
@@ -289,7 +289,7 @@ module('macros', function() {
       constructor() {
         this.total = 9;
       }
-      @macroGte('total', 10) isGteTen;
+      @gte('total', 10) isGteTen;
     }
 
     let obj = new Foo();
@@ -603,25 +603,23 @@ module('macros', function() {
     assert.deepEqual(get(obj, 'sortedNames').mapBy('name'), ['a','b','foo','z']);
   });
 
-  if (gte('2.0.0')) {
-    test('@sort (no callback, use property value)', function(assert) {
-      class Foo {
-        constructor() {
+  test('@sort (no callback, use property value)', function(assert) {
+    class Foo {
+      constructor() {
 
-          this.names = emberA([{name:'b'},{name:'z'},{name:'a'},{name:'foo'}]);
-        }
-
-        sorts = ['name:asc'];
-
-        @sort('names', 'sorts') sortedNames;
+        this.names = emberA([{name:'b'},{name:'z'},{name:'a'},{name:'foo'}]);
       }
 
-      let obj = new Foo();
+      sorts = ['name:asc'];
 
-      var actual = get(obj, 'sortedNames').mapBy('name');
-      assert.deepEqual(actual, ['a','b','foo','z']);
-    });
-  }
+      @sort('names', 'sorts') sortedNames;
+    }
+
+    let obj = new Foo();
+
+    var actual = get(obj, 'sortedNames').mapBy('name');
+    assert.deepEqual(actual, ['a','b','foo','z']);
+  });
 
 
   test('@sum', function(assert) {
@@ -666,56 +664,30 @@ module('macros', function() {
     assert.deepEqual(get(obj, 'uniqNames').toArray(),['one','two','three']);
   });
 
-  if (hasEmberVersion(2, 7)) {
-    test('@uniqBy', function(assert) {
-      class Foo {
-        constructor() {
+  test('@uniqBy', function(assert) {
+    class Foo {
+      constructor() {
 
-          this.fruits = emberA([
-            { name: 'banana', color: 'yellow' },
-            { name: 'apple',  color: 'red' },
-            { name: 'kiwi',   color: 'brown' },
-            { name: 'cherry', color: 'red' },
-            { name: 'lemon',  color: 'yellow' }
-          ]);
-        }
-        @uniqBy('fruits', 'color') oneOfEachColor;
+        this.fruits = emberA([
+          { name: 'banana', color: 'yellow' },
+          { name: 'apple',  color: 'red' },
+          { name: 'kiwi',   color: 'brown' },
+          { name: 'cherry', color: 'red' },
+          { name: 'lemon',  color: 'yellow' }
+        ]);
       }
+      @uniqBy('fruits', 'color') oneOfEachColor;
+    }
 
-      let obj = new Foo();
+    let obj = new Foo();
 
-      assert.deepEqual(
-        get(obj, 'oneOfEachColor').toArray(),
-        [
-          { name: 'banana', color: 'yellow'},
-          { name: 'apple',  color: 'red'},
-          { name: 'kiwi',   color: 'brown'}
-        ]
-      );
-    }, 'is available in Ember 2.7+ and works correctly');
-  } else {
-    test('@uniqBy', function(assert) {
-      assert.throws(() => {
-        class Foo {
-          @uniqBy('fruits', 'color') oneOfEachColor;
-        }
-
-        new Foo();
-      }, /Ember\.js v2\.7/, 'is not available in Ember <2.7 and throws an assertion');
-    });
-  }
-
-  test('macros cannot be used without parameters', function(assert) {
-    assert.throws(
-      () => {
-        class Foo {
-          @alias uniqNames;
-        }
-
-        new Foo();
-      },
-      /The @alias decorator requires parameters/,
-      'error thrown correctly'
+    assert.deepEqual(
+      get(obj, 'oneOfEachColor').toArray(),
+      [
+        { name: 'banana', color: 'yellow'},
+        { name: 'apple',  color: 'red'},
+        { name: 'kiwi',   color: 'brown'}
+      ]
     );
   });
 
@@ -766,4 +738,20 @@ module('macros', function() {
 
     assert.equal(get(obj, 'finalName'), 'Brohuda');
   });
+
+  if (DEBUG) {
+    test('macros cannot be used without parameters', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            @alias uniqNames;
+          }
+
+          new Foo();
+        },
+        /The @alias decorator requires parameters/,
+        'error thrown correctly'
+      );
+    });
+  }
 });

@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import Component from '@ember/component';
 import { className } from '@ember-decorators/component';
 import { computed } from '@ember-decorators/object';
@@ -48,23 +50,25 @@ test('decorator applies true/false class names', function(assert) {
   assert.notOk(find('.is-baz'));
 });
 
-test('decorator throws on incorrect parameter usage', function(assert) {
-  assert.throws(() => {
-    class Foo extends Object {
-      @className('is-foo', 'is-bar', 'is-baz') foo = true;
-    }
+if (DEBUG) {
+  test('decorator throws on incorrect parameter usage', function(assert) {
+    assert.throws(() => {
+      class Foo extends Object {
+        @className('is-foo', 'is-bar', 'is-baz') foo = true;
+      }
 
-    Foo.create();
-  }, /The @className decorator may take up to two parameters/);
+      Foo.create();
+    }, /The @className decorator may take up to two parameters/);
 
-  assert.throws(() => {
-    class Foo extends Object {
-      @className('is-foo', 123) foo = true;
-    }
+    assert.throws(() => {
+      class Foo extends Object {
+        @className('is-foo', 123) foo = true;
+      }
 
-    Foo.create();
-  }, /The @className decorator may only receive strings as parameters/);
-});
+      Foo.create();
+    }, /The @className decorator may only receive strings as parameters/);
+  });
+}
 
 test('decorator does not add class to superclass', function(assert) {
   class FooComponent extends Component {
