@@ -110,4 +110,176 @@ componentModule('@action', function() {
     await click(buttons[1]);
     await click(buttons[2]);
   });
+
+  test('action decorator super works with native class methods', async function(assert) {
+    class FooComponent extends Component {
+      foo() {
+        assert.ok(true, 'called!');
+      }
+    }
+
+    class BarComponent extends FooComponent {
+      @action
+      foo() {
+        super.foo();
+      }
+    }
+
+    this.register('component:bar-bar', BarComponent);
+    this.register('template:components/bar-bar', hbs`<button {{action 'foo'}}>Click Me!</button>`);
+
+    this.render(hbs`{{bar-bar}}`);
+
+    await click('button');
+  });
+
+  test('action decorator super works with traditional class methods', async function(assert) {
+    const FooComponent = Component.extend({
+      foo() {
+        assert.ok(true, 'called!');
+      },
+    });
+
+    class BarComponent extends FooComponent {
+      @action
+      foo() {
+        super.foo();
+      }
+    }
+
+    this.register('component:bar-bar', BarComponent);
+    this.register('template:components/bar-bar', hbs`<button {{action 'foo'}}>Click Me!</button>`);
+
+    this.render(hbs`{{bar-bar}}`);
+
+    await click('button');
+  });
+
+  test('action decorator works with parent native class actions', async function(assert) {
+    class FooComponent extends Component {
+      @action
+      foo() {
+        assert.ok(true, 'called!');
+      }
+    }
+
+    class BarComponent extends FooComponent {
+      @action
+      foo() {
+        super.foo();
+      }
+    }
+
+
+    this.register('component:bar-bar', BarComponent);
+    this.register('template:components/bar-bar', hbs`<button {{action 'foo'}}>Click Me!</button>`);
+
+    this.render(hbs`{{bar-bar}}`);
+
+    await click('button');
+  });
+
+  test('action decorator works with parent traditional actions', async function(assert) {
+    const FooComponent = Component.extend({
+      actions: {
+        foo() {
+          assert.ok(true, 'called!');
+        }
+      }
+    });
+
+    class BarComponent extends FooComponent {
+      @action
+      foo() {
+        super.foo();
+      }
+    }
+
+    this.register('component:bar-bar', BarComponent);
+    this.register('template:components/bar-bar', hbs`<button {{action 'foo'}}>Click Me!</button>`);
+
+    this.render(hbs`{{bar-bar}}`);
+
+    await click('button');
+  });
+
+  test('action decorator throws with parent actions conflicts (method)', function(assert) {
+    assert.throws(() => {
+      const FooComponent = Component.extend({
+        foo() {},
+
+        actions: {
+          foo() {}
+        }
+      });
+
+      // eslint-disable-next-line
+      class BarComponent extends FooComponent {
+        @action
+        foo() {
+          super.foo();
+        }
+      }
+    }, /The foo action may call super/);
+  });
+
+  test('action decorator throws with parent actions conflicts (prop)', function(assert) {
+    assert.throws(() => {
+      const FooComponent = Component.extend({
+        foo: 123,
+
+        actions: {
+          foo() {}
+        }
+      });
+
+      // eslint-disable-next-line
+      class BarComponent extends FooComponent {
+        @action
+        foo() {
+          super.foo();
+        }
+      }
+    }, /The foo action may call super/);
+  });
+
+  test('action decorator does not throw with parent actions conflicts without super (method)', function(assert) {
+    assert.expect(0);
+
+    const FooComponent = Component.extend({
+      foo() {},
+
+      actions: {
+        foo() {}
+      }
+    });
+
+    // eslint-disable-next-line
+    class BarComponent extends FooComponent {
+      @action
+      foo() {
+        // do nothing
+      }
+    }
+  });
+
+  test('action decorator does not throw with parent actions conflicts without super (prop)', function(assert) {
+    assert.expect(0);
+
+    const FooComponent = Component.extend({
+      foo: 123,
+
+      actions: {
+        foo() {}
+      }
+    });
+
+    // eslint-disable-next-line
+    class BarComponent extends FooComponent {
+      @action
+      foo() {
+        // do nothing
+      }
+    }
+  });
 });

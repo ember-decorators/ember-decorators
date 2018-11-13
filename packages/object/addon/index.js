@@ -2,9 +2,7 @@ import { DEBUG } from '@glimmer/env';
 
 import collapseProto from '@ember-decorators/utils/collapse-proto';
 import { computed as emberComputed } from '@ember-decorators/utils/compatibility';
-import { decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
-
-import { decorator } from '@ember-decorators/utils/decorator';
+import { decorator, decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
 
 import {
   computedDescriptorFor,
@@ -12,12 +10,14 @@ import {
   getOrCreateModifierMeta,
 } from '@ember-decorators/utils/computed';
 
+import checkHasSuper from '@ember-decorators/utils/check-has-super';
+
 import { assert } from '@ember/debug';
 import { addListener, removeListener } from '@ember/object/events';
 import { addObserver, removeObserver } from '@ember/object/observers';
-import { HAS_UNDERSCORE_ACTIONS } from 'ember-compatibility-helpers';
 
 import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
+
 
 /**
   Decorator that turns the target function into an Action
@@ -49,25 +49,41 @@ export const action = decorator(desc => {
   );
 
   desc.finisher = target => {
-    let { key, descriptor } = desc;
+    let {
+      key,
+      descriptor: { value: fn },
+    } = desc;
     let { prototype } = target;
 
     collapseProto(prototype);
 
-    if (HAS_UNDERSCORE_ACTIONS) {
-      if (!prototype.hasOwnProperty('_actions')) {
-        let parentActions = prototype._actions;
-        prototype._actions = parentActions ? Object.create(parentActions) : {};
-      }
+    if (!prototype.hasOwnProperty('actions')) {
+      let parentActions = prototype.actions;
+      prototype.actions = parentActions ? Object.create(parentActions) : {};
+    }
 
-      prototype._actions[key] = descriptor.value;
-    } else {
-      if (!prototype.hasOwnProperty('actions')) {
-        let parentActions = prototype.actions;
-        prototype.actions = parentActions ? Object.create(parentActions) : {};
-      }
+    prototype.actions[key] = fn;
 
-      prototype.actions[key] = descriptor.value;
+    let hasSuper = checkHasSuper(fn, key);
+
+    if (hasSuper === true) {
+      let parentPrototype = Object.getPrototypeOf(prototype);
+      let parentActions = parentPrototype !== null ? parentPrototype.actions : undefined;
+
+      let superMethod = parentPrototype !== null ? parentPrototype[key] : undefined;
+      let superAction = parentActions !== undefined ? parentActions[key] : undefined;
+
+      let isActionProxy =
+        superMethod !== undefined && superAction !== undefined && superAction === superMethod;
+
+      assert(
+        `The ${key} action may call super, and its super class has both a method or property _and_ an action with that name. This ambiguity cannot be resolved automatically, you must rename the action or the conflicting property.`,
+        !(superMethod && superAction && !isActionProxy)
+      );
+
+      if (superAction !== undefined && isActionProxy === false) {
+        Object.defineProperty(parentPrototype, key, { value: superAction });
+      }
     }
 
     return target;
