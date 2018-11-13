@@ -45,9 +45,9 @@ import { SUPPORTS_UNIQ_BY_COMPUTED } from 'ember-compatibility-helpers';
 import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
 
 function legacyMacro(fn, shouldThrowOnOverride = true) {
-  return computedDecoratorWithRequiredParams(function(target, key, desc, params) {
-    if (desc !== undefined && desc.value !== undefined) {
-      return fn(...params, desc.value);
+  return computedDecoratorWithRequiredParams(({ descriptor }, params) => {
+    if (descriptor !== undefined && descriptor.value !== undefined) {
+      return fn(...params, descriptor.value);
     }
 
     if (DEBUG && THROW_ON_COMPUTED_OVERRIDE && shouldThrowOnOverride) {
@@ -55,12 +55,12 @@ function legacyMacro(fn, shouldThrowOnOverride = true) {
     } else {
       return fn(...params);
     }
-  });
+  }, fn.name);
 }
 
 function legacyMacroWithRequiredMethod(fn, shouldThrowOnOverride = true) {
-  return computedDecoratorWithRequiredParams(function(target, key, desc, params) {
-    let method = desc !== undefined && typeof desc.value === 'function' ? desc.value : params.pop();
+  return computedDecoratorWithRequiredParams(({ descriptor }, params) => {
+    let method = descriptor !== undefined && typeof descriptor.value === 'function' ? descriptor.value : params.pop();
 
     assert(`The @${fn.name} decorator must be used to decorate a method`, typeof method === 'function');
 
@@ -69,7 +69,7 @@ function legacyMacroWithRequiredMethod(fn, shouldThrowOnOverride = true) {
     } else {
       return fn(...params, method);
     }
-  });
+  }, fn.name);
 }
 
 /**
@@ -116,7 +116,7 @@ function legacyMacroWithRequiredMethod(fn, shouldThrowOnOverride = true) {
   @return {PropertyDecorator}
  */
 export function macro(fn, ...params) {
-  return computedDecoratorWithParams(function(target, key, desc, paramsOnDecorator) {
+  return computedDecoratorWithParams((desc, paramsOnDecorator) => {
     return fn(...params, ...paramsOnDecorator);
   });
 }

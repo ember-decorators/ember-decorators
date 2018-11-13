@@ -1,6 +1,10 @@
 import { assert } from '@ember/debug';
 
 function isDescriptor(possibleDesc) {
+  return isStage1Descriptor(possibleDesc) || isStage2Descriptor(possibleDesc);
+}
+
+function isStage1Descriptor(possibleDesc) {
   if (possibleDesc.length === 3) {
     let [target, key, desc] = possibleDesc;
 
@@ -16,9 +20,78 @@ function isDescriptor(possibleDesc) {
         )
         || desc === undefined // TS compatibility
       );
+  } else if (possibleDesc.length === 1) {
+    let [target] = possibleDesc;
+
+    return typeof target === 'function' && 'prototype' in target;
   }
 
   return false;
+}
+
+function isStage2Descriptor(possibleDesc) {
+  return possibleDesc && possibleDesc.toString() === '[object Descriptor]';
+}
+
+function kindForDesc(desc) {
+  if ('value' in desc && desc.enumerable === true) {
+    return 'field';
+  } else {
+    return 'method';
+  }
+}
+
+function placementForKind(kind) {
+  return kind === 'method' ? 'prototype' : 'own';
+}
+
+function convertStage1ToStage2(desc) {
+  if (desc.length === 3) {
+    // Class element decorator
+    let [, key, descriptor] = desc;
+
+    let kind = kindForDesc(desc);
+    let placement = placementForKind(kind);
+
+    return {
+      descriptor,
+      key,
+      kind,
+      placement,
+    };
+  } else {
+    // Class decorator
+    return {
+      kind: 'class',
+      elements: [],
+    };
+  }
+}
+
+export function decorator(fn) {
+  return function(...params) {
+    if (isStage2Descriptor(params)) {
+      let desc = params[0];
+
+      return fn(desc);
+    } else {
+      let desc = convertStage1ToStage2(params);
+
+      fn(desc);
+
+      if (desc.finisher) {
+        // Finishers are supposed to run at the end of class finalization,
+        // but we don't get that with stage 1 transforms. We have to be careful
+        // to make sure that we aren't doing any operations which would change
+        // due to timing.
+        let [target] = params;
+
+        desc.finisher(target.prototype ? target : target.constructor);
+      }
+
+      return desc.descriptor;
+    }
+  }
 }
 
 /**
@@ -42,11 +115,9 @@ export function decoratorWithParams(fn) {
   return function(...params) {
     // determine if user called as @computed('blah', 'blah') or @computed
     if (isDescriptor(params)) {
-      return fn(...params, []);
+      return decorator(fn)(...params);
     } else {
-      return function(target, key, desc) {
-        return fn(target, key, desc, params);
-      };
+      return decorator(desc => fn(desc, params));
     }
   };
 }
@@ -68,14 +139,12 @@ export function decoratorWithParams(fn) {
  *
  * @param {Function} fn - decorator function
  */
-export function decoratorWithRequiredParams(fn) {
+export function decoratorWithRequiredParams(fn, name) {
   return function(...params) {
-    assert(`Cannot decorate member '${params[1]}' without parameters`, !isDescriptor(params));
+    assert(`The @${name || fn.name} decorator requires parameters`, !isDescriptor(params) && params.length > 0);
 
-    return function(target, key, desc) {
-      assert(`Cannot decorate member '${key}' without parameters`, params.length > 0)
-
-      return fn(target, key, desc, params);
-    };
+    return decorator(desc => {
+      return fn(desc, params);
+    });
   }
 }

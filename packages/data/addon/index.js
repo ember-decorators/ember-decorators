@@ -2,16 +2,16 @@ import DS from 'ember-data';
 import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
 
 function computedDecoratorWithKeyReflection(fn) {
-  return computedDecoratorWithParams(function(target, keyName, desc, params) {
-    let key;
+  return computedDecoratorWithParams(({ key }, params) => {
+    let keyName;
 
     if (typeof params[0] === 'string') {
-      key = params.shift();
+      keyName = params.shift();
     } else {
-      key = keyName;
+      keyName = key;
     }
 
-    return fn(key, ...params)
+    return fn(keyName, ...params)
   });
 }
 
@@ -34,7 +34,7 @@ function computedDecoratorWithKeyReflection(fn) {
   @param {string} type? - Type of the attribute
   @param {object} options? - Options for the attribute
 */
-export const attr = computedDecoratorWithParams(function(target, key, desc, params) {
+export const attr = computedDecoratorWithParams((desc, params) => {
   return DS.attr(...params);
 });
 

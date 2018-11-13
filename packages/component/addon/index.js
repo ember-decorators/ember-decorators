@@ -1,7 +1,7 @@
 import { assert } from '@ember/debug';
 
 import collapseProto from '@ember-decorators/utils/collapse-proto';
-import { decoratorWithParams } from '@ember-decorators/utils/decorator';
+import { decoratorWithParams, decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
 
 /**
   Decorator which indicates that the field or computed should be bound
@@ -26,28 +26,41 @@ import { decoratorWithParams } from '@ember-decorators/utils/decorator';
   @function
   @param {string} name? - The name of the attribute to bind the value to if it is truthy
 */
-export const attribute = decoratorWithParams(function(target, key, desc, params) {
-  assert(`The @attribute decorator may take up to one parameter, the bound attribute name. Received: ${params.length}`, params.length <= 1);
-  assert(`The @attribute decorator may only receive strings as parameters. Received: ${params}`, params.every(s => typeof s === 'string'));
+export const attribute = decoratorWithParams((desc, params = []) => {
+  assert(
+    `The @attribute decorator may take up to one parameter, the bound attribute name. Received: ${
+      params.length
+    }`,
+    params.length <= 1
+  );
+  assert(
+    `The @attribute decorator may only receive strings as parameters. Received: ${params}`,
+    params.every(s => typeof s === 'string')
+  );
 
-  collapseProto(target);
+  desc.finisher = target => {
+    let { prototype } = target;
+    let { key, descriptor } = desc;
 
-  if (!target.hasOwnProperty('attributeBindings')) {
-    let parentValue = target.attributeBindings;
-    target.attributeBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
-  }
+    collapseProto(prototype);
 
-  let binding = params[0] ? `${key}:${params[0]}` : key;
+    if (!prototype.hasOwnProperty('attributeBindings')) {
+      let parentValue = prototype.attributeBindings;
+      prototype.attributeBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
+    }
 
-  target.attributeBindings.push(binding);
+    let binding = params[0] ? `${key}:${params[0]}` : key;
 
-  if (desc) {
-    // Decorated fields are currently not configurable in Babel for some reason, so ensure
-    // that the field becomes configurable (else it messes with things)
-    desc.configurable = true;
-  }
+    prototype.attributeBindings.push(binding);
 
-  return desc;
+    if (descriptor) {
+      // Decorated fields are currently not configurable in Babel for some reason, so ensure
+      // that the field becomes configurable (else it messes with things)
+      descriptor.configurable = true;
+    }
+
+    return target;
+  };
 });
 
 /**
@@ -76,28 +89,41 @@ export const attribute = decoratorWithParams(function(target, key, desc, params)
   @param {string} falsyName? - The class to be applied if the value of the field
                                is falsy.
 */
-export const className = decoratorWithParams(function(target, key, desc, params) {
-  assert(`The @className decorator may take up to two parameters, the truthy class and falsy class for the class binding. Received: ${params.length}`, params.length <= 2);
-  assert(`The @className decorator may only receive strings as parameters. Received: ${params}`, params.every(s => typeof s === 'string'));
+export const className = decoratorWithParams((desc, params = []) => {
+  assert(
+    `The @className decorator may take up to two parameters, the truthy class and falsy class for the class binding. Received: ${
+      params.length
+    }`,
+    params.length <= 2
+  );
+  assert(
+    `The @className decorator may only receive strings as parameters. Received: ${params}`,
+    params.every(s => typeof s === 'string')
+  );
 
-  collapseProto(target);
+  desc.finisher = target => {
+    let { prototype } = target;
+    let { key, descriptor } = desc;
 
-  if (!target.hasOwnProperty('classNameBindings')) {
-    let parentValue = target.classNameBindings;
-    target.classNameBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
-  }
+    collapseProto(prototype);
 
-  let binding = params.length > 0 ? `${key}:${params.join(':')}` : key ;
+    if (!prototype.hasOwnProperty('classNameBindings')) {
+      let parentValue = prototype.classNameBindings;
+      prototype.classNameBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
+    }
 
-  target.classNameBindings.push(binding);
+    let binding = params.length > 0 ? `${key}:${params.join(':')}` : key;
 
-  if (desc) {
-    // Decorated fields are currently not configurable in Babel for some reason, so ensure
-    // that the field becomes configurable (else it messes with things)
-    desc.configurable = true;
-  }
+    prototype.classNameBindings.push(binding);
 
-  return desc;
+    if (descriptor) {
+      // Decorated fields are currently not configurable in Babel for some reason, so ensure
+      // that the field becomes configurable (else it messes with things)
+      descriptor.configurable = true;
+    }
+
+    return target;
+  };
 });
 
 /**
@@ -112,13 +138,14 @@ export const className = decoratorWithParams(function(target, key, desc, params)
 
   @param {...string} classNames - The list of classes to be applied to the component
 */
-export function classNames(...classNames) {
-  assert(`The @classNames decorator must be provided strings, received: ${classNames}`, classNames.reduce((allStrings, name) => {
-    return allStrings && typeof name === 'string'
-  }, true));
+export const classNames = decoratorWithRequiredParams((desc, classNames) => {
+  assert(
+    `The @classNames decorator must be provided strings, received: ${classNames}`,
+    classNames.reduce((allStrings, name) => allStrings && typeof name === 'string', true)
+  );
 
-  return function(klass) {
-    let { prototype } = klass;
+  desc.finisher = target => {
+    let { prototype } = target;
 
     collapseProto(prototype);
 
@@ -129,9 +156,9 @@ export function classNames(...classNames) {
 
     prototype.classNames = classNames;
 
-    return klass;
-  }
-}
+    return target;
+  };
+}, 'classNames');
 
 /**
   Class decorator which specifies the tag name of the component. This replaces
@@ -144,15 +171,23 @@ export function classNames(...classNames) {
 
   @param {string} tagName - The HTML tag to be used for the component
 */
-export function tagName(tagName) {
-  assert(`The @tagName decorator must be provided exactly one argument, received: ${tagName}`, arguments.length === 1);
-  assert(`The @tagName decorator must be provided a string, received: ${tagName}`, typeof tagName === 'string');
+export const tagName = decoratorWithRequiredParams((desc, params) => {
+  let [tagName] = params;
 
-  return function(klass) {
-    klass.prototype.tagName = tagName;
-    return klass;
-  }
-}
+  assert(
+    `The @tagName decorator must be provided exactly one argument, received: ${tagName}`,
+    params.length === 1
+  );
+  assert(
+    `The @tagName decorator must be provided a string, received: ${tagName}`,
+    typeof tagName === 'string'
+  );
+
+  desc.finisher = target => {
+    target.prototype.tagName = tagName;
+    return target;
+  };
+}, 'tagName');
 
 /**
   Class decorator which specifies the layout for the component. This replaces
@@ -179,13 +214,24 @@ export function tagName(tagName) {
 
   @param {TemplateFactory} template - The compiled template to be used for the component
 */
-export function layout(template) {
-  assert(`The @layout decorator must be provided exactly one argument, received: ${template}`, arguments.length === 1);
-  assert(`The @layout decorator must be provided a template, received: ${template}. If you want to compile strings to templates, be sure to use 'htmlbars-inline-precompile'`, typeof template !== 'string');
-  assert(`The @layout decorator must be provided a template, received: ${template}`, (() => typeof template === 'object' && typeof template.indexOf === 'undefined')());
+export const layout = decoratorWithRequiredParams((desc, params) => {
+  let [template] = params;
 
-  return function(klass) {
-    klass.prototype.layout = template;
-    return klass;
-  }
-}
+  assert(
+    `The @layout decorator must be provided exactly one argument, received: ${params.length}`,
+    params.length === 1
+  );
+  assert(
+    `The @layout decorator must be provided a template, received: ${template}. If you want to compile strings to templates, be sure to use 'htmlbars-inline-precompile'`,
+    typeof template !== 'string'
+  );
+  assert(
+    `The @layout decorator must be provided a template, received: ${template}`,
+    (() => typeof template === 'object' && typeof template.indexOf === 'undefined')()
+  );
+
+  desc.finisher = target => {
+    target.prototype.layout = template;
+    return target;
+  };
+}, 'layout');
