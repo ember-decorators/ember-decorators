@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import { module, test } from 'ember-qunit';
 
 import { on, off } from '@ember-decorators/object';
@@ -44,26 +46,28 @@ module('@off', function() {
     obj.onEvent();
   });
 
-  test('throws if decorator params are not provided', function(assert) {
-    assert.throws(
-      () => {
-        class Foo {
-          @on('event', 'eventToo')
-          onEvent() {
+  if (DEBUG) {
+    test('throws if decorator params are not provided', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            @on('event', 'eventToo')
+            onEvent() {
 
+            }
           }
-        }
 
-        class Bar extends Foo {
-          @off
-          onEvent() {
-            assert.ok(false, 'method has been called');
+          class Bar extends Foo {
+            @off
+            onEvent() {
+              assert.ok(false, 'method has been called');
+            }
           }
-        }
 
-        new Bar();
-      },
-      /The @off decorator requires parameters/,
-    );
-  });
+          new Bar();
+        },
+        /The @off decorator requires parameters/,
+      );
+    });
+  }
 });

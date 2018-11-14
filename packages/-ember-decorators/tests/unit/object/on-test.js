@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import { module, test } from 'ember-qunit';
 
 import { on } from '@ember-decorators/object';
@@ -58,65 +60,67 @@ module('@on', function() {
     assert.equal(callCount, 2);
   });
 
-  test('throws if used on non-function', function(assert) {
-    assert.throws(
-      () => {
-        class Foo {
-          @on('event')
-          fullName = 'rob jackson';
-        }
-
-        new Foo();
-      },
-      /The @on decorator must be applied to functions/,
-      'throws on field'
-    );
-
-    assert.throws(
-      () => {
-        class Foo {
-          @on('event')
-          get fullName() {
-            assert.ok(false, 'getter has been called');
-            return 'rob jackson';
+  if (DEBUG) {
+    test('throws if used on non-function', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            @on('event')
+            fullName = 'rob jackson';
           }
-        }
 
-        new Foo();
-      },
-      /The @on decorator must be applied to functions/,
-      'throws on getter'
-    );
+          new Foo();
+        },
+        /The @on decorator must be applied to functions/,
+        'throws on field'
+      );
 
-    assert.throws(
-      () => {
-        class Foo {
-          @on('event')
-          set fullName(value) {
-            assert.ok(false, `setter has been called (value: ${value}`);
+      assert.throws(
+        () => {
+          class Foo {
+            @on('event')
+            get fullName() {
+              assert.ok(false, 'getter has been called');
+              return 'rob jackson';
+            }
           }
-        }
 
-        new Foo();
-      },
-      /The @on decorator must be applied to functions/,
-      'throws on setter'
-    );
-  });
+          new Foo();
+        },
+        /The @on decorator must be applied to functions/,
+        'throws on getter'
+      );
 
-  test('throws if decorator params are not provided', function(assert) {
-    assert.throws(
-      () => {
-        class Foo {
-          @on
-          onEvent() {
-            assert.ok(false, 'method has been called');
+      assert.throws(
+        () => {
+          class Foo {
+            @on('event')
+            set fullName(value) {
+              assert.ok(false, `setter has been called (value: ${value}`);
+            }
           }
-        }
 
-        new Foo();
-      },
-      /The @on decorator requires parameters/
-    );
-  })
+          new Foo();
+        },
+        /The @on decorator must be applied to functions/,
+        'throws on setter'
+      );
+    });
+
+    test('throws if decorator params are not provided', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            @on
+            onEvent() {
+              assert.ok(false, 'method has been called');
+            }
+          }
+
+          new Foo();
+        },
+        /The @on decorator requires parameters/
+      );
+    });
+  }
 });

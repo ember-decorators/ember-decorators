@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import EmberObject from '@ember/object';
 import Component from '@ember/component';
 import { action } from '@ember-decorators/object';
@@ -6,13 +8,10 @@ import hbs from 'htmlbars-inline-precompile';
 import { test } from 'qunit';
 import { findAll, click } from 'ember-native-dom-helpers';
 
-import { HAS_UNDERSCORE_ACTIONS } from 'ember-compatibility-helpers';
-
 import { componentModule } from '../../helpers/modules';
 
 componentModule('@action', function() {
-
-  test('action decorator works with ES6 class', function(assert) {
+  test('action decorator works with ES6 class', async function(assert) {
     class FooComponent extends Component {
       @action
       foo() {
@@ -25,21 +24,7 @@ componentModule('@action', function() {
 
     this.render(hbs`{{foo-bar}}`);
 
-    return click('button');
-  });
-
-  test('action decorator throws an error if applied to non-functions', function(assert) {
-    assert.throws(
-      () => {
-        class TestObject extends EmberObject {
-          @action foo = 'bar'
-        }
-
-        new TestObject();
-      },
-      /The @action decorator must be applied to functions/,
-      'error thrown correctly'
-    )
+    await click('button');
   });
 
   test('action decorator does not add actions to superclass', function(assert) {
@@ -60,14 +45,11 @@ componentModule('@action', function() {
     const foo = new Foo();
     const bar = new Bar();
 
-    const fooActions = HAS_UNDERSCORE_ACTIONS ? foo._actions : foo.actions;
-    const barActions = HAS_UNDERSCORE_ACTIONS ? bar._actions : bar.actions;
+    assert.equal(typeof foo.actions.foo, 'function', 'foo has foo action');
+    assert.equal(typeof foo.actions.bar, 'undefined', 'foo does not have bar action');
 
-    assert.equal(typeof fooActions.foo, 'function', 'foo has foo action');
-    assert.equal(typeof fooActions.bar, 'undefined', 'foo does not have bar action');
-
-    assert.equal(typeof barActions.foo, 'function', 'bar has foo action');
-    assert.equal(typeof barActions.bar, 'function', 'bar has bar action');
+    assert.equal(typeof bar.actions.foo, 'function', 'bar has foo action');
+    assert.equal(typeof bar.actions.bar, 'function', 'bar has bar action');
   });
 
   test('actions are properly merged through traditional and ES6 prototype hierarchy', async function(assert) {
@@ -110,4 +92,88 @@ componentModule('@action', function() {
     await click(buttons[1]);
     await click(buttons[2]);
   });
+
+  test('action decorator super works with native class methods', async function(assert) {
+    class FooComponent extends Component {
+      foo() {
+        assert.ok(true, 'called!');
+      }
+    }
+
+    class BarComponent extends FooComponent {
+      @action
+      foo() {
+        super.foo();
+      }
+    }
+
+    this.register('component:bar-bar', BarComponent);
+    this.register('template:components/bar-bar', hbs`<button {{action 'foo'}}>Click Me!</button>`);
+
+    this.render(hbs`{{bar-bar}}`);
+
+    await click('button');
+  });
+
+  test('action decorator super works with traditional class methods', async function(assert) {
+    const FooComponent = Component.extend({
+      foo() {
+        assert.ok(true, 'called!');
+      },
+    });
+
+    class BarComponent extends FooComponent {
+      @action
+      foo() {
+        super.foo();
+      }
+    }
+
+    this.register('component:bar-bar', BarComponent);
+    this.register('template:components/bar-bar', hbs`<button {{action 'foo'}}>Click Me!</button>`);
+
+    this.render(hbs`{{bar-bar}}`);
+
+    await click('button');
+  });
+
+  test('action decorator works with parent native class actions', async function(assert) {
+    class FooComponent extends Component {
+      @action
+      foo() {
+        assert.ok(true, 'called!');
+      }
+    }
+
+    class BarComponent extends FooComponent {
+      @action
+      foo() {
+        super.foo();
+      }
+    }
+
+
+    this.register('component:bar-bar', BarComponent);
+    this.register('template:components/bar-bar', hbs`<button {{action 'foo'}}>Click Me!</button>`);
+
+    this.render(hbs`{{bar-bar}}`);
+
+    await click('button');
+  });
+
+  if (DEBUG) {
+    test('action decorator throws an error if applied to non-functions', function(assert) {
+      assert.throws(
+        () => {
+          class TestObject extends EmberObject {
+            @action foo = 'bar'
+          }
+
+          new TestObject();
+        },
+        /The @action decorator must be applied to functions/,
+        'error thrown correctly'
+      )
+    });
+  }
 });

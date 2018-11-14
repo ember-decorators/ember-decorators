@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import { module, test } from 'ember-qunit';
 import { set } from '@ember/object';
 
@@ -56,85 +58,87 @@ module('@observes', function() {
     assert.equal(callCount, 3);
   });
 
-  test('throws if used on non-function', function(assert) {
-    assert.throws(
-      () => {
-        class Foo {
-          constructor() {
-            this.first = 'rob';
-            this.last = 'jackson';
+  if (DEBUG) {
+    test('throws if used on non-function', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            constructor() {
+              this.first = 'rob';
+              this.last = 'jackson';
+            }
+
+            @observes('first', 'last')
+            fullName = 'rob jackson';
           }
 
-          @observes('first', 'last')
-          fullName = 'rob jackson';
-        }
+          new Foo();
+        },
+        /The @observes decorator must be applied to functions/,
+        'throws on field'
+      );
 
-        new Foo();
-      },
-      /The @observes decorator must be applied to functions/,
-      'throws on field'
-    );
+      assert.throws(
+        () => {
+          class Foo {
+            constructor() {
+              this.first = 'rob';
+              this.last = 'jackson';
+            }
 
-    assert.throws(
-      () => {
-        class Foo {
-          constructor() {
-            this.first = 'rob';
-            this.last = 'jackson';
+            @observes('first', 'last')
+            get fullName() {
+              assert.ok(false, 'getter has been called');
+              return 'rob jackson';
+            }
           }
 
-          @observes('first', 'last')
-          get fullName() {
-            assert.ok(false, 'getter has been called');
-            return 'rob jackson';
-          }
-        }
+          new Foo();
+        },
+        /The @observes decorator must be applied to functions/,
+        'throws on getter'
+      );
 
-        new Foo();
-      },
-      /The @observes decorator must be applied to functions/,
-      'throws on getter'
-    );
+      assert.throws(
+        () => {
+          class Foo {
+            constructor() {
+              this.first = 'rob';
+              this.last = 'jackson';
+            }
 
-    assert.throws(
-      () => {
-        class Foo {
-          constructor() {
-            this.first = 'rob';
-            this.last = 'jackson';
-          }
-
-          @observes('first', 'last')
-          set fullName(value) {
-            assert.ok(false, `setter has been called (value: ${value}`);
-          }
-        }
-
-        new Foo();
-      },
-      /The @observes decorator must be applied to functions/,
-      'throws on setter'
-    );
-  });
-
-  test('throws if decorator params are not provided', function(assert) {
-    assert.throws(
-      () => {
-        class Foo {
-          constructor() {
-            this.first = 'rob';
-            this.last = 'jackson';
+            @observes('first', 'last')
+            set fullName(value) {
+              assert.ok(false, `setter has been called (value: ${value}`);
+            }
           }
 
-          @observes
-          fullName() {
-            assert.ok(false, 'method has been called');
-          }
-        }
+          new Foo();
+        },
+        /The @observes decorator must be applied to functions/,
+        'throws on setter'
+      );
+    });
 
-        new Foo();
-      },
-      /The @observes decorator requires parameters/
-    );
-  })
+    test('throws if decorator params are not provided', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            constructor() {
+              this.first = 'rob';
+              this.last = 'jackson';
+            }
+
+            @observes
+            fullName() {
+              assert.ok(false, 'method has been called');
+            }
+          }
+
+          new Foo();
+        },
+        /The @observes decorator requires parameters/
+      );
+    });
+  }
 });

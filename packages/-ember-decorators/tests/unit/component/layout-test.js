@@ -1,3 +1,5 @@
+import { DEBUG } from '@glimmer/env';
+
 import Component from '@ember/component';
 import { layout } from '@ember-decorators/component';
 
@@ -18,64 +20,66 @@ test('decorator sets layout of component', function(assert) {
   assert.ok(find('section.foo'));
 });
 
-test('decorator throws an error if given a non-template value', function(assert) {
-  assert.throws(
-    () => {
-      @layout([`{{foo-component}}`])
-      class FooComponent extends Component {}
+if (DEBUG) {
+  test('decorator throws an error if given a non-template value', function(assert) {
+    assert.throws(
+      () => {
+        @layout([`{{foo-component}}`])
+        class FooComponent extends Component {}
 
-      new FooComponent();
-    },
-    /The @layout decorator must be provided a template/,
-    'error thrown correctly'
-  )
-});
-test('decorator throws a specialized error if given a string value', function(assert) {
-  assert.throws(
-    () => {
-      @layout(`{{foo-component}}`)
-      class FooComponent extends Component {}
+        new FooComponent();
+      },
+      /The @layout decorator must be provided a template/,
+      'error thrown correctly'
+    )
+  });
+  test('decorator throws a specialized error if given a string value', function(assert) {
+    assert.throws(
+      () => {
+        @layout(`{{foo-component}}`)
+        class FooComponent extends Component {}
 
-      new FooComponent();
-    },
-    /use 'htmlbars-inline-precompile'/,
-    'error thrown correctly'
-  )
-});
+        new FooComponent();
+      },
+      /use 'htmlbars-inline-precompile'/,
+      'error thrown correctly'
+    )
+  });
 
-test('decorator throws an error if given more than one value', function(assert) {
-  assert.throws(
-    () => {
-      @layout('foo', 'bar')
-      class FooComponent extends Component {}
+  test('decorator throws an error if given more than one value', function(assert) {
+    assert.throws(
+      () => {
+        @layout('foo', 'bar')
+        class FooComponent extends Component {}
 
-      new FooComponent();
-    },
-    /The @layout decorator must be provided exactly one argument/,
-    'error thrown correctly'
-  )
-});
+        new FooComponent();
+      },
+      /The @layout decorator must be provided exactly one argument/,
+      'error thrown correctly'
+    )
+  });
 
-test('decorator throws an error if given no values', function(assert) {
-  assert.throws(
-    () => {
-      @layout
-      class FooComponent extends Component {}
+  test('decorator throws an error if given no values', function(assert) {
+    assert.throws(
+      () => {
+        @layout
+        class FooComponent extends Component {}
 
-      new FooComponent();
-    },
-    /The @layout decorator requires parameters/,
-    'error thrown correctly'
-  )
+        new FooComponent();
+      },
+      /The @layout decorator requires parameters/,
+      'error thrown correctly'
+    )
 
-  assert.throws(
-    () => {
-      @layout()
-      class FooComponent extends Component {}
+    assert.throws(
+      () => {
+        @layout()
+        class FooComponent extends Component {}
 
-      new FooComponent();
-    },
-    /The @layout decorator requires parameters/,
-    'error thrown correctly'
-  )
-});
+        new FooComponent();
+      },
+      /The @layout decorator requires parameters/,
+      'error thrown correctly'
+    )
+  });
+}

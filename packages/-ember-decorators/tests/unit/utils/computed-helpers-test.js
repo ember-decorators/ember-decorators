@@ -1,6 +1,10 @@
+import { DEBUG } from '@glimmer/env';
+
 import { module, test } from 'qunit';
+
+import { computed } from '@ember/object';
 import { alias as emberAlias } from '@ember/object/computed';
-import { computed } from '@ember-decorators/utils/compatibility';
+
 import { computedDecorator, computedDecoratorWithRequiredParams } from '@ember-decorators/utils/computed';
 import { computedDescriptorFor, isComputedDescriptor } from '@ember-decorators/utils/-private/descriptor';
 
@@ -48,24 +52,26 @@ module('computed decorator helpers', function() {
       assert.ok(isComputedDescriptor(computedDescriptorFor(Foo.prototype, 'bar')), 'descriptor correctly assigned');
     });
 
-    test('it throws if the decorator does not return a CP descriptor', function(assert) {
-      assert.throws(
-        () => {
-          let decorate = computedDecorator((desc) => {
-            return desc.descriptor;
-          });
+    if (DEBUG) {
+      test('it throws if the decorator does not return a CP descriptor', function(assert) {
+        assert.throws(
+          () => {
+            let decorate = computedDecorator((desc) => {
+              return desc.descriptor;
+            });
 
-          class Foo {
-            @decorate
-            get foo() {}
+            class Foo {
+              @decorate
+              get foo() {}
 
-            set foo(value) {}
-          }
+              set foo(value) {}
+            }
 
-          new Foo();
-        },
-        /computed decorators must return an instance of an Ember ComputedProperty descriptor/
-      );
-    });
+            new Foo();
+          },
+          /computed decorators must return an instance of an Ember ComputedProperty descriptor/
+        );
+      });
+    }
   });
 });
