@@ -65,8 +65,8 @@ class Foo extends EmberObject {
 }
 ```
 
-There are three major differences between the standard computed and the
-decorated version:
+There are two major differences between the standard computed and the decorated
+version:
 
 1. **Setter signature**
 
@@ -81,36 +81,6 @@ decorated version:
   calls the get function in the setter to match this behavior. You _may_
   optionally return a value and `@computed` will cache this value as it did
   before, which may be useful for expensive computed properties.
-
-3. **Setting properties without a setter**
-
-  When you attempt to set a property on a class that has a native getter but no
-  native setter, it will hard error. Standard computed properties, on the other
-  hand, would allow you to "clobber" them by completely overwriting them. When
-  this happened, the computed property would effectively be removed from the
-  class, never updating or calling its get function again:
-
-  ```js
-  const Foo = EmberObject.extend({
-    bar: computed('baz', {
-      get() {
-        return this.baz;
-      }
-    })
-  });
-
-  let foo = Foo.create({ baz: 'baz' });
-
-  console.log(foo.bar); // 'baz';
-
-  foo.set('bar', 123);
-  foo.set('baz', 456);
-
-  console.log(foo.bar); // 123
-  ```
-
-  This behavior was bug prone and not inline with native setters, and it is
-  guarded against when using the `@computed` decorator.
 
 Aside from these differences, computed properties work the same as before. You
 _must_ still use `set` to update their values or invalidate their caches when
@@ -158,7 +128,8 @@ class FooComponent extends Component {
   @action
   click() {} // This will collide with the standard click handler
 
-  @argument onClick;
+  // An onClick action argument
+  onClick = null;
 
   @action
   onClick() {} // This will collide with the onClick argument
@@ -167,8 +138,63 @@ class FooComponent extends Component {
 
 ## Observers and Events
 
-Observers and events are not yet supported by Ember Decorators. We have plans to
-add support shortly, in v2.1.
+Observers and events listeners can be added with the `@observes` and `@on`
+decorators:
+
+```js
+const FooComponent = Component.extend({
+  bar: observer('baz', function() {}),
+  initialize: on('init', function() {})
+});
+
+// becomes
+
+import { observes, on } from '@ember-decorators/object';
+
+class FooComponent extends Component {
+  @observes('baz')
+  bar() {}
+
+  @on('init')
+  initialize() {}
+}
+```
+
+One major difference here comes from _extending_ classes which have observers
+and event listeners. Previously, if you overrode a property that was an observer
+on the superclass, it would be removed from the subclass. With native classes
+and decorators you must manually remove these with `@unobserves` and `@off`
+respectively:
+
+```js
+const FooComponent = Component.extend({
+  bar: observer('baz', function() {}),
+  initialize: on('init', function() {})
+});
+
+const BarComponent = FooComponent.extend({
+  bar: null,
+  initialize: null
+});
+
+// becomes
+
+import { observes, unobserves, on, off } from '@ember-decorators/object';
+
+class FooComponent extends Component {
+  @observes('baz')
+  bar() {}
+
+  @on('init')
+  initialize() {}
+}
+
+class BarComponent extends FooComponent {
+  @unobserves('baz') bar;
+
+  @off('init') initialize;
+}
+```
 
 ## Injections
 
@@ -176,11 +202,11 @@ Services and controllers can be injected via the `@service` and `@controller`
 decorators:
 
 ```js
-const FooComponent = FooComponent.extend({
+const FooComponent = Component.extend({
   bar: service()
 });
 
-const FooController = FooController.extend({
+const FooController = Controller.extend({
   bar: controller()
 });
 
@@ -217,17 +243,19 @@ provided.
 ## Component Decorators
 
 Ember components have several special properties which can be used to customize
-the component's element:
+the component's element and template:
 
+* `layout`
 * `tagName`
 * `classNames`
 * `classNameBindings`
 * `attributeBindings`
 
 While these will eventually be removed from the framework, they are still
-necessary today. `tagName` cannot be set directly on the instance of the class,
-and the others can be but won't work properly because the are _concatenated_
-properties - they get merged with the value of their parent class:
+necessary today. `tagName` and `layout` cannot be set directly on the instance
+of the class, and the others can be but won't work properly because the are
+_concatenated_ properties - they get merged with the value of their parent
+class:
 
 ```js
 const FooComponent = Component.extend({
@@ -244,7 +272,10 @@ console.log(BarComponent.prototype.classNames); // ['foo', 'bar']
 Instead, you can replace these with decorators:
 
 ```js
+import layout from './template';
+
 const ListComponent = Component.extend({
+  layout,
   tagName: 'ul',
   classNames: ['list-reset'],
   classNameBindings: ['collapsed', 'isEmpty:hidden'],
@@ -257,7 +288,9 @@ const ListComponent = Component.extend({
 })
 
 // becomes
+import template from './template';
 
+@layout(template)
 @tagName('ul')
 @classNames('list-reset')
 class ListComponent extends Component {
@@ -275,9 +308,9 @@ class ListComponent extends Component {
 }
 ```
 
-`@tagName` and `@classNames` are class decorators because they directly
-customize the component element. `@className` and `@attribute` allow you to
-decorate properties directly, instead of having declare the bindings in a
+`@layout`, `@tagName`, and `@classNames` are class decorators because they
+directly customize the component element. `@className` and `@attribute` allow
+you to decorate properties directly, instead of having declare the bindings in a
 separate place.
 
 ## Data Decorators

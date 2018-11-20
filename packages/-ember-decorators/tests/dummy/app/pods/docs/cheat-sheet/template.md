@@ -33,10 +33,15 @@ native classes with Ember.
   class Foo extends EmberObject {} // good
   ```
 
-* Create instances using `.create()` - do **not** use `new`
-* Use `constructor` - do **not** use `init`
 * Use `super` instead of `this._super()`
 * Use `static` instead of `reopenClass`
+* When extending from `EmberObject`
+  * Create instances using `.create()` - do **not** use `new`
+  * Use `init` - do **not** use `constructor`
+* When _not_ extending from `EmberObject`
+  * Create instances using `new`
+  * Use `constructor`
+* Do not extend from `EmberObject` when writing non-framework classes
 
 ## Class Fields
 
@@ -82,10 +87,6 @@ native classes with Ember.
 
 * Class fields get assigned at the beginning of the constructor, or after
   `super`
-* Class fields will always overwrite values passed into `.create()`, use
-  [`_.defaultTo`](https://lodash.com/docs/4.17.5#defaultTo),
-  [`@argument`](https://github.com/ember-decorators/argument), or your own
-  custom defaulting logic
 
 ## Decorators
 

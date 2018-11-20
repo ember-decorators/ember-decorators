@@ -1,6 +1,6 @@
 ## @motivation
 
-<aside>Looking for the quickstart? {{docs-link 'Click here' 'docs.quickstart'}}.</aside>
+<aside>Looking for the quickstart? {{docs-link 'Click here' 'docs.index'}}.</aside>
 
 Native class syntax has been an emerging standard in Javascript for some time
 now. With features like class fields, private methods and fields, and decorators

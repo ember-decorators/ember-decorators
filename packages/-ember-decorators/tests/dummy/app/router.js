@@ -8,10 +8,10 @@ const Router = AddonDocsRouter.extend({
 
 Router.map(function() {
   docsRoute(this, function() {
+    this.route('what-is-ember-decorators');
     this.route('why-go-native');
     this.route('stability-and-support');
 
-    this.route('quickstart');
     this.route('native-class-basics');
     this.route('class-fields');
     this.route('decorators');

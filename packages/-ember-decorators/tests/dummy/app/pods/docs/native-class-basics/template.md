@@ -33,18 +33,19 @@ That's the only difference. Under the hood, both native classes and EmberObject
 rely on standard prototypical inheritance, making them interoperable.
 
 <aside>
-  **Note**: You can omit the class name from native classes, e.g. `class extends
-  EmberObject`. While this is possible, it is **not** recommended. Giving your
-  classes names will give them actual names in the JS vm, meaning that name will
-  show in the console and developer tools instead of `(unknown mixin)` or the
-  name that the container gives them. In the future, this will make debugging
-  and analyzing your app easier.
+  <strong>Note</strong>: You can omit the class name from native classes, e.g.
+  <code>class extends EmberObject</code>. While this is possible, it is
+  <strong>not</strong> recommended. Giving your classes names will give them
+  actual names in the JS vm, meaning that name will show in the console and
+  developer tools instead of <code>(unknown mixin)</code> or the name that the
+  container gives them. In the future, this will make debugging and analyzing
+  your app easier.
 </aside>
 
 ### Extending native classes with `.extend()`
 
-As of Ember v3.2, you can extend interoperably back and forth between native
-classes and `EmberObject` style extends:
+In versions of Ember that support native classes, you can extend interoperably
+back and forth between native classes and `EmberObject` style extends:
 
 ```js
 class Foo extends EmberObject {
@@ -59,9 +60,6 @@ class Baz extends Bar {
   // ...
 }
 ```
-
-Prior to v3.2, it was only possible to extend from EmberObject to native object,
-meaning using native classes was a one way street.
 
 ## Creation
 
@@ -82,7 +80,10 @@ method</a>, which is discussed in more detail below. `EmberObject` still does
 some vital things under the hood during class creation, and creating objects
 with `new` is not considered public API.
 
-## Constructor
+When creating classes that do _not_ extend from `EmberObject`, you should use
+`new` as you would normally.
+
+## Constructor vs `init`
 
 In `EmberObject`, we use the `init` as the constructor of the object:
 
@@ -96,7 +97,7 @@ const Foo = EmberObject.extend({
 });
 ```
 
-With native classes, we replace this with the `constructor` function:
+With native classes, we also have the option to use the constructor:
 
 ```js
 class Foo extends EmberObject {
@@ -108,30 +109,14 @@ class Foo extends EmberObject {
 }
 ```
 
-Note the usage of the `super` keyword instead of calling `this._super()`.
-Another difference here is that you _must_ call `super` before interacting with
-`this` in native classes, attempting to do so is a hard error:
+While this is possible, certain values such as service injections and create
+parameters will _not_ be available during the `constructor` phase of class
+creation. To keep things simple, it is recommended that you continue to use
+`init` for the time being as you transition to native classes that extend from
+`EmberObject`.
 
-```js
-const Foo = EmberObject.extend({
-  init() {
-    this.foo = 'bar'; // technically allowed, but bad practice
-    this._super(...arguments);
-  }
-});
-
-class Foo extends EmberObject {
-  constructor() {
-    this.foo = 'bar'; // this will hard error
-    super(...arguments);
-  }
-}
-```
-
-The `init` lifecycle hook is not removed and actually will continue to be called
-as it was before. It is recommended that you do **not** use the `init` hook,
-because it was effectively meant to be the constructor and will likely not exist
-in the future.
+Native classes which do _not_ extend from `EmberObject` do not have an `init`
+hook, and should use `constructor` instead.
 
 ## Methods
 
@@ -243,11 +228,12 @@ class Foo extends EmberObject {
 }
 ```
 
-Native getters and setters are recomputed every time they are run, which makes
-them less useful than computed properties for many things. `@computed` was made
-to wrap native getters and setters, meaning that any accessor can be converted
-into a computed property by decorating it. This is discussed more in the
-section on {{link-to 'decorators' 'docs.decorators'}}.
+Native getters and setters are recomputed every time they are run, and have no
+way of sending property change notifications, which makes them less useful than
+computed properties for many things. `@computed` was made to wrap native getters
+and setters, meaning that any accessor can be converted into a computed property
+by decorating it. This is discussed more in the section on
+{{link-to 'decorators' 'docs.decorators'}}.
 
 ### Lifecycle Hooks
 
@@ -267,3 +253,54 @@ class Foo extends Component {
   }
 }
 ```
+
+### When To Extend EmberObject
+
+In many existing Ember apps and addons, it is not uncommon for every single
+class to extend from `EmberObject` and use the Ember Object Model. This is due
+to the fact that many features such as computed properties, observers, etc. were
+not usable with native classes in an ergonomic way, until now.
+
+Now that native classes _are_ usable with these features, the vast majority of
+classes outside of the standard Ember constructs such as Components, Routes, and
+Controllers, should _not_ need to extend from `EmberObject`. Instead, you should
+define your classes without extending from any base class:
+
+```js
+// before
+const TreeNode = EmberObject.extend({
+  children: null,
+
+  init() {
+    this._super(...arguments);
+
+    this.children = this.children || [];
+  }
+});
+
+let tree = Tree.createNode({ children: [TreeNode.create()] });
+
+// after
+class TreeNode {
+  constructor(children = []) {
+    this.children = children;
+  }
+}
+
+let tree = new TreeNode([new TreeNode()]);
+
+```
+
+As a rule of thumb, in a modern Ember app written with only native class syntax:
+
+1. You should never be extending `EmberObject` directly. Only the following
+classes need to be extended, because they are framework classes:
+  * `Component`
+  * `Route`
+  * `Controller`
+  * `Helper`
+  * `Model`
+2. You should never have to use `.create()`. Only framework objects need to
+extend EmberObject, and the _container_ always creates those. So, any utility
+classes you define and instantiate yourself will not extend from `EmberObject`,
+and you can use `new` instead.
