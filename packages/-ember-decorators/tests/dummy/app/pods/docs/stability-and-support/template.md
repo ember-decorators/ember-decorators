@@ -10,10 +10,9 @@ Class fields are currently stage 3 in the process and decorators are currently
 stage 2. Stage 4 marks completion, and the closer a spec is to stage 4, the more
 stable it is.
 
-We are currently using the stage 1 transforms for both class fields and
-decorators, and awaiting babel updates to use the latest transforms. We do
-**not** expect any breaking changes from this upgrade, despite the changes in
-the specs.
+We have recently updated to the stage 2 transforms, and are cross-compatible
+with the stage 1 transforms so libraries using either can interoperate (for a
+slight runtime cost).
 
 ## Browser Support
 
@@ -22,30 +21,24 @@ the last two versions of every major browser.
 
 ## Ember Support
 
-Ember Decorators currently supports Ember v1.11+. In Ember < 2.13, you must
-install the [ember-legacy-class-shim](https://github.com/pzuraq/ember-legacy-class-shim)
-addon to ensure that class fields work properly.
+Ember Decorators currently actively supports Ember versions which support native
+classes. The first version that officially ships native classes is 3.6, and
+there is a [polyfill which works on 3.4 and 3.5](https://github.com/pzuraq/ember-native-class-polyfill).
+Prior versions of Ember will still work with decorators, but it is _not_
+recommended that you attempt to adopt them, since there have been major changes
+to the way classes work since native classes shipped. Support for earlier
+versions of Ember may be added at some point in the future, please open an issue
+on the polyfill repository if you would like support added for a particular
+version.
 
 ## Typescript Support
 
-Typescript decorators differ from the proposed spec in a number of ways. Most
-importantly, they cannot access the initializer for class fields, meaning they
-have no way of knowing what the value on the right-hand side of a class field
-statement is:
+As of `ember-cli-typescript@2.0`, Typescript in Ember is now being compiled
+using Babel, which allows you to use the same stage 2 transforms in Typescript
+as you would in a normal Javascript app. Installing
+`@ember-decorators/babel-transforms` should work as expected, and all decorators
+should operate the same.
 
-```js
-class Foo {
-  @decorate
-  bar = 'baz'; // @decorate cannot know that the value 'baz' will be assigned to bar
-}
-```
-
-Fortunately, all of the core decorators in this library are fully compatible
-with both Javascript and Typescript. Other libraries in the Ember Decorators
-project, such as [@ember-decorators/argument](https://github.com/ember-decorators/argument),
-rely on the above functionality and are not compatible with Typescript at the
-moment.
-
-Typescript will reimplement their own decorator transform when decorators reach
-stage 3 in the TC39 process. In the meantime, we'll continue to provide
-interoperability where possible.
+Standard Typescript decorators will continue to work using their stage 1
+transforms. Support will be phased out in `ember-decorators@v4`, along with
+support for stage 1 transforms in general.

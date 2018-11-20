@@ -1,55 +1,124 @@
-# What is Ember Decorators?
+# Quickstart
 
-Ember Decorators is a project dedicated to exploring and unlocking usage of
-native classes in Ember.js. Its goal is to provide a set of decorators which can
-be used to write classes with every standard feature that is available in the
-standard Ember object-model, along with the transforms and build system required
-to polyfill and ship them today!
+## Installation
 
-## Why do I need decorators to use native classes?
+First, install the package:
 
-Native classes have been around since ES2015, so why haven't we been able to use
-them with Ember all this time? While `class` syntax has existed for a long time
-now, using it with Ember was difficult because it lacked a way to:
+```sh
+ember install ember-decorators
+```
 
-1. Declare properties and give them values, e.g.
+This will add the package, and should also add several babel packages to your
+app. You should see the following added to you `package.json`:
 
-  ```js
-  Ember.Object.extend({
-    foo: 123,
-    classNames: ['is-active']
-  });
-  ```
+```json
+"ember-decorators": "{{latest version}}",
+"@ember-decorators/babel-transforms": "{{latest version}}",
+"babel-eslint": "{{latest version}}",
+```
 
-2. Specify meta behavior declaritively for methods, getters, setters, and
-properties. This is something the Ember object-model has supported
-out-of-the-box since the early days with computed properties, observers, event
-listeners, and so on, e.g.
+And in your `.eslintrc.js`, you should see the following line added:
 
-  ```js
-  Ember.Object.extend({
-    foo: computed('qux', {
-      get() {
-        return 123;
-      }
-    }),
+```
+  parser: 'babel-eslint',
+```
 
-    bar: observer('qux', function() {
-      // do something
-    }),
+These packages and settings are necessary for babel and eslint to understand
+decorators and class fields and correctly transpile/lint them.
 
-    baz: on('init', function() {
-      // do something else
-    })
-  });
-  ```
+## Usage
 
-[Class fields](https://github.com/tc39/proposal-class-fields) and
-[decorators](https://github.com/tc39/proposal-decorators) solve each of these
-problems respectively, and give us the tools to do a nearly 1-to-1 conversion
-from the old Ember objects to native classes. While it is technically possible
-to use native classes without class fields or decorators, the DX of doing this
-is incredibly low - its a long, error prone, and somewhat non-performant
-process.
+Now that the main `ember-decorators` addon is installed, you can import any of
+the decorators from its sub-addons. The core of Ember Decorators consists of
+many smaller addons namespaced under the `@ember-decorators` scope on NPM,
+including:
 
+* `@ember-decorators/component`
+* `@ember-decorators/controller`
+* `@ember-decorators/data`
+* `@ember-decorators/object`
+* `@ember-decorators/service`
 
+Now you can write Ember using native classes! For example, this:
+
+```javascript
+import Ember from 'ember';
+
+export default Ember.Component.extend({
+  foo: Ember.inject.service(),
+
+  bar: Ember.computed('someKey', 'otherKey', function() {
+    var someKey = this.get('someKey');
+    var otherKey = this.get('otherKey');
+
+    return `${someKey} - ${otherKey}`;
+  }),
+
+  actions: {
+    handleClick() {
+      // do stuff
+    }
+  }
+})
+
+```
+
+Turns into this:
+
+```javascript
+import Component from '@ember/component';
+import { action, computed } from '@ember-decorators/object';
+import { service } from '@ember-decorators/service';
+
+export default class ExampleComponent extends Component {
+  @service foo
+
+  @computed('someKey', 'otherKey')
+  get bar() {
+    const someKey = this.get('someKey');
+    const otherKey = this.get('otherKey');
+    return `${someKey} - ${otherKey}`;
+  }
+
+  @action
+  handleClick() {
+    // do stuff
+  }
+}
+```
+
+The packages in `ember-decorators` are setup to mirror Ember's
+[javascript module](https://github.com/emberjs/rfcs/blob/master/text/0176-javascript-module-api.md)
+API. Decorators can be imported from the packages that they belong to:
+
+```javascript
+import {
+  attr,
+  hasMany,
+  belongsTo
+} from '@ember-decorators/data';
+
+import {
+  controller
+} from '@ember-decorators/controller';
+
+import {
+  action,
+  computed,
+  observes,
+  readOnly
+} from '@ember-decorators/object';
+
+import {
+  alias,
+  or,
+  reads
+} from '@ember-decorators/object/computed';
+
+import {
+  service
+} from '@ember-decorators/service';
+```
+
+For a more detailed breakdown on the differences between native classes and the
+Ember object model, continue on through the guides.

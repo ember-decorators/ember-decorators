@@ -190,7 +190,9 @@ class Foo extends EmberObject {
 
 Note that class initializers are run in order, and can refer to the instance of
 the class via `this`. This is how the initializer for `someClass` is able to
-refer to `this.someObject` to get the initialized value (any empty object).
+refer to `this.someObject` to get the initialized value (any empty object). This
+pattern should be used cautiously, as it may not be immediately obvious what is
+happening to users who are unfamiliar with class.
 
 The behavior of initializers can also be used very effectively for binding
 functions to the instance, something that is commonly needed for things like
@@ -230,75 +232,15 @@ class FooComponent extends Component {
 }
 ```
 
+Note that this is still creating an instance of the event handler function _per
+instance of the class_, which means it incurs a much greater cost than standard
+methods. This pattern should only be used when binding `this` to the instance of
+the class is absolutely necessary.
+
 ## Initializers vs Create Properties
 
-Under the hood, a simplified version of `EmberObject` looks like this:
-
-```js
-class EmberObject {
-  constructor(properties) {
-    Object.assign(this, properties);
-  }
-
-  static create(properties) {
-    return new this(properties);
-  }
-}
-```
-
-This means that the properties passed to `.create()` end up getting assigned
-_before_ the constructors for any subclasses run. This means that when we
-define a class that extends from `EmberObject`, class fields that are defined on
-our class will _always_ overwrite properties passed to `.create()`:
-
-```js
-class Foo extends EmberObject {
-  bar = 'baz';
-}
-
-let foo = Foo.create({ bar: 123 });
-
-console.log(foo.bar); // 'baz'
-```
-
-In order to properly assign values, you can use the initializer expression to
-check if a value has already been defined on the object:
-
-```js
-class Foo extends EmberObject {
-  featureFlag = this.featureFlag === undefined ? true : false;
-}
-```
-
-Be careful to check for the right conditions here - a `||` expression will
-default the value on _anything_ falsy:
-
-```js
-class Foo extends EmberObject {
-  featureFlag = this.featureFlag || true;
-}
-
-let foo = Foo.create({ featureFlag: false });
-
-console.log(foo.featureFlag); // true
-```
-
-Lodash provides a helpful `defaultTo` function which returns the default if the
-value is `undefined`, `null`, or `NaN`:
-
-```js
-class Foo extends EmberObject {
-  featureFlag = _.defaultTo(this.featureFlag, true);
-}
-```
-
-If you are not using Typescript, there is also the `@argument` decorator
-provided by [@ember-decorators/argument](https://github.com/ember-decorators/argument)
-which can be installed separately and provides this behavior along with some
-additional validations.
-
-```js
-class Foo extends EmberObject {
-  @argument featureFlag = true;
-}
-```
+Until recently, class field initializers would run _after_ create parameters
+were assigned to the class. This meant that it was impossible to override the
+"default" values assigned in the class definition. This has since changed, and
+class fields will now always be assigned _before_ create parameters, working as
+expected.
