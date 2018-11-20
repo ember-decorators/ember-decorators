@@ -47,6 +47,14 @@ module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
     trees,
 
+    'ember-cli-uglify': {
+			uglify: {
+				compress: {
+					collapse_vars: false
+				}
+			}
+		},
+
     'ember-cli-addon-docs': {
       projects: {
         main: tree
