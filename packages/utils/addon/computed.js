@@ -21,8 +21,6 @@ export { computedDescriptorFor, getModifierMeta, getOrCreateModifierMeta };
  */
 function computedDecoratorInner(fn) {
   return (desc, params = []) => {
-    // All computeds are methods
-    desc.kind = 'method';
     desc.placement = 'prototype';
 
     desc.finisher = function initializeComputedProperty(target) {
