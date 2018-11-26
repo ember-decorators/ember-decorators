@@ -71,7 +71,7 @@ module.exports = {
     return this.addPackageToProject('babel-eslint', '^8.0.0').then(() => {
       return addScopedAddonToProject(this, {
         name: '@ember-decorators/babel-transforms',
-        target: '^2.0.0'
+        target: '^3.1.0'
       });
     });
   }
