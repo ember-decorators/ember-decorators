@@ -39,7 +39,7 @@ function checkAddonsForStage1(project, addonOrProject) {
 
   if (hasDecorators && hasOlderTypescript) {
     project.ui.writeWarnLine(
-      `${addonOrProjectMessage} is using an older version of ember-cli-typescript that uses stage 1 decorators. Please update this addon to ember-cli-typescript@v2 to remove your dependency on legacy decorators.`
+      `${addonOrProjectMessage} is using an older version of ember-cli-typescript that uses stage 1 decorators. Please update to ember-cli-typescript@v2 to remove your dependency on legacy decorators.`
     );
 
     needsStage1 = true;
@@ -47,7 +47,7 @@ function checkAddonsForStage1(project, addonOrProject) {
 
   if (hasDecorators && hasOlderTransforms) {
     project.ui.writeWarnLine(
-      `${addonOrProjectMessage} is using an older version of @ember-decorators/babel-transforms that uses stage 1 decorators. Please update this addon to @ember-decorators/babel-transforms@v3.1 to remove your dependency on legacy decorators.`
+      `${addonOrProjectMessage} is using an older version of @ember-decorators/babel-transforms that uses stage 1 decorators. Please update to @ember-decorators/babel-transforms@v3.1 to remove your dependency on legacy decorators.`
     );
 
     needsStage1 = true;
@@ -55,7 +55,7 @@ function checkAddonsForStage1(project, addonOrProject) {
 
   if (hasOlderDecorators) {
     project.ui.writeWarnLine(
-      `${addonOrProjectMessage} is using an older version of ember-decorators that uses stage 1 decorators. Please update this addon to ember-decorators@v3.1 to remove your dependency on legacy decorators.`
+      `${addonOrProjectMessage} is using an older version of ember-decorators that uses stage 1 decorators. Please update to ember-decorators@v3.1 to remove your dependency on legacy decorators.`
     );
 
     needsStage1 = true;
