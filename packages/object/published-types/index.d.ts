@@ -1,3 +1,5 @@
+// TypeScript Version: 2.7
+
 /**
  * Decorator that turns the target function into an Action
  *
@@ -171,7 +173,7 @@ export function off(...eventNames: string[]): PropertyDecorator;
  *
  *     return `${first} ${last}`;
  *   }
- * 
+ *
  *   @readOnly
  *   @collect('foo', 'bar')
  *   foobar;
@@ -199,7 +201,7 @@ export const readOnly: MethodDecorator & PropertyDecorator;
  *
  *     return `${first} ${last}`;
  *   }
- * 
+ *
  *   @readOnly
  *   @collect('foo', 'bar')
  *   foobar;

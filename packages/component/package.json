@@ -6,6 +6,7 @@
     "ember-addon"
   ],
   "license": "MIT",
+  "types": "published-types",
   "author": "",
   "directories": {
     "doc": "doc",
@@ -18,7 +19,8 @@
   "scripts": {
     "build": "ember build",
     "start": "echo \"Run serve in the main ember-decorators package\" && false",
-    "test": "echo \"Run tests in the main ember-decorators package\" && false"
+    "test": "echo \"Run tests in the main ember-decorators package\" && false",
+    "dtslint": "dtslint published-types"
   },
   "dependencies": {
     "@ember-decorators/utils": "^3.1.1",
@@ -32,6 +34,7 @@
     "@types/ember-testing-helpers": "^0.0.3",
     "@types/rsvp": "^4.0.1",
     "broccoli-asset-rev": "^2.4.5",
+    "dtslint": "^0.3.0",
     "ember-ajax": "^3.0.0",
     "ember-cli": "~3.0.0",
     "ember-cli-dependency-checker": "^2.0.0",
