@@ -103,6 +103,13 @@ export function decorator(fn) {
           desc.finisher(target.prototype ? target : target.constructor);
         }
 
+        if (desc.initializer) {
+          // We've removed the initializer in `convertStage1ToStage2` to mirror
+          // the specs for field descriptor, but Babel 6 needs the initializer
+          // back on the property descriptor.
+          desc.descriptor.initializer = desc.initializer;
+        }
+
         return desc.descriptor;
       }
     }
