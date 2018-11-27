@@ -62,7 +62,6 @@ function convertStage1ToStage2(desc) {
     let placement = placementForKind(kind);
 
     let { initializer } = descriptor;
-    delete descriptor.initializer;
 
     return {
       descriptor,
@@ -93,7 +92,7 @@ export function decorator(fn) {
 
         fn(desc);
 
-        if (desc.finisher) {
+        if (typeof desc.finisher === 'function') {
           // Finishers are supposed to run at the end of class finalization,
           // but we don't get that with stage 1 transforms. We have to be careful
           // to make sure that we aren't doing any operations which would change
@@ -103,10 +102,11 @@ export function decorator(fn) {
           desc.finisher(target.prototype ? target : target.constructor);
         }
 
-        if (desc.initializer) {
-          // We've removed the initializer in `convertStage1ToStage2` to mirror
-          // the specs for field descriptor, but Babel 6 needs the initializer
-          // back on the property descriptor.
+        if (typeof desc.initializer === 'function') {
+          // Babel 6 / the legacy decorator transform needs the initializer back
+          // on the property descriptor/ In case the user has set a new
+          // initializer on the member descriptor, we transfer it back to
+          // original descriptor.
           desc.descriptor.initializer = desc.initializer;
         }
 
