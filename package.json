@@ -10,6 +10,7 @@
     "lint:js": "eslint .",
     "start": "yarn workspace ember-decorators start",
     "test": "yarn workspace ember-decorators test",
+    "dtslint": "lerna run dtslint",
     "node-test": "yarn workspace ember-decorators node-test",
     "try": "ember try:one"
   },

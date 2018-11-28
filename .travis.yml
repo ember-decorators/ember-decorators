@@ -44,7 +44,7 @@ jobs:
     - name: Node Tests
       script: yarn node-test
     - name: Type Declarations
-      script: lerna run dtslint
+      script: yarn dtslint
 
     - stage: Floating Dependencies
       name: Tests
