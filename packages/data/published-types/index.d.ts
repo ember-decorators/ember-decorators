@@ -18,7 +18,7 @@ import ModelRegistry from "ember-data/types/registries/model";
  *
  * @function
  */
-export function attr(): PropertyDecorator;
+export function attr(target: Object, propertyKey: string | symbol): void;
 /**
  * Decorator that turns the property into an Ember Data attribute
  *
