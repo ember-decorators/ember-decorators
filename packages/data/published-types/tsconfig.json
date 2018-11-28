@@ -14,5 +14,5 @@
       "baseUrl": ".",
       "paths": { "@ember-decorators/data": ["."] }
   },
-  "files": ["index.d.ts", "attr-test.ts"]
+  "files": ["index.d.ts", "attr-test.ts", "relationship-test.ts"]
 }
