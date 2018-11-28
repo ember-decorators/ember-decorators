@@ -6,13 +6,13 @@ class MyModel1 extends Model {
 }
 
 class MyModel2 extends Model {
-  @attr('string') firstName: null
+  @attr('string') firstName: null;
 }
 
 class MyModel3 extends Model {
-  @attr('string', { allowNull: false }) firstName: null
+  @attr('string', { allowNull: false }) firstName: null;
 }
 
 class MyModel4 extends Model {
-  @attr() firstName: null
+  @attr() firstName: null;
 }

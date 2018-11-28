@@ -1,4 +1,4 @@
-// TypeScript Version: 2.3
+// TypeScript Version: 2.7
 
 import DS from "ember-data";
 import TransformRegistry from "ember-data/types/registries/transform";
@@ -72,7 +72,7 @@ export function attr<K extends keyof TransformRegistry>(
  *
  * @function
  */
-export function hasMany(): PropertyDecorator;
+export function hasMany(target: object, propertyKey: string | symbol): void;
 /**
  * Decorator that turns the property into an Ember Data `hasMany` relationship
  *
@@ -108,7 +108,7 @@ export function hasMany<K extends keyof ModelRegistry>(
  * ```
  * @function
  */
-export function belongsTo(): PropertyDecorator;
+export function belongsTo(target: object, propertyKey: string | symbol): void;
 /**
  * Decorator that turns the property into an Ember Data `belongsTo` relationship
  *

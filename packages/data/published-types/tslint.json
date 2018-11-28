@@ -5,6 +5,7 @@
       "indent": false,
       "jsdoc-format": false,
       "no-redundant-jsdoc": false,
-      "file-name-casing": false
+      "file-name-casing": false,
+      "no-void-expression": false
   }
 }
