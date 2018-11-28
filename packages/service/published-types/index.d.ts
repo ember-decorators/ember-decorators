@@ -1,3 +1,5 @@
+// TypeScript Version: 2.7
+
 import { Registry } from '@ember/service';
 
 /**
@@ -53,4 +55,4 @@ export function service(target: any, key: any, descriptor: PropertyDescriptor): 
  * @function
  * @param {String} [serviceName] - The name of the service to inject. If not provided, the property name will be used
  */
-export function service<K extends keyof Registry>(serviceName: K): PropertyDecorator;
+export function service(serviceName: keyof Registry): PropertyDecorator;

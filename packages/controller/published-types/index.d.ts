@@ -1,3 +1,5 @@
+// TypeScript Version: 2.7
+
 import { Registry } from '@ember/controller';
 
 /**
@@ -57,6 +59,4 @@ export function controller(
  * @function
  * @param {String} [controllerName] - The name of the controller to inject. If not provided, the property name will be used
  */
-export function controller<K extends keyof Registry>(
-  name: K
-): PropertyDecorator;
+export function controller(name: keyof Registry): PropertyDecorator;

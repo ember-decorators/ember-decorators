@@ -1,3 +1,5 @@
+// TypeScript Version: 2.7
+
 import { TemplateFactory } from 'htmlbars-inline-precompile';
 
 /**

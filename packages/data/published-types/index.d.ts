@@ -1,3 +1,5 @@
+// TypeScript Version: 2.3
+
 import DS from "ember-data";
 import TransformRegistry from "ember-data/types/registries/transform";
 import ModelRegistry from "ember-data/types/registries/model";
@@ -16,7 +18,7 @@ import ModelRegistry from "ember-data/types/registries/model";
  *
  * @function
  */
-export function attr(target: Object, propertyKey: string | symbol): void;
+export function attr(target: object, propertyKey: string | symbol): void;
 /**
  * Decorator that turns the property into an Ember Data attribute
  *
@@ -32,7 +34,8 @@ export function attr(target: Object, propertyKey: string | symbol): void;
  * @function
  * @param {Object} [options] - Optional attribute options
  */
-export function attr(options?: DS.AttrOptions<any>): PropertyDecorator;
+// tslint:disable-next-line:unified-signatures
+export function attr(options?: DS.AttrOptions): PropertyDecorator;
 /**
  * Decorator that turns the property into an Ember Data attribute
  *
