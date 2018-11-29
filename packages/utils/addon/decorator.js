@@ -61,7 +61,7 @@ function convertStage1ToStage2(desc) {
     let kind = kindForDesc(desc);
     let placement = placementForKind(kind);
 
-    let { initializer } = descriptor;
+    let initializer = descriptor !== undefined ? descriptor.initializer : undefined;
 
     return {
       descriptor,
