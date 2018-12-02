@@ -71,8 +71,12 @@ function checkAddonsForStage1(project, addonOrProject) {
   let hasOlderTransforms = checker.for('@ember-decorators/babel-transforms', 'npm').lt('3.1.0');
 
   let hasOlderTypescript =
-    'ember-cli-typescript' in dependencies &&
-    semver.lt(cleanVersion(dependencies['ember-cli-typescript']), '2.0.0-beta.1');
+    "ember-cli-typescript" in dependencies &&
+    (dependencies["ember-cli-typescript"] === "*" ||
+      semver.lt(
+        cleanVersion(dependencies["ember-cli-typescript"]),
+        "2.0.0-beta.1"
+      ));
 
   let needsStage1 = false;
 
