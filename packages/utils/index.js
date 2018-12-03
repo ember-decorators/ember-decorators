@@ -8,11 +8,11 @@ const PLUGIN_NAME = 'ember-decorators-debug-macros';
 const NEEDS_STAGE_1_DECORATORS = new WeakMap();
 
 function cleanVersion(version) {
-  return version.match(/\d\.\d\.\d/)[0];
-}
+  if (version === undefined) return false;
 
-function getDependenciesFor(addonOrProject) {
-  return Object.assign({}, addonOrProject.pkg.dependencies, addonOrProject.pkg.devDependencies);
+  let matchedVersion = version.match(/\d\.\d\.\d/);
+
+  return matchedVersion && matchedVersion[0];
 }
 
 function checkNeedsStage1Decorators(project) {
@@ -28,14 +28,14 @@ function checkNeedsStage1Decorators(project) {
 }
 
 function checkAddonsForStage1(project, addonOrProject) {
-  let dependencies = getDependenciesFor(addonOrProject);
-
-  if (!dependencies) {
+  if (!addonOrProject.pkg) {
     // for some reason we couldn't read package.json, return true to be safe
     project.ui.writeWarnLine(`unable to read package.json for ${addonOrProject.name}, including stage 1 decorators by default`);
 
     return true;
   }
+
+  let { dependencies = {}, devDependencies = {} } = addonOrProject.pkg;
 
   let checker = new VersionChecker(addonOrProject);
 
@@ -59,9 +59,14 @@ function checkAddonsForStage1(project, addonOrProject) {
   // If embroiderer comes through this will need to update.
   let hasOlderTransforms = checker.for('@ember-decorators/babel-transforms', 'npm').lt('3.1.0');
 
+  // If the dev dependency exists and is readable, we use that. Otherwise, we
+  // default to the installed version if it exists. This should cover in-repo
+  // addons/engines, while also covering most addons that used TS in development
+  // and shipped built packages.
+  let devTSVersion = cleanVersion(devDependencies['ember-cli-typescript']);
   let hasOlderTypescript =
-    'ember-cli-typescript' in dependencies &&
-    semver.lt(cleanVersion(dependencies['ember-cli-typescript']), '2.0.0-beta.1');
+    (devTSVersion && semver.lt(devTSVersion, '2.0.0-beta.1')) ||
+    checker.for('ember-cli-typescript', 'npm').lt('2.0.0-beta.1');
 
   let needsStage1 = false;
 
