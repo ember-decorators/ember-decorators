@@ -1,5 +1,3 @@
-const fs = require('fs-extra');
-const path = require('path');
 const semver = require('semver');
 const VersionChecker = require('ember-cli-version-checker');
 
@@ -13,17 +11,8 @@ function cleanVersion(version) {
   return version.match(/\d\.\d\.\d/)[0];
 }
 
-function getDependenciesFor(root) {
-  try {
-    let { dependencies = {}, devDependencies } = fs.readJsonSync(path.join(root, 'package.json'));
-
-    // we want the union of dependencies and dev deps
-    Object.assign(dependencies, devDependencies);
-
-    return dependencies;
-  } catch (e) {
-    return false;
-  }
+function getDependenciesFor(addonOrProject) {
+  return Object.assign({}, addonOrProject.pkg.dependencies, addonOrProject.pkg.devDependencies);
 }
 
 function checkNeedsStage1Decorators(project) {
@@ -39,7 +28,7 @@ function checkNeedsStage1Decorators(project) {
 }
 
 function checkAddonsForStage1(project, addonOrProject) {
-  let dependencies = getDependenciesFor(addonOrProject.root);
+  let dependencies = getDependenciesFor(addonOrProject);
 
   if (!dependencies) {
     // for some reason we couldn't read package.json, return true to be safe
