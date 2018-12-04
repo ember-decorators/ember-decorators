@@ -111,12 +111,33 @@ class Foo extends EmberObject {
 
 While this is possible, certain values such as service injections and create
 parameters will _not_ be available during the `constructor` phase of class
-creation. To keep things simple, it is recommended that you continue to use
+creation. It is therefore recommended that you continue to use
 `init` for the time being as you transition to native classes that extend from
-`EmberObject`.
+`EmberObject`:
+
+```js
+class Foo extends EmberObject {
+  init() {
+    super.init(...arguments);
+
+    // do things
+  }
+}
+```
 
 Native classes which do _not_ extend from `EmberObject` do not have an `init`
-hook, and should use `constructor` instead.
+hook, and should use `constructor` instead:
+
+```js
+class Foo extends Object {
+  constructor() {
+    super(...arguments);
+
+    // do things
+  }
+}
+```
+
 
 ## Methods
 
