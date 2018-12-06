@@ -1,6 +1,6 @@
 {
   "name": "@ember-decorators/babel-transforms",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "description": "Configures the consuming ember-cli app's or addon's Babel transpiler for decorators.",
   "keywords": [
     "ember-addon",
