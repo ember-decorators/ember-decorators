@@ -90,7 +90,7 @@ export function decorator(fn) {
       } else {
         let desc = convertStage1ToStage2(params);
 
-        fn(desc);
+        desc = fn(desc);
 
         if (typeof desc.finisher === 'function') {
           // Finishers are supposed to run at the end of class finalization,
