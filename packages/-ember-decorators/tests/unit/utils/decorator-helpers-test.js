@@ -48,6 +48,28 @@ module('decorator helpers', function() {
 
       new Foo();
     });
+
+    test('it works with returning a newly created member descriptor', function(assert) {
+      let decorate = decoratorWithParams(desc => {
+        return {
+          ...desc,
+          descriptor: {
+            configurable: desc.configurable,
+            enumerable: desc.enumerable,
+            get() {
+              return 1337;
+            }
+          }
+        }
+      });
+
+      class Foo {
+        @decorate() foo() {}
+      }
+
+      let foo = new Foo();
+      assert.strictEqual(foo.foo, 1337);
+    });
   });
 
   module('decoratorWithRequiredParams', function() {
