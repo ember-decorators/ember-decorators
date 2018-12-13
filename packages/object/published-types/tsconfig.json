@@ -13,7 +13,10 @@
     // If the library is an external module (uses `export`), this allows your test file to import "mylib" instead of "./index".
     // If the library is global (cannot be imported via `import` or `require`), leave this out.
     "baseUrl": ".",
-    "paths": { "@ember-decorators/object": ["."] }
+    "paths": {
+      "@ember-decorators/object": ["."],
+      "ember-data": ["./ember-data"]
+    }
   },
   "files": ["index.d.ts", "object-test.ts"]
 }
