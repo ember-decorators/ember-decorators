@@ -1,4 +1,4 @@
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 /**
  * Decorator that turns the target function into an Action
@@ -209,5 +209,5 @@ export const readOnly: MethodDecorator & PropertyDecorator;
  * ```
  *
  * @return {ComputedProperty}
-*/
+ */
 export const volatile: MethodDecorator & PropertyDecorator;

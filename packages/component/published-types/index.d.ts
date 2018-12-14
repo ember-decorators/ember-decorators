@@ -1,4 +1,4 @@
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 import { TemplateFactory } from 'htmlbars-inline-precompile';
 
@@ -172,10 +172,7 @@ export function className(
  *
  * @function
  */
-export function className(
-  trueValue?: string,
-  falseValue?: string
-): PropertyDecorator;
+export function className(trueValue?: string, falseValue?: string): PropertyDecorator;
 
 /**
  * Class decorator which specifies the class names to be applied to a component.

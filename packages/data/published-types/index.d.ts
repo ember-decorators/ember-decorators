@@ -1,8 +1,8 @@
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
-import DS from "ember-data";
-import TransformRegistry from "ember-data/types/registries/transform";
-import ModelRegistry from "ember-data/types/registries/model";
+import DS from 'ember-data';
+import TransformRegistry from 'ember-data/types/registries/transform';
+import ModelRegistry from 'ember-data/types/registries/model';
 
 /**
  * Decorator that turns the property into an Ember Data attribute

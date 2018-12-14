@@ -44,7 +44,9 @@ jobs:
     - name: Node Tests
       script: yarn node-test
     - name: Type Declarations
-      script: yarn dtslint
+      script:
+        - yarn exec dtslint -- --installAll
+        - yarn dtslint
 
     - stage: Floating Dependencies
       name: Tests
