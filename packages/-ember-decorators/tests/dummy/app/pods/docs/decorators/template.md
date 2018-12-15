@@ -31,6 +31,9 @@ world, and some have fairly large differences. This page will cover the general
 decorators in some depth, and for more details you can refer to the API
 documentation.
 
+If you are interested in _how_ decorators work under the hood, head over to the
+{{link-to 'Specs page' 'docs.specs'}}.
+
 ## Computed Properties
 
 Computed properties are the most different in behavior from standard Ember
