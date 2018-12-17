@@ -79,30 +79,35 @@ function convertStage1ToStage2(desc) {
   }
 }
 
+function deprecateDirectDescriptorMutation(fn, desc) {
+  let returnValue = fn(desc);
+
+  if (!returnValue) {
+    deprecate(
+      `@ember-decorators/utils: Directly mutating the descriptor by reference is deprecated. Return it instead.`,
+      false,
+      {
+        id: 'ember-decorators.utils.decorator.descriptor-mutation-by-reference',
+        until: '4.0.0',
+      }
+    );
+    return desc;
+  }
+
+  return returnValue;
+}
+
 export function decorator(fn) {
   if (NEEDS_STAGE_1_DECORATORS) {
     return function(...params) {
       if (isStage2Descriptor(params)) {
         let desc = params[0];
 
-        return fn(desc);
+        return deprecateDirectDescriptorMutation(fn, desc);
       } else {
         let desc = convertStage1ToStage2(params);
 
-        let returnValue = fn(desc);
-
-        if (!returnValue) {
-          deprecate(
-            `@ember-decorators/utils: Directly mutating the descriptor by reference is deprecated. Return it instead.`,
-            false,
-            {
-              id: 'ember-decorators.utils.decorator.descriptor-mutation-by-reference',
-              until: '4.0.0',
-            }
-          );
-        } else {
-          desc = returnValue;
-        }
+        desc = deprecateDirectDescriptorMutation(fn, desc);
 
         if (typeof desc.finisher === 'function') {
           // Finishers are supposed to run at the end of class finalization,
