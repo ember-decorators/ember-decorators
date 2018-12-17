@@ -1,7 +1,10 @@
 import { assert } from '@ember/debug';
 
 import collapseProto from '@ember-decorators/utils/collapse-proto';
-import { decoratorWithParams, decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
+import {
+  decoratorWithParams,
+  decoratorWithRequiredParams,
+} from '@ember-decorators/utils/decorator';
 
 /**
   Decorator which indicates that the field or computed should be bound
@@ -38,28 +41,31 @@ export const attribute = decoratorWithParams((desc, params = []) => {
     params.every(s => typeof s === 'string')
   );
 
-  desc.finisher = target => {
-    let { prototype } = target;
-    let { key, descriptor } = desc;
+  return {
+    ...desc,
+    finisher(target) {
+      let { prototype } = target;
+      let { key, descriptor } = desc;
 
-    collapseProto(prototype);
+      collapseProto(prototype);
 
-    if (!prototype.hasOwnProperty('attributeBindings')) {
-      let parentValue = prototype.attributeBindings;
-      prototype.attributeBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
-    }
+      if (!prototype.hasOwnProperty('attributeBindings')) {
+        let parentValue = prototype.attributeBindings;
+        prototype.attributeBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
+      }
 
-    let binding = params[0] ? `${key}:${params[0]}` : key;
+      let binding = params[0] ? `${key}:${params[0]}` : key;
 
-    prototype.attributeBindings.push(binding);
+      prototype.attributeBindings.push(binding);
 
-    if (descriptor) {
-      // Decorated fields are currently not configurable in Babel for some reason, so ensure
-      // that the field becomes configurable (else it messes with things)
-      descriptor.configurable = true;
-    }
+      if (descriptor) {
+        // Decorated fields are currently not configurable in Babel for some reason, so ensure
+        // that the field becomes configurable (else it messes with things)
+        descriptor.configurable = true;
+      }
 
-    return target;
+      return target;
+    },
   };
 });
 
@@ -101,28 +107,31 @@ export const className = decoratorWithParams((desc, params = []) => {
     params.every(s => typeof s === 'string')
   );
 
-  desc.finisher = target => {
-    let { prototype } = target;
-    let { key, descriptor } = desc;
+  return {
+    ...desc,
+    finisher(target) {
+      let { prototype } = target;
+      let { key, descriptor } = desc;
 
-    collapseProto(prototype);
+      collapseProto(prototype);
 
-    if (!prototype.hasOwnProperty('classNameBindings')) {
-      let parentValue = prototype.classNameBindings;
-      prototype.classNameBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
-    }
+      if (!prototype.hasOwnProperty('classNameBindings')) {
+        let parentValue = prototype.classNameBindings;
+        prototype.classNameBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
+      }
 
-    let binding = params.length > 0 ? `${key}:${params.join(':')}` : key;
+      let binding = params.length > 0 ? `${key}:${params.join(':')}` : key;
 
-    prototype.classNameBindings.push(binding);
+      prototype.classNameBindings.push(binding);
 
-    if (descriptor) {
-      // Decorated fields are currently not configurable in Babel for some reason, so ensure
-      // that the field becomes configurable (else it messes with things)
-      descriptor.configurable = true;
-    }
+      if (descriptor) {
+        // Decorated fields are currently not configurable in Babel for some reason, so ensure
+        // that the field becomes configurable (else it messes with things)
+        descriptor.configurable = true;
+      }
 
-    return target;
+      return target;
+    },
   };
 });
 
@@ -144,19 +153,22 @@ export const classNames = decoratorWithRequiredParams((desc, classNames) => {
     classNames.reduce((allStrings, name) => allStrings && typeof name === 'string', true)
   );
 
-  desc.finisher = target => {
-    let { prototype } = target;
+  return {
+    ...desc,
+    finisher(target) {
+      let { prototype } = target;
 
-    collapseProto(prototype);
+      collapseProto(prototype);
 
-    if ('classNames' in prototype) {
-      let parentClasses = prototype.classNames;
-      classNames.unshift(...parentClasses);
-    }
+      if ('classNames' in prototype) {
+        let parentClasses = prototype.classNames;
+        classNames.unshift(...parentClasses);
+      }
 
-    prototype.classNames = classNames;
+      prototype.classNames = classNames;
 
-    return target;
+      return target;
+    },
   };
 }, 'classNames');
 
@@ -183,9 +195,12 @@ export const tagName = decoratorWithRequiredParams((desc, params) => {
     typeof tagName === 'string'
   );
 
-  desc.finisher = target => {
-    target.prototype.tagName = tagName;
-    return target;
+  return {
+    ...desc,
+    finisher(target) {
+      target.prototype.tagName = tagName;
+      return target;
+    },
   };
 }, 'tagName');
 
@@ -230,8 +245,11 @@ export const layout = decoratorWithRequiredParams((desc, params) => {
     (() => typeof template === 'object' && typeof template.indexOf === 'undefined')()
   );
 
-  desc.finisher = target => {
-    target.prototype.layout = template;
-    return target;
+  return {
+    ...desc,
+    finisher(target) {
+      target.prototype.layout = template;
+      return target;
+    },
   };
 }, 'layout');

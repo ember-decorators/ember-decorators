@@ -63,6 +63,8 @@ function computedDecoratorInner(fn) {
 
       return target;
     }
+
+    return desc;
   }
 }
 
