@@ -1,6 +1,7 @@
 import { DEBUG } from '@glimmer/env';
+import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
 
-import { module, test } from 'qunit';
+import { module, test, skip } from 'qunit';
 import {
   decorator,
   decoratorWithParams,
@@ -31,7 +32,9 @@ module('decorator helpers', function() {
       assert.strictEqual(foo.foo, 1337);
     });
 
-    test('it warns about deprecated descriptor mutation by reference', function(assert) {
+    (NEEDS_STAGE_1_DECORATORS
+      ? test
+      : skip)('it warns about deprecated descriptor mutation by reference', function(assert) {
       let decorate = decorator(desc => {
         delete desc.descriptor.value;
         delete desc.descriptor.writable;
