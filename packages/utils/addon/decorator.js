@@ -1,6 +1,7 @@
 import { assert } from '@ember/debug';
 
 import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
+import { deprecate } from '@ember/application/deprecations';
 
 function isDescriptor(possibleDesc) {
   let isDescriptor = isStage2Descriptor(possibleDesc);
@@ -16,18 +17,16 @@ function isStage1Descriptor(possibleDesc) {
   if (possibleDesc.length === 3) {
     let [target, key, desc] = possibleDesc;
 
-    return typeof target === 'object'
-      && target !== null
-      && typeof key === 'string'
-      && (
-        (
-          typeof desc === 'object'
-          && desc !== null
-          && 'enumerable' in desc
-          && 'configurable' in desc
-        )
-        || desc === undefined // TS compatibility
-      );
+    return (
+      typeof target === 'object' &&
+      target !== null &&
+      typeof key === 'string' &&
+      ((typeof desc === 'object' &&
+        desc !== null &&
+        'enumerable' in desc &&
+        'configurable' in desc) ||
+        desc === undefined) // TS compatibility
+    );
   } else if (possibleDesc.length === 1) {
     let [target] = possibleDesc;
 
@@ -90,7 +89,20 @@ export function decorator(fn) {
       } else {
         let desc = convertStage1ToStage2(params);
 
-        desc = fn(desc);
+        let returnValue = fn(desc);
+
+        if (!returnValue) {
+          deprecate(
+            `@ember-decorators/utils: Directly mutating the descriptor by reference is deprecated. Return it instead.`,
+            false,
+            {
+              id: 'ember-decorators.utils.decorator.descriptor-mutation-by-reference',
+              until: '4.0.0',
+            }
+          );
+        } else {
+          desc = returnValue;
+        }
 
         if (typeof desc.finisher === 'function') {
           // Finishers are supposed to run at the end of class finalization,
@@ -112,7 +124,7 @@ export function decorator(fn) {
 
         return desc.descriptor;
       }
-    }
+    };
   } else {
     return fn;
   }
@@ -165,10 +177,13 @@ export function decoratorWithParams(fn) {
  */
 export function decoratorWithRequiredParams(fn, name) {
   return function(...params) {
-    assert(`The @${name || fn.name} decorator requires parameters`, !isDescriptor(params) && params.length > 0);
+    assert(
+      `The @${name || fn.name} decorator requires parameters`,
+      !isDescriptor(params) && params.length > 0
+    );
 
     return decorator(desc => {
       return fn(desc, params);
     });
-  }
+  };
 }

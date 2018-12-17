@@ -68,6 +68,7 @@
     "ember-load-initializers": "^1.0.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-native-dom-helpers": "^0.5.0",
+    "ember-qunit-assert-helpers": "^0.2.1",
     "ember-resolver": "^4.0.0",
     "ember-root-url": "^0.2.0",
     "ember-source": "~3.0.0",
