@@ -43,24 +43,23 @@ export const action = decorator(desc => {
     desc && desc.descriptor && typeof desc.descriptor.value === 'function'
   );
 
-  return {
-    ...desc,
-    finisher(target) {
-      let { key, descriptor } = desc;
-      let { prototype } = target;
+  desc.finisher = target => {
+    let { key, descriptor } = desc;
+    let { prototype } = target;
 
-      collapseProto(prototype);
+    collapseProto(prototype);
 
-      if (!prototype.hasOwnProperty('actions')) {
-        let parentActions = prototype.actions;
-        prototype.actions = parentActions ? Object.create(parentActions) : {};
-      }
+    if (!prototype.hasOwnProperty('actions')) {
+      let parentActions = prototype.actions;
+      prototype.actions = parentActions ? Object.create(parentActions) : {};
+    }
 
-      prototype.actions[key] = descriptor.value;
+    prototype.actions[key] = descriptor.value;
 
-      return target;
-    },
+    return target;
   };
+
+  return desc;
 });
 
 /**
@@ -159,18 +158,17 @@ export const observes = decoratorWithRequiredParams((desc, params) => {
     desc && desc.descriptor && typeof desc.descriptor.value === 'function'
   );
 
-  return {
-    ...desc,
-    finisher(target) {
-      let { prototype } = target;
+  desc.finisher = target => {
+    let { prototype } = target;
 
-      for (let path of params) {
-        addObserver(prototype, path, null, desc.key);
-      }
+    for (let path of params) {
+      addObserver(prototype, path, null, desc.key);
+    }
 
-      return target;
-    },
+    return target;
   };
+
+  return desc;
 }, 'observes');
 
 /**
@@ -194,21 +192,19 @@ export const observes = decoratorWithRequiredParams((desc, params) => {
   @function
   @param {...String} propertyNames - Names of the properties that no longer trigger the function
  */
-export const unobserves = decoratorWithRequiredParams(
-  (desc, params) => ({
-    ...desc,
-    finisher(target) {
-      let { prototype } = target;
+export const unobserves = decoratorWithRequiredParams((desc, params) => {
+  desc.finisher = target => {
+    let { prototype } = target;
 
-      for (let path of params) {
-        removeObserver(prototype, path, null, desc.key);
-      }
+    for (let path of params) {
+      removeObserver(prototype, path, null, desc.key);
+    }
 
-      return target;
-    },
-  }),
-  'unobserves'
-);
+    return target;
+  };
+
+  return desc;
+}, 'unobserves');
 
 /**
   Adds an event listener to the target function.
@@ -233,18 +229,17 @@ export const on = decoratorWithRequiredParams((desc, params) => {
     desc && desc.descriptor && typeof desc.descriptor.value === 'function'
   );
 
-  return {
-    ...desc,
-    finisher(target) {
-      let { prototype } = target;
+  desc.finisher = target => {
+    let { prototype } = target;
 
-      for (let eventName of params) {
-        addListener(prototype, eventName, null, desc.key);
-      }
+    for (let eventName of params) {
+      addListener(prototype, eventName, null, desc.key);
+    }
 
-      return target;
-    },
+    return target;
   };
+
+  return desc;
 }, 'on');
 
 /**
@@ -268,21 +263,19 @@ export const on = decoratorWithRequiredParams((desc, params) => {
   @function
   @param {...String} eventNames - Names of the events that no longer trigger the function
  */
-export const off = decoratorWithRequiredParams(
-  (desc, params) => ({
-    ...desc,
-    finisher(target) {
-      let { prototype } = target;
+export const off = decoratorWithRequiredParams((desc, params) => {
+  desc.finisher = target => {
+    let { prototype } = target;
 
-      for (let eventName of params) {
-        removeListener(prototype, eventName, null, desc.key);
-      }
+    for (let eventName of params) {
+      removeListener(prototype, eventName, null, desc.key);
+    }
 
-      return target;
-    },
-  }),
-  'off'
-);
+    return target;
+  };
+
+  return desc;
+}, 'off');
 
 /**
   Decorator that modifies a computed property to be read only.
@@ -302,9 +295,8 @@ export const off = decoratorWithRequiredParams(
 
   @return {ComputedProperty}
 */
-export const readOnly = decorator(desc => ({
-  ...desc,
-  finisher(target) {
+export const readOnly = decorator(desc => {
+  desc.finisher = target => {
     let { prototype } = target;
     let { key } = desc;
 
@@ -333,8 +325,10 @@ export const readOnly = decorator(desc => ({
       let modifierMeta = getOrCreateModifierMeta(prototype, name);
       modifierMeta[key] = 'readOnly';
     }
-  },
-}));
+  };
+
+  return desc;
+});
 
 /**
   Decorator that modifies a computed property to be volatile.
@@ -354,9 +348,8 @@ export const readOnly = decorator(desc => ({
 
   @return {ComputedProperty}
 */
-export const volatile = decorator(desc => ({
-  ...desc,
-  finisher(target) {
+export const volatile = decorator(desc => {
+  desc.finisher = target => {
     let { prototype } = target;
     let { key } = desc;
 
@@ -385,5 +378,7 @@ export const volatile = decorator(desc => ({
       let modifierMeta = getOrCreateModifierMeta(prototype, name);
       modifierMeta[key] = 'volatile';
     }
-  },
-}));
+  };
+
+  return desc;
+});
