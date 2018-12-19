@@ -6,7 +6,7 @@
     "ember-addon"
   ],
   "license": "MIT",
-  "types": "published-types",
+  "types": "published-types/index.d.ts",
   "author": "",
   "directories": {
     "doc": "doc",
