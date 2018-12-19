@@ -58,6 +58,8 @@ export const action = decorator(desc => {
 
     return target;
   };
+
+  return desc;
 });
 
 /**
@@ -165,6 +167,8 @@ export const observes = decoratorWithRequiredParams((desc, params) => {
 
     return target;
   };
+
+  return desc;
 }, 'observes');
 
 /**
@@ -198,6 +202,8 @@ export const unobserves = decoratorWithRequiredParams((desc, params) => {
 
     return target;
   };
+
+  return desc;
 }, 'unobserves');
 
 /**
@@ -232,6 +238,8 @@ export const on = decoratorWithRequiredParams((desc, params) => {
 
     return target;
   };
+
+  return desc;
 }, 'on');
 
 /**
@@ -265,6 +273,8 @@ export const off = decoratorWithRequiredParams((desc, params) => {
 
     return target;
   };
+
+  return desc;
 }, 'off');
 
 /**
@@ -316,6 +326,8 @@ export const readOnly = decorator(desc => {
       modifierMeta[key] = 'readOnly';
     }
   };
+
+  return desc;
 });
 
 /**
@@ -367,4 +379,6 @@ export const volatile = decorator(desc => {
       modifierMeta[key] = 'volatile';
     }
   };
+
+  return desc;
 });

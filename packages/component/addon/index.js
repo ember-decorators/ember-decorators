@@ -1,7 +1,10 @@
 import { assert } from '@ember/debug';
 
 import collapseProto from '@ember-decorators/utils/collapse-proto';
-import { decoratorWithParams, decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
+import {
+  decoratorWithParams,
+  decoratorWithRequiredParams,
+} from '@ember-decorators/utils/decorator';
 
 /**
   Decorator which indicates that the field or computed should be bound
@@ -61,6 +64,8 @@ export const attribute = decoratorWithParams((desc, params = []) => {
 
     return target;
   };
+
+  return desc;
 });
 
 /**
@@ -124,6 +129,8 @@ export const className = decoratorWithParams((desc, params = []) => {
 
     return target;
   };
+
+  return desc;
 });
 
 /**
@@ -158,6 +165,8 @@ export const classNames = decoratorWithRequiredParams((desc, classNames) => {
 
     return target;
   };
+
+  return desc;
 }, 'classNames');
 
 /**
@@ -187,6 +196,8 @@ export const tagName = decoratorWithRequiredParams((desc, params) => {
     target.prototype.tagName = tagName;
     return target;
   };
+
+  return desc;
 }, 'tagName');
 
 /**
@@ -234,4 +245,6 @@ export const layout = decoratorWithRequiredParams((desc, params) => {
     target.prototype.layout = template;
     return target;
   };
+
+  return desc;
 }, 'layout');
