@@ -1,0 +1,73 @@
+{
+  "extends": [
+    "config:js-lib",
+    ":pinOnlyDevDependencies",
+    ":automergePatch",
+    ":automergeMinor",
+    ":semanticCommits"
+  ],
+  "timezone": "America/Los_Angeles",
+  "schedule": ["after 3am", "before 9am"],
+  "commitMessageTopic": "{{depName}}",
+  "commitMessage": "{{{commitMessagePrefix}}} {{{commitMessageTopic}}} {{{commitMessageSuffix}}}",
+  "commitMessageBody": "{{{commitMessageAction}}} {{{commitMessageExtra}}}",
+  "packageRules": [
+    {
+      "packageNames": ["typescript", "tslint", "typedoc", "dtslint"],
+      "groupName": "typescript packages",
+      "groupSlug": "typescript",
+      "minor": {
+        "automerge": false
+      }
+    },
+    {
+      "packagePatterns": ["^@types/"],
+      "groupName": "ambient types",
+      "groupSlug": "ambient-types",
+      "minor": {
+        "automerge": false
+      }
+    },
+    {
+      "groupName": "Linting packages",
+      "groupSlug": "linting",
+      "packageNames": ["babel-eslint", "eslint", "eslint-plugin-ember", "eslint-plugin-node"]
+    },
+    {
+      "packageNames": [
+        "broccoli-asset-rev",
+        "ember-ajax",
+        "ember-cli-babel",
+        "ember-cli-dependency-checker",
+        "ember-cli-eslint",
+        "ember-cli-eslint",
+        "ember-cli-fastboot",
+        "ember-cli-htmlbars-inline-precompile",
+        "ember-cli-htmlbars",
+        "ember-cli-inject-live-reload",
+        "ember-cli-qunit",
+        "ember-cli-release",
+        "ember-cli-shims",
+        "ember-cli-sri",
+        "ember-cli-template-lint",
+        "ember-cli-uglify",
+        "ember-cli",
+        "ember-disable-prototype-extensions",
+        "ember-export-application-global",
+        "ember-load-initializers",
+        "ember-maybe-import-regenerator",
+        "ember-qunit",
+        "ember-resolver",
+        "ember-source",
+        "ember-source-channel-url",
+        "ember-try",
+        "eslint-plugin-ember",
+        "eslint-plugin-node",
+        "loader.js",
+        "qunit-dom"
+      ],
+      "groupName": "ember infrastructure",
+      "groupSlug": "ember-infra"
+    }
+  ]
+}
