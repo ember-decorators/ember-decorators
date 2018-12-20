@@ -1,7 +1,7 @@
 {
   "extends": [
     "config:js-lib",
-    ":pinOnlyDevDependencies",
+    ":preserveSemverRanges",
     ":automergePatch",
     ":automergeMinor",
     ":semanticCommits"
