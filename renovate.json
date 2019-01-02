@@ -29,6 +29,7 @@
       "packageNames": ["typescript", "tslint", "typedoc", "dtslint"],
       "groupName": "typescript packages",
       "groupSlug": "typescript",
+      "rangeStrategy": "pin",
       "minor": {
         "automerge": false
       }
