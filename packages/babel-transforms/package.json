@@ -48,12 +48,12 @@
     "ember-source": "~3.3.1",
     "ember-try": "^0.2.23",
     "eslint": "^5.2.0",
-    "eslint-config-prettier": "^2.7.0",
+    "eslint-config-prettier": "2.10.0",
     "eslint-plugin-ember": "^5.2.0",
     "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-prettier": "2.7.0",
     "loader.js": "^4.2.3",
-    "prettier": "^1.8.2"
+    "prettier": "1.15.3"
   },
   "engines": {
     "node": "6.* || 8.* || >= 10.*"
