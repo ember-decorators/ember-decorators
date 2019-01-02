@@ -10,7 +10,7 @@
   "schedule": ["after 3am", "before 9am"],
   "commitMessageTopic": "{{depName}}",
   "commitMessage": "{{{commitMessagePrefix}}} {{{commitMessageTopic}}} {{{commitMessageSuffix}}}",
-  "commitMessageBody": "{{{commitMessageAction}}} {{{commitMessageExtra}}}",
+  "commitBody": "{{{commitMessageAction}}} {{{commitMessageExtra}}}",
   "packageRules": [
     {
       "packageNames": ["typescript", "tslint", "typedoc", "dtslint"],
