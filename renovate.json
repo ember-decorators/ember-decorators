@@ -16,6 +16,7 @@
       "packageNames": ["typescript", "tslint", "typedoc", "dtslint"],
       "groupName": "typescript packages",
       "groupSlug": "typescript",
+      "extends": [":preserveSemverRanges"],
       "minor": {
         "automerge": false
       }
@@ -24,6 +25,7 @@
       "packagePatterns": ["^@types/"],
       "groupName": "ambient types",
       "groupSlug": "ambient-types",
+      "extends": [":preserveSemverRanges"],
       "minor": {
         "automerge": false
       }
@@ -31,6 +33,7 @@
     {
       "groupName": "Linting packages",
       "groupSlug": "linting",
+      "extends": [":preserveSemverRanges"],
       "packageNames": ["babel-eslint", "eslint", "eslint-plugin-ember", "eslint-plugin-node"]
     },
     {
@@ -66,6 +69,7 @@
         "loader.js",
         "qunit-dom"
       ],
+      "extends": [":preserveSemverRanges"],
       "groupName": "ember infrastructure",
       "groupSlug": "ember-infra"
     }
