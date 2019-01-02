@@ -1,6 +1,6 @@
 {
   "extends": [
-    "config:js-lib",
+    "config:base",
     ":preserveSemverRanges",
     ":automergePatch",
     ":automergeMinor",
