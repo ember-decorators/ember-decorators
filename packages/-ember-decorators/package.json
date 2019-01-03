@@ -46,7 +46,7 @@
     "ember-cli": "~3.0.0",
     "ember-cli-addon-docs": "^0.6.0",
     "ember-cli-addon-docs-esdoc": "^0.2.1",
-    "ember-cli-app-version": "^2.0.0",
+    "ember-cli-app-version": "^3.0.0",
     "ember-cli-blueprint-test-helpers": "^0.18.3",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-deploy": "^1.0.2",
