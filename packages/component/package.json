@@ -49,7 +49,7 @@
     "ember-legacy-class-shim": "^1.0.2",
     "ember-load-initializers": "^2.0.0",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-native-dom-helpers": "^0.5.10",
+    "ember-native-dom-helpers": "^0.6.0",
     "ember-resolver": "^5.0.0",
     "ember-source": "~3.0.0",
     "loader.js": "^4.2.3"
