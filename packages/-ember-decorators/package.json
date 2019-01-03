@@ -67,7 +67,7 @@
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^2.0.0",
     "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-native-dom-helpers": "^0.5.0",
+    "ember-native-dom-helpers": "^0.6.0",
     "ember-qunit-assert-helpers": "^0.2.1",
     "ember-resolver": "^5.0.0",
     "ember-root-url": "^0.2.0",
