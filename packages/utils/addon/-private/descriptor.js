@@ -1,5 +1,5 @@
 import { DEBUG } from '@glimmer/env';
-import { HAS_NATIVE_COMPUTED_GETTERS, HAS_DESCRIPTOR_TRAP } from 'ember-compatibility-helpers';
+import { HAS_NATIVE_COMPUTED_GETTERS, HAS_DESCRIPTOR_TRAP, gte } from 'ember-compatibility-helpers';
 
 import { assert } from '@ember/debug';
 
@@ -33,7 +33,11 @@ export function computedDescriptorFor(obj, keyName) {
 
     if (meta !== undefined && typeof meta._descriptors === 'object') {
       // TODO: Just return the standard descriptor
-      return meta._descriptors[keyName];
+      if (gte('3.8.0')) {
+        return meta._descriptors.get(keyName);
+      } else {
+        return meta._descriptors[keyName];
+      }
     }
   } else if (Object.hasOwnProperty.call(obj, keyName)) {
     let { value: possibleDesc, get: possibleCPGetter } = Object.getOwnPropertyDescriptor(obj, keyName);
