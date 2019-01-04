@@ -76,7 +76,7 @@
     "loader.js": "^4.2.3",
     "mocha": "^5.0.0",
     "os": "^0.1.1",
-    "typescript": "^3.1.6"
+    "typescript": "3.2.1"
   },
   "engines": {
     "node": "6.* || >= 7.*"
