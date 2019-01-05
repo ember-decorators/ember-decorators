@@ -4986,15 +4986,15 @@ dotenv@^1.2.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-1.2.0.tgz#7cd73e16e07f057c8072147a5bc3a8677f0ab5c6"
   integrity sha1-fNc+FuB/BXyAchR6W8OoZ38KtcY=
 
-dtslint@0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/dtslint/-/dtslint-0.4.1.tgz#006031921ee1600b2f692dd57418c28e62cc2ee7"
-  integrity sha512-w6vQ4wGkClt9S+wiqk9+D8LpzZpJj5Gu1Vq5uLzvnIh6jfayIM1gjmArn9m5YtekU3EraLKhTzW+Pcw0DbxwTQ==
+dtslint@0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/dtslint/-/dtslint-0.4.2.tgz#048f75d6d847215d2af8f2f54b0c3858f2db8f03"
+  integrity sha512-ph4GXLw3HYzlQMJOFcpCqWHuL3MxJ/344OR7wn0wlQGchQGTIVNsSUl8iKEMatpy2geNMysgA9fQa6xVhHOkTQ==
   dependencies:
     definitelytyped-header-parser "github:Microsoft/definitelytyped-header-parser#production"
     fs-extra "^6.0.1"
     strip-json-comments "^2.0.1"
-    tslint "^5.9.1"
+    tslint "^5.12.0"
     typescript next
 
 duplex@~1.0.0:
@@ -13632,10 +13632,10 @@ tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha512-4krF8scpejhaOgqzBEcGM7yDIEfi0/8+8zDRZhNZZ2kjmHJ4hv3zCbQWxoJGz1iw5U0Jl0nma13xzHXcncMavQ==
 
-tslint@^5.9.1:
-  version "5.11.0"
-  resolved "https://registry.yarnpkg.com/tslint/-/tslint-5.11.0.tgz#98f30c02eae3cde7006201e4c33cb08b48581eed"
-  integrity sha1-mPMMAurjzecAYgHkwzywi0hYHu0=
+tslint@^5.12.0:
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/tslint/-/tslint-5.12.0.tgz#47f2dba291ed3d580752d109866fb640768fca36"
+  integrity sha512-CKEcH1MHUBhoV43SA/Jmy1l24HJJgI0eyLbBNSRyFlsQvb9v6Zdq+Nz2vEOH00nC5SUx4SneJ59PZUS/ARcokQ==
   dependencies:
     babel-code-frame "^6.22.0"
     builtin-modules "^1.1.1"
@@ -13709,10 +13709,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.1.tgz#0b7a04b8cf3868188de914d9568bd030f0c56192"
-  integrity sha512-jw7P2z/h6aPT4AENXDGjcfHTu5CSqzsbZc6YlUIebTyBAq8XaKp78x7VcSh30xwSCcsu5irZkYZUSFP1MrAMbg==
+typescript@3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.2.tgz#fe8101c46aa123f8353523ebdcf5730c2ae493e5"
+  integrity sha512-VCj5UiSyHBjwfYacmDuc/NOk4QQixbE+Wn7MFJuS0nRuPQbof132Pw4u53dm264O8LPc2MVsc7RJNml5szurkg==
 
 typescript@next:
   version "3.3.0-dev.20181201"
