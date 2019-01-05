@@ -4986,7 +4986,7 @@ dotenv@^1.2.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-1.2.0.tgz#7cd73e16e07f057c8072147a5bc3a8677f0ab5c6"
   integrity sha1-fNc+FuB/BXyAchR6W8OoZ38KtcY=
 
-dtslint@^0.4.1:
+dtslint@0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/dtslint/-/dtslint-0.4.1.tgz#006031921ee1600b2f692dd57418c28e62cc2ee7"
   integrity sha512-w6vQ4wGkClt9S+wiqk9+D8LpzZpJj5Gu1Vq5uLzvnIh6jfayIM1gjmArn9m5YtekU3EraLKhTzW+Pcw0DbxwTQ==
@@ -13708,7 +13708,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.1.6:
+typescript@3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.2.1.tgz#0b7a04b8cf3868188de914d9568bd030f0c56192"
   integrity sha512-jw7P2z/h6aPT4AENXDGjcfHTu5CSqzsbZc6YlUIebTyBAq8XaKp78x7VcSh30xwSCcsu5irZkYZUSFP1MrAMbg==
