@@ -14,6 +14,11 @@ bower.json
 ember-cli-build.js
 testem.js
 
+# extraneous types
+/types
+# these are moved to the root in prepack
+/published-types
+
 # ember-try
 .node_modules.ember-try/
 bower.json.ember-try
