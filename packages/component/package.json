@@ -6,7 +6,6 @@
     "ember-addon"
   ],
   "license": "MIT",
-  "types": "published-types/index.d.ts",
   "author": "",
   "directories": {
     "doc": "doc",
@@ -20,7 +19,9 @@
     "build": "ember build",
     "start": "echo \"Run serve in the main ember-decorators package\" && false",
     "test": "echo \"Run tests in the main ember-decorators package\" && false",
-    "dtslint": "dtslint published-types"
+    "dtslint": "dtslint published-types",
+    "prepack": "mv ./published-types/*.d.ts ./",
+    "postpack": "mv ./*.d.ts ./published-types/"
   },
   "dependencies": {
     "@ember-decorators/utils": "^4.0.0",
