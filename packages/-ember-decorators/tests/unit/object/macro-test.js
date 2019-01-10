@@ -1,10 +1,9 @@
 import { DEBUG } from '@glimmer/env';
 
-import { get, set, computed } from '@ember/object';
+import EmberObject, { get, set } from '@ember/object';
 import { A as emberA } from '@ember/array';
 
 import {
-  macro,
   alias,
   and,
   bool,
@@ -27,9 +26,10 @@ import {
   none,
   not,
   notEmpty,
+  oneWay,
   or,
-  overridableReads,
   reads,
+  readOnly,
   setDiff,
   sort,
   sum,
@@ -37,48 +37,10 @@ import {
   uniq,
   uniqBy
 } from '@ember-decorators/object/computed';
-import { readOnly as readOnlyModifier } from '@ember-decorators/object';
+
 import { module, test } from 'qunit';
 
 module('macros', function() {
-
-  test('@macro', function (assert) {
-    // computed macro that returns the provided arguments as an array
-    const passthroughMacro = (...args) => computed(() => args);
-    const passthroughMacroWithoutArgs = macro(passthroughMacro);
-    const passthroughMacroWithArgs = macro(passthroughMacro, 'a', 'b');
-
-    class Foo {
-      @passthroughMacroWithoutArgs noArgs;
-      @passthroughMacroWithoutArgs('a', 'b') argsOnDecorator;
-      @passthroughMacroWithArgs argsOnMacro;
-      @passthroughMacroWithArgs('c', 'd') argsOnBoth;
-    }
-
-    const obj = new Foo();
-
-    assert.deepEqual(
-      get(obj, 'noArgs'),
-      [],
-      'invocation without arguments: @myMacro prop;'
-    );
-    assert.deepEqual(
-      get(obj, 'argsOnDecorator'),
-      ['a', 'b'],
-      'invocation with arguments passed to decorator: @myMacro(a, b) prop;'
-    );
-    assert.deepEqual(
-      get(obj, 'argsOnMacro'),
-      ['a', 'b'],
-      'invocation with arguments on macro (partial application): const myMacro = macro(macroFn, a, b);'
-    );
-    assert.deepEqual(
-      get(obj, 'argsOnBoth'),
-      ['a', 'b', 'c', 'd'],
-      'invocation with arguments on both'
-    );
-  });
-
   test('@alias', function(assert) {
     class Foo {
       constructor() {
@@ -485,6 +447,23 @@ module('macros', function() {
     assert.equal(get(obj, 'isNamesEmpty'), false);
   });
 
+  test('@oneWay', function(assert) {
+    class Foo {
+      constructor() {
+        this.names = 'Tom';
+        this.nick = 'Tomster';
+      }
+      @oneWay('nick') nickName;
+    }
+
+    let obj = new Foo();
+
+    assert.equal(get(obj, 'nickName'), 'Tomster');
+    set(obj, 'nickName', 'Honeybadger');
+    assert.equal(get(obj, 'nickName'), 'Honeybadger');
+    assert.equal(get(obj, 'nick'), 'Tomster');
+  });
+
   test('@or', function(assert) {
     class Foo {
       constructor() {
@@ -501,13 +480,13 @@ module('macros', function() {
     assert.equal(get(obj, 'orValue'), 'rad');
   });
 
-  test('@overridableReads', function(assert) {
+  test('@reads', function(assert) {
     class Foo {
       constructor() {
         this.names = 'Tom';
         this.nick = 'Tomster';
       }
-      @overridableReads('nick') nickName;
+      @reads('nick') nickName;
     }
 
     let obj = new Foo();
@@ -518,13 +497,13 @@ module('macros', function() {
     assert.equal(get(obj, 'nick'), 'Tomster');
   });
 
-  test('@reads', function(assert) {
+  test('@readOnly', function(assert) {
     class Foo {
       constructor() {
         this.names = 'Tom';
         this.nick = 'Tomster';
       }
-      @reads('nick') nickName;
+      @readOnly('nick') nickName;
     }
 
     let obj = new Foo();
@@ -691,13 +670,12 @@ module('macros', function() {
     );
   });
 
-  test('@readOnly modifier', function(assert) {
+  test('readOnly modifier', function(assert) {
     class Foo {
       constructor() {
         this.userName = 'Brohuda';
       }
-      @readOnlyModifier
-      @alias('userName') finalName;
+      @(alias('userName').readOnly()) finalName;
     }
 
     let obj = new Foo();
@@ -714,29 +692,21 @@ module('macros', function() {
     assert.equal(get(obj, 'finalName'), 'Brohuda');
   });
 
-  test('@readOnly modifier can be applied in an order', function(assert) {
-    class Foo {
-      constructor() {
-        this.userName = 'Brohuda';
-      }
-
-      @alias('userName')
-      @readOnlyModifier
-      finalName;
-    }
-
-    let obj = new Foo();
-
-    assert.equal(get(obj, 'finalName'), 'Brohuda');
-    assert.throws(
-      () => {
-        set(obj, 'finalName', 'Brotom');
+  test('macros can be used with classic classes', function(assert) {
+    const Foo = EmberObject.extend({
+      init() {
+        this.friend = 'Guy';
       },
-      /Cannot set read-only property ['"]finalName['"] on object/,
-      'error message thrown when trying to set readOnly property'
-    );
 
-    assert.equal(get(obj, 'finalName'), 'Brohuda');
+      buddy: alias('friend')
+    });
+
+    let obj = Foo.create();
+
+    assert.equal(get(obj, 'buddy'), 'Guy');
+
+    set(obj, 'buddy', 'Pal')
+    assert.equal(get(obj, 'friend'), 'Pal');
   });
 
   if (DEBUG) {

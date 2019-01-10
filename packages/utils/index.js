@@ -111,7 +111,7 @@ function checkAddonsForStage1(project, addonOrProject) {
   return false;
 }
 
-function setupBabelPlugins(project, addon, options) {
+function setupBabelPlugins(project, addon) {
   addon.options = addon.options || {};
   addon.options.babel = addon.options.babel || {};
 
@@ -119,10 +119,6 @@ function setupBabelPlugins(project, addon, options) {
 
   // If the plugin is already configure, skip.
   if (plugins.some(p => Array.isArray(p) && p[2] === PLUGIN_NAME)) return;
-
-  let shouldThrowOnComputedOverride =
-    process.env.EMBER_DECORATORS_THROW_ON_COMPUTED_OVERRIDE === 'true' ||
-    options.shouldThrowOnComputedOverride;
 
   let needsStage1Decorators =
     process.env.EMBER_DECORATORS_NEEDS_STAGE_1_DECORATORS === 'true' ||
@@ -139,7 +135,6 @@ function setupBabelPlugins(project, addon, options) {
         name: 'ember-decorators-flags',
         source: 'ember-decorators-flags',
         flags: {
-          THROW_ON_COMPUTED_OVERRIDE: shouldThrowOnComputedOverride,
           NEEDS_STAGE_1_DECORATORS: needsStage1Decorators,
         },
       }
@@ -156,9 +151,7 @@ module.exports = {
     this._super.included.apply(this, arguments);
 
     let host = this._findHost();
-    let hostOptions = (host.options && host.options['@ember-decorators']) || {
-      shouldThrowOnComputedOverride: false,
-    };
+    let hostOptions = (host.options && host.options['@ember-decorators']) || {};
 
     setupBabelPlugins(this.project, this, hostOptions);
     setupBabelPlugins(this.project, includer, hostOptions);

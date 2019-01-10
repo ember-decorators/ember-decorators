@@ -17,6 +17,6 @@ import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
   @param {string} serviceName? - The name of the service to inject. If not provided, the property name will be used
   @return {Service}
 */
-export const service = computedDecoratorWithParams(({ key }, params) => {
-  return params.length > 0 ? injectService(...params) : injectService(key);
+export const service = computedDecoratorWithParams((desc, params) => {
+  return injectService.apply(this, params);
 });

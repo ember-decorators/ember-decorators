@@ -1,14 +1,12 @@
 import { DEBUG } from '@glimmer/env';
-import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
 
 import { module, test } from 'ember-qunit';
 
-import { get, set, setProperties } from '@ember/object';
-import { computed, readOnly, volatile, observes } from '@ember-decorators/object';
+import EmberObject, { get, set, setProperties } from '@ember/object';
+import { computed, observes } from '@ember-decorators/object';
 
 
 module('@computed', function() {
-
   test('it works', function(assert) {
     assert.expect(2);
 
@@ -25,6 +23,63 @@ module('@computed', function() {
 
     let obj = new Foo();
     get(obj, 'fullName');
+  });
+
+  test('it works with functions', function(assert) {
+    assert.expect(2);
+
+    class Foo {
+      first = 'rob';
+      last = 'jackson';
+
+      @computed('first', 'last', function() {
+        assert.equal(this.first, 'rob');
+        assert.equal(this.last, 'jackson');
+      }) fullName;
+    }
+
+    let obj = new Foo();
+    get(obj, 'fullName');
+  });
+
+  test('it works with computed desc', function(assert) {
+    assert.expect(4);
+
+    let expectedName = 'rob jackson';
+    let expectedFirst = 'rob';
+    let expectedLast = 'jackson';
+
+    class Foo {
+      first = 'rob';
+      last = 'jackson';
+
+      @computed('first', 'last', {
+        get() {
+          assert.equal(this.first, expectedFirst, 'getter: first name matches');
+          assert.equal(this.last, expectedLast, 'getter: last name matches');
+          return `${this.first} ${this.last}`;
+        },
+
+        set(key, name) {
+          assert.equal(name, expectedName, 'setter: name matches');
+
+          const [first, last] = name.split(' ');
+          setProperties(this, { first, last });
+
+          return name;
+        }
+      }) fullName;
+    }
+
+    let obj = new Foo();
+    get(obj, 'fullName');
+
+    expectedName = 'yehuda katz';
+    expectedFirst = 'yehuda';
+    expectedLast = 'katz';
+    set(obj, 'fullName', 'yehuda katz');
+
+    assert.strictEqual(get(obj, 'fullName'), expectedName, 'return value of getter is new value of property');
   });
 
   test('works with getter and setter', function(assert) {
@@ -56,6 +111,63 @@ module('@computed', function() {
     }
 
     let obj = new Foo();
+    get(obj, 'fullName');
+
+    expectedName = 'yehuda katz';
+    expectedFirst = 'yehuda';
+    expectedLast = 'katz';
+    set(obj, 'fullName', 'yehuda katz');
+
+    assert.strictEqual(get(obj, 'fullName'), expectedName, 'return value of getter is new value of property');
+  });
+
+  test('it works with classic classes', function(assert) {
+    assert.expect(2);
+
+    const Foo = EmberObject.extend({
+      first: 'rob',
+      last: 'jackson',
+
+      fullName: computed('first', 'last', function() {
+        assert.equal(this.first, 'rob');
+        assert.equal(this.last, 'jackson');
+      })
+    });
+
+    let obj = Foo.create();
+    get(obj, 'fullName');
+  });
+
+  test('it works with classic classes with full desc', function(assert) {
+    assert.expect(4);
+
+    let expectedName = 'rob jackson';
+    let expectedFirst = 'rob';
+    let expectedLast = 'jackson';
+
+    const Foo = EmberObject.extend({
+      first: 'rob',
+      last: 'jackson',
+
+      fullName: computed('first', 'last', {
+        get() {
+          assert.equal(this.first, expectedFirst, 'getter: first name matches');
+          assert.equal(this.last, expectedLast, 'getter: last name matches');
+          return `${this.first} ${this.last}`;
+        },
+
+        set(key, name) {
+          assert.equal(name, expectedName, 'setter: name matches');
+
+          const [first, last] = name.split(' ');
+          setProperties(this, { first, last });
+
+          return name;
+        }
+      })
+    });
+
+    let obj = Foo.create();
     get(obj, 'fullName');
 
     expectedName = 'yehuda katz';
@@ -191,20 +303,7 @@ module('@computed', function() {
 
           new Foo();
         },
-        /Attempted to apply @computed to fullName, but it is not a native accessor function/
-      );
-    });
-
-    test('throws if a setter was defined without a getter', function(assert) {
-      assert.throws(
-        () => {
-          // eslint-disable-next-line
-          class Foo {
-            @computed
-            set fullName(name) {}
-          }
-        },
-        /Using @computed for only a setter does not make sense\. Add a getter for 'fullName' as well or remove the @computed decorator./
+        /@computed can only be used on accessors or fields, attempted to use it with fullName but that was a method. Try converting it to a getter/
       );
     });
 
@@ -224,29 +323,6 @@ module('@computed', function() {
         /ES6 property getters\/setters only need to be decorated once, 'fullName' was decorated on both the getter and the setter/
       );
     });
-
-    if (THROW_ON_COMPUTED_OVERRIDE) {
-      test('it throws if user attempts to override the computed', function(assert) {
-        assert.throws(
-          () => {
-            class Foo {
-              first = 'rob';
-              last = 'jackson';
-
-              @computed('first', 'last')
-              get name() {
-                return `${this.first} ${this.last}`;
-              }
-            }
-
-            let foo = new Foo();
-
-            set(foo, 'name', 'bar');
-          },
-          /Assertion Failed: Attempted to set name, but it does not have a setter. Overriding a computed property without a setter has been deprecated./
-        );
-      });
-    }
   }
 
   module('modifiers', function() {
@@ -255,8 +331,7 @@ module('@computed', function() {
       class Foo {
         _count = 0;
 
-        @volatile
-        @computed('first')
+        @(computed('first').volatile())
         get counter() {
           return this._count++;
         }
@@ -277,113 +352,76 @@ module('@computed', function() {
       set(obj, 'counter', 2);
     });
 
-    test('volatile can be applied in any order', (assert) => {
-      assert.expect(2);
+    test('readOnly', function(assert) {
       class Foo {
-        _count = 0;
+        first = 'rob';
+        last = 'jackson';
 
-        @computed('first')
-        @volatile
-        get counter() {
-          return this._count++;
-        }
-          set counter(value) {
-          this._count = value;
-        }
-
-        @observes('counter')
-        countObserver() {
-          assert.ok(false, 'observer called')
+        @(computed('first', 'last').readOnly())
+        get name() {
+          return `${this.first} ${this.last}`;
         }
       }
 
       let obj = new Foo();
-      assert.equal(get(obj, 'counter'), 0, 'getter works');
-      assert.equal(get(obj, 'counter'), 1, 'getter called each time');
 
-      set(obj, 'counter', 2);
+      assert.throws(() => {
+        set(obj, 'name', 'al');
+      }, /Cannot set read-only property "name" on object:/);
     });
 
-    if (DEBUG && THROW_ON_COMPUTED_OVERRIDE) {
-      test('readOnly', function(assert) {
-        assert.throws(() => {
-          class Foo {
-            first = 'rob';
-            last = 'jackson';
+    test('property', function(assert) {
+      class Foo {
+        first = 'rob';
+        last = 'jackson';
 
-            @readOnly
-            @computed('first', 'last')
-            get name() {
-              return `${this.first} ${this.last}`;
-            }
-          }
-
-          let obj = new Foo();
-
-          set(obj, 'name', 'al');
-        }, /Computed properties that define a setter using the new syntax cannot be read-only/);
-      });
-    } else {
-      test('readOnly', function(assert) {
-        class Foo {
-          first = 'rob';
-          last = 'jackson';
-
-          @readOnly
-          @computed('first', 'last')
-          get name() {
-            return `${this.first} ${this.last}`;
-          }
+        @(computed().property('first', 'last'))
+        get name() {
+          return `${this.first} ${this.last}`;
         }
-
-        let obj = new Foo();
-
-        assert.throws(() => {
-          set(obj, 'name', 'al');
-        }, /Cannot set read-only property "name" on object:/);
-      });
-
-      test('readOnly can be applied in any order', function(assert) {
-        class Foo {
-          first = 'rob';
-          last = 'jackson';
-
-          @computed('first', 'last')
-          @readOnly
-          get name() {
-            return `${this.first} ${this.last}`;
-          }
-        }
-
-        let obj = new Foo();
-
-        assert.throws(() => {
-          set(obj, 'name', 'al');
-        }, /Cannot set read-only property "name" on object:/);
-      });
-
-      if (DEBUG) {
-        test('volatile and readOnly cannot be applied together', (assert) => {
-          assert.throws(() => {
-            class Foo {
-              first = 'rob';
-              last = 'jackson';
-
-              @volatile
-              @computed('first', 'last')
-              @readOnly
-              get name() {
-                return `${this.first} ${this.last}`;
-              }
-            }
-
-            let obj = new Foo();
-
-            set(obj, 'name', 'al');
-          }, /A computed property cannot be both readOnly and volatile. Use a native getter instead/);
-        });
       }
-    }
+
+      let obj = new Foo();
+
+      set(obj, 'first', 'al');
+
+      assert.equal(get(obj, 'name'), 'al jackson');
+    });
+
+    test('can be chained', (assert) => {
+      assert.throws(() => {
+        class Foo {
+          first = 'rob';
+          last = 'jackson';
+
+          @(computed('first').volatile().readOnly().property('last'))
+          get name() {
+            return `${this.first} ${this.last}`;
+          }
+        }
+
+        let obj = new Foo();
+
+        set(obj, 'name', 'al');
+      }, /Cannot set read-only property "name" on object:/);
+    });
+
+    test('work on classic classes', (assert) => {
+      assert.throws(() => {
+        const Foo = EmberObject.extend({
+          first: 'rob',
+          last: 'jackson',
+
+          name: computed('first', function() {
+            return `${this.first} ${this.last}`;
+          }).volatile().readOnly().property('last')
+        });
+
+        let obj = new Foo();
+
+        set(obj, 'name', 'al');
+      }, /Cannot set read-only property "name" on object:/);
+    });
   });
 });
 
