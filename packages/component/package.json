@@ -30,9 +30,9 @@
   "devDependencies": {
     "@ember-decorators/babel-transforms": "^4.0.1",
     "@ember-decorators/object": "^4.0.1",
-    "@types/ember": "^3.0.25",
-    "@types/ember-testing-helpers": "^0.0.3",
-    "@types/rsvp": "^4.0.1",
+    "@types/ember": "3.0.26",
+    "@types/ember-testing-helpers": "0.0.3",
+    "@types/rsvp": "4.0.2",
     "broccoli-asset-rev": "^3.0.0",
     "dtslint": "0.4.2",
     "ember-ajax": "^4.0.0",
