@@ -25,6 +25,9 @@
     "eslint-plugin-node": "^8.0.0",
     "lerna": "^3.0.0"
   },
+  "resolutions": {
+    "**/tough-cookie": "~2.4.0"
+  },
   "engines": {
     "node": "6.* || >= 7.*"
   }
