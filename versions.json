@@ -75,12 +75,6 @@
     "sha": "611fa24f6c64addcb57b90f0f9fcddb9a2a2235a",
     "tag": "v4.0.0"
   },
-  "master": {
-    "path": "versions/master",
-    "name": "master",
-    "sha": "9d571821cdd1e9f1908f8272acd53160d511d8ca",
-    "tag": null
-  },
   "v3.1.0": {
     "path": "versions/master",
     "name": "v3.1.0",
