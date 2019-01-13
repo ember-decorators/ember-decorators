@@ -45,6 +45,38 @@ test('basic test', function(assert) {
   ]);
 });
 
+test('works with classic classes', function(assert) {
+  const User = Model.extend({
+    firstName: attr(),
+    lastName: attr({ defaultTo: 'blue' }),
+    age: attr('number'),
+    cars: hasMany({ async: true }),
+    parent: belongsTo({ async: true }),
+  });
+
+  let attributes = [];
+  User.eachAttribute((attr, meta) => {
+    attributes.push({name: attr, type: meta.type});
+  });
+
+  assert.deepEqual(attributes, [
+    {name: 'firstName', type: undefined},
+    {name: 'lastName',  type: undefined},
+    {name: 'age',       type: 'number'}
+  ], 'user attributes are correct');
+
+  let relationships = [];
+  User.eachRelationship((attr, meta) => {
+    relationships.push({key: attr, type: meta.type});
+  });
+
+  assert.deepEqual(relationships, [
+    {key: 'cars', type: 'car'},
+    {key: 'parent', type: 'parent'}
+  ]);
+});
+
+
 test('User class with dasherized type', function(assert) {
   class MyUser extends Model {
     @hasMany({ async: true }) blogPosts;
