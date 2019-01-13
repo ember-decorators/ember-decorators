@@ -129,30 +129,21 @@ function setupBabelPlugins(project, addon, options) {
     checkNeedsStage1Decorators(project);
 
   let pluginOptions = {
-    envFlags: {
-      source: 'ember-decorators-flags',
-      flags: {
-        DEBUG: false,
-      },
-    },
-
-    features: {
-      name: 'ember-decorators-flags',
-      source: 'ember-decorators-flags',
-      flags: {
-        THROW_ON_COMPUTED_OVERRIDE: shouldThrowOnComputedOverride,
-        NEEDS_STAGE_1_DECORATORS: needsStage1Decorators,
-      },
-    },
-
-    externalizeHelpers: {
-      global: 'Ember',
-    },
-
     debugTools: {
+      isDebug: false,
       source: 'ember-decorators-flags',
-      assertPredicateIndex: 1,
     },
+
+    flags: [
+      {
+        name: 'ember-decorators-flags',
+        source: 'ember-decorators-flags',
+        flags: {
+          THROW_ON_COMPUTED_OVERRIDE: shouldThrowOnComputedOverride,
+          NEEDS_STAGE_1_DECORATORS: needsStage1Decorators,
+        },
+      }
+    ]
   };
 
   plugins.push([require.resolve('babel-plugin-debug-macros'), pluginOptions, PLUGIN_NAME]);
