@@ -33,6 +33,15 @@ const BINDINGS_MAP = new WeakMap();
   <button onclick={{action "foo"}}>Execute foo action</button>
   ```
 
+  Also binds the function directly to the instance, so it can be used in any
+  context:
+
+  ```hbs
+  <!-- template.hbs -->
+  <button onclick={{this.foo}}>Execute foo action</button>
+  ```
+
+  @function
   @return {Function}
 */
 export const action = decorator(desc => {
@@ -93,15 +102,12 @@ export const action = decorator(desc => {
   import { computed } from '@ember-decorators/object';
 
   export default class UserProfileComponent extends Component {
-    first = 'John';
-    last = 'Smith';
+    first = 'Bruce';
+    last = 'Wayne';
 
     @computed('first', 'last')
     get name() {
-      const first = this.get('first');
-      const last = this.get('last');
-
-      return `${first} ${last}`; // => 'John Smith'
+      return `${this.first} ${this.last}`; // => 'Bruce Wayne'
     }
 
     set name(value) {
@@ -111,9 +117,36 @@ export const action = decorator(desc => {
 
       const [first, last] = value.split(' ');
       this.setProperties({ first, last });
+    }
+  }
+  ```
+
+  Can also be optionally passed a computed property descriptor (e.g. a function
+  or an object with `get` and `set` functions on it):
+
+  ```js
+  let fullNameComputed = computed('firstName', 'lastName', {
+    get() {
+      return `${this.first} ${this.last}`; // => 'Diana Prince'
+    },
+
+    set(key, value) {
+      if (typeof value !== 'string' || !value.test(/^[a-z]+ [a-z]+$/i)) {
+        throw new TypeError('Invalid name');
+      }
+
+      const [first, last] = value.split(' ');
+      this.setProperties({ first, last });
 
       return value;
     }
+  })
+
+  export default class UserProfileComponent extends Component {
+    first = 'Diana';
+    last = 'Prince';
+
+    @fullNameComputed fullName;
   }
   ```
 

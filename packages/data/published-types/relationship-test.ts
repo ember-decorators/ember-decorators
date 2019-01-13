@@ -6,14 +6,26 @@ class Person extends Model {
   @hasMany('book')
   publishedBooks!: Book[];
   myBooks!: Book[];
-  @hasMany books!: Book[];
+
+  @hasMany books!: Book;
 }
 
 class Book extends Model {
   @attr title!: string;
-  @belongsTo('person') author!: Person[];
-  @belongsTo('person', { async: false }) author2!: Person[];
+  @belongsTo('person') author!: Person;
+  @belongsTo('person', { async: false }) author2!: Person;
   myAuthor!: Person[];
 
-  @belongsTo person!: Person[];
+  @belongsTo person!: Person;
 }
+
+const ClassicPerson = Model.extend({
+  name: attr(),
+  publishedBooks: hasMany('classic-book'),
+});
+
+const ClassicBook = Model.extend({
+  title: attr(),
+  author: belongsTo('classic-person'),
+  author2: belongsTo('person', { async: false }),
+});

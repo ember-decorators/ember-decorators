@@ -1,3 +1,7 @@
+import ComputedProperty from '@ember/object/computed';
+
+type ComputedDecorator<Get, Set = Get> = ComputedProperty<Get, Set> & PropertyDecorator;
+
 /**
  * Decorator that wraps [Ember.computed.alias](http://emberjs.com/api/classes/Ember.computed.html#method_alias)
  *
@@ -21,7 +25,7 @@
  * @function
  * @param {String} dependentKey - Key for the aliased property
  */
-export function alias(dependentKey: string): PropertyDecorator;
+export function alias(dependentKey: string): ComputedDecorator<any>;
 /**
  * Decorator that wraps [Ember.computed.and](http://emberjs.com/api/classes/Ember.computed.html#method_and)
  *
@@ -44,7 +48,7 @@ export function alias(dependentKey: string): PropertyDecorator;
  * @function
  * @param {...String} dependentKeys - Keys for properties to `and`
  */
-export function and(...dependentKeys: string[]): PropertyDecorator;
+export function and(...dependentKeys: string[]): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.bool](http://emberjs.com/api/classes/Ember.computed.html#method_bool)
  *
@@ -65,7 +69,7 @@ export function and(...dependentKeys: string[]): PropertyDecorator;
  * @function
  * @param {String} dependentKey - Key for the property to convert
  */
-export function bool(dependentKey: string): PropertyDecorator;
+export function bool(dependentKey: string): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.collect](http://emberjs.com/api/classes/Ember.computed.html#method_collect)
  *
@@ -87,7 +91,7 @@ export function bool(dependentKey: string): PropertyDecorator;
  * @function
  * @param {...String} dependentKeys - Keys for the properties to collect
  */
-export function collect(...dependentKeys: string[]): PropertyDecorator;
+export function collect(...dependentKeys: string[]): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.deprecatingAlias](http://emberjs.com/api/classes/Ember.computed.html#method_deprecatingAlias)
  *
@@ -116,7 +120,7 @@ export function collect(...dependentKeys: string[]): PropertyDecorator;
  * @param {String} dependentKey - Key for the property to alias
  * @param {Object} options
  */
-export function deprecatingAlias(dependentKey: string): PropertyDecorator;
+export function deprecatingAlias(dependentKey: string): ComputedDecorator<any>;
 /**
  * Decorator that wraps [Ember.computed.empty](http://emberjs.com/api/classes/Ember.computed.html#method_empty)
  *
@@ -138,7 +142,7 @@ export function deprecatingAlias(dependentKey: string): PropertyDecorator;
  * @function
  * @param {String} dependentKey - Key of the property to check emptiness of
  */
-export function empty(dependentKey: string): PropertyDecorator;
+export function empty(dependentKey: string): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.equal](http://emberjs.com/api/classes/Ember.computed.html#method_equal)
  *
@@ -159,7 +163,7 @@ export function empty(dependentKey: string): PropertyDecorator;
  * @param {String} dependentKey - Key for the property to check
  * @param {Any} value - Value to compare the dependent property to
  */
-export function equal(dependentKey: string, value: any): PropertyDecorator;
+export function equal(dependentKey: string, value: any): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.filter](http://emberjs.com/api/classes/Ember.computed.html#method_filter)
  *
@@ -197,7 +201,7 @@ export function equal(dependentKey: string, value: any): PropertyDecorator;
 export function filter<T>(
   dependentKey: string,
   callback?: (item: T, index: number, array: T[]) => boolean
-): PropertyDecorator;
+): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.filterBy](http://emberjs.com/api/classes/Ember.computed.html#method_filterBy)
  *
@@ -228,7 +232,7 @@ export function filterBy<T>(
   dependentKey: string,
   propertyKey: string,
   value?: T
-): PropertyDecorator;
+): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.gt](http://emberjs.com/api/classes/Ember.computed.html#method_gt)
  *
@@ -250,7 +254,7 @@ export function filterBy<T>(
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export function gt(dependentKey: string, value: number): PropertyDecorator;
+export function gt(dependentKey: string, value: number): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.gte](http://emberjs.com/api/classes/Ember.computed.html#method_gte)
  *
@@ -272,7 +276,7 @@ export function gt(dependentKey: string, value: number): PropertyDecorator;
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export function gte(dependentKey: string, value: Number): PropertyDecorator;
+export function gte(dependentKey: string, value: Number): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.intersect](http://emberjs.com/api/classes/Ember.computed.html#method_intersect)
  *
@@ -295,7 +299,7 @@ export function gte(dependentKey: string, value: Number): PropertyDecorator;
  * @function
  * @param {...String} dependentKeys - Keys of the arrays to intersect
  */
-export function intersect(...dependentKeys: string[]): PropertyDecorator;
+export function intersect(...dependentKeys: string[]): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.lt](http://emberjs.com/api/classes/Ember.computed.html#method_lt)
  *
@@ -317,7 +321,7 @@ export function intersect(...dependentKeys: string[]): PropertyDecorator;
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export function lt(dependentKey: string, value: Number): PropertyDecorator;
+export function lt(dependentKey: string, value: Number): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.lte](http://emberjs.com/api/classes/Ember.computed.html#method_lte)
  *
@@ -339,71 +343,7 @@ export function lt(dependentKey: string, value: Number): PropertyDecorator;
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export function lte(dependentKey: string, value: Number): PropertyDecorator;
-/**
-  Creates a new decorator from a computed macro function. For instance, you can
-  use this utility function to create decorators from the macros provided by
-  addons such as [ember-awesome-macros](https://github.com/kellyselden/ember-awesome-macros).
-
-  ```js
-  import { macro } from '@ember-decorators/object/computed';
-  import firstMacro from 'ember-awesome-macros/array/first';
-
-  const first = macro(firstMacro);
-
-  export default class LeaderBoardComponent extends Component {
-    ranking = ['Natalie', 'Emma', 'Thomas'];
-
-    @first('ranking') winner; // => 'Natalie'
-
-  }
-  ```
-
-  You can also make use of [partial application](http://2ality.com/2011/09/currying-vs-part-eval.html)
-  of arguments:
-
-  ```js
-  import { macro } from '@ember-decorators/object/computed';
-  import { computed } from '@ember/object';
-
-  const titleGeneratorMacro = (prefix, titleKey) => computed(function() {
-    return `${prefix}: ${String(get(this, titleKey)).toUpperCase()}!`;
-  });
-
-  const newsFlash = macro(titleGeneratorMacro, 'News Flash');
-
-  export default class NewsPaperComponent extends Component {
-    title = 'Ember chosen best framework of the year again';
-
-    @newsFlash('title') attentionGrabber; // => 'News Flash: EMBER CHOSEN BEST FRAMEWORK OF THE YEAR AGAIN!'
-  }
-  ```
-
-  @param {function} fn - The macro function to create a decorator from
-  @param {...any} params - Parameters to be partially applied to the macro fn
-  @return {PropertyDecorator}
- */
-export function macro<TResult>(fn: () => TResult): PropertyDecorator;
-export function macro<T1, TResult>(fn: (a: T1) => TResult): (a: T1) => PropertyDecorator;
-export function macro<T1, TResult>(fn: (a: T1) => TResult, a: T1): PropertyDecorator;
-export function macro<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): (a: T1, b: T2) => PropertyDecorator;
-export function macro<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult, a: T1): (b: T2) => PropertyDecorator;
-export function macro<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult, a: T1, b: T2): PropertyDecorator;
-export function macro<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): (a: T1, b: T2, c: T3) => PropertyDecorator;
-export function macro<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult, a: T1): (b: T2, c: T3) => PropertyDecorator;
-export function macro<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult, a: T1, b: T2): (c: T3) => PropertyDecorator;
-export function macro<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult, a: T1, b: T2, c: T3): PropertyDecorator;
-export function macro<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): (a: T1, b: T2, c: T3, d: T4) => PropertyDecorator;
-export function macro<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult, a: T1): (b: T2, c: T3, d: T4) => PropertyDecorator;
-export function macro<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult, a: T1, b: T2): (c: T3, d: T4) => PropertyDecorator;
-export function macro<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult, a: T1, b: T2, c: T3): (d: T4) => PropertyDecorator;
-export function macro<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult, a: T1, b: T2, c: T3, d: T4): PropertyDecorator;
-export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult): (a: T1, b: T2, c: T3, d: T4, e: T5) => PropertyDecorator;
-export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult, a: T1): (b: T2, c: T3, d: T4, e: T5) => PropertyDecorator;
-export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult, a: T1, b: T2): (c: T3, d: T4, e: T5) => PropertyDecorator;
-export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult, a: T1, b: T2, c: T3): (d: T4, e: T5) => PropertyDecorator;
-export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult, a: T1, b: T2, c: T3, d: T4): (e: T5) => PropertyDecorator;
-export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => TResult, a: T1, b: T2, c: T3, d: T4, e: T5): PropertyDecorator;
+export function lte(dependentKey: string, value: Number): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)
  *
@@ -437,7 +377,7 @@ export function macro<T1, T2, T3, T4, T5, TResult>(fn: (a: T1, b: T2, c: T3, d: 
 export function map<T, U>(
   dependentKey: string,
   callback?: (item: T, index: number) => U
-): PropertyDecorator;
+): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.mapBy](http://emberjs.com/api/classes/Ember.computed.html#method_mapBy)
  *
@@ -466,7 +406,7 @@ export function map<T, U>(
 export function mapBy(
   dependentKey: string,
   propertyKey: string
-): PropertyDecorator;
+): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.match](http://emberjs.com/api/classes/Ember.computed.html#method_match)
  *
@@ -489,7 +429,7 @@ export function mapBy(
  * @param {String} dependentKey - The property to match
  * @param {RegExp} pattern - The pattern to match against
  */
-export function match(dependentKey: string, pattern: RegExp): PropertyDecorator;
+export function match(dependentKey: string, pattern: RegExp): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.max](http://emberjs.com/api/classes/Ember.computed.html#method_max)
  *
@@ -511,7 +451,7 @@ export function match(dependentKey: string, pattern: RegExp): PropertyDecorator;
  * @function
  * @param {String} dependentKey - Key for the array to find the max value of
  */
-export function max(dependentKey: string): PropertyDecorator;
+export function max(dependentKey: string): ComputedDecorator<number>;
 /**
  * Decorator that wraps [Ember.computed.min](http://emberjs.com/api/classes/Ember.computed.html#method_min)
  *
@@ -533,7 +473,7 @@ export function max(dependentKey: string): PropertyDecorator;
  * @function
  * @param {String} dependentKey - Key for the array to find the max value of
  */
-export function min(dependentKey: string): PropertyDecorator;
+export function min(dependentKey: string): ComputedDecorator<number>;
 /**
  * Decorator that wraps [Ember.computed.none](http://emberjs.com/api/classes/Ember.computed.html#method_none)
  *
@@ -555,7 +495,7 @@ export function min(dependentKey: string): PropertyDecorator;
  * @function
  * @param {String} dependentKey - Key for the property to check
  */
-export function none(dependentKey: string): PropertyDecorator;
+export function none(dependentKey: string): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.not](http://emberjs.com/api/classes/Ember.computed.html#method_not)
  *
@@ -576,7 +516,7 @@ export function none(dependentKey: string): PropertyDecorator;
  * @function
  * @param {String} dependentKey - Key for the property to `not`
  */
-export function not(dependentKey: string): PropertyDecorator;
+export function not(dependentKey: string): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.notEmpty](http://emberjs.com/api/classes/Ember.computed.html#method_notEmpty)
  *
@@ -598,7 +538,29 @@ export function not(dependentKey: string): PropertyDecorator;
  * @function
  * @param {String} dependentKey - Key for the property to check
  */
-export function notEmpty(dependentKey: string): PropertyDecorator;
+export function notEmpty(dependentKey: string): ComputedDecorator<boolean>;
+/**
+ * Where `@alias` aliases `get` and `set`, and allows for bidirectional
+ * data flow, `@oneWay` only provides an aliased `get`. Setting the
+ * property removes the alias and causes it to be overridden entirely. This means
+ * that the property will not update any longer once it has been set once, making
+ * it a one way trap.
+ *
+ * Equivalent to the Ember [oneWay](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/reads) macro
+ *
+ * ```js
+ * export default class UserProfileComponent extends Component {
+  *   firstName = 'Joe';
+  *
+  *   @oneWay('firstName') originalName; // 'Joe'
+  * }
+  * ```
+  *
+  * @function
+  * @param {string} dependentKey - Key for the property to alias
+  * @return {any}
+ */
+ export function oneWay(dependentKey: string): ComputedDecorator<any>;
 /**
  * Decorator that wraps [Ember.computed.or](http://emberjs.com/api/classes/Ember.computed.html#method_or)
  *
@@ -620,22 +582,21 @@ export function notEmpty(dependentKey: string): PropertyDecorator;
  * @function
  * @param {...String} dependentKey - Key for the properties to `or`
  */
-export function or(...dependentKeys: string[]): PropertyDecorator;
+export function or(...dependentKeys: string[]): ComputedDecorator<boolean>;
 /**
  * Where `@alias` aliases `get` and `set`, and allows for bidirectional
- * data flow, `@overrideableReads` only provides an aliased `get`. Setting the
+ * data flow, `@reads` only provides an aliased `get`. Setting the
  * property removes the alias and causes it to be overridden entirely. This means
  * that the property will not update any longer once it has been set once, making
  * it a one way trap.
  *
- * Equivalent to the Ember [oneWay](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/oneWay)
- * and Ember [reads](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/reads) macros
+ * Equivalent to the Ember [reads](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/reads) macro
  *
  * ```js
  * export default class UserProfileComponent extends Component {
  *   firstName = 'Joe';
  *
- *   @overridableReads('firstName') originalName; // 'Joe'
+ *   @reads('firstName') originalName; // 'Joe'
  * }
  * ```
  *
@@ -643,33 +604,26 @@ export function or(...dependentKeys: string[]): PropertyDecorator;
  * @param {string} dependentKey - Key for the property to alias
  * @return {any}
 */
-export function overridableReads(dependentKey: string): PropertyDecorator;
+export function reads(dependentKey: string): ComputedDecorator<any>;
 /**
  * A computed property which creates a one way read-only alias to the original
  * value for property. Where `@alias` aliases `get` and `set`, and
- * `@overridableReads` aliases get but can be overridden when set, `@reads`
+ * `@reads` aliases get but can be overridden when set, `@readOnly`
  * provides a read only one way binding that will throw if a set is attempted.
- * Very often when using `@reads` one wants to explicitly prevent users from ever
+ * Very often when using `@readOnly` one wants to explicitly prevent users from ever
  * setting the property. This prevents the reverse flow, and also throws an
  * exception when it occurs.
  *
  * Equivalent to the Ember [readOnly](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/readOnly) macro.
  *
- * It is very important to note that this is ___not___ the same as
- * `Ember.computed.reads`, which creates an overridable one way alias. The reason
- * `ember-decorators` has chosen to change the name of this computed macro is to
- * avoid conflicting with the `@readOnly` decorator which is used to mark any
- * computed property as read-only. For an equivalent to `Ember.computed.reads`,
- * see `@overridableReads`.
- *
  * ```js
  * export default class UserProfileComponent extends Component {
  *   first = 'Tomster';
  *
- *   @reads('first') firstName;
+ *   @readOnly('first') firstName;
  * }
  */
-export function reads(dependentKey: string): PropertyDecorator;
+export function readOnly(dependentKey: string): ComputedDecorator<any>;
 /**
  * Decorator that wraps [Ember.computed.setDiff](http://emberjs.com/api/classes/Ember.computed.html#method_setDiff)
  *
@@ -696,7 +650,7 @@ export function reads(dependentKey: string): PropertyDecorator;
 export function setDiff(
   setAProperty: string,
   setBProperty: string
-): PropertyDecorator;
+): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.sort](http://emberjs.com/api/classes/Ember.computed.html#method_sort)
  *
@@ -769,7 +723,7 @@ export function setDiff(
 export function sort<T>(
   dependentKey: string,
   sortDefinition: string | ((a: T, b: T) => number)
-): PropertyDecorator;
+): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.sum](http://emberjs.com/api/classes/Ember.computed.html#method_sum)
  *
@@ -791,7 +745,7 @@ export function sort<T>(
  * @function
  * @param {String} dependentKey - Key of the array to sum up
  */
-export function sum(dependentKey: string): PropertyDecorator;
+export function sum(dependentKey: string): ComputedDecorator<number>;
 /**
  * Decorator that wraps [Ember.computed.union](http://emberjs.com/api/classes/Ember.computed.html#method_union)
  *
@@ -813,7 +767,7 @@ export function sum(dependentKey: string): PropertyDecorator;
  * @function
  * @param {...String} dependentKeys - Keys of the arrays to union
  */
-export function union(...dependentKeys: string[]): PropertyDecorator;
+export function union(...dependentKeys: string[]): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.uniq](http://emberjs.com/api/classes/Ember.computed.html#method_uniq)
  *
@@ -835,7 +789,7 @@ export function union(...dependentKeys: string[]): PropertyDecorator;
  * @function
  * @param {String} dependentKey - Key of the array to uniq
  */
-export function uniq(dependentKey: string): PropertyDecorator;
+export function uniq(dependentKey: string): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.uniqBy](http://emberjs.com/api/classes/Ember.computed.html#method_uniqBy)
  *
@@ -872,4 +826,4 @@ export function uniq(dependentKey: string): PropertyDecorator;
 export function uniqBy(
   dependentKey: string,
   propertyKey: string
-): PropertyDecorator;
+): ComputedDecorator<any[]>;

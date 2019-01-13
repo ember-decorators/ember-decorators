@@ -41,7 +41,7 @@ import {
 
 function legacyMacro(fn) {
   return computedDecoratorWithRequiredParams(({ descriptor }, params) => {
-    if (descriptor !== undefined && descriptor.value !== undefined) {
+    if (descriptor !== undefined && typeof descriptor.value === 'function') {
       return fn(...params, descriptor.value);
     }
 

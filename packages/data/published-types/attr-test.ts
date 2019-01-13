@@ -2,7 +2,7 @@ import Model from 'ember-data/model';
 import { attr } from '@ember-decorators/data';
 
 class MyModel1 extends Model {
-  // @attr firstName: null
+  @attr firstName: null
 }
 
 class MyModel2 extends Model {
@@ -16,3 +16,11 @@ class MyModel3 extends Model {
 class MyModel4 extends Model {
   @attr() firstName: null;
 }
+
+class MyModel5 extends Model {
+  @attr({ allowNull: false }) firstName: null;
+}
+
+const MyModel6 = Model.extend({
+  firstName: attr(),
+});
