@@ -42,12 +42,14 @@ including:
 Now you can write Ember using native classes! For example, this:
 
 ```javascript
-import Ember from 'ember';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
 
-export default Ember.Component.extend({
-  foo: Ember.inject.service(),
+export default Component.extend({
+  foo: service(),
 
-  bar: Ember.computed('someKey', 'otherKey', function() {
+  bar: computed('someKey', 'otherKey', function() {
     var someKey = this.get('someKey');
     var otherKey = this.get('otherKey');
 
@@ -60,7 +62,6 @@ export default Ember.Component.extend({
     }
   }
 })
-
 ```
 
 Turns into this:
@@ -68,7 +69,7 @@ Turns into this:
 ```javascript
 import Component from '@ember/component';
 import { action, computed } from '@ember-decorators/object';
-import { service } from '@ember-decorators/service';
+import { inject as service } from '@ember-decorators/service';
 
 export default class ExampleComponent extends Component {
   @service foo
@@ -87,6 +88,34 @@ export default class ExampleComponent extends Component {
 }
 ```
 
+The decorators also work with classic class syntax, so you can safely replace
+any imports in your app for computed properties, Ember Data attributes, or
+injections with the equivalent ember-decorators import and things will continue
+to work, allowing you to convert incrementally:
+
+```javascript
+import Component from '@ember/component';
+import { computed } from '@ember-decorators/object';
+import { inject as service } from '@ember-decorators/service';
+
+export default Component.extend({
+  foo: service(),
+
+  bar: computed('someKey', 'otherKey', function() {
+    var someKey = this.get('someKey');
+    var otherKey = this.get('otherKey');
+
+    return `${someKey} - ${otherKey}`;
+  }),
+
+  actions: {
+    handleClick() {
+      // do stuff
+    }
+  }
+})
+```
+
 The packages in `ember-decorators` are setup to mirror Ember's
 [javascript module](https://github.com/emberjs/rfcs/blob/master/text/0176-javascript-module-api.md)
 API. Decorators can be imported from the packages that they belong to:
@@ -95,28 +124,27 @@ API. Decorators can be imported from the packages that they belong to:
 import {
   attr,
   hasMany,
-  belongsTo
+  belongsTo,
 } from '@ember-decorators/data';
 
 import {
-  controller
+  inject as controller
 } from '@ember-decorators/controller';
 
 import {
   action,
   computed,
   observes,
-  readOnly
 } from '@ember-decorators/object';
 
 import {
   alias,
   or,
-  reads
+  reads,
 } from '@ember-decorators/object/computed';
 
 import {
-  service
+  inject as service
 } from '@ember-decorators/service';
 ```
 

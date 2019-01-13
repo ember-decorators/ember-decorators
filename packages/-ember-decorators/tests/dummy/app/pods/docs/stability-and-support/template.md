@@ -40,5 +40,5 @@ as you would in a normal Javascript app. Installing
 should operate the same.
 
 Standard Typescript decorators will continue to work using their stage 1
-transforms. Support will be phased out in `ember-decorators@v4`, along with
-support for stage 1 transforms in general.
+transforms. Support will be phased out in some time in the near future, along
+with support for stage 1 transforms in general.

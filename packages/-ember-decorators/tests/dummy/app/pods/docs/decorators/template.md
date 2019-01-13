@@ -26,13 +26,14 @@ syntax.
 
 The decorators included in the this library should enable you to write native
 classes with the same functionality and terseness as the Ember object-model.
-Some of them work very much the same as their equivalents in the standard Ember
-world, and some have fairly large differences. This page will cover the general
-decorators in some depth, and for more details you can refer to the API
+Most of them work almost exactly the same as their equivalents in the standard
+Ember world, and they are even _fully compatible_ with classic class syntax,
+allowing you to use them as drop-in replacements. This page will cover the
+general decorators in some depth, and for more details you can refer to the API
 documentation.
 
 If you are interested in _how_ decorators work under the hood, head over to the
-{{link-to 'Specs page' 'docs.specs'}}.
+{{link-to 'specs page' 'docs.specs'}}.
 
 ## Computed Properties
 
@@ -91,7 +92,91 @@ setting a dependent key. If you are on Ember > 3.1, you'll be able to rely on
 native getters to get their values, otherwise you will have use `get`.
 
 The standard Ember computed property macros have been recreated as decorators
-as well. Specifics on their usage can be found in the API docs.
+as well, and are importable from `@ember-decorators/object/computed`. You can
+also provide a getter/setter function directly to `computed`, allowing you to
+define your own macros:
+
+```js
+function join(arrayKeyName, joiner = ', ') {
+  return computed(arrayKeyName, function() {
+    return this.arrayKeyName.join(joiner);
+  });
+}
+
+export default class PeopleListComponent extends Component {
+  people = ['Bruce Wayne', 'Diana Prince', 'Barry Allen'];
+
+  @join('people') joinedPeople;
+}
+```
+
+Finally, `@computed` is completely compatible with classic classes, and can be
+used as a drop-in replacement for `@ember/object#computed`:
+
+```js
+import { computed } from '@ember-decorators/object';
+
+export default Component.extend({
+  firstName: 'Diana',
+  lastName: 'Prince',
+
+  fullName: computed('firstName', 'lastName', {
+    get() {
+      return `${this.firstName} ${this.lastName}`;
+    },
+
+    set(key, value) {
+      let [firstName, lastName] = value.split(' ');
+
+      this.set('firstName', firstName);
+      this.set('lastName', lastName);
+
+      return value;
+    }
+  }),
+})
+```
+
+Note that when passing the getter/setter directly to `computed()`, you should
+use the classic function signatures (both `key` and `value`) and return the
+value to cache from the setter.
+
+### Computed Property Modifiers
+
+Modifiers like `.readOnly()` and `.volatile()` have recently been moved toward
+deprecation in Ember, but are still in common use. These continue to work on
+decorators, but it is invalid to call them inline:
+
+```js
+import { computed } from '@ember-decorators/object';
+import { alias } from '@ember-decorators/object/computed';
+
+class Foo extends EmberObject {
+  @computed('baz').readOnly() // this is invalid
+  get bar() {
+    return this._bar;
+  }
+
+  @alias('bar').readOnly() barAlias; // this is also invalid
+}
+```
+
+However, you can continue to use them by wrapping them in parenthesis, since
+any valid expression can be called as a decorator this way:
+
+```js
+import { computed } from '@ember-decorators/object';
+import { alias } from '@ember-decorators/object/computed';
+
+class Foo extends EmberObject {
+  @(computed('baz').readOnly())
+  get bar() {
+    return this._bar;
+  }
+
+  @(alias('bar').readOnly()) barAlias;
+}
+```
 
 ## Actions
 
@@ -137,6 +222,23 @@ class FooComponent extends Component {
   @action
   onClick() {} // This will collide with the onClick argument
 }
+```
+
+The `@action` decorator also _binds_ the function to the instance of the class,
+meaning it can be used without any additional helpers in templates:
+
+```js
+import { action } from '@ember-decorators/object';
+
+class FooComponent extends Component {
+  @action
+  handleClick() {
+    // ...
+  }
+}
+```
+```hbs
+<button onclick={{this.handleClick}}>Click Me!</button>
 ```
 
 ## Observers and Events
@@ -205,6 +307,9 @@ Services and controllers can be injected via the `@service` and `@controller`
 decorators:
 
 ```js
+import { inject as service } from '@ember/service';
+import { inject as controller } from '@ember/controller';
+
 const FooComponent = Component.extend({
   bar: service()
 });
@@ -214,9 +319,8 @@ const FooController = Controller.extend({
 });
 
 // becomes
-
-import { service } from '@ember-decorators/service';
-import { controller } from '@ember-decorators/controller';
+import { inject as service } from '@ember-decorators/service';
+import { inject as controller } from '@ember-decorators/controller';
 
 class FooComponent extends Component {
   @service bar;
@@ -241,7 +345,22 @@ class FooController extends Controller {
 ```
 
 The decorators will attempt to inject based on the field name if no name is
-provided.
+provided, like they do in classic classes. As with computed properties,
+the inject functions provided by ember-decorators are backwards compatible, and
+can be used with classic class syntax:
+
+```js
+import { inject as service } from '@ember-decorators/service';
+import { inject as controller } from '@ember-decorators/controller';
+
+const FooComponent = Component.extend({
+  bar: service()
+});
+
+const FooController = Controller.extend({
+  bar: controller()
+});
+```
 
 ## Component Decorators
 

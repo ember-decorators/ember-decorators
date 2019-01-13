@@ -64,7 +64,7 @@ You replace it with this:
 ```js
 import Component from '@ember/component';
 import { action, computed } from '@ember-decorators/object';
-import { service } from '@ember-decorators/service';
+import { inject as service } from '@ember-decorators/service';
 
 export default class ExampleComponent extends Component {
   @service foo
