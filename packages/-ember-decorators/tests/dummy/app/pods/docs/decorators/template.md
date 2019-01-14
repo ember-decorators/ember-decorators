@@ -466,4 +466,6 @@ class User extends Model {
 
 They should work the same as their non-decorator counterparts in general.
 Types and options can be passed into the decorator directly, or they can rely
-on reflection of the field name they are decorating.
+on reflection of the field name they are decorating. As with computed properties
+and injections, these decorators are compatible with classic class syntax and
+can be used as drop in replacements.

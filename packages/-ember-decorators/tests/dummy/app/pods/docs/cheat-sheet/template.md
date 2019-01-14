@@ -14,9 +14,11 @@ native classes with Ember.
 ## Support
 
 * Supports same browsers as Ember
-* Supports Ember 1.11+
-* Must install `ember-cli-class-shim` for Ember < 2.13
-* Cannot `.extend()` from a native class in Ember < 3.2
+* Supported on Ember 3.6+ (3.4+ with [native class
+  polyfill](https://github.com/pzuraq/ember-native-class-polyfill))
+* Supports TS via `ember-cli-typescript`
+* Supports stage 1 and 2 decorator transforms currently (but stage 1 transforms
+  are deprecated)
 
 ## Classes
 
@@ -33,7 +35,7 @@ native classes with Ember.
   class Foo extends EmberObject {} // good
   ```
 
-* Use `super` instead of `this._super()`
+* Use `super.METHOD_NAME` instead of `this._super()`
 * Use `static` instead of `reopenClass`
 * When extending from `EmberObject`
   * Create instances using `.create()` - do **not** use `new`
@@ -41,7 +43,8 @@ native classes with Ember.
 * When _not_ extending from `EmberObject`
   * Create instances using `new`
   * Use `constructor`
-* Do not extend from `EmberObject` when writing non-framework classes
+* Do not extend from `EmberObject` when writing non-framework classes (e.g. any
+  class that is not a Component, Route, Controller, Service, Model, etc.)
 
 ## Class Fields
 
@@ -69,7 +72,8 @@ native classes with Ember.
     obj = {};
   }
   ```
-* Use class fields over constructor assignments for bound functions
+* Do _not_ use class fields or constructor assignments for bound functions.
+  Instead, use the `@action` decorator:
 
   ```js
   // bad
@@ -79,9 +83,17 @@ native classes with Ember.
     }
   }
 
-  // good
+  // bad
   class Foo extends EmberObject {
     clickHandler = () => this.handleClick();
+  }
+
+  // good
+  class Foo extends EmberObject {
+    @action
+    clickHandler() {
+      this.handleClick();
+    }
   }
   ```
 
@@ -91,11 +103,12 @@ native classes with Ember.
 ## Decorators
 
 * Use native getter/setter syntax with `@computed`
-* Can no longer clobber computed properties without a setter
-* You still must use `set` (and `get` in Ember < 3.1)
+* You still must use `@ember/object#set` (and `@ember/object#get` in
+  Ember < 3.1)
 * Use `@action` directly on class methods
 * Use `@service` and `@controller` to inject
 * Use component decorators to customize a component's element
+  * `@layout`
   * `@tagName`
   * `@classNames`
   * `@className`
@@ -104,4 +117,6 @@ native classes with Ember.
   * `@attr`
   * `@belongsTo`
   * `@hasMany`
-
+* Computed properties, injections, and data decorators are all usable with
+  classic class syntax. You can use them as a drop-in replacement for their
+  Ember equivalents.
