@@ -1,74 +1,175 @@
 // TypeScript Version: 2.8
 
+import ComputedProperty from '@ember/object/computed';
+
+type ComputedDecorator<Get, Set = Get> = ComputedProperty<Get, Set> & PropertyDecorator;
+
+type ComputedPropertyGetterFunction<T> = (this: any, key: string) => T;
+
+interface ComputedPropertyGet<T> {
+    get(this: any, key: string): T;
+}
+
+interface ComputedPropertySet<T> {
+    set(this: any, key: string, value: T): T;
+}
+
+type ComputedPropertyDesc<T> =
+    | ComputedPropertyGetterFunction<T>
+    | ComputedPropertyGet<T>
+    | ComputedPropertySet<T>
+    | (ComputedPropertyGet<T> & ComputedPropertySet<T>);
+
 /**
- * Decorator that turns the target function into an Action
- *
- * Adds an `actions` object to the target object and creates a passthrough
- * function that calls the original. This means the function still exists
- * on the original object, and can be used directly.
- *
- * ```js
- * import Component from '@ember/component';
- * import { action } from 'ember-decorators/object';
- *
- * export default class ActionDemoComponent extends Component {
- *   @action
- *   foo() {
- *     // do something
- *   }
- * }
- * ```
- *
- * ```hbs
- * <button onclick={{action "foo"}}>Execute foo action</button>
- * ```
- */
+  Decorator that turns the target function into an Action
+
+  Adds an `actions` object to the target object and creates a passthrough
+  function that calls the original. This means the function still exists
+  on the original object, and can be used directly.
+
+  ```js
+  export default class ActionDemoComponent extends Component {
+    @action
+    foo() {
+      // do something
+    }
+  }
+  ```
+
+  ```hbs
+  <!-- template.hbs -->
+  <button onclick={{action "foo"}}>Execute foo action</button>
+  ```
+
+  Also binds the function directly to the instance, so it can be used in any
+  context:
+
+  ```hbs
+  <!-- template.hbs -->
+  <button onclick={{this.foo}}>Execute foo action</button>
+  ```
+
+  @function
+  @return {Function}
+*/
 export const action: MethodDecorator;
 
 /**
- * Decorator that turns a function into a computed property. The decorators should
- * be applied to native getter and setter functions. Note that though they use getters
- * and setters, you must still use the Ember `get`/`set` functions to get and set their
- * values.
- *
- * ```javascript
- * import Component from '@ember/component';
- * import { computed } from 'ember-decorators/object';
- *
- * export default class UserProfileComponent extends Component {
- *   first = 'John';
- *   last = 'Smith';
- *
- *   @computed('first', 'last')
- *   get name() {
- *     const first = this.get('first');
- *     const last = this.get('last');
- *
- *     return `${first} ${last}`; // => 'John Smith'
- *   }
- *
- *   set name(value) {
- *     if (typeof value !== 'string' || !value.test(/^[a-z]+ [a-z]+$/i)) {
- *       throw new TypeError('Invalid name');
- *     }
- *
- *     const [first, last] = value.split(' ');
- *     this.setProperties({ first, last });
- *
- *     return value;
- *   }
- * }
- * ```
- *
- * @function
- * @param {...String} propertyNames - List of property keys this computed is dependent on
- */
-export function computed(...propertyNames: string[]): MethodDecorator;
-export function computed(
-  target: any,
-  key: any,
-  descriptor: PropertyDescriptor
-): PropertyDescriptor;
+  Decorator that turns a native getter/setter into a computed property. Note
+  that though they use getters and setters, you must still use the Ember `get`/
+  `set` functions to get and set their values.
+
+  ```js
+  import Component from '@ember/component';
+  import { computed } from '@ember-decorators/object';
+
+  export default class UserProfileComponent extends Component {
+    first = 'Bruce';
+    last = 'Wayne';
+
+    @computed('first', 'last')
+    get name() {
+      return `${this.first} ${this.last}`; // => 'Bruce Wayne'
+    }
+
+    set name(value) {
+      if (typeof value !== 'string' || !value.test(/^[a-z]+ [a-z]+$/i)) {
+        throw new TypeError('Invalid name');
+      }
+
+      const [first, last] = value.split(' ');
+      this.setProperties({ first, last });
+    }
+  }
+  ```
+
+  Can also be optionally passed a computed property descriptor (e.g. a function
+  or an object with `get` and `set` functions on it):
+
+  ```js
+  let fullNameComputed = computed('firstName', 'lastName', {
+    get() {
+      return `${this.first} ${this.last}`; // => 'Diana Prince'
+    },
+
+    set(key, value) {
+      if (typeof value !== 'string' || !value.test(/^[a-z]+ [a-z]+$/i)) {
+        throw new TypeError('Invalid name');
+      }
+
+      const [first, last] = value.split(' ');
+      this.setProperties({ first, last });
+
+      return value;
+    }
+  })
+
+  export default class UserProfileComponent extends Component {
+    first = 'Diana';
+    last = 'Prince';
+
+    @fullNameComputed fullName;
+  }
+  ```
+
+  @function
+  @param {...string} propertyNames - List of property keys this computed is dependent on
+  @return {ComputedProperty}
+*/
+export const computed: {
+  <T>(cb?: ComputedPropertyDesc<T>): ComputedDecorator<T>;
+  <T>(k1: string, cb?: ComputedPropertyDesc<T>): ComputedDecorator<T>;
+  <T>(
+      k1: string,
+      k2: string,
+      cb?: ComputedPropertyDesc<T>
+  ): ComputedDecorator<T>;
+  <T>(
+      k1: string,
+      k2: string,
+      k3: string,
+      cb?: ComputedPropertyDesc<T>
+  ): ComputedDecorator<T>;
+  <T>(
+      k1: string,
+      k2: string,
+      k3: string,
+      k4: string,
+      cb?: ComputedPropertyDesc<T>
+  ): ComputedDecorator<T>;
+  <T>(
+      k1: string,
+      k2: string,
+      k3: string,
+      k4: string,
+      k5: string,
+      cb?: ComputedPropertyDesc<T>
+  ): ComputedDecorator<T>;
+  <T>(
+      k1: string,
+      k2: string,
+      k3: string,
+      k4: string,
+      k5: string,
+      k6: string,
+      cb?: ComputedPropertyDesc<T>
+  ): ComputedDecorator<T>;
+  (
+      k1: string,
+      k2: string,
+      k3: string,
+      k4: string,
+      k5: string,
+      k6: string,
+      k7: string,
+      ...rest: any[]
+  ): ComputedDecorator<any>;
+  (
+    target: any,
+    key: any,
+    descriptor: PropertyDescriptor
+  ): PropertyDescriptor;
+}
 
 /**
   Triggers the target function when the dependent properties have changed
@@ -110,7 +211,7 @@ export function observes(...propertyNames: string[]): MethodDecorator;
   @function
   @param {...String} propertyNames - Names of the properties that no longer trigger the function
  */
-export function unobserves(...propertyNames: string[]): PropertyDecorator;
+export function unobserves(...propertyNames: string[]): PropertyDecorator & MethodDecorator;
 
 /**
   Adds an event listener to the target function.
@@ -152,62 +253,7 @@ export function on(...eventNames: string[]): MethodDecorator;
   @function
   @param {...String} eventNames - Names of the events that no longer trigger the function
  */
-export function off(...eventNames: string[]): PropertyDecorator;
+export function off(...eventNames: string[]): PropertyDecorator & MethodDecorator;
 
-/**
- * Decorator that modifies a computed property to be read only.
- *
- * Usage:
- *
- * ```javascript
- * import Component from '@ember/component';
- * import { computed, readOnly } from '@ember-decorators/object';
- * import { collect } from '@ember-decorators/object/computed';
- *
- * export default class extends Component {
- *   @readOnly
- *   @computed('first', 'last')
- *   name() {
- *     const first = this.get('first');
- *     const last = this.get('last');
- *
- *     return `${first} ${last}`;
- *   }
- *
- *   @readOnly
- *   @collect('foo', 'bar')
- *   foobar;
- * }
- * ```
- *
- * @return {ComputedProperty}
- */
-export const readOnly: MethodDecorator & PropertyDecorator;
-
-/**
- * Decorator that modifies a computed property to be volatile.
- *
- * ```js
- * import Component from '@ember/component';
- * import { computed, readOnly } from '@ember-decorators/object';
- * import { collect } from '@ember-decorators/object/computed';
- *
- * export default class extends Component {
- *   @volatile
- *   @computed('first', 'last')
- *   get name() {
- *     const first = this.get('first');
- *     const last = this.get('last');
- *
- *     return `${first} ${last}`;
- *   }
- *
- *   @readOnly
- *   @collect('foo', 'bar')
- *   foobar;
- * }
- * ```
- *
- * @return {ComputedProperty}
- */
-export const volatile: MethodDecorator & PropertyDecorator;
+// Prevent automatic exports of internal types
+export {}

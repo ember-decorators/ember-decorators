@@ -161,8 +161,51 @@ componentModule('@action', function() {
     await click('button');
   });
 
+  test('action decorator binds functions', async function(assert) {
+    class FooComponent extends Component {
+      bar = 'some value';
+
+      @action
+      foo() {
+        assert.equal(this.bar, 'some value', 'context bound correctly');
+      }
+    }
+
+    this.register('component:foo-bar', FooComponent);
+    this.register('template:components/foo-bar', hbs`<button onclick={{this.foo}}>Click Me!</button>`);
+
+    await this.render(hbs`{{foo-bar}}`);
+
+    await click('button');
+  });
+
+  test('action decorator super works correctly when bound', async function(assert) {
+    class FooComponent extends Component {
+      bar = 'some value';
+
+      @action
+      foo() {
+        assert.equal(this.bar, 'some value', 'context bound correctly');
+      }
+    }
+
+    class BarComponent extends FooComponent {
+      @action
+      foo() {
+        super.foo();
+      }
+    }
+
+    this.register('component:bar-bar', BarComponent);
+    this.register('template:components/bar-bar', hbs`<button onclick={{this.foo}}>Click Me!</button>`);
+
+    await this.render(hbs`{{bar-bar}}`);
+
+    await click('button');
+  });
+
   if (DEBUG) {
-    test('action decorator throws an error if applied to non-functions', function(assert) {
+    test('action decorator throws an error if applied to non-methods', function(assert) {
       assert.throws(
         () => {
           class TestObject extends EmberObject {
@@ -171,7 +214,7 @@ componentModule('@action', function() {
 
           new TestObject();
         },
-        /The @action decorator must be applied to functions/,
+        /The @action decorator must be applied to methods/,
         'error thrown correctly'
       )
     });

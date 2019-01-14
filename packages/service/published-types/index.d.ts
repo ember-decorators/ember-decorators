@@ -1,6 +1,9 @@
 // TypeScript Version: 2.8
 
 import { Registry } from '@ember/service';
+import ComputedProperty from '@ember/object/computed';
+
+type ComputedDecorator<Get, Set = Get> = ComputedProperty<Get, Set> & PropertyDecorator;
 
 /**
  * Decorator that wraps `Ember.inject.service`
@@ -9,7 +12,7 @@ import { Registry } from '@ember/service';
  *
  *  ```javascript
  * import Component from '@ember/component';
- * import { service } from 'ember-decorators/service';
+ * import { inject as service } from 'ember-decorators/service';
  *
  * export default class StoreInjectedComponent extends Component
  *   @service store;
@@ -19,40 +22,15 @@ import { Registry } from '@ember/service';
  * @function
  * @param {String} [serviceName] - The name of the service to inject. If not provided, the property name will be used
  */
-export function service(target: any, key: any): any;
-/**
- * Decorator that wraps `Ember.inject.service`
- *
- * Injects a service into the object as the decorated property
- *
- *  ```javascript
- * import Component from '@ember/component';
- * import { service } from 'ember-decorators/service';
- *
- * export default class StoreInjectedComponent extends Component
- *   @service store;
- * }
- * ```
- *
- * @function
- * @param {String} [serviceName] - The name of the service to inject. If not provided, the property name will be used
- */
-export function service(target: any, key: any, descriptor: PropertyDescriptor): PropertyDescriptor;
-/**
- * Decorator that wraps `Ember.inject.service`
- *
- * Injects a service into the object as the decorated property
- *
- *  ```javascript
- * import Component from '@ember/component';
- * import { service } from 'ember-decorators/service';
- *
- * export default class StoreInjectedComponent extends Component
- *   @service store;
- * }
- * ```
- *
- * @function
- * @param {String} [serviceName] - The name of the service to inject. If not provided, the property name will be used
- */
-export function service(serviceName: keyof Registry): PropertyDecorator;
+export const inject: {
+  <K extends keyof Registry>(name?: K): ComputedDecorator<Registry[K]>;
+
+  (
+    target: any,
+    key: any,
+    descriptor: PropertyDescriptor
+  ): PropertyDescriptor;
+}
+
+// Prevent automatic exports of internal types
+export {}

@@ -2,7 +2,7 @@ import EmberObject from '@ember/object';
 import { moduleFor } from 'ember-qunit';
 import { test } from 'qunit';
 
-import { service } from '@ember-decorators/service';
+import { inject as service } from '@ember-decorators/service';
 
 moduleFor('@service', { integration: true });
 
@@ -54,4 +54,20 @@ test('can set service field', function(assert) {
   const baz = this.container.lookup('class:baz');
 
   baz.set('foo', FooService.create());
+});
+
+test('can use in classic classes', function(assert) {
+  const FooService = EmberObject.extend();
+
+  this.register('service:foo', FooService);
+
+  const Baz = EmberObject.extend({
+    foo: service(),
+  });
+
+  this.register('class:baz', Baz);
+
+  const baz = this.container.lookup('class:baz');
+
+  assert.ok(baz.get('foo') instanceof FooService, 'service injected correctly');
 });

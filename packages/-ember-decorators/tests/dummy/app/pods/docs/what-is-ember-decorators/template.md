@@ -1,10 +1,14 @@
 # What is Ember Decorators?
 
 Ember Decorators is a project dedicated to exploring and unlocking usage of
-native classes in Ember.js. Its goal is to provide a set of decorators which can
-be used to write classes with every standard feature that is available in the
-standard Ember object-model, along with the transforms and build system required
-to polyfill and ship them today!
+native classes in Ember.js. It provides:
+
+1. A set of decorators that matches the ones proposed in the [Decorators
+   RFC](https://github.com/emberjs/rfcs/blob/master/text/0408-decorators.md),
+   which will be shipped in Ember in the near future.
+2. Additional decorators for features that will _not_ be included in Ember
+   directly. These include decorators for event listeners and observers, and for
+   customizing classic Ember components (e.g. `@attribute` and `@tagName`).
 
 ## Why do I need decorators to use native classes?
 

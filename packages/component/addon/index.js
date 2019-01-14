@@ -143,6 +143,7 @@ export const className = decoratorWithParams((desc, params = []) => {
   export default class ClassNamesDemoComponent extends Component {}
   ```
 
+  @function
   @param {...string} classNames - The list of classes to be applied to the component
 */
 export const classNames = decoratorWithRequiredParams((desc, classNames) => {
@@ -178,6 +179,7 @@ export const classNames = decoratorWithRequiredParams((desc, classNames) => {
   export default class TagNameDemoComponent extends Component {}
   ```
 
+  @function
   @param {string} tagName - The HTML tag to be used for the component
 */
 export const tagName = decoratorWithRequiredParams((desc, params) => {
@@ -223,6 +225,7 @@ export const tagName = decoratorWithRequiredParams((desc, params) => {
   }
   ```
 
+  @function
   @param {TemplateFactory} template - The compiled template to be used for the component
 */
 export const layout = decoratorWithRequiredParams((desc, params) => {

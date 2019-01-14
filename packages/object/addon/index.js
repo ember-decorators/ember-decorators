@@ -1,6 +1,4 @@
-import { DEBUG } from '@glimmer/env';
 import { assert } from '@ember/debug';
-import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
 
 import { computed as emberComputed } from '@ember/object';
 import { addListener, removeListener } from '@ember/object/events';
@@ -9,10 +7,10 @@ import { addObserver, removeObserver } from '@ember/object/observers';
 import collapseProto from '@ember-decorators/utils/collapse-proto';
 import { decorator, decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
 import {
-  computedDescriptorFor,
   computedDecoratorWithParams,
-  getOrCreateModifierMeta,
 } from '@ember-decorators/utils/computed';
+
+const BINDINGS_MAP = new WeakMap();
 
 /**
   Decorator that turns the target function into an Action
@@ -35,16 +33,48 @@ import {
   <button onclick={{action "foo"}}>Execute foo action</button>
   ```
 
+  Also binds the function directly to the instance, so it can be used in any
+  context:
+
+  ```hbs
+  <!-- template.hbs -->
+  <button onclick={{this.foo}}>Execute foo action</button>
+  ```
+
+  @function
   @return {Function}
 */
 export const action = decorator(desc => {
   assert(
-    'The @action decorator must be applied to functions',
-    desc && desc.descriptor && typeof desc.descriptor.value === 'function'
+    'The @action decorator must be applied to methods',
+    desc && desc.kind === 'method' && desc.descriptor && typeof desc.descriptor.value === 'function'
   );
 
+
+  let actionFn = desc.descriptor.value;
+
+  desc.descriptor = {
+    get() {
+      let bindings = BINDINGS_MAP.get(this);
+
+      if (bindings === undefined) {
+        bindings = new Map();
+        BINDINGS_MAP.set(this, bindings);
+      }
+
+      let fn = bindings.get(actionFn);
+
+      if (fn === undefined) {
+        fn = actionFn.bind(this);
+        bindings.set(actionFn, fn);
+      }
+
+      return fn;
+    }
+  }
+
   desc.finisher = target => {
-    let { key, descriptor } = desc;
+    let { key } = desc;
     let { prototype } = target;
 
     collapseProto(prototype);
@@ -54,7 +84,7 @@ export const action = decorator(desc => {
       prototype.actions = parentActions ? Object.create(parentActions) : {};
     }
 
-    prototype.actions[key] = descriptor.value;
+    prototype.actions[key] = actionFn;
 
     return target;
   };
@@ -72,15 +102,12 @@ export const action = decorator(desc => {
   import { computed } from '@ember-decorators/object';
 
   export default class UserProfileComponent extends Component {
-    first = 'John';
-    last = 'Smith';
+    first = 'Bruce';
+    last = 'Wayne';
 
     @computed('first', 'last')
     get name() {
-      const first = this.get('first');
-      const last = this.get('last');
-
-      return `${first} ${last}`; // => 'John Smith'
+      return `${this.first} ${this.last}`; // => 'Bruce Wayne'
     }
 
     set name(value) {
@@ -90,9 +117,36 @@ export const action = decorator(desc => {
 
       const [first, last] = value.split(' ');
       this.setProperties({ first, last });
+    }
+  }
+  ```
+
+  Can also be optionally passed a computed property descriptor (e.g. a function
+  or an object with `get` and `set` functions on it):
+
+  ```js
+  let fullNameComputed = computed('firstName', 'lastName', {
+    get() {
+      return `${this.first} ${this.last}`; // => 'Diana Prince'
+    },
+
+    set(key, value) {
+      if (typeof value !== 'string' || !value.test(/^[a-z]+ [a-z]+$/i)) {
+        throw new TypeError('Invalid name');
+      }
+
+      const [first, last] = value.split(' ');
+      this.setProperties({ first, last });
 
       return value;
     }
+  })
+
+  export default class UserProfileComponent extends Component {
+    first = 'Diana';
+    last = 'Prince';
+
+    @fullNameComputed fullName;
   }
   ```
 
@@ -100,35 +154,66 @@ export const action = decorator(desc => {
   @param {...string} propertyNames - List of property keys this computed is dependent on
   @return {ComputedProperty}
 */
-export const computed = computedDecoratorWithParams(({ key, descriptor }, params) => {
+export const computed = computedDecoratorWithParams(({ key, descriptor, initializer }, params = []) => {
   assert(
-    `Attempted to apply @computed to ${key}, but it is not a native accessor function. Try converting it to \`get ${key}()\``,
-    'get' in descriptor || 'set' in descriptor
-  );
-  assert(
-    `Using @computed for only a setter does not make sense. Add a getter for '${key}' as well or remove the @computed decorator.`,
-    'get' in descriptor && descriptor.get !== undefined
+    `@computed can only be used on accessors or fields, attempted to use it with ${key} but that was a method. Try converting it to a getter (e.g. \`get ${key}() {}\`)`,
+    !(descriptor && typeof descriptor.value === 'function')
   );
 
-  let { get, set } = descriptor;
+  assert(
+    `@computed can only be used on empty fields. ${key} has an initial value (e.g. \`${key} = someValue\`)`,
+    !initializer
+  );
 
-  // Unset the getter and setter so the descriptor just has a plain value
-  descriptor.get = undefined;
-  descriptor.set = undefined;
+  let lastArg = params[params.length - 1];
+  let get, set;
 
-  let setter;
+  if (typeof lastArg === 'function') {
+    params.pop();
+    get = lastArg;
+  }
 
-  if (typeof set === 'function') {
+  if (typeof lastArg === 'object' && lastArg !== null) {
+    params.pop();
+    get = lastArg.get;
+    set = lastArg.set;
+  }
+
+  assert(
+    `Attempted to apply a computed property that already has a getter/setter to a ${key}, but it is a method or an accessor. If you passed @computed a function or getter/setter (e.g. \`@computed({ get() { ... } })\`), then it must be applied to a field`,
+    !(descriptor && (typeof get === 'function' || typeof 'set' === 'function') && (typeof descriptor.get === 'function' || typeof descriptor.get === 'function'))
+  );
+
+  let usedClassDescriptor = false;
+
+  if (get === undefined && set === undefined) {
+    usedClassDescriptor = true;
+    get = descriptor.get;
+    set = descriptor.set;
+  }
+
+  assert(
+    `Attempted to use @computed on ${key}, but it did not have a getter or a setter. You must either pass a get a function or getter/setter to @computed directly (e.g. \`@computed({ get() { ... } })\`) or apply @computed directly to a getter/setter`,
+    typeof get === 'function' || typeof 'set' === 'function'
+  );
+
+  if (descriptor !== undefined) {
+    // Unset the getter and setter so the descriptor just has a plain value
+    descriptor.get = undefined;
+    descriptor.set = undefined;
+  }
+
+  let setter = set;
+
+  if (usedClassDescriptor === true && typeof set === 'function') {
+    // Because the setter was defined using class syntax, it cannot have the
+    // same `set(key, value)` signature, and it may not return a value. We
+    // convert the call internally to pass the value as the first parameter,
+    // and check to see if the return value is undefined and if so call the
+    // getter again to get the value explicitly.
     setter = function(key, value) {
       let ret = set.call(this, value);
       return typeof ret === 'undefined' ? get.call(this) : ret;
-    };
-  } else if (DEBUG && THROW_ON_COMPUTED_OVERRIDE) {
-    setter = function(key) {
-      assert(
-        `Attempted to set ${key}, but it does not have a setter. Overriding a computed property without a setter has been deprecated.`,
-        false
-      );
     };
   }
 
@@ -276,109 +361,3 @@ export const off = decoratorWithRequiredParams((desc, params) => {
 
   return desc;
 }, 'off');
-
-/**
-  Decorator that modifies a computed property to be read only.
-
-  ```js
-  import Component from '@ember/component';
-  import { computed, readOnly } from 'ember-decorators/object';
-
-  export default class extends Component {
-    @readOnly
-    @computed('first', 'last')
-    name(first, last) {
-      return `${first} ${last}`;
-    }
-  }
-  ```
-
-  @return {ComputedProperty}
-*/
-export const readOnly = decorator(desc => {
-  desc.finisher = target => {
-    let { prototype } = target;
-    let { key } = desc;
-
-    if (DEBUG) {
-      let modifierMeta = getOrCreateModifierMeta(prototype, name);
-
-      assert(
-        'A computed property cannot be both readOnly and volatile. Use a native setter instead',
-        modifierMeta[key] !== 'volatile'
-      );
-    }
-
-    // TODO(v4): We can't know for sure whether or not the computed descriptor
-    // has already been added, it may have if decorators are stage 1, so we have
-    // to check and modify it if it has.
-    let computedDesc = computedDescriptorFor(prototype, key);
-
-    if (computedDesc !== undefined) {
-      if (DEBUG) {
-        let modifierMeta = getOrCreateModifierMeta(prototype, name);
-        modifierMeta[key] = 'readOnly';
-      }
-
-      computedDesc.readOnly();
-    } else {
-      let modifierMeta = getOrCreateModifierMeta(prototype, name);
-      modifierMeta[key] = 'readOnly';
-    }
-  };
-
-  return desc;
-});
-
-/**
-  Decorator that modifies a computed property to be volatile.
-
-  ```js
-  import Component from '@ember/component';
-  import { computed, readOnly } from 'ember-decorators/object';
-
-  export default class extends Component {
-    @volatile
-    @computed('first', 'last')
-    name(first, last) {
-      return `${first} ${last}`;
-    }
-  }
-  ```
-
-  @return {ComputedProperty}
-*/
-export const volatile = decorator(desc => {
-  desc.finisher = target => {
-    let { prototype } = target;
-    let { key } = desc;
-
-    if (DEBUG) {
-      let modifierMeta = getOrCreateModifierMeta(prototype, name);
-
-      assert(
-        'A computed property cannot be both readOnly and volatile. Use a native getter instead',
-        modifierMeta[key] !== 'readOnly'
-      );
-    }
-
-    // TODO(v4): We can't know for sure whether or not the computed descriptor
-    // has already been added, it may have if decorators are stage 1, so we have
-    // to check and modify it if it has.
-    let computedDesc = computedDescriptorFor(prototype, key);
-
-    if (computedDesc !== undefined) {
-      if (DEBUG) {
-        let modifierMeta = getOrCreateModifierMeta(prototype, name);
-        modifierMeta[key] = 'volatile';
-      }
-
-      computedDesc.volatile();
-    } else {
-      let modifierMeta = getOrCreateModifierMeta(prototype, name);
-      modifierMeta[key] = 'volatile';
-    }
-  };
-
-  return desc;
-});

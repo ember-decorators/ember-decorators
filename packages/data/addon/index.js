@@ -1,21 +1,6 @@
 import DS from 'ember-data';
 import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
 
-function computedDecoratorWithKeyReflection(fn) {
-  return computedDecoratorWithParams(({ key }, params) => {
-    let keyName;
-
-    if (typeof params[0] === 'string') {
-      keyName = params.shift();
-    } else {
-      keyName = key;
-    }
-
-    return fn(keyName, ...params)
-  });
-}
-
-
 /**
   Decorator that turns the property into an Ember Data attribute
 
@@ -34,9 +19,7 @@ function computedDecoratorWithKeyReflection(fn) {
   @param {string} type? - Type of the attribute
   @param {object} options? - Options for the attribute
 */
-export const attr = computedDecoratorWithParams((desc, params) => {
-  return DS.attr(...params);
-});
+export const attr = computedDecoratorWithParams((desc, params) => DS.attr.apply(this, params));
 
 /**
   Decorator that turns the property into an Ember Data `hasMany` relationship
@@ -56,7 +39,7 @@ export const attr = computedDecoratorWithParams((desc, params) => {
   @param {string} type? - Type of relationship
   @param {object} options? - Options for the relationship
 */
-export const hasMany = computedDecoratorWithKeyReflection(DS.hasMany);
+export const hasMany = computedDecoratorWithParams((desc, params) => DS.hasMany.apply(this, params));
 
 /**
   Decorator that turns the property into an Ember Data `belongsTo` relationship
@@ -75,4 +58,4 @@ export const hasMany = computedDecoratorWithKeyReflection(DS.hasMany);
   @param {string} type? - Type of the relationship
   @param {object} options? - Type of the relationship
 */
-export const belongsTo = computedDecoratorWithKeyReflection(DS.belongsTo);
+export const belongsTo = computedDecoratorWithParams((desc, params) => DS.belongsTo.apply(this, params));

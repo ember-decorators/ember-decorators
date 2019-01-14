@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { moduleFor } from 'ember-qunit';
 import { test } from 'qunit';
 
-import { controller } from '@ember-decorators/controller';
+import { inject as controller } from '@ember-decorators/controller';
 
 moduleFor('@controller', { integration: true });
 
@@ -55,4 +55,21 @@ test('can set controller field', function(assert) {
   const bar = this.container.lookup('controller:bar');
 
   bar.set('foo', FooController.create());
+});
+
+
+test('can use in classic classes', function(assert) {
+  const FooController = Controller.extend();
+
+  this.register('controller:foo', FooController);
+
+  const BarController = Controller.extend({
+    foo: controller(),
+  });
+
+  this.register('controller:bar', BarController);
+
+  const bar = this.container.lookup('controller:bar');
+
+  assert.ok(bar.get('foo') instanceof FooController, 'controller injected correctly');
 });

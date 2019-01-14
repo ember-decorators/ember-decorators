@@ -1,5 +1,3 @@
-import { DEBUG } from '@glimmer/env';
-
 import {
   alias as emberAlias,
   and as emberAnd,
@@ -25,6 +23,7 @@ import {
   notEmpty as emberNotEmpty,
   oneWay as emberOneWay,
   or as emberOr,
+  reads as emberReads,
   readOnly as emberReadOnly,
   setDiff as emberSetDiff,
   sort as emberSort,
@@ -37,87 +36,27 @@ import {
 import { assert } from '@ember/debug';
 
 import {
-  computedDecoratorWithParams,
   computedDecoratorWithRequiredParams
 } from '@ember-decorators/utils/computed';
 
-import { THROW_ON_COMPUTED_OVERRIDE } from 'ember-decorators-flags';
-
-function legacyMacro(fn, shouldThrowOnOverride = true) {
+function legacyMacro(fn) {
   return computedDecoratorWithRequiredParams(({ descriptor }, params) => {
-    if (descriptor !== undefined && descriptor.value !== undefined) {
+    if (descriptor !== undefined && typeof descriptor.value === 'function') {
       return fn(...params, descriptor.value);
     }
 
-    if (DEBUG && THROW_ON_COMPUTED_OVERRIDE && shouldThrowOnOverride) {
-      return fn(...params).readOnly();
-    } else {
-      return fn(...params);
-    }
+    return fn(...params);
   }, fn.name);
 }
 
-function legacyMacroWithRequiredMethod(fn, shouldThrowOnOverride = true) {
+function legacyMacroWithRequiredMethod(fn) {
   return computedDecoratorWithRequiredParams(({ descriptor }, params) => {
     let method = descriptor !== undefined && typeof descriptor.value === 'function' ? descriptor.value : params.pop();
 
     assert(`The @${fn.name} decorator must be used to decorate a method`, typeof method === 'function');
 
-    if (DEBUG && THROW_ON_COMPUTED_OVERRIDE && shouldThrowOnOverride) {
-      return fn(...params, method).readOnly();
-    } else {
-      return fn(...params, method);
-    }
+    return fn(...params, method);
   }, fn.name);
-}
-
-/**
-  Creates a new decorator from a computed macro function. For instance, you can
-  use this utility function to create decorators from the macros provided by
-  addons such as [ember-awesome-macros](https://github.com/kellyselden/ember-awesome-macros).
-
-  ```js
-  import { macro } from '@ember-decorators/object/computed';
-  import firstMacro from 'ember-awesome-macros/array/first';
-
-  const first = macro(firstMacro);
-
-  export default class LeaderBoardComponent extends Component {
-    ranking = ['Natalie', 'Emma', 'Thomas'];
-
-    @first('ranking') winner; // => 'Natalie'
-
-  }
-  ```
-
-  You can also make use of [partial application](http://2ality.com/2011/09/currying-vs-part-eval.html)
-  of arguments:
-
-  ```js
-  import { macro } from '@ember-decorators/object/computed';
-  import { computed } from '@ember/object';
-
-  const titleGeneratorMacro = (prefix, titleKey) => computed(function() {
-    return `${prefix}: ${String(get(this, titleKey)).toUpperCase()}!`;
-  });
-
-  const newsFlash = macro(titleGeneratorMacro, 'News Flash');
-
-  export default class NewsPaperComponent extends Component {
-    title = 'Ember chosen best framework of the year again';
-
-    @newsFlash('title') attentionGrabber; // => 'News Flash: EMBER CHOSEN BEST FRAMEWORK OF THE YEAR AGAIN!'
-  }
-  ```
-
-  @param {function} fn - The macro function to create a decorator from
-  @param {...any} params - Parameters to be partially applied to the macro fn
-  @return {PropertyDecorator}
- */
-export function macro(fn, ...params) {
-  return computedDecoratorWithParams((desc, paramsOnDecorator) => {
-    return fn(...params, ...paramsOnDecorator);
-  });
 }
 
 /**
@@ -139,7 +78,7 @@ export function macro(fn, ...params) {
   @param {string} dependentKey - Key for the aliased property
   @return {any}
 */
-export const alias = legacyMacro(emberAlias, false);
+export const alias = legacyMacro(emberAlias);
 
 /**
   A computed property that performs a logical and on the original values for the
@@ -229,7 +168,7 @@ export const collect = legacyMacro(emberCollect);
   @param {string} dependentKey - Key for the property to alias
   @param {object} options
 */
-export const deprecatingAlias = legacyMacro(emberDeprecatingAlias, false);
+export const deprecatingAlias = legacyMacro(emberDeprecatingAlias);
 
 /**
   A computed property that returns `true` if the value of the dependent
@@ -610,6 +549,30 @@ export const not = legacyMacro(emberNot);
 export const notEmpty = legacyMacro(emberNotEmpty);
 
 /**
+  Where `@alias` aliases `get` and `set`, and allows for bidirectional
+  data flow, `@oneWay` only provides an aliased `get`. Setting the
+  property removes the alias and causes it to be overridden entirely. This means
+  that the property will not update any longer once it has been set once, making
+  it a one way trap.
+
+  Equivalent to the Ember [oneWay](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/oneWay) macro.
+
+  ```js
+  export default class UserProfileComponent extends Component {
+    firstName = 'Joe';
+
+    @oneWay('firstName') originalName; // 'Joe'
+  }
+  ```
+
+  @function
+  @param {string} dependentKey - Key for the property to alias
+  @return {any}
+*/
+export const oneWay = legacyMacro(emberOneWay, false);
+
+
+/**
   A computed property which performs a logical or on the original values for the
   provided dependent properties.
 
@@ -632,19 +595,18 @@ export const or = legacyMacro(emberOr);
 
 /**
   Where `@alias` aliases `get` and `set`, and allows for bidirectional
-  data flow, `@overrideableReads` only provides an aliased `get`. Setting the
+  data flow, `@reads` only provides an aliased `get`. Setting the
   property removes the alias and causes it to be overridden entirely. This means
   that the property will not update any longer once it has been set once, making
   it a one way trap.
 
-  Equivalent to the Ember [oneWay](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/oneWay)
-  and Ember [reads](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/reads) macros
+  Equivalent to the Ember [reads](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/reads) macro.
 
   ```js
   export default class UserProfileComponent extends Component {
     firstName = 'Joe';
 
-    @overridableReads('firstName') originalName; // 'Joe'
+    @reads('firstName') originalName; // 'Joe'
   }
   ```
 
@@ -652,12 +614,12 @@ export const or = legacyMacro(emberOr);
   @param {string} dependentKey - Key for the property to alias
   @return {any}
 */
-export const overridableReads = legacyMacro(emberOneWay, false);
+export const reads = legacyMacro(emberReads, false);
 
 /**
   A computed property which creates a one way read-only alias to the original
   value for property. Where `@alias` aliases `get` and `set`, and
-  `@overridableReads` aliases get but can be overridden when set, `@reads`
+  `@reads` aliases get but can be overridden when set, `@readOnly`
   provides a read only one way binding that will throw if a set is attempted.
   Very often when using `@reads` one wants to explicitly prevent users from ever
   setting the property. This prevents the reverse flow, and also throws an
@@ -665,18 +627,11 @@ export const overridableReads = legacyMacro(emberOneWay, false);
 
   Equivalent to the Ember [readOnly](https://emberjs.com/api/ember/3.1/functions/@ember%2Fobject%2Fcomputed/readOnly) macro.
 
-  It is very important to note that this is ___not___ the same as
-  `Ember.computed.reads`, which creates an overridable one way alias. The reason
-  `ember-decorators` has chosen to change the name of this computed macro is to
-  avoid conflicting with the `@readOnly` decorator which is used to mark any
-  computed property as read-only. For an equivalent to `Ember.computed.reads`,
-  see `@overridableReads`.
-
   ```js
   export default class UserProfileComponent extends Component {
     first = 'Tomster';
 
-    @reads('first') firstName;
+    @readOnly('first') firstName;
   }
   ```
 
@@ -684,7 +639,7 @@ export const overridableReads = legacyMacro(emberOneWay, false);
   @param {string} dependentKey - Key for the property to read
   @return {any}
 */
-export const reads = legacyMacro(emberReadOnly);
+export const readOnly = legacyMacro(emberReadOnly);
 
 /**
   A computed property which returns a new array with all the properties from the

@@ -15,6 +15,7 @@
     "baseUrl": ".",
     "paths": {
       "@ember-decorators/object": ["."],
+      "@ember-decorators/object/*": ["./*"],
       "ember-data": ["./ember-data"]
     }
   },

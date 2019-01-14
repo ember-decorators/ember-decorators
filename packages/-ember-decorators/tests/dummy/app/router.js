@@ -15,9 +15,7 @@ Router.map(function() {
     this.route('native-class-basics');
     this.route('class-fields');
     this.route('decorators');
-    this.route('notable-differences');
     this.route('cheat-sheet');
-    this.route('configuration');
     this.route('specs');
   });
 

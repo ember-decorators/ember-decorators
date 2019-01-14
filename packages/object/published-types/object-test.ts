@@ -1,5 +1,6 @@
-import { computed, observes, unobserves, on, off, action, readOnly, volatile } from '@ember-decorators/object';
 import EmberObject from '@ember/object';
+import { computed, observes, unobserves, on, off, action } from '@ember-decorators/object';
+import { alias } from '@ember-decorators/object/computed';
 
 export default class UserProfileComponent extends EmberObject {
   first = 'John';
@@ -38,20 +39,34 @@ export class Foo {
     // do something
   }
 
-  @readOnly
-  @computed('first', 'last')
+  @(computed('first', 'last').readOnly())
   name(first: string, last: string) {
     return `${first} ${last}`;
   }
 
-  @volatile
-  @computed('first', 'last')
+  @(computed('first', 'last').volatile())
   otherName(first: string, last: string) {
     return `${first} ${last}`;
   }
+
+  @alias('name') nameAlias: string;
 }
 
 export class Bar extends Foo {
   @unobserves('foo') barr!: any;
   @off('fooEvent', 'barEvent') bazz!: any;
 }
+
+export const Baz = EmberObject.extend({
+  first: 'John',
+  last: 'Smith',
+
+  name: computed('first', 'last', function() {
+    const first = this.get('first');
+    const last = this.get('last');
+
+    return `${first} ${last}`; // => 'John Smith'
+  }),
+
+  nameAlias: alias('name')
+});

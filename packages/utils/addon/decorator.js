@@ -3,42 +3,7 @@ import { assert } from '@ember/debug';
 import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
 import { deprecate } from '@ember/application/deprecations';
 
-function isDescriptor(possibleDesc) {
-  let isDescriptor = isStage2Descriptor(possibleDesc);
-
-  if (NEEDS_STAGE_1_DECORATORS) {
-    isDescriptor = isDescriptor || isStage1Descriptor(possibleDesc);
-  }
-
-  return isDescriptor;
-}
-
-function isStage1Descriptor(possibleDesc) {
-  if (possibleDesc.length === 3) {
-    let [target, key, desc] = possibleDesc;
-
-    return (
-      typeof target === 'object' &&
-      target !== null &&
-      typeof key === 'string' &&
-      ((typeof desc === 'object' &&
-        desc !== null &&
-        'enumerable' in desc &&
-        'configurable' in desc) ||
-        desc === undefined) // TS compatibility
-    );
-  } else if (possibleDesc.length === 1) {
-    let [target] = possibleDesc;
-
-    return typeof target === 'function' && 'prototype' in target;
-  }
-
-  return false;
-}
-
-function isStage2Descriptor(possibleDesc) {
-  return possibleDesc && possibleDesc.toString() === '[object Descriptor]';
-}
+import { isFieldDescriptor, isStage2FieldDescriptor } from './-private/class-field-descriptor';
 
 function kindForDesc(desc) {
   if ('value' in desc && desc.enumerable === true) {
@@ -100,7 +65,7 @@ function deprecateDirectDescriptorMutation(fn, desc) {
 export function decorator(fn) {
   if (NEEDS_STAGE_1_DECORATORS) {
     return function(...params) {
-      if (isStage2Descriptor(params)) {
+      if (isStage2FieldDescriptor(params)) {
         let desc = params[0];
 
         return deprecateDirectDescriptorMutation(fn, desc);
@@ -155,7 +120,7 @@ export function decorator(fn) {
 export function decoratorWithParams(fn) {
   return function(...params) {
     // determine if user called as @computed('blah', 'blah') or @computed
-    if (isDescriptor(params)) {
+    if (isFieldDescriptor(params)) {
       return decorator(fn)(...params);
     } else {
       return decorator(desc => fn(desc, params));
@@ -184,7 +149,7 @@ export function decoratorWithRequiredParams(fn, name) {
   return function(...params) {
     assert(
       `The @${name || fn.name} decorator requires parameters`,
-      !isDescriptor(params) && params.length > 0
+      !isFieldDescriptor(params) && params.length > 0
     );
 
     return decorator(desc => {
