@@ -97,3 +97,6 @@ export const belongsTo: {
 
   (target: object, propertyKey: string | symbol): void;
 }
+
+// Prevent automatic exports of internal types
+export {}

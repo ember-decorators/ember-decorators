@@ -228,10 +228,10 @@ export function filter<T>(
  * @param {String} propertyKey - Property of the array items to filter by
  * @param {Any} value - Value to filter by
  */
-export function filterBy<T>(
+export function filterBy(
   dependentKey: string,
   propertyKey: string,
-  value?: T
+  value?: any
 ): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.gt](http://emberjs.com/api/classes/Ember.computed.html#method_gt)
@@ -276,7 +276,7 @@ export function gt(dependentKey: string, value: number): ComputedDecorator<boole
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export function gte(dependentKey: string, value: Number): ComputedDecorator<boolean>;
+export function gte(dependentKey: string, value: number): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.intersect](http://emberjs.com/api/classes/Ember.computed.html#method_intersect)
  *
@@ -321,7 +321,7 @@ export function intersect(...dependentKeys: string[]): ComputedDecorator<any[]>;
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export function lt(dependentKey: string, value: Number): ComputedDecorator<boolean>;
+export function lt(dependentKey: string, value: number): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.lte](http://emberjs.com/api/classes/Ember.computed.html#method_lte)
  *
@@ -343,7 +343,7 @@ export function lt(dependentKey: string, value: Number): ComputedDecorator<boole
  * @param {String} dependentKey - Key for the property to compare
  * @param {Number} value - Value to compare against
  */
-export function lte(dependentKey: string, value: Number): ComputedDecorator<boolean>;
+export function lte(dependentKey: string, value: number): ComputedDecorator<boolean>;
 /**
  * Decorator that wraps [Ember.computed.map](http://emberjs.com/api/classes/Ember.computed.html#method_map)
  *
@@ -374,9 +374,9 @@ export function lte(dependentKey: string, value: Number): ComputedDecorator<bool
  * @param {String} dependentKey - Key for the array to map over
  * @param {Function(item: Any, index: Number): Any} callback - Function to map over the array
  */
-export function map<T, U>(
+export function map(
   dependentKey: string,
-  callback?: (item: T, index: number) => U
+  callback?: (item: any, index: number) => any
 ): ComputedDecorator<any[]>;
 /**
  * Decorator that wraps [Ember.computed.mapBy](http://emberjs.com/api/classes/Ember.computed.html#method_mapBy)
@@ -827,3 +827,6 @@ export function uniqBy(
   dependentKey: string,
   propertyKey: string
 ): ComputedDecorator<any[]>;
+
+// Prevent automatic exports of internal types
+export {}

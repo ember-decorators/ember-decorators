@@ -254,3 +254,6 @@ export function on(...eventNames: string[]): MethodDecorator;
   @param {...String} eventNames - Names of the events that no longer trigger the function
  */
 export function off(...eventNames: string[]): PropertyDecorator & MethodDecorator;
+
+// Prevent automatic exports of internal types
+export {}

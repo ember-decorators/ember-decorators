@@ -31,3 +31,6 @@ export const inject: {
     descriptor: PropertyDescriptor
   ): PropertyDescriptor;
 }
+
+// Prevent automatic exports of internal types
+export {}
