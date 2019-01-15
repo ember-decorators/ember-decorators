@@ -6,6 +6,11 @@ export default class UserProfileComponent extends EmberObject {
   first = 'John';
   last = 'Smith';
 
+  @computed
+  get foo() {
+    return 'bar';
+  }
+
   @computed('first', 'last')
   get name() {
     const first = this.get('first');

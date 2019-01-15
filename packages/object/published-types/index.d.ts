@@ -164,12 +164,7 @@ export const computed: {
       k7: string,
       ...rest: any[]
   ): ComputedDecorator<any>;
-  (
-    target: any,
-    key: any,
-    descriptor: PropertyDescriptor
-  ): PropertyDescriptor;
-}
+} & PropertyDecorator;
 
 /**
   Triggers the target function when the dependent properties have changed

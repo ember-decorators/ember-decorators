@@ -30,9 +30,7 @@ export const attr: {
   ): ComputedDecorator<TransformRegistry[K]>;
 
   (options?: DS.AttrOptions): ComputedDecorator<any>;
-
-  (target: object, propertyKey: string | symbol): void;
-}
+} & PropertyDecorator;
 
 /**
  * Decorator that turns the property into an Ember Data attribute
@@ -64,9 +62,7 @@ export const hasMany: {
     DS.PromiseManyArray<ModelRegistry[K]>,
     EmberArray<ModelRegistry[K]>
   >;
-
-  (target: object, propertyKey: string | symbol): void;
-}
+} & PropertyDecorator;
 
 /**
  * Decorator that turns the property into an Ember Data `belongsTo` relationship
@@ -94,9 +90,7 @@ export const belongsTo: {
     ModelRegistry[K] & DS.PromiseObject<ModelRegistry[K]>,
     ModelRegistry[K]
   >;
-
-  (target: object, propertyKey: string | symbol): void;
-}
+} & PropertyDecorator;
 
 // Prevent automatic exports of internal types
 export {}
