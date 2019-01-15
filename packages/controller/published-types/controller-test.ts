@@ -5,7 +5,7 @@ declare module '@ember/controller' {
   interface Registry {
     ['x-foo']: Controller;
     ['x-bar']: Controller;
-    ['bazController']: Controller;
+    bazController: Controller;
   }
 }
 
