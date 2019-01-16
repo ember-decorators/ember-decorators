@@ -14,13 +14,6 @@
   "packageRules": [
     {
       "depTypeList": [
-        "peerDependencies",
-        "dependencies"
-      ],
-      "rangeStrategy": "widen"
-    },
-    {
-      "depTypeList": [
         "devDependencies"
        ],
        "rangeStrategy": "replace"
