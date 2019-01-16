@@ -5,11 +5,13 @@ declare module '@ember/controller' {
   interface Registry {
     ['x-foo']: Controller;
     ['x-bar']: Controller;
+    bazController: Controller;
   }
 }
 
 export class XFoo extends Controller {
   @controller('x-bar') barController!: Controller;
+  @controller bazController!: Controller;
   // $ExpectError
   @controller('x-baz') bazController!: Controller;
 }

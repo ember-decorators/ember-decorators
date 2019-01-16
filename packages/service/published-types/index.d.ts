@@ -10,7 +10,7 @@ type ComputedDecorator<Get, Set = Get> = ComputedProperty<Get, Set> & PropertyDe
  *
  * Injects a service into the object as the decorated property
  *
- *  ```javascript
+ * ```javascript
  * import Component from '@ember/component';
  * import { inject as service } from 'ember-decorators/service';
  *
@@ -24,13 +24,7 @@ type ComputedDecorator<Get, Set = Get> = ComputedProperty<Get, Set> & PropertyDe
  */
 export const inject: {
   <K extends keyof Registry>(name?: K): ComputedDecorator<Registry[K]>;
-
-  (
-    target: any,
-    key: any,
-    descriptor: PropertyDescriptor
-  ): PropertyDescriptor;
-}
+} & PropertyDecorator;
 
 // Prevent automatic exports of internal types
 export {}
