@@ -1,6 +1,7 @@
-import EmberObject from '@ember/object';
-import { computed, observes, unobserves, on, off, action } from '@ember-decorators/object';
+import EmberObject, { computed as emberComputed } from '@ember/object';
+import { computed, observes, unobserves, on, off, action, wrapComputed } from '@ember-decorators/object';
 import { alias } from '@ember-decorators/object/computed';
+import { test } from 'qunit';
 
 export default class UserProfileComponent extends EmberObject {
   first = 'John';
@@ -27,6 +28,8 @@ export default class UserProfileComponent extends EmberObject {
     const [first, last] = value.split(' ');
     this.setProperties({ first, last });
   }
+
+  @wrapComputed(emberComputed(() => {})) test: any;
 }
 
 export class Foo {

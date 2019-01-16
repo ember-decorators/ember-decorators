@@ -6,6 +6,7 @@ import { decorator } from './decorator';
 import { computedDescriptorFor, isComputedDescriptor } from './-private/descriptor';
 import { isFieldDescriptor } from './-private/class-field-descriptor';
 
+import { DEBUG } from '@glimmer/env';
 import { assert } from '@ember/debug';
 import ComputedProperty from '@ember/object/computed';
 
@@ -150,6 +151,11 @@ export function computedDecorator(fn, params) {
   });
 
   Object.setPrototypeOf(dec, DecoratorDescriptor.prototype);
+
+  if (DEBUG) {
+    // This is for wrapComputed to check against invalid input
+    dec.__isComputedDecorator = true;
+  }
 
   DECORATOR_COMPUTED_FN.set(dec, fn);
   DECORATOR_PARAMS.set(dec, params);

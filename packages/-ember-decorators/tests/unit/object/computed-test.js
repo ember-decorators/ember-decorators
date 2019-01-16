@@ -2,8 +2,8 @@ import { DEBUG } from '@glimmer/env';
 
 import { module, test } from 'ember-qunit';
 
-import EmberObject, { get, set, setProperties } from '@ember/object';
-import { computed, observes } from '@ember-decorators/object';
+import EmberObject, { computed as emberComputed, get, set, setProperties } from '@ember/object';
+import { computed, wrapComputed, observes } from '@ember-decorators/object';
 
 
 module('@computed', function() {
@@ -323,7 +323,101 @@ module('@computed', function() {
         /ES6 property getters\/setters only need to be decorated once, 'fullName' was decorated on both the getter and the setter/
       );
     });
+
+    test('throws if a ComputedProperty is passed to `@computed`', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            @computed(emberComputed('foo', 'bar', {
+              get() {
+
+              }
+            })) name;
+          }
+
+          new Foo();
+        },
+        /computed properties should not be passed to @computed directly, use wrapComputed for the value passed to name instead/
+      );
+    });
+
+    test('throws if a ComputedDecorator is passed to `@computed`', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            @computed(computed('foo', 'bar', {
+              get() {
+
+              }
+            })) name;
+          }
+
+          new Foo();
+        },
+        /computed properties should not be passed to @computed directly, use wrapComputed for the value passed to name instead/
+      );
+    });
   }
+
+  module('wrapComputed', function() {
+    test('it works', function(assert) {
+      assert.expect(2);
+
+      class Foo {
+        first = 'rob';
+        last = 'jackson';
+
+        @wrapComputed(
+          emberComputed('first', 'last', function() {
+            assert.equal(this.first, 'rob');
+            assert.equal(this.last, 'jackson');
+          })
+        ) fullName;
+      }
+
+      let obj = new Foo();
+      get(obj, 'fullName');
+    });
+
+    test('it throws if it recieves more than one argument', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            @wrapComputed(emberComputed(function() {}), 'bar') name;
+          }
+
+          new Foo();
+        },
+        /wrapComputed should receive exactly one parameter, a ComputedProperty/
+      );
+    })
+
+    test('it throws if it receives non-CP', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            @wrapComputed('foo') name;
+          }
+
+          new Foo();
+        },
+        /wrapComputed should receive an instance of a ComputedProperty. Received foo for name/
+      );
+    });
+
+    test('it throws if it receives a ComputedDecorator', function(assert) {
+      assert.throws(
+        () => {
+          class Foo {
+            @wrapComputed(computed('foo', 'bar')) name;
+          }
+
+          new Foo();
+        },
+        /wrapComputed received a ComputedDecorator for name. Because the value is already a decorator, there is no need to wrap it./
+      );
+    });
+  });
 
   module('modifiers', function() {
     test('volatile', function(assert) {
