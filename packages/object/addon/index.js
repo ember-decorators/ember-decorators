@@ -172,7 +172,7 @@ export const computed = computedDecoratorWithParams(({ key, descriptor, initiali
 
   assert(
     `computed properties should not be passed to @computed directly, use wrapComputed for the value passed to ${key} instead`,
-    !((typeof lastArg === 'function' || typeof lastArg === 'object') && lastArg.isDescriptor)
+    !((typeof lastArg === 'function' || typeof lastArg === 'object') && lastArg instanceof ComputedProperty)
   );
 
 
