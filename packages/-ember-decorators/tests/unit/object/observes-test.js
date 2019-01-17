@@ -122,7 +122,7 @@ module('@observes', function() {
       set(obj.person, 'last', 'katz');
     });
 
-    test('it works with expanded/chained properties on plain classes', function(assert) {
+    test('initializer prop is non-enumerable', function(assert) {
       class Foo {
         @observes('person.{first,last}')
         fullName() {}
@@ -131,6 +131,20 @@ module('@observes', function() {
       let obj = new Foo();
 
       assert.equal(Object.keys(obj).length, 0, 'special property is non-enumerable')
+    });
+
+    test('can define multiple observers on a single non-EmberObject class', function(assert) {
+      assert.expect(0);
+
+      class Foo {
+        @observes('foo')
+        bar() {}
+
+        @observes('bar')
+        foo() {}
+      }
+
+      new Foo();
     });
   }
 

@@ -278,6 +278,7 @@ export const wrapComputed = computedDecoratorWithParams((desc, params) => {
   @function
   @param {...String} propertyNames - Names of the properties that trigger the function
  */
+let hasChainsFinished = false;
 const CHAINS_FINISHED = new WeakMap();
 
 export const observes = decoratorWithRequiredParams((desc, params) => {
@@ -286,28 +287,37 @@ export const observes = decoratorWithRequiredParams((desc, params) => {
     desc && desc.descriptor && typeof desc.descriptor.value === 'function'
   );
 
-  // hackity hackity haaaaaack
-  desc.extras = [
-    {
-      kind: 'field',
-      placement: 'own',
-      key: '__EMBER_DECORATORS_FINISH_CHAINS__',
-      descriptor: {
-        enumerable: false,
-        writable: true,
-        configurable: true,
-      },
-      initializer() {
-        if (!(this instanceof EmberObject) && !CHAINS_FINISHED.has(this)) {
-          Ember.finishChains(Ember.meta(this));
+  // hasChainsFinished will be set to true when the first initializer field
+  // is added during class evaluation, then back to false when the finishers
+  // run. This is not ideal, but shouldn't be an issue in the future when we
+  // have the ability to add arbitrary initializers that don't have to be fields
+  if (hasChainsFinished === false) {
+    hasChainsFinished = true;
 
-          CHAINS_FINISHED.set(this, true);
+    // hackity hackity haaaaaack
+    desc.extras = [
+      {
+        kind: 'field',
+        placement: 'own',
+        key: '__EMBER_DECORATORS_FINISH_CHAINS__',
+        descriptor: {
+          enumerable: false,
+          writable: true,
+          configurable: true,
+        },
+        initializer() {
+          if (!(this instanceof EmberObject) && !CHAINS_FINISHED.has(this)) {
+            Ember.finishChains(Ember.meta(this));
+
+            CHAINS_FINISHED.set(this, true);
+          }
         }
       }
-    }
-  ];
+    ];
+  }
 
   desc.finisher = target => {
+    hasChainsFinished = false;
     let { prototype } = target;
 
     if (NEEDS_STAGE_1_DECORATORS) {
