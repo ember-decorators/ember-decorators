@@ -1,7 +1,9 @@
+import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
 import { assert } from '@ember/debug';
 
-import { computed as emberComputed } from '@ember/object';
-import ComputedProperty from '@ember/object/computed';
+import Ember from 'ember';
+import EmberObject, { computed as emberComputed } from '@ember/object';
+import ComputedProperty, { expandProperties } from '@ember/object/computed';
 import { addListener, removeListener } from '@ember/object/events';
 import { addObserver, removeObserver } from '@ember/object/observers';
 
@@ -276,17 +278,50 @@ export const wrapComputed = computedDecoratorWithParams((desc, params) => {
   @function
   @param {...String} propertyNames - Names of the properties that trigger the function
  */
+const CHAINS_FINISHED = new WeakMap();
+
 export const observes = decoratorWithRequiredParams((desc, params) => {
   assert(
     'The @observes decorator must be applied to functions',
     desc && desc.descriptor && typeof desc.descriptor.value === 'function'
   );
 
+  // hackity hackity haaaaaack
+  desc.extras = [
+    {
+      kind: 'field',
+      placement: 'own',
+      key: '__EMBER_DECORATORS_FINISH_CHAINS__',
+      descriptor: {
+        enumerable: false,
+        writable: true,
+        configurable: true,
+      },
+      initializer() {
+        if (!(this instanceof EmberObject) && !CHAINS_FINISHED.has(this)) {
+          Ember.finishChains(Ember.meta(this));
+
+          CHAINS_FINISHED.set(this, true);
+        }
+      }
+    }
+  ];
+
   desc.finisher = target => {
     let { prototype } = target;
 
+    if (NEEDS_STAGE_1_DECORATORS) {
+      assert(
+        `You attempted to use @observes on ${target.name}#${desc.key}, which does not extend from EmberObject. This does not work with stage 1 decorator transforms, and will break in subtle ways. You must either update to the stage 2 transforms (@ember-decorators/babel-transforms v3.1+) or rewrite your class to extend from EmberObject.`,
+        prototype instanceof EmberObject
+      );
+    }
+
+
     for (let path of params) {
-      addObserver(prototype, path, null, desc.key);
+      expandProperties(path, expandedPath => {
+        addObserver(prototype, expandedPath, null, desc.key);
+      });
     }
 
     return target;
@@ -321,7 +356,9 @@ export const unobserves = decoratorWithRequiredParams((desc, params) => {
     let { prototype } = target;
 
     for (let path of params) {
-      removeObserver(prototype, path, null, desc.key);
+      expandProperties(path, expandedPath => {
+        removeObserver(prototype, expandedPath, null, desc.key);
+      });
     }
 
     return target;

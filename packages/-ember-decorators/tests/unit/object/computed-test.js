@@ -425,7 +425,7 @@ module('@computed', function() {
   module('modifiers', function() {
     test('volatile', function(assert) {
       assert.expect(2);
-      class Foo {
+      class Foo extends EmberObject {
         _count = 0;
 
         @(computed('first').volatile())
