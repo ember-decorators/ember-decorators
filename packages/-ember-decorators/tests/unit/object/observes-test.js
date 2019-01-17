@@ -1,7 +1,8 @@
 import { DEBUG } from '@glimmer/env';
+import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
 
 import { module, test } from 'ember-qunit';
-import { set } from '@ember/object';
+import EmberObject, { set } from '@ember/object';
 
 import { observes } from '@ember-decorators/object';
 
@@ -12,7 +13,7 @@ module('@observes', function() {
 
     let i = 0;
 
-    class Foo {
+    class Foo extends EmberObject {
       @observes('first', 'last')
       fullName() {
         [
@@ -38,7 +39,7 @@ module('@observes', function() {
 
     let callCount = 0;
 
-    class Foo {
+    class Foo extends EmberObject {
       first = 'rob';
       last = 'jackson';
 
@@ -58,12 +59,102 @@ module('@observes', function() {
     assert.equal(callCount, 3);
   });
 
+  test('it works with expanded/chained properties on EmberObject based classes', function(assert) {
+    assert.expect(4);
+
+    let i = 0;
+
+    class Foo extends EmberObject {
+      init() {
+        super.init(...arguments);
+
+        this.person = {};
+      }
+
+      @observes('person.{first,last}')
+      fullName() {
+        [
+          () => {
+            assert.equal(this.person.first, 'yehuda');
+            assert.equal(this.person.last, undefined);
+          },
+          () => {
+            assert.equal(this.person.first, 'yehuda');
+            assert.equal(this.person.last, 'katz');
+          },
+        ][i++]();
+      }
+    }
+
+    let obj = Foo.create();
+
+    set(obj, 'person.first', 'yehuda');
+    set(obj.person, 'last', 'katz');
+  });
+
+  if (!NEEDS_STAGE_1_DECORATORS) {
+    test('it works with expanded/chained properties on plain classes', function(assert) {
+      assert.expect(4);
+
+      let i = 0;
+
+      class Foo {
+        person = {};
+
+        @observes('person.{first,last}')
+        fullName() {
+          [
+            () => {
+              assert.equal(this.person.first, 'yehuda');
+              assert.equal(this.person.last, undefined);
+            },
+            () => {
+              assert.equal(this.person.first, 'yehuda');
+              assert.equal(this.person.last, 'katz');
+            },
+          ][i++]();
+        }
+      }
+
+      let obj = new Foo();
+
+      set(obj, 'person.first', 'yehuda');
+      set(obj.person, 'last', 'katz');
+    });
+
+    test('it works with expanded/chained properties on plain classes', function(assert) {
+      class Foo {
+        @observes('person.{first,last}')
+        fullName() {}
+      }
+
+      let obj = new Foo();
+
+      assert.equal(Object.keys(obj).length, 0, 'special property is non-enumerable')
+    });
+  }
+
   if (DEBUG) {
+    if (NEEDS_STAGE_1_DECORATORS) {
+      test('it throws if attempting to use on a non-EmberObject class', function(assert) {
+        assert.throws(() => {
+          class Foo {
+            @observes('person.{first,last}')
+            fullName() {}
+          }
+
+          new Foo();
+        }, /You attempted to use @observes on Foo#fullName/);
+      });
+    }
+
     test('throws if used on non-function', function(assert) {
       assert.throws(
         () => {
-          class Foo {
+          class Foo extends EmberObject {
             constructor() {
+              super(...arguments);
+
               this.first = 'rob';
               this.last = 'jackson';
             }
@@ -80,8 +171,10 @@ module('@observes', function() {
 
       assert.throws(
         () => {
-          class Foo {
+          class Foo extends EmberObject {
             constructor() {
+              super(...arguments);
+
               this.first = 'rob';
               this.last = 'jackson';
             }
@@ -101,8 +194,10 @@ module('@observes', function() {
 
       assert.throws(
         () => {
-          class Foo {
+          class Foo extends EmberObject {
             constructor() {
+              super(...arguments);
+
               this.first = 'rob';
               this.last = 'jackson';
             }
