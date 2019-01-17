@@ -20,7 +20,7 @@ if (NEEDS_STAGE_1_DECORATORS) {
     } else if (possibleDesc.length === 1) {
       let [target] = possibleDesc;
 
-      return typeof target === 'function' && 'prototype' in target;
+      return typeof target === 'function' && 'prototype' in target && !target.__isComputedDecorator;
     }
 
     return false;

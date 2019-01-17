@@ -67,5 +67,4 @@ jobs:
     - env: EMBER_TRY_SCENARIO=production
     - env: EMBER_TRY_SCENARIO=stage-1-transforms
     - env: EMBER_TRY_SCENARIO=forced-stage-1-build
-    - env: EMBER_TRY_SCENARIO=throw-on-computed-override
 

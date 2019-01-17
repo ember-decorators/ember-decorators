@@ -100,12 +100,6 @@ module.exports = function() {
             EMBER_DECORATORS_NEEDS_STAGE_1_DECORATORS: true,
           },
         },
-        {
-          name: 'throw-on-computed-override',
-          env: {
-            EMBER_DECORATORS_THROW_ON_COMPUTED_OVERRIDE: true,
-          },
-        },
       ],
     };
   });
