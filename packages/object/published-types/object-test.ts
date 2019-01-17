@@ -29,7 +29,9 @@ export default class UserProfileComponent extends EmberObject {
     this.setProperties({ first, last });
   }
 
-  @wrapComputed(emberComputed(() => {})) test: any;
+  @wrapComputed(emberComputed(() => {
+    return 'foo';
+  })) fooString: string;
 }
 
 export class Foo {
@@ -76,5 +78,20 @@ export const Baz = EmberObject.extend({
     return `${first} ${last}`; // => 'John Smith'
   }),
 
-  nameAlias: alias('name')
+  nameAlias: alias('name'),
+
+  fooString: wrapComputed(
+    emberComputed({
+      get() {
+        return 'foo';
+      },
+      set(key, value: string) {
+        return value;
+      }
+    })
+  )
 });
+
+// Make sure wrapComputed doesn't interfere with typings
+const baz = Baz.create();
+const obj: { foo: string } = { foo: baz.get('fooString') };
