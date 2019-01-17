@@ -167,6 +167,31 @@ export const computed: {
 } & PropertyDecorator;
 
 /**
+  Wraps an instance of a ComputedProperty, turning it into a decorator:
+
+  ```js
+  import Component from '@ember/component';
+  import { computed } from '@ember/object';
+  import { wrapComputed } from '@ember-decorators/object';
+
+  export default class UserProfileComponent extends Component {
+    first = 'Bruce';
+    last = 'Wayne';
+
+    @wrapComputed(
+      computed('first', 'last', function() {
+        return `${this.first} ${this.last}`; // => 'Bruce Wayne'
+      })
+    ) fullName;
+  }
+  ```
+
+  @param {ComputedProperty} cp - an instance of a computed property
+  @return {ComputedDecorator}
+*/
+export function wrapComputed<T>(cp: ComputedProperty<T>): ComputedDecorator<T>;
+
+/**
   Triggers the target function when the dependent properties have changed
 
   ```javascript

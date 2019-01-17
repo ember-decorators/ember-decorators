@@ -1,6 +1,7 @@
 import { assert } from '@ember/debug';
 
 import { computed as emberComputed } from '@ember/object';
+import ComputedProperty from '@ember/object/computed';
 import { addListener, removeListener } from '@ember/object/events';
 import { addObserver, removeObserver } from '@ember/object/observers';
 
@@ -152,7 +153,8 @@ export const action = decorator(desc => {
 
   @function
   @param {...string} propertyNames - List of property keys this computed is dependent on
-  @return {ComputedProperty}
+  @param {ComputedPropertyDesc?} desc - Optional computed property getter/setter
+  @return {ComputedDecorator}
 */
 export const computed = computedDecoratorWithParams(({ key, descriptor, initializer }, params = []) => {
   assert(
@@ -167,6 +169,12 @@ export const computed = computedDecoratorWithParams(({ key, descriptor, initiali
 
   let lastArg = params[params.length - 1];
   let get, set;
+
+  assert(
+    `computed properties should not be passed to @computed directly, use wrapComputed for the value passed to ${key} instead`,
+    !((typeof lastArg === 'function' || typeof lastArg === 'object') && lastArg instanceof ComputedProperty)
+  );
+
 
   if (typeof lastArg === 'function') {
     params.pop();
@@ -218,6 +226,37 @@ export const computed = computedDecoratorWithParams(({ key, descriptor, initiali
   }
 
   return emberComputed(...params, { get, set: setter });
+});
+
+/**
+  Wraps an instance of a ComputedProperty, turning it into a decorator:
+
+  ```js
+  import Component from '@ember/component';
+  import { computed } from '@ember/object';
+  import { wrapComputed } from '@ember-decorators/object';
+
+  export default class UserProfileComponent extends Component {
+    first = 'Bruce';
+    last = 'Wayne';
+
+    @wrapComputed(
+      computed('first', 'last', function() {
+        return `${this.first} ${this.last}`; // => 'Bruce Wayne'
+      })
+    ) fullName;
+  }
+  ```
+
+  @param {ComputedProperty} cp - an instance of a computed property
+  @return {ComputedDecorator}
+*/
+export const wrapComputed = computedDecoratorWithParams((desc, params) => {
+  assert(`wrapComputed should receive exactly one parameter, a ComputedProperty. Received ${params} for ${desc.key}`, params.length === 1);
+  assert(`wrapComputed should receive an instance of a ComputedProperty. Received ${params} for ${desc.key}`, params[0] instanceof ComputedProperty);
+  assert(`wrapComputed received a ComputedDecorator for ${desc.key}. Because the value is already a decorator, there is no need to wrap it.`, !params[0].__isComputedDecorator);
+
+  return params[0];
 });
 
 /**
