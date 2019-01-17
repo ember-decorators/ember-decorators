@@ -284,6 +284,7 @@ module('@computed', function() {
     new Bar();
     new Baz();
   });
+
   if (DEBUG) {
     test('throws if used on non-getters', function(assert) {
       assert.throws(
@@ -379,44 +380,46 @@ module('@computed', function() {
       get(obj, 'fullName');
     });
 
-    test('it throws if it recieves more than one argument', function(assert) {
-      assert.throws(
-        () => {
-          class Foo {
-            @wrapComputed(emberComputed(function() {}), 'bar') name;
-          }
+    if (DEBUG) {
+      test('it throws if it recieves more than one argument', function(assert) {
+        assert.throws(
+          () => {
+            class Foo {
+              @wrapComputed(emberComputed(function() {}), 'bar') name;
+            }
 
-          new Foo();
-        },
-        /wrapComputed should receive exactly one parameter, a ComputedProperty/
-      );
-    })
+            new Foo();
+          },
+          /wrapComputed should receive exactly one parameter, a ComputedProperty/
+        );
+      })
 
-    test('it throws if it receives non-CP', function(assert) {
-      assert.throws(
-        () => {
-          class Foo {
-            @wrapComputed('foo') name;
-          }
+      test('it throws if it receives non-CP', function(assert) {
+        assert.throws(
+          () => {
+            class Foo {
+              @wrapComputed('foo') name;
+            }
 
-          new Foo();
-        },
-        /wrapComputed should receive an instance of a ComputedProperty. Received foo for name/
-      );
-    });
+            new Foo();
+          },
+          /wrapComputed should receive an instance of a ComputedProperty. Received foo for name/
+        );
+      });
 
-    test('it throws if it receives a ComputedDecorator', function(assert) {
-      assert.throws(
-        () => {
-          class Foo {
-            @wrapComputed(computed('foo', 'bar')) name;
-          }
+      test('it throws if it receives a ComputedDecorator', function(assert) {
+        assert.throws(
+          () => {
+            class Foo {
+              @wrapComputed(computed('foo', 'bar')) name;
+            }
 
-          new Foo();
-        },
-        /wrapComputed received a ComputedDecorator for name. Because the value is already a decorator, there is no need to wrap it./
-      );
-    });
+            new Foo();
+          },
+          /wrapComputed received a ComputedDecorator for name. Because the value is already a decorator, there is no need to wrap it./
+        );
+      });
+    }
   });
 
   module('modifiers', function() {
