@@ -47,6 +47,10 @@ module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
     trees,
 
+    '@ember-decorators/babel-transforms': {
+      decoratorsBeforeExport: false
+    },
+
     'ember-cli-uglify': {
 			uglify: {
 				compress: {
