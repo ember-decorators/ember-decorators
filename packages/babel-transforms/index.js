@@ -8,7 +8,7 @@ module.exports = {
     this._super.included.apply(this, arguments);
 
     // Create parent options, if they do not exist
-    let parentOptions = (parent.options = parent.options || {});
+    let parentOptions = (this.app || this.parent).options || {}
 
     // Create and extract own options, if they do not exist
     let { decoratorsBeforeExport = true } = parentOptions['@ember-decorators/babel-transforms'] || {};
