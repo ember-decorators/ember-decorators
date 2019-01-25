@@ -184,7 +184,7 @@ class Foo extends EmberObject {
 }
 ```
 
-Note that class initializers are run in order the order they are defined, from
+Note that class initializers are run in the order they are defined, from
 top to bottom, and can refer to the instance of the class via `this`. This is
 how the initializer for `someClass` is able to refer to `this.someObject` to get
 the initialized value (an empty object). This pattern should be used cautiously,
