@@ -250,6 +250,7 @@ export const computed = computedDecoratorWithParams(({ key, descriptor, initiali
   }
   ```
 
+  @function
   @param {ComputedProperty} cp - an instance of a computed property
   @return {ComputedDecorator}
 */
