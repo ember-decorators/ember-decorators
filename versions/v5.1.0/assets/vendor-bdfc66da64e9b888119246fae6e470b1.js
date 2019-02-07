@@ -4568,23 +4568,24 @@ return void 0===i?t.call(this):i}),Ember.computed.apply(void 0,i(a).concat([{get
 e.computed=u
 var l=(0,n.computedDecoratorWithParams)(function(e,t){return t[0]})
 e.wrapComputed=l
-var c=new WeakMap,d=(0,r.decoratorWithRequiredParams)(function(e,t){return e.extras=[{kind:"field",placement:"own",key:"__EMBER_DECORATORS_FINISH_CHAINS__",descriptor:{enumerable:!1,writable:!0,configurable:!0},initializer:function(){this instanceof Ember.Object||c.has(this)||(Ember.finishChains(Ember.meta(this)),c.set(this,!0))}}],e.finisher=function(r){var n=r.prototype
+var c=!1,d=new WeakMap,f=(0,r.decoratorWithRequiredParams)(function(e,t){return!1===c&&(c=!0,e.extras=[{kind:"field",placement:"own",key:"__EMBER_DECORATORS_FINISH_CHAINS__",descriptor:{enumerable:!1,writable:!0,configurable:!0},initializer:function(){this instanceof Ember.Object||d.has(this)||(Ember.finishChains(Ember.meta(this)),d.set(this,!0))}}]),e.finisher=function(r){c=!1
+var n=r.prototype
 var i=!0,o=!1,a=void 0
 try{for(var s,u=t[Symbol.iterator]();!(i=(s=u.next()).done);i=!0){var l=s.value
-Ember.expandProperties(l,function(t){Ember.addObserver(n,t,null,e.key)})}}catch(c){o=!0,a=c}finally{try{i||null==u.return||u.return()}finally{if(o)throw a}}return r},e},"observes")
-e.observes=d
-var f=(0,r.decoratorWithRequiredParams)(function(e,t){return e.finisher=function(r){var n=r.prototype,i=!0,o=!1,a=void 0
-try{for(var s,u=t[Symbol.iterator]();!(i=(s=u.next()).done);i=!0){var l=s.value
-Ember.expandProperties(l,function(t){Ember.removeObserver(n,t,null,e.key)})}}catch(c){o=!0,a=c}finally{try{i||null==u.return||u.return()}finally{if(o)throw a}}return r},e},"unobserves")
-e.unobserves=f
+Ember.expandProperties(l,function(t){Ember.addObserver(n,t,null,e.key)})}}catch(d){o=!0,a=d}finally{try{i||null==u.return||u.return()}finally{if(o)throw a}}return r},e},"observes")
+e.observes=f
 var p=(0,r.decoratorWithRequiredParams)(function(e,t){return e.finisher=function(r){var n=r.prototype,i=!0,o=!1,a=void 0
 try{for(var s,u=t[Symbol.iterator]();!(i=(s=u.next()).done);i=!0){var l=s.value
-Ember.addListener(n,l,null,e.key)}}catch(c){o=!0,a=c}finally{try{i||null==u.return||u.return()}finally{if(o)throw a}}return r},e},"on")
-e.on=p
+Ember.expandProperties(l,function(t){Ember.removeObserver(n,t,null,e.key)})}}catch(c){o=!0,a=c}finally{try{i||null==u.return||u.return()}finally{if(o)throw a}}return r},e},"unobserves")
+e.unobserves=p
 var h=(0,r.decoratorWithRequiredParams)(function(e,t){return e.finisher=function(r){var n=r.prototype,i=!0,o=!1,a=void 0
 try{for(var s,u=t[Symbol.iterator]();!(i=(s=u.next()).done);i=!0){var l=s.value
+Ember.addListener(n,l,null,e.key)}}catch(c){o=!0,a=c}finally{try{i||null==u.return||u.return()}finally{if(o)throw a}}return r},e},"on")
+e.on=h
+var m=(0,r.decoratorWithRequiredParams)(function(e,t){return e.finisher=function(r){var n=r.prototype,i=!0,o=!1,a=void 0
+try{for(var s,u=t[Symbol.iterator]();!(i=(s=u.next()).done);i=!0){var l=s.value
 Ember.removeListener(n,l,null,e.key)}}catch(c){o=!0,a=c}finally{try{i||null==u.return||u.return()}finally{if(o)throw a}}return r},e},"off")
-e.off=h}),define("@ember-decorators/service/index",["exports","@ember-decorators/utils/computed"],function(e,t){"use strict"
+e.off=m}),define("@ember-decorators/service/index",["exports","@ember-decorators/utils/computed"],function(e,t){"use strict"
 Object.defineProperty(e,"__esModule",{value:!0}),e.inject=void 0
 var r=(0,t.computedDecoratorWithParams)(function(e,t){return Ember.inject.service.apply(void 0,t)})
 e.inject=r}),define("@ember-decorators/utils/-private/class-field-descriptor",["exports"],function(e){"use strict"
