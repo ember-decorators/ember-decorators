@@ -250,6 +250,7 @@ export const computed = computedDecoratorWithParams(({ key, descriptor, initiali
   }
   ```
 
+  @function
   @param {ComputedProperty} cp - an instance of a computed property
   @return {ComputedDecorator}
 */
@@ -260,6 +261,9 @@ export const wrapComputed = computedDecoratorWithParams((desc, params) => {
 
   return params[0];
 });
+
+let hasChainsFinished = false;
+const CHAINS_FINISHED = new WeakMap();
 
 /**
   Triggers the target function when the dependent properties have changed
@@ -278,9 +282,6 @@ export const wrapComputed = computedDecoratorWithParams((desc, params) => {
   @function
   @param {...String} propertyNames - Names of the properties that trigger the function
  */
-let hasChainsFinished = false;
-const CHAINS_FINISHED = new WeakMap();
-
 export const observes = decoratorWithRequiredParams((desc, params) => {
   assert(
     'The @observes decorator must be applied to functions',
