@@ -1,5 +1,6 @@
 import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
 import { assert } from '@ember/debug';
+import { gte } from 'ember-compatibility-helpers';
 
 import Ember from 'ember';
 import EmberObject, { computed as emberComputed } from '@ember/object';
@@ -9,9 +10,7 @@ import { addObserver, removeObserver } from '@ember/object/observers';
 
 import collapseProto from '@ember-decorators/utils/collapse-proto';
 import { decorator, decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
-import {
-  computedDecoratorWithParams,
-} from '@ember-decorators/utils/computed';
+import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
 
 const BINDINGS_MAP = new WeakMap();
 
@@ -53,7 +52,6 @@ export const action = decorator(desc => {
     desc && desc.kind === 'method' && desc.descriptor && typeof desc.descriptor.value === 'function'
   );
 
-
   let actionFn = desc.descriptor.value;
 
   desc.descriptor = {
@@ -73,8 +71,8 @@ export const action = decorator(desc => {
       }
 
       return fn;
-    }
-  }
+    },
+  };
 
   desc.finisher = target => {
     let { key } = desc;
@@ -158,77 +156,89 @@ export const action = decorator(desc => {
   @param {ComputedPropertyDesc?} desc - Optional computed property getter/setter
   @return {ComputedDecorator}
 */
-export const computed = computedDecoratorWithParams(({ key, descriptor, initializer }, params = []) => {
-  assert(
-    `@computed can only be used on accessors or fields, attempted to use it with ${key} but that was a method. Try converting it to a getter (e.g. \`get ${key}() {}\`)`,
-    !(descriptor && typeof descriptor.value === 'function')
-  );
+export let computed;
 
-  assert(
-    `@computed can only be used on empty fields. ${key} has an initial value (e.g. \`${key} = someValue\`)`,
-    !initializer
-  );
+if (gte('3.9.0')) {
+  computed = computedDecoratorWithParams(emberComputed);
+} else {
+  computed = computedDecoratorWithParams(({ key, descriptor, initializer }, params = []) => {
+    assert(
+      `@computed can only be used on accessors or fields, attempted to use it with ${key} but that was a method. Try converting it to a getter (e.g. \`get ${key}() {}\`)`,
+      !(descriptor && typeof descriptor.value === 'function')
+    );
 
-  let lastArg = params[params.length - 1];
-  let get, set;
+    assert(
+      `@computed can only be used on empty fields. ${key} has an initial value (e.g. \`${key} = someValue\`)`,
+      !initializer
+    );
 
-  assert(
-    `computed properties should not be passed to @computed directly, use wrapComputed for the value passed to ${key} instead`,
-    !((typeof lastArg === 'function' || typeof lastArg === 'object') && lastArg instanceof ComputedProperty)
-  );
+    let lastArg = params[params.length - 1];
+    let get, set;
 
+    assert(
+      `computed properties should not be passed to @computed directly, use wrapComputed for the value passed to ${key} instead`,
+      !(
+        (typeof lastArg === 'function' || typeof lastArg === 'object') &&
+        lastArg instanceof ComputedProperty
+      )
+    );
 
-  if (typeof lastArg === 'function') {
-    params.pop();
-    get = lastArg;
-  }
+    if (typeof lastArg === 'function') {
+      params.pop();
+      get = lastArg;
+    }
 
-  if (typeof lastArg === 'object' && lastArg !== null) {
-    params.pop();
-    get = lastArg.get;
-    set = lastArg.set;
-  }
+    if (typeof lastArg === 'object' && lastArg !== null) {
+      params.pop();
+      get = lastArg.get;
+      set = lastArg.set;
+    }
 
-  assert(
-    `Attempted to apply a computed property that already has a getter/setter to a ${key}, but it is a method or an accessor. If you passed @computed a function or getter/setter (e.g. \`@computed({ get() { ... } })\`), then it must be applied to a field`,
-    !(descriptor && (typeof get === 'function' || typeof 'set' === 'function') && (typeof descriptor.get === 'function' || typeof descriptor.get === 'function'))
-  );
+    assert(
+      `Attempted to apply a computed property that already has a getter/setter to a ${key}, but it is a method or an accessor. If you passed @computed a function or getter/setter (e.g. \`@computed({ get() { ... } })\`), then it must be applied to a field`,
+      !(
+        descriptor &&
+        (typeof get === 'function' || typeof 'set' === 'function') &&
+        (typeof descriptor.get === 'function' || typeof descriptor.get === 'function')
+      )
+    );
 
-  let usedClassDescriptor = false;
+    let usedClassDescriptor = false;
 
-  if (get === undefined && set === undefined) {
-    usedClassDescriptor = true;
-    get = descriptor.get;
-    set = descriptor.set;
-  }
+    if (get === undefined && set === undefined) {
+      usedClassDescriptor = true;
+      get = descriptor.get;
+      set = descriptor.set;
+    }
 
-  assert(
-    `Attempted to use @computed on ${key}, but it did not have a getter or a setter. You must either pass a get a function or getter/setter to @computed directly (e.g. \`@computed({ get() { ... } })\`) or apply @computed directly to a getter/setter`,
-    typeof get === 'function' || typeof 'set' === 'function'
-  );
+    assert(
+      `Attempted to use @computed on ${key}, but it did not have a getter or a setter. You must either pass a get a function or getter/setter to @computed directly (e.g. \`@computed({ get() { ... } })\`) or apply @computed directly to a getter/setter`,
+      typeof get === 'function' || typeof 'set' === 'function'
+    );
 
-  if (descriptor !== undefined) {
-    // Unset the getter and setter so the descriptor just has a plain value
-    descriptor.get = undefined;
-    descriptor.set = undefined;
-  }
+    if (descriptor !== undefined) {
+      // Unset the getter and setter so the descriptor just has a plain value
+      descriptor.get = undefined;
+      descriptor.set = undefined;
+    }
 
-  let setter = set;
+    let setter = set;
 
-  if (usedClassDescriptor === true && typeof set === 'function') {
-    // Because the setter was defined using class syntax, it cannot have the
-    // same `set(key, value)` signature, and it may not return a value. We
-    // convert the call internally to pass the value as the first parameter,
-    // and check to see if the return value is undefined and if so call the
-    // getter again to get the value explicitly.
-    setter = function(key, value) {
-      let ret = set.call(this, value);
-      return typeof ret === 'undefined' ? get.call(this) : ret;
-    };
-  }
+    if (usedClassDescriptor === true && typeof set === 'function') {
+      // Because the setter was defined using class syntax, it cannot have the
+      // same `set(key, value)` signature, and it may not return a value. We
+      // convert the call internally to pass the value as the first parameter,
+      // and check to see if the return value is undefined and if so call the
+      // getter again to get the value explicitly.
+      setter = function(key, value) {
+        let ret = set.call(this, value);
+        return typeof ret === 'undefined' ? get.call(this) : ret;
+      };
+    }
 
-  return emberComputed(...params, { get, set: setter });
-});
+    return emberComputed(...params, { get, set: setter });
+  });
+}
 
 /**
   Wraps an instance of a ComputedProperty, turning it into a decorator:
@@ -254,13 +264,49 @@ export const computed = computedDecoratorWithParams(({ key, descriptor, initiali
   @param {ComputedProperty} cp - an instance of a computed property
   @return {ComputedDecorator}
 */
-export const wrapComputed = computedDecoratorWithParams((desc, params) => {
-  assert(`wrapComputed should receive exactly one parameter, a ComputedProperty. Received ${params} for ${desc.key}`, params.length === 1);
-  assert(`wrapComputed should receive an instance of a ComputedProperty. Received ${params} for ${desc.key}`, params[0] instanceof ComputedProperty);
-  assert(`wrapComputed received a ComputedDecorator for ${desc.key}. Because the value is already a decorator, there is no need to wrap it.`, !params[0].__isComputedDecorator);
+export let wrapComputed;
 
-  return params[0];
-});
+if (gte('3.9.0')) {
+  wrapComputed = computedDecoratorWithParams((...params) => {
+    assert(
+      `wrapComputed should receive exactly one parameter, a ComputedProperty. Received ${params}`,
+      params.length === 1
+    );
+    assert(
+      `wrapComputed should receive an instance of a ComputedProperty. Received ${params[0]}`,
+      typeof params[0] === 'function'
+    );
+    assert(
+      `wrapComputed received a ComputedDecorator. Because the value is already a decorator, there is no need to wrap it.`,
+      !params[0].__isComputedDecorator
+    );
+
+    return params[0];
+  });
+} else {
+  wrapComputed = computedDecoratorWithParams((desc, params) => {
+    assert(
+      `wrapComputed should receive exactly one parameter, a ComputedProperty. Received ${params} for ${
+        desc.key
+      }`,
+      params.length === 1
+    );
+    assert(
+      `wrapComputed should receive an instance of a ComputedProperty. Received ${params} for ${
+        desc.key
+      }`,
+      gte('3.9.0') ? typeof params[0] === 'function' : params[0] instanceof ComputedProperty
+    );
+    assert(
+      `wrapComputed received a ComputedDecorator for ${
+        desc.key
+      }. Because the value is already a decorator, there is no need to wrap it.`,
+      !params[0].__isComputedDecorator
+    );
+
+    return params[0];
+  });
+}
 
 let hasChainsFinished = false;
 const CHAINS_FINISHED = new WeakMap();
@@ -312,8 +358,8 @@ export const observes = decoratorWithRequiredParams((desc, params) => {
 
             CHAINS_FINISHED.set(this, true);
           }
-        }
-      }
+        },
+      },
     ];
   }
 
@@ -323,11 +369,12 @@ export const observes = decoratorWithRequiredParams((desc, params) => {
 
     if (NEEDS_STAGE_1_DECORATORS) {
       assert(
-        `You attempted to use @observes on ${target.name}#${desc.key}, which does not extend from EmberObject. This does not work with stage 1 decorator transforms, and will break in subtle ways. You must either update to the stage 2 transforms (@ember-decorators/babel-transforms v3.1+) or rewrite your class to extend from EmberObject.`,
+        `You attempted to use @observes on ${target.name}#${
+          desc.key
+        }, which does not extend from EmberObject. This does not work with stage 1 decorator transforms, and will break in subtle ways. You must either update to the stage 2 transforms (@ember-decorators/babel-transforms v3.1+) or rewrite your class to extend from EmberObject.`,
         prototype instanceof EmberObject
       );
     }
-
 
     for (let path of params) {
       expandProperties(path, expandedPath => {

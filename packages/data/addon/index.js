@@ -1,5 +1,6 @@
 import DS from 'ember-data';
 import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
+import { gte } from 'ember-compatibility-helpers';
 
 /**
   Decorator that turns the property into an Ember Data attribute
@@ -19,7 +20,7 @@ import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
   @param {string} type? - Type of the attribute
   @param {object} options? - Options for the attribute
 */
-export const attr = computedDecoratorWithParams((desc, params) => DS.attr.apply(this, params));
+export let attr;
 
 /**
   Decorator that turns the property into an Ember Data `hasMany` relationship
@@ -39,7 +40,7 @@ export const attr = computedDecoratorWithParams((desc, params) => DS.attr.apply(
   @param {string} type? - Type of relationship
   @param {object} options? - Options for the relationship
 */
-export const hasMany = computedDecoratorWithParams((desc, params) => DS.hasMany.apply(this, params));
+export let hasMany;
 
 /**
   Decorator that turns the property into an Ember Data `belongsTo` relationship
@@ -58,4 +59,14 @@ export const hasMany = computedDecoratorWithParams((desc, params) => DS.hasMany.
   @param {string} type? - Type of the relationship
   @param {object} options? - Type of the relationship
 */
-export const belongsTo = computedDecoratorWithParams((desc, params) => DS.belongsTo.apply(this, params));
+export let belongsTo;
+
+if (gte('3.9.0')) {
+  attr = computedDecoratorWithParams(DS.attr);
+  hasMany = computedDecoratorWithParams(DS.hasMany);
+  belongsTo = computedDecoratorWithParams(DS.belongsTo);
+} else {
+  attr = computedDecoratorWithParams((desc, params) => DS.attr.apply(this, params));
+  hasMany = computedDecoratorWithParams((desc, params) => DS.hasMany.apply(this, params));
+  belongsTo = computedDecoratorWithParams((desc, params) => DS.belongsTo.apply(this, params));
+}

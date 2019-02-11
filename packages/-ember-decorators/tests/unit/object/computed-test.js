@@ -4,7 +4,7 @@ import { module, test } from 'ember-qunit';
 
 import EmberObject, { computed as emberComputed, get, set, setProperties } from '@ember/object';
 import { computed, wrapComputed, observes } from '@ember-decorators/object';
-
+import { gte } from 'ember-compatibility-helpers';
 
 module('@computed', function() {
   test('it works', function(assert) {
@@ -308,56 +308,58 @@ module('@computed', function() {
       );
     });
 
-    test('throws if the same property is decorated more than once', function(assert) {
-      assert.throws(
-        () => {
-          class Foo {
-            @computed
-            @computed('foo')
-            get fullName() {}
+    if (!gte('3.9.0')) {
+      test('throws if the same property is decorated more than once', function(assert) {
+        assert.throws(
+          () => {
+            class Foo {
+              @computed
+              @computed('foo')
+              get fullName() {}
 
-            set fullName(name) {}
-          }
+              set fullName(name) {}
+            }
 
-          new Foo();
-        },
-        /ES6 property getters\/setters only need to be decorated once, 'fullName' was decorated on both the getter and the setter/
-      );
-    });
+            new Foo();
+          },
+          /ES6 property getters\/setters only need to be decorated once, 'fullName' was decorated on both the getter and the setter/
+        );
+      });
 
-    test('throws if a ComputedProperty is passed to `@computed`', function(assert) {
-      assert.throws(
-        () => {
-          class Foo {
-            @computed(emberComputed('foo', 'bar', {
-              get() {
+      test('throws if a ComputedProperty is passed to `@computed`', function(assert) {
+        assert.throws(
+          () => {
+            class Foo {
+              @computed(emberComputed('foo', 'bar', {
+                get() {
 
-              }
-            })) name;
-          }
+                }
+              })) name;
+            }
 
-          new Foo();
-        },
-        /computed properties should not be passed to @computed directly, use wrapComputed for the value passed to name instead/
-      );
-    });
+            new Foo();
+          },
+          /computed properties should not be passed to @computed directly, use wrapComputed for the value passed to name instead/
+        );
+      });
 
-    test('throws if a ComputedDecorator is passed to `@computed`', function(assert) {
-      assert.throws(
-        () => {
-          class Foo {
-            @computed(computed('foo', 'bar', {
-              get() {
+      test('throws if a ComputedDecorator is passed to `@computed`', function(assert) {
+        assert.throws(
+          () => {
+            class Foo {
+              @computed(computed('foo', 'bar', {
+                get() {
 
-              }
-            })) name;
-          }
+                }
+              })) name;
+            }
 
-          new Foo();
-        },
-        /computed properties should not be passed to @computed directly, use wrapComputed for the value passed to name instead/
-      );
-    });
+            new Foo();
+          },
+          /computed properties should not be passed to @computed directly, use wrapComputed for the value passed to name instead/
+        );
+      });
+    }
   }
 
   module('wrapComputed', function() {
@@ -403,7 +405,7 @@ module('@computed', function() {
 
             new Foo();
           },
-          /wrapComputed should receive an instance of a ComputedProperty. Received foo for name/
+          /wrapComputed should receive an instance of a ComputedProperty. Received foo/
         );
       });
 
@@ -416,7 +418,7 @@ module('@computed', function() {
 
             new Foo();
           },
-          /wrapComputed received a ComputedDecorator for name. Because the value is already a decorator, there is no need to wrap it./
+          /wrapComputed received a ComputedDecorator( for name)?. Because the value is already a decorator, there is no need to wrap it./
         );
       });
     }
