@@ -1,5 +1,6 @@
 import { inject as injectService } from '@ember/service';
 import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
+import { gte } from 'ember-compatibility-helpers';
 
 /**
   Decorator that injects a service into the object as the decorated property
@@ -17,6 +18,12 @@ import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
   @param {string} serviceName? - The name of the service to inject. If not provided, the property name will be used
   @return {Service}
 */
-export const inject = computedDecoratorWithParams((desc, params) => {
-  return injectService.apply(this, params);
-});
+export let inject;
+
+if (gte('3.9.0')) {
+  inject = computedDecoratorWithParams(injectService);
+} else {
+  inject = computedDecoratorWithParams((desc, params) => {
+    return injectService.apply(this, params);
+  });
+}

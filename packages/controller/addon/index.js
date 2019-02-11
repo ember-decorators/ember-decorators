@@ -1,5 +1,6 @@
 import { inject as injectController } from '@ember/controller';
 import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
+import { gte } from 'ember-compatibility-helpers';
 
 /**
   Decorator that injects a controller into a controller as the decorated
@@ -18,6 +19,12 @@ import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
   @param {string} controllerName? - The name of the controller to inject. If not provided, the property name will be used
   @return {Controller}
 */
-export const inject = computedDecoratorWithParams((desc, params) => {
-  return injectController.apply(this, params);
-});
+export let inject;
+
+if (gte('3.9.0')) {
+  inject = computedDecoratorWithParams(injectController);
+} else {
+  inject = computedDecoratorWithParams((desc, params) => {
+    return injectController.apply(this, params);
+  });
+}

@@ -30,34 +30,10 @@ import {
   sum as emberSum,
   union as emberUnion,
   uniq as emberUniq,
-  uniqBy as emberUniqBy
+  uniqBy as emberUniqBy,
 } from '@ember/object/computed';
 
-import { assert } from '@ember/debug';
-
-import {
-  computedDecoratorWithRequiredParams
-} from '@ember-decorators/utils/computed';
-
-function legacyMacro(fn) {
-  return computedDecoratorWithRequiredParams(({ descriptor }, params) => {
-    if (descriptor !== undefined && typeof descriptor.value === 'function') {
-      return fn(...params, descriptor.value);
-    }
-
-    return fn(...params);
-  }, fn.name);
-}
-
-function legacyMacroWithRequiredMethod(fn) {
-  return computedDecoratorWithRequiredParams(({ descriptor }, params) => {
-    let method = descriptor !== undefined && typeof descriptor.value === 'function' ? descriptor.value : params.pop();
-
-    assert(`The @${fn.name} decorator must be used to decorate a method`, typeof method === 'function');
-
-    return fn(...params, method);
-  }, fn.name);
-}
+import { legacyMacro, legacyMacroWithMethod } from './-private/util';
 
 /**
   Creates a new property that is an alias for another property on an object.
@@ -241,7 +217,7 @@ export const equal = legacyMacro(emberEqual);
   @param { (item: any, index: number, array: any[]) => boolean} callback? - The function to filter with
   @return {any[]}
 */
-export const filter = legacyMacroWithRequiredMethod(emberFilter);
+export const filter = legacyMacroWithMethod(emberFilter);
 
 /**
   Filters the array by the property and value.
@@ -400,7 +376,7 @@ export const lte = legacyMacro(emberLte);
   @param { (item: any, index: number, array: any[]) => any} callback? - Function to map over the array
   @return {any[]}
 */
-export const map = legacyMacroWithRequiredMethod(emberMap);
+export const map = legacyMacroWithMethod(emberMap);
 
 /**
   Returns an array mapped to the specified key.
@@ -571,7 +547,6 @@ export const notEmpty = legacyMacro(emberNotEmpty);
 */
 export const oneWay = legacyMacro(emberOneWay, false);
 
-
 /**
   A computed property which performs a logical or on the original values for the
   provided dependent properties.
@@ -727,7 +702,7 @@ export const setDiff = legacyMacro(emberSetDiff);
   @param {string | (itemA: any, itemB: any) => number} sortDefinition? - Sorting function or sort descriptor
   @return {any[]}
 */
-export const sort = legacyMacro(emberSort);
+export const sort = legacyMacroWithMethod(emberSort);
 
 /**
   A computed property that returns the sum of the values in the dependent array.
