@@ -1,6 +1,6 @@
 {
   "name": "@ember-decorators/utils",
-  "version": "5.1.2",
+  "version": "5.1.3",
   "description": "Utilities used by the Ember Decorators project",
   "keywords": [
     "ember-addon"
@@ -28,7 +28,7 @@
     "semver": "^5.6.0"
   },
   "devDependencies": {
-    "@ember-decorators/babel-transforms": "^5.1.2",
+    "@ember-decorators/babel-transforms": "^5.1.3",
     "@types/ember": "3.0.26",
     "@types/ember-data": "3.1.3",
     "@types/ember-testing-helpers": "0.0.3",
