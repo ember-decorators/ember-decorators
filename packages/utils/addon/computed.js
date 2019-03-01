@@ -21,7 +21,7 @@ import ComputedProperty from '@ember/object/computed';
  */
 export let computedDecorator;
 
-if (gte('3.9.0')) {
+if (gte('3.10.0')) {
   class ComputedDecoratorImpl extends Function {
     readOnly() {
       this.__computed.readOnly(...arguments);

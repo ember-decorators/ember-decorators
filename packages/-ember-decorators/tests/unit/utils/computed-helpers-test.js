@@ -13,7 +13,7 @@ module('computed decorator helpers', function() {
 
   module('computedDecorator', function() {
 
-    if (!gte('3.9.0')) {
+    if (!gte('3.10.0')) {
       test('it works', function(assert) {
         let decorate = computedDecorator(({ descriptor: { get, set } }) => {
           return computed({ get, set });

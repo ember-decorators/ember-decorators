@@ -21,7 +21,7 @@ import { gte } from 'ember-compatibility-helpers';
 */
 export let inject;
 
-if (gte('3.9.0')) {
+if (gte('3.10.0')) {
   inject = computedDecoratorWithParams(injectController);
 } else {
   inject = computedDecoratorWithParams((desc, params) => {
