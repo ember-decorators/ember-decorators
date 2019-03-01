@@ -61,7 +61,7 @@ export let hasMany;
 */
 export let belongsTo;
 
-if (gte('3.9.0')) {
+if (gte('3.10.0')) {
   attr = computedDecoratorWithParams(DS.attr);
   hasMany = computedDecoratorWithParams(DS.hasMany);
   belongsTo = computedDecoratorWithParams(DS.belongsTo);

@@ -7,7 +7,7 @@ import { gte } from 'ember-compatibility-helpers';
 import Ember from 'ember';
 
 export function legacyMacro(fn) {
-  if (gte('3.9.0')) {
+  if (gte('3.10.0')) {
     return computedDecoratorWithRequiredParams(fn, fn.name);
   } else {
     return computedDecoratorWithRequiredParams((elementDesc, params) => {
@@ -46,7 +46,7 @@ function getMethod(fn, elementDesc, params, required) {
 }
 
 export function legacyMacroWithMethod(fn, required) {
-  if (gte('3.9.0')) {
+  if (gte('3.10.0')) {
     let computedGenerator = computedDecoratorWithRequiredParams(fn, fn.name);
 
     return function(...params) {

@@ -158,7 +158,7 @@ export const action = decorator(desc => {
 */
 export let computed;
 
-if (gte('3.9.0')) {
+if (gte('3.10.0')) {
   computed = computedDecoratorWithParams(emberComputed);
 } else {
   computed = computedDecoratorWithParams(({ key, descriptor, initializer }, params = []) => {
@@ -266,7 +266,7 @@ if (gte('3.9.0')) {
 */
 export let wrapComputed;
 
-if (gte('3.9.0')) {
+if (gte('3.10.0')) {
   wrapComputed = computedDecoratorWithParams((...params) => {
     assert(
       `wrapComputed should receive exactly one parameter, a ComputedProperty. Received ${params}`,
@@ -295,7 +295,7 @@ if (gte('3.9.0')) {
       `wrapComputed should receive an instance of a ComputedProperty. Received ${params} for ${
         desc.key
       }`,
-      gte('3.9.0') ? typeof params[0] === 'function' : params[0] instanceof ComputedProperty
+      gte('3.10.0') ? typeof params[0] === 'function' : params[0] instanceof ComputedProperty
     );
     assert(
       `wrapComputed received a ComputedDecorator for ${

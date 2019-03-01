@@ -308,7 +308,7 @@ module('@computed', function() {
       );
     });
 
-    if (!gte('3.9.0')) {
+    if (!gte('3.10.0')) {
       test('throws if the same property is decorated more than once', function(assert) {
         assert.throws(
           () => {
