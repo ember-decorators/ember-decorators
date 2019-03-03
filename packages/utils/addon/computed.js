@@ -4,7 +4,7 @@ import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
 
 import { decorator } from './decorator';
 import { computedDescriptorFor, isComputedDescriptor } from './-private/descriptor';
-import { isFieldDescriptor } from './-private/class-field-descriptor';
+import { isFieldDescriptor, isStage2FieldDescriptor } from './-private/class-field-descriptor';
 
 import { DEBUG } from '@glimmer/env';
 import { assert } from '@ember/debug';
@@ -47,8 +47,30 @@ if (gte('3.10.0')) {
   computedDecorator = function(fn, params) {
     let computed = params === undefined ? fn() : fn(...params);
 
-    let decorator = elementDesc => {
-      return computed(elementDesc, true);
+    let decorator = (...args) => {
+      if (isStage2FieldDescriptor(args)) {
+        let desc = args[0];
+
+        desc.finisher = target => {
+          let propertyDesc = computed(
+            target.prototype,
+            desc.key,
+            desc.descriptor,
+            Ember.meta(target.prototype),
+            true
+          );
+
+          Object.defineProperty(target.prototype, desc.key, propertyDesc);
+        };
+
+        desc.descriptor.configurable = true;
+
+        return desc;
+      } else {
+        let [prototype, key, propertyDesc] = args;
+
+        return computed(prototype, key, propertyDesc, Ember.meta(prototype), true);
+      }
     };
 
     decorator.__computed = computed;

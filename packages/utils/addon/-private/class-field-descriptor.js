@@ -24,7 +24,11 @@ if (NEEDS_STAGE_1_DECORATORS) {
     }
 
     return false;
-  }
+  };
+}
+
+export function isStage2FieldDescriptor(possibleDesc) {
+  return possibleDesc && possibleDesc.toString() === '[object Descriptor]';
 }
 
 export function isFieldDescriptor(possibleDesc) {
@@ -37,8 +41,41 @@ export function isFieldDescriptor(possibleDesc) {
   return isDescriptor;
 }
 
+function kindForDesc(desc) {
+  if ('value' in desc && desc.enumerable === true) {
+    return 'field';
+  } else {
+    return 'method';
+  }
+}
 
+function placementForKind(kind) {
+  return kind === 'method' ? 'prototype' : 'own';
+}
 
-export function isStage2FieldDescriptor(possibleDesc) {
-  return possibleDesc && possibleDesc.toString() === '[object Descriptor]';
+export function convertStage1ToStage2(desc) {
+  if (desc.length === 3) {
+    // Class element decorator
+    let [, key, descriptor] = desc;
+
+    let kind = kindForDesc(desc);
+    let placement = placementForKind(kind);
+
+    let initializer = descriptor !== undefined ? descriptor.initializer : undefined;
+
+    return {
+      descriptor,
+      key,
+      kind,
+      placement,
+      initializer,
+      toString: () => '[object Descriptor]',
+    };
+  } else {
+    // Class decorator
+    return {
+      kind: 'class',
+      elements: [],
+    };
+  }
 }
