@@ -19,7 +19,11 @@ export function legacyMacro(fn) {
 function getMethod(fn, elementDesc, params, required) {
   let method;
 
-  if (elementDesc !== undefined && typeof elementDesc.descriptor.value === 'function') {
+  if (
+    elementDesc !== undefined &&
+    elementDesc.descriptor !== undefined &&
+    typeof elementDesc.descriptor.value === 'function'
+  ) {
     deprecate(
       `Ember Decorators currently supports using the ${
         fn.name
