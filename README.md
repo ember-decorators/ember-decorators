@@ -93,7 +93,7 @@ However, this "stage 2" proposal _will not_ progress to stage 3.
 
 There is a new, radically different proposal called
 ["static decorators"][proposal-static-decorators] that will replace the "stage
-2" proposal. In accordance wit the
+2" proposal. In accordance with the
 [Ember "Decorator Support" RFC][rfc-decorator-support] Ember Decorators will
 soon be upgraded to implement the old legacy decorators "stage 1" proposal
 proposal again. This follows the official TC39 recommendation, which is:
