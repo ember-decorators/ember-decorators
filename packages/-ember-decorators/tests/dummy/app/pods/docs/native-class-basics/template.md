@@ -319,10 +319,12 @@ As a rule of thumb, in a modern Ember app written with only native class syntax:
 1. You should never be extending `EmberObject` directly. Only the following
 classes need to be extended, because they are framework classes:
   * `Component`
-  * `Route`
   * `Controller`
   * `Helper`
   * `Model`
+  * `Route`
+  * `Service`
+
 2. You should never have to use `.create()`. Only framework objects need to
 extend EmberObject, and the _container_ always creates those. So, any utility
 classes you define and instantiate yourself will not extend from `EmberObject`,
