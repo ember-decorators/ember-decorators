@@ -12,8 +12,12 @@ Enables your app or addon to use [decorators](https://github.com/tc39/proposal-d
 
 #### For apps
 
-```
-ember install @ember-decorators/babel-transforms
+```sh
+# latest version
+ember install "@ember-decorators/babel-transforms"
+
+# latest 2.x version
+ember install "@ember-decorators/babel-transforms@^2"
 ```
 
 #### For addons
