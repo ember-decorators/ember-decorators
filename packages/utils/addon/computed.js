@@ -76,7 +76,8 @@ if (gte('3.10.0')) {
     decorator.__computed = computed;
     Object.setPrototypeOf(decorator, ComputedDecoratorImpl.prototype);
 
-    Ember._setComputedDecorator(decorator);
+    let setClassicDecorator = Ember._setClassicDecorator || Ember._setComputedDecorator;
+    setClassicDecorator(decorator);
 
     if (DEBUG) {
       // This is for wrapComputed to check against invalid input
