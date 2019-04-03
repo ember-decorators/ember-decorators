@@ -1,13 +1,10 @@
 import { DEBUG } from '@glimmer/env';
-import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
-
 import { module, test } from 'ember-qunit';
 import EmberObject, { set } from '@ember/object';
 
 import { observes } from '@ember-decorators/object';
 
 module('@observes', function() {
-
   test('it calls the method', function(assert) {
     assert.expect(4);
 
@@ -29,7 +26,7 @@ module('@observes', function() {
       }
     }
 
-    let obj = new Foo();
+    let obj = Foo.create();
     set(obj, 'first', 'yehuda');
     set(obj, 'last', 'katz');
   });
@@ -49,7 +46,7 @@ module('@observes', function() {
       }
     }
 
-    let obj = new Foo();
+    let obj = Foo.create();
     assert.equal(callCount, 0);
     set(obj, 'first', 'yehuda');
     assert.equal(callCount, 1);
@@ -92,75 +89,17 @@ module('@observes', function() {
     set(obj.person, 'last', 'katz');
   });
 
-  if (!NEEDS_STAGE_1_DECORATORS) {
-    test('it works with expanded/chained properties on plain classes', function(assert) {
-      assert.expect(4);
-
-      let i = 0;
-
-      class Foo {
-        person = {};
-
-        @observes('person.{first,last}')
-        fullName() {
-          [
-            () => {
-              assert.equal(this.person.first, 'yehuda');
-              assert.equal(this.person.last, undefined);
-            },
-            () => {
-              assert.equal(this.person.first, 'yehuda');
-              assert.equal(this.person.last, 'katz');
-            },
-          ][i++]();
-        }
-      }
-
-      let obj = new Foo();
-
-      set(obj, 'person.first', 'yehuda');
-      set(obj.person, 'last', 'katz');
-    });
-
-    test('initializer prop is non-enumerable', function(assert) {
-      class Foo {
-        @observes('person.{first,last}')
-        fullName() {}
-      }
-
-      let obj = new Foo();
-
-      assert.equal(Object.keys(obj).length, 0, 'special property is non-enumerable')
-    });
-
-    test('can define multiple observers on a single non-EmberObject class', function(assert) {
-      assert.expect(0);
-
-      class Foo {
-        @observes('foo')
-        bar() {}
-
-        @observes('bar')
-        foo() {}
-      }
-
-      new Foo();
-    });
-  }
-
   if (DEBUG) {
-    if (NEEDS_STAGE_1_DECORATORS) {
-      test('it throws if attempting to use on a non-EmberObject class', function(assert) {
-        assert.throws(() => {
-          class Foo {
-            @observes('person.{first,last}')
-            fullName() {}
-          }
+    test('it throws if attempting to use on a non-EmberObject class', function(assert) {
+      assert.throws(() => {
+        class Foo {
+          @observes('person.{first,last}')
+          fullName() {}
+        }
 
-          new Foo();
-        }, /You attempted to use @observes on Foo#fullName/);
-      });
-    }
+        new Foo();
+      }, /You attempted to use @observes on Foo#fullName/);
+    });
 
     test('throws if used on non-function', function(assert) {
       assert.throws(
@@ -177,7 +116,7 @@ module('@observes', function() {
             fullName = 'rob jackson';
           }
 
-          new Foo();
+          Foo.create();
         },
         /The @observes decorator must be applied to functions/,
         'throws on field'
@@ -200,7 +139,7 @@ module('@observes', function() {
             }
           }
 
-          new Foo();
+          Foo.create();
         },
         /The @observes decorator must be applied to functions/,
         'throws on getter'
@@ -222,7 +161,7 @@ module('@observes', function() {
             }
           }
 
-          new Foo();
+          Foo.create();
         },
         /The @observes decorator must be applied to functions/,
         'throws on setter'
@@ -230,24 +169,21 @@ module('@observes', function() {
     });
 
     test('throws if decorator params are not provided', function(assert) {
-      assert.throws(
-        () => {
-          class Foo {
-            constructor() {
-              this.first = 'rob';
-              this.last = 'jackson';
-            }
-
-            @observes
-            fullName() {
-              assert.ok(false, 'method has been called');
-            }
+      assert.throws(() => {
+        class Foo {
+          constructor() {
+            this.first = 'rob';
+            this.last = 'jackson';
           }
 
-          new Foo();
-        },
-        /The @observes decorator requires parameters/
-      );
+          @observes
+          fullName() {
+            assert.ok(false, 'method has been called');
+          }
+        }
+
+        new Foo();
+      }, /The @observes decorator requires parameters/);
     });
   }
 });
