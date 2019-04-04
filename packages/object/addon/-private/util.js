@@ -16,14 +16,10 @@ export function legacyMacro(fn) {
   }
 }
 
-function getMethod(fn, elementDesc, params, required) {
+function getMethod(fn, desc, params, required) {
   let method;
 
-  if (
-    elementDesc !== undefined &&
-    elementDesc.descriptor !== undefined &&
-    typeof elementDesc.descriptor.value === 'function'
-  ) {
+  if (String(desc) === '[object Descriptor]' && desc.descriptor.value) {
     deprecate(
       `Ember Decorators currently supports using the ${
         fn.name
@@ -34,9 +30,22 @@ function getMethod(fn, elementDesc, params, required) {
         until: '6.0.0',
       }
     );
-    method = elementDesc.descriptor.value;
-    elementDesc.kind = 'field';
-    elementDesc.descriptor = {};
+    method = desc.descriptor.value;
+    desc.kind = 'field';
+    desc.descriptor = {};
+  } else if (desc.value) {
+    deprecate(
+      `Ember Decorators currently supports using the ${
+        fn.name
+      } macro on a function directly, but this is not supported by Ember's official decorators. We'll be removing support in future versions.`,
+      false,
+      {
+        id: 'macro-function-decoration',
+        until: '6.0.0',
+      }
+    );
+    method = desc.value;
+    desc.value = null;
   } else {
     method = params.pop();
   }
@@ -54,8 +63,16 @@ export function legacyMacroWithMethod(fn, required) {
     let computedGenerator = computedDecoratorWithRequiredParams(fn, fn.name);
 
     return function(...params) {
-      let decorator = function(elementDesc) {
-        let method = getMethod(fn, elementDesc, params, required);
+      let decorator = function(...args) {
+        let desc;
+
+        if (args.length === 1) {
+          desc = args[0];
+        } else {
+          desc = args[2];
+        }
+
+        let method = getMethod(fn, desc, params, required);
 
         let computed = computedGenerator(...params, method);
 
@@ -63,7 +80,7 @@ export function legacyMacroWithMethod(fn, required) {
         if (decorator._volatile) computed.volatile();
         if (decorator._property) computed.property(...decorator._property);
 
-        computed(elementDesc);
+        computed(...args);
       };
 
       let setClassicDecorator = Ember._setClassicDecorator || Ember._setComputedDecorator;

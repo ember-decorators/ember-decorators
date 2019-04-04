@@ -1,6 +1,5 @@
 import { defineProperty } from '@ember/object';
 import { HAS_NATIVE_COMPUTED_GETTERS, gte } from 'ember-compatibility-helpers';
-import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
 
 import { decorator } from './decorator';
 import { computedDescriptorFor, isComputedDescriptor } from './-private/descriptor';
@@ -213,11 +212,9 @@ if (gte('3.10.0')) {
 
         defineProperty(prototype, key, computedDesc);
 
-        if (NEEDS_STAGE_1_DECORATORS) {
-          // There's currently no way to disable redefining the property when decorators
-          // are run, so return the property descriptor we just assigned
-          desc.descriptor = Object.getOwnPropertyDescriptor(prototype, key);
-        }
+        // There's currently no way to disable redefining the property when decorators
+        // are run, so return the property descriptor we just assigned
+        desc.descriptor = Object.getOwnPropertyDescriptor(prototype, key);
 
         return target;
       };
@@ -242,9 +239,6 @@ if (gte('3.10.0')) {
 export function computedDecoratorWithParams(fn) {
   return function(...params) {
     if (isFieldDescriptor(params)) {
-      // Funkiness of application call here is due to `...params` transpiling to
-      // use `apply`, which is no longer on the prototype of the computedDecorator
-      // since it has had it's prototype changed :upside_down_face:
       return Function.apply.call(computedDecorator(fn), undefined, params);
     } else {
       return computedDecorator(fn, params);

@@ -1,30 +1,28 @@
-import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
+function isStage1ClassDescriptor(possibleDesc) {
+  let [target] = possibleDesc;
 
-let isStage1FieldDescriptor;
+  return (
+    possibleDesc.length === 1 &&
+    typeof target === 'function' &&
+    'prototype' in target &&
+    !target.__isComputedDecorator
+  );
+}
 
-if (NEEDS_STAGE_1_DECORATORS) {
-  isStage1FieldDescriptor = function isStage1FieldDescriptor(possibleDesc) {
-    if (possibleDesc.length === 3) {
-      let [target, key, desc] = possibleDesc;
+function isStage1FieldDescriptor(possibleDesc) {
+  let [target, key, desc] = possibleDesc;
 
-      return (
-        typeof target === 'object' &&
-        target !== null &&
-        typeof key === 'string' &&
-        ((typeof desc === 'object' &&
-          desc !== null &&
-          'enumerable' in desc &&
-          'configurable' in desc) ||
-          desc === undefined) // TS compatibility
-      );
-    } else if (possibleDesc.length === 1) {
-      let [target] = possibleDesc;
-
-      return typeof target === 'function' && 'prototype' in target && !target.__isComputedDecorator;
-    }
-
-    return false;
-  };
+  return (
+    possibleDesc.length === 3 &&
+    typeof target === 'object' &&
+    target !== null &&
+    typeof key === 'string' &&
+    ((typeof desc === 'object' &&
+      desc !== null &&
+      'enumerable' in desc &&
+      'configurable' in desc) ||
+      desc === undefined) // TS compatibility
+  );
 }
 
 export function isStage2FieldDescriptor(possibleDesc) {
@@ -32,13 +30,11 @@ export function isStage2FieldDescriptor(possibleDesc) {
 }
 
 export function isFieldDescriptor(possibleDesc) {
-  let isDescriptor = isStage2FieldDescriptor(possibleDesc);
+  return isStage2FieldDescriptor(possibleDesc) || isStage1FieldDescriptor(possibleDesc);
+}
 
-  if (NEEDS_STAGE_1_DECORATORS) {
-    isDescriptor = isDescriptor || isStage1FieldDescriptor(possibleDesc);
-  }
-
-  return isDescriptor;
+export function isDescriptor(possibleDesc) {
+  return isFieldDescriptor(possibleDesc) || isStage1ClassDescriptor(possibleDesc);
 }
 
 function kindForDesc(desc) {

@@ -444,7 +444,7 @@ module('@computed', function() {
         }
       }
 
-      let obj = new Foo();
+      let obj = Foo.create();
       assert.equal(get(obj, 'counter'), 0, 'getter works');
       assert.equal(get(obj, 'counter'), 1, 'getter called each time');
 
@@ -516,7 +516,7 @@ module('@computed', function() {
           }).volatile().readOnly().property('last')
         });
 
-        let obj = new Foo();
+        let obj = Foo.create();
 
         set(obj, 'name', 'al');
       }, /Cannot set read-only property "name" on object:/);

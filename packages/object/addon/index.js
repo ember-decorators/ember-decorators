@@ -1,4 +1,3 @@
-import { NEEDS_STAGE_1_DECORATORS } from 'ember-decorators-flags';
 import { assert } from '@ember/debug';
 import { gte } from 'ember-compatibility-helpers';
 
@@ -367,14 +366,12 @@ export const observes = decoratorWithRequiredParams((desc, params) => {
     hasChainsFinished = false;
     let { prototype } = target;
 
-    if (NEEDS_STAGE_1_DECORATORS) {
-      assert(
-        `You attempted to use @observes on ${target.name}#${
-          desc.key
-        }, which does not extend from EmberObject. This does not work with stage 1 decorator transforms, and will break in subtle ways. You must either update to the stage 2 transforms (@ember-decorators/babel-transforms v3.1+) or rewrite your class to extend from EmberObject.`,
-        prototype instanceof EmberObject
-      );
-    }
+    assert(
+      `You attempted to use @observes on ${target.name}#${
+        desc.key
+      }, which does not extend from EmberObject. Unfortunately this does not work with stage 1 decorator transforms, and will break in subtle ways. You must rewrite your class to extend from EmberObject.`,
+      prototype instanceof EmberObject
+    );
 
     for (let path of params) {
       expandProperties(path, expandedPath => {

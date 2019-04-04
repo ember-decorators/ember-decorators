@@ -38,12 +38,12 @@ componentModule('@action', function() {
     class Bar extends Foo {
       @action
       bar() {
-        assert.ok(false, 'called')
+        assert.ok(false, 'called');
       }
     }
 
-    const foo = new Foo();
-    const bar = new Bar();
+    const foo = Foo.create();
+    const bar = Bar.create();
 
     assert.equal(typeof foo.actions.foo, 'function', 'foo has foo action');
     assert.equal(typeof foo.actions.bar, 'undefined', 'foo does not have bar action');
@@ -59,9 +59,9 @@ componentModule('@action', function() {
       actions: {
         foo() {
           assert.ok(true, 'foo called!');
-        }
-      }
-    })
+        },
+      },
+    });
 
     class BarComponent extends FooComponent {
       @action
@@ -78,11 +78,14 @@ componentModule('@action', function() {
     }
 
     this.register('component:baz-component', BazComponent);
-    this.register('template:components/baz-component', hbs`
+    this.register(
+      'template:components/baz-component',
+      hbs`
       <button {{action 'foo'}}>Click Foo!</button>
       <button {{action 'bar'}}>Click Bar!</button>
       <button {{action 'baz'}}>Click Baz!</button>
-    `);
+    `
+    );
 
     this.render(hbs`{{baz-component}}`);
 
@@ -152,7 +155,6 @@ componentModule('@action', function() {
       }
     }
 
-
     this.register('component:bar-bar', BarComponent);
     this.register('template:components/bar-bar', hbs`<button {{action 'foo'}}>Click Me!</button>`);
 
@@ -172,7 +174,10 @@ componentModule('@action', function() {
     }
 
     this.register('component:foo-bar', FooComponent);
-    this.register('template:components/foo-bar', hbs`<button onclick={{this.foo}}>Click Me!</button>`);
+    this.register(
+      'template:components/foo-bar',
+      hbs`<button onclick={{this.foo}}>Click Me!</button>`
+    );
 
     await this.render(hbs`{{foo-bar}}`);
 
@@ -197,7 +202,10 @@ componentModule('@action', function() {
     }
 
     this.register('component:bar-bar', BarComponent);
-    this.register('template:components/bar-bar', hbs`<button onclick={{this.foo}}>Click Me!</button>`);
+    this.register(
+      'template:components/bar-bar',
+      hbs`<button onclick={{this.foo}}>Click Me!</button>`
+    );
 
     await this.render(hbs`{{bar-bar}}`);
 
@@ -209,14 +217,14 @@ componentModule('@action', function() {
       assert.throws(
         () => {
           class TestObject extends EmberObject {
-            @action foo = 'bar'
+            @action foo = 'bar';
           }
 
           new TestObject();
         },
         /The @action decorator must be applied to methods/,
         'error thrown correctly'
-      )
+      );
     });
   }
 });
