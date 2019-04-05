@@ -1,4 +1,4 @@
-import { assert } from '@ember/debug';
+import { assert, deprecate } from '@ember/debug';
 import { gte } from 'ember-compatibility-helpers';
 
 import Ember from 'ember';
@@ -49,6 +49,15 @@ export const action = decorator(desc => {
   assert(
     'The @action decorator must be applied to methods',
     desc && desc.kind === 'method' && desc.descriptor && typeof desc.descriptor.value === 'function'
+  );
+
+  deprecate(
+    `You are using @action decorator from ember-decorators. This decorator is deprecated, you can now use Ember's built in decorators directly. Install the ember-decorators-polyfill (https://github.com/pzuraq/ember-decorators-polyfill), and replace your imports with imports from Ember:\n\n  \`import { action } from '@ember/object';\`\n\n `,
+    false,
+    {
+      id: 'action-deprecation',
+      until: '6.0.0',
+    }
   );
 
   let actionFn = desc.descriptor.value;
@@ -158,85 +167,93 @@ export const action = decorator(desc => {
 export let computed;
 
 if (gte('3.10.0')) {
-  computed = computedDecoratorWithParams(emberComputed);
+  computed = computedDecoratorWithParams(
+    emberComputed,
+    'computed',
+    "import { computed } from '@ember/object'"
+  );
 } else {
-  computed = computedDecoratorWithParams(({ key, descriptor, initializer }, params = []) => {
-    assert(
-      `@computed can only be used on accessors or fields, attempted to use it with ${key} but that was a method. Try converting it to a getter (e.g. \`get ${key}() {}\`)`,
-      !(descriptor && typeof descriptor.value === 'function')
-    );
+  computed = computedDecoratorWithParams(
+    ({ key, descriptor, initializer }, params = []) => {
+      assert(
+        `@computed can only be used on accessors or fields, attempted to use it with ${key} but that was a method. Try converting it to a getter (e.g. \`get ${key}() {}\`)`,
+        !(descriptor && typeof descriptor.value === 'function')
+      );
 
-    assert(
-      `@computed can only be used on empty fields. ${key} has an initial value (e.g. \`${key} = someValue\`)`,
-      !initializer
-    );
+      assert(
+        `@computed can only be used on empty fields. ${key} has an initial value (e.g. \`${key} = someValue\`)`,
+        !initializer
+      );
 
-    let lastArg = params[params.length - 1];
-    let get, set;
+      let lastArg = params[params.length - 1];
+      let get, set;
 
-    assert(
-      `computed properties should not be passed to @computed directly, use wrapComputed for the value passed to ${key} instead`,
-      !(
-        (typeof lastArg === 'function' || typeof lastArg === 'object') &&
-        lastArg instanceof ComputedProperty
-      )
-    );
+      assert(
+        `computed properties should not be passed to @computed directly, use wrapComputed for the value passed to ${key} instead`,
+        !(
+          (typeof lastArg === 'function' || typeof lastArg === 'object') &&
+          lastArg instanceof ComputedProperty
+        )
+      );
 
-    if (typeof lastArg === 'function') {
-      params.pop();
-      get = lastArg;
-    }
+      if (typeof lastArg === 'function') {
+        params.pop();
+        get = lastArg;
+      }
 
-    if (typeof lastArg === 'object' && lastArg !== null) {
-      params.pop();
-      get = lastArg.get;
-      set = lastArg.set;
-    }
+      if (typeof lastArg === 'object' && lastArg !== null) {
+        params.pop();
+        get = lastArg.get;
+        set = lastArg.set;
+      }
 
-    assert(
-      `Attempted to apply a computed property that already has a getter/setter to a ${key}, but it is a method or an accessor. If you passed @computed a function or getter/setter (e.g. \`@computed({ get() { ... } })\`), then it must be applied to a field`,
-      !(
-        descriptor &&
-        (typeof get === 'function' || typeof 'set' === 'function') &&
-        (typeof descriptor.get === 'function' || typeof descriptor.get === 'function')
-      )
-    );
+      assert(
+        `Attempted to apply a computed property that already has a getter/setter to a ${key}, but it is a method or an accessor. If you passed @computed a function or getter/setter (e.g. \`@computed({ get() { ... } })\`), then it must be applied to a field`,
+        !(
+          descriptor &&
+          (typeof get === 'function' || typeof 'set' === 'function') &&
+          (typeof descriptor.get === 'function' || typeof descriptor.get === 'function')
+        )
+      );
 
-    let usedClassDescriptor = false;
+      let usedClassDescriptor = false;
 
-    if (get === undefined && set === undefined) {
-      usedClassDescriptor = true;
-      get = descriptor.get;
-      set = descriptor.set;
-    }
+      if (get === undefined && set === undefined) {
+        usedClassDescriptor = true;
+        get = descriptor.get;
+        set = descriptor.set;
+      }
 
-    assert(
-      `Attempted to use @computed on ${key}, but it did not have a getter or a setter. You must either pass a get a function or getter/setter to @computed directly (e.g. \`@computed({ get() { ... } })\`) or apply @computed directly to a getter/setter`,
-      typeof get === 'function' || typeof 'set' === 'function'
-    );
+      assert(
+        `Attempted to use @computed on ${key}, but it did not have a getter or a setter. You must either pass a get a function or getter/setter to @computed directly (e.g. \`@computed({ get() { ... } })\`) or apply @computed directly to a getter/setter`,
+        typeof get === 'function' || typeof 'set' === 'function'
+      );
 
-    if (descriptor !== undefined) {
-      // Unset the getter and setter so the descriptor just has a plain value
-      descriptor.get = undefined;
-      descriptor.set = undefined;
-    }
+      if (descriptor !== undefined) {
+        // Unset the getter and setter so the descriptor just has a plain value
+        descriptor.get = undefined;
+        descriptor.set = undefined;
+      }
 
-    let setter = set;
+      let setter = set;
 
-    if (usedClassDescriptor === true && typeof set === 'function') {
-      // Because the setter was defined using class syntax, it cannot have the
-      // same `set(key, value)` signature, and it may not return a value. We
-      // convert the call internally to pass the value as the first parameter,
-      // and check to see if the return value is undefined and if so call the
-      // getter again to get the value explicitly.
-      setter = function(key, value) {
-        let ret = set.call(this, value);
-        return typeof ret === 'undefined' ? get.call(this) : ret;
-      };
-    }
+      if (usedClassDescriptor === true && typeof set === 'function') {
+        // Because the setter was defined using class syntax, it cannot have the
+        // same `set(key, value)` signature, and it may not return a value. We
+        // convert the call internally to pass the value as the first parameter,
+        // and check to see if the return value is undefined and if so call the
+        // getter again to get the value explicitly.
+        setter = function(key, value) {
+          let ret = set.call(this, value);
+          return typeof ret === 'undefined' ? get.call(this) : ret;
+        };
+      }
 
-    return emberComputed(...params, { get, set: setter });
-  });
+      return emberComputed(...params, { get, set: setter });
+    },
+    'computed',
+    "import { computed } from '@ember/object'"
+  );
 }
 
 /**
@@ -281,7 +298,7 @@ if (gte('3.10.0')) {
     );
 
     return params[0];
-  });
+  }, 'wrapComputed');
 } else {
   wrapComputed = computedDecoratorWithParams((desc, params) => {
     assert(
@@ -304,7 +321,7 @@ if (gte('3.10.0')) {
     );
 
     return params[0];
-  });
+  }, 'wrapComputed');
 }
 
 let hasChainsFinished = false;

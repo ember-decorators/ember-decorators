@@ -10,9 +10,13 @@ export function legacyMacro(fn) {
   if (gte('3.10.0')) {
     return computedDecoratorWithRequiredParams(fn, fn.name);
   } else {
-    return computedDecoratorWithRequiredParams((elementDesc, params) => {
-      return fn(...params);
-    }, fn.name);
+    return computedDecoratorWithRequiredParams(
+      (elementDesc, params) => {
+        return fn(...params);
+      },
+      fn.name,
+      `import { ${fn.name} } from '@ember/object/computed'`
+    );
   }
 }
 

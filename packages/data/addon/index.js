@@ -62,11 +62,23 @@ export let hasMany;
 export let belongsTo;
 
 if (gte('3.10.0')) {
-  attr = computedDecoratorWithParams(DS.attr);
-  hasMany = computedDecoratorWithParams(DS.hasMany);
-  belongsTo = computedDecoratorWithParams(DS.belongsTo);
+  attr = computedDecoratorWithParams(DS.attr, 'attr', 'let { attr } = DS');
+  hasMany = computedDecoratorWithParams(DS.hasMany, 'hasMany', 'let { hasMany } = DS');
+  belongsTo = computedDecoratorWithParams(DS.belongsTo, 'belongsTo', 'let { belongsTo } = DS');
 } else {
-  attr = computedDecoratorWithParams((desc, params) => DS.attr.apply(this, params));
-  hasMany = computedDecoratorWithParams((desc, params) => DS.hasMany.apply(this, params));
-  belongsTo = computedDecoratorWithParams((desc, params) => DS.belongsTo.apply(this, params));
+  attr = computedDecoratorWithParams(
+    (desc, params) => DS.attr.apply(this, params),
+    'attr',
+    'let { attr } = DS'
+  );
+  hasMany = computedDecoratorWithParams(
+    (desc, params) => DS.hasMany.apply(this, params),
+    'hasMany',
+    'let { hasMany } = DS'
+  );
+  belongsTo = computedDecoratorWithParams(
+    (desc, params) => DS.belongsTo.apply(this, params),
+    'belongsTo',
+    'let { belongsTo } = DS'
+  );
 }
