@@ -21,9 +21,17 @@ import { gte } from 'ember-compatibility-helpers';
 export let inject;
 
 if (gte('3.10.0')) {
-  inject = computedDecoratorWithParams(injectService);
+  inject = computedDecoratorWithParams(
+    injectService,
+    'service',
+    "import { inject as service } from '@ember/service'"
+  );
 } else {
-  inject = computedDecoratorWithParams((desc, params) => {
-    return injectService.apply(this, params);
-  });
+  inject = computedDecoratorWithParams(
+    (desc, params) => {
+      return injectService.apply(this, params);
+    },
+    'service',
+    "import { inject as service } from '@ember/service'"
+  );
 }

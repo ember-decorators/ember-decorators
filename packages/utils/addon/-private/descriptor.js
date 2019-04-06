@@ -20,7 +20,7 @@ function isDescriptorTrap(possibleDesc) {
 }
 
 export function isComputedDescriptor(possibleDesc) {
-  return possibleDesc !== null && typeof possibleDesc === 'object' && possibleDesc.isDescriptor;
+  return possibleDesc !== null && (typeof possibleDesc === 'object' || typeof possibleDesc === 'function') && possibleDesc.isDescriptor;
 }
 
 export function computedDescriptorFor(obj, keyName) {

@@ -6,7 +6,7 @@ import { computedDescriptorFor, isComputedDescriptor } from './-private/descript
 import { isFieldDescriptor, isStage2FieldDescriptor } from './-private/class-field-descriptor';
 
 import { DEBUG } from '@glimmer/env';
-import { assert } from '@ember/debug';
+import { assert, deprecate } from '@ember/debug';
 import ComputedProperty from '@ember/object/computed';
 
 /**
@@ -43,11 +43,29 @@ if (gte('3.10.0')) {
     }
   }
 
-  computedDecorator = function(fn, params) {
+  computedDecorator = function(fn, params, name, importDesc) {
     let computed = params === undefined ? fn() : fn(...params);
 
     let decorator = (...args) => {
+      deprecate(
+        `You are using @${name} decorator from ember-decorators. This decorator is deprecated, you can now use Ember's built in decorators directly. Install the ember-decorators-polyfill (https://github.com/pzuraq/ember-decorators-polyfill), and replace your imports with imports from Ember:\n\n  \`${importDesc};\`\n\n`,
+        false,
+        {
+          id: 'computed-deprecations',
+          until: '6.0.0',
+        }
+      );
+
       if (isStage2FieldDescriptor(args)) {
+        deprecate(
+          'You are using the stage 2 decorator trasforms (@ember-decorators/babel-transforms v3-v5). Ember has officially adopted the stage 1 transforms instead. The stage 2 transforms will not be supported in ember-decorators v6. You can update `ember-cli-babel` to the latest version (at least 7.7.3) and remove @ember-decorators/babel-transforms from your app/addon.',
+          false,
+          {
+            id: 'action-deprecation',
+            until: '6.0.0',
+          }
+        );
+
         let desc = args[0];
 
         desc.finisher = target => {
@@ -122,7 +140,7 @@ if (gte('3.10.0')) {
         this._computedDesc = buildComputedDesc(this, { key });
       }
 
-      if (gte('3.6.0')) {
+      if (this._computedDesc.__IS_POLYFILLED_COMPUTED || gte('3.6.0')) {
         this._computedDesc.setup(obj, key, meta);
       } else if (gte('3.1.0')) {
         let meta = Ember.meta(obj);
@@ -181,8 +199,18 @@ if (gte('3.10.0')) {
     }
   }
 
-  computedDecorator = function(fn, params) {
+  computedDecorator = function(fn, params, name, importDesc) {
+    let deprecationMessage =
+      name === 'wrapComputed'
+        ? 'The wrapComputed() wrapper is no longer necessary with, with the ember-decorators-polyfill, all computed properties are now decorators: https://github.com/pzuraq/ember-decorators-polyfill'
+        : `You are using @${name} decorator from ember-decorators. This decorator is deprecated, you can now use Ember's built in decorators directly. Install the ember-decorators-polyfill (https://github.com/pzuraq/ember-decorators-polyfill), and replace your imports with imports from Ember:\n\n  \`${importDesc};\`\n\n`;
+
     let dec = decorator(desc => {
+      deprecate(deprecationMessage, false, {
+        id: 'computed-deprecations',
+        until: '6.0.0',
+      });
+
       // All computeds are methods
       desc.kind = 'method';
       desc.placement = 'prototype';
@@ -236,23 +264,23 @@ if (gte('3.10.0')) {
   };
 }
 
-export function computedDecoratorWithParams(fn) {
+export function computedDecoratorWithParams(fn, name, desc) {
   return function(...params) {
     if (isFieldDescriptor(params)) {
-      return Function.apply.call(computedDecorator(fn), undefined, params);
+      return Function.apply.call(computedDecorator(fn, undefined, name, desc), undefined, params);
     } else {
-      return computedDecorator(fn, params);
+      return computedDecorator(fn, params, name, desc);
     }
   };
 }
 
-export function computedDecoratorWithRequiredParams(fn, name) {
+export function computedDecoratorWithRequiredParams(fn, name, desc) {
   return function(...params) {
     assert(
       `The @${name || fn.name} decorator requires parameters`,
       !isFieldDescriptor(params) && params.length > 0
     );
 
-    return computedDecorator(fn, params);
+    return computedDecorator(fn, params, name, desc);
   };
 }

@@ -22,9 +22,17 @@ import { gte } from 'ember-compatibility-helpers';
 export let inject;
 
 if (gte('3.10.0')) {
-  inject = computedDecoratorWithParams(injectController);
+  inject = computedDecoratorWithParams(
+    injectController,
+    'controller',
+    "import { inject as controller } from '@ember/controller'"
+  );
 } else {
-  inject = computedDecoratorWithParams((desc, params) => {
-    return injectController.apply(this, params);
-  });
+  inject = computedDecoratorWithParams(
+    (desc, params) => {
+      return injectController.apply(this, params);
+    },
+    'controller',
+    "import { inject as controller } from '@ember/controller'"
+  );
 }

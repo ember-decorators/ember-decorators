@@ -1,4 +1,4 @@
-import { assert } from '@ember/debug';
+import { assert, deprecate } from '@ember/debug';
 
 import {
   isDescriptor,
@@ -9,6 +9,15 @@ import {
 export function decorator(fn) {
   return function(...params) {
     if (isStage2FieldDescriptor(params)) {
+      deprecate(
+        'You are using the stage 2 decorator trasforms (@ember-decorators/babel-transforms v3-v5). Ember has officially adopted the stage 1 transforms instead. The stage 2 transforms will not be supported in ember-decorators v6. You can update `ember-cli-babel` to the latest version (at least 7.7.3) and remove @ember-decorators/babel-transforms from your app/addon.',
+        false,
+        {
+          id: 'action-deprecation',
+          until: '6.0.0',
+        }
+      );
+
       let desc = params[0];
 
       return fn(desc);
