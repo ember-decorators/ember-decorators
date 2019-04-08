@@ -13,7 +13,6 @@ app. You should see the following added to you `package.json`:
 
 ```json
 "ember-decorators": "{{latest version}}",
-"@ember-decorators/babel-transforms": "{{latest version}}",
 "babel-eslint": "{{latest version}}",
 ```
 
@@ -24,7 +23,9 @@ And in your `.eslintrc.js`, you should see the following line added:
 ```
 
 These packages and settings are necessary for babel and eslint to understand
-decorators and class fields and correctly transpile/lint them.
+decorators and class fields and correctly transpile/lint them. You should also
+ensure that you are using at least `ember-cli-babel@v7.7.3`, since it adds
+support for class fields and decorators.
 
 ## Usage
 
@@ -33,34 +34,23 @@ the decorators from its sub-addons. The core of Ember Decorators consists of
 many smaller addons namespaced under the `@ember-decorators` scope on NPM,
 including:
 
-* `@ember-decorators/component`
-* `@ember-decorators/controller`
-* `@ember-decorators/data`
-* `@ember-decorators/object`
-* `@ember-decorators/service`
+- `@ember-decorators/component`
+- `@ember-decorators/object`
 
 Now you can write Ember using native classes! For example, this:
 
 ```javascript
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { inject as service } from '@ember/service';
 
 export default Component.extend({
-  foo: service(),
+  tagName: 'a',
+  classNameBindings: ['bar']
+
 
   bar: computed('someKey', 'otherKey', function() {
-    var someKey = this.get('someKey');
-    var otherKey = this.get('otherKey');
-
-    return `${someKey} - ${otherKey}`;
+    return `.${this.someKey}__${this.otherKey}`;
   }),
-
-  actions: {
-    handleClick() {
-      // do stuff
-    }
-  }
 })
 ```
 
@@ -68,84 +58,17 @@ Turns into this:
 
 ```javascript
 import Component from '@ember/component';
-import { action, computed } from '@ember-decorators/object';
-import { inject as service } from '@ember-decorators/service';
+import { computed } from '@ember/object';
+import { tagName, className } from '@ember/component';
 
+@tagName('a')
 export default class ExampleComponent extends Component {
-  @service foo
-
+  @className
   @computed('someKey', 'otherKey')
   get bar() {
-    const someKey = this.get('someKey');
-    const otherKey = this.get('otherKey');
-    return `${someKey} - ${otherKey}`;
-  }
-
-  @action
-  handleClick() {
-    // do stuff
+    return `.${this.someKey}__${this.otherKey}`;
   }
 }
-```
-
-The decorators also work with classic class syntax, so you can safely replace
-any imports in your app for computed properties, Ember Data attributes, or
-injections with the equivalent ember-decorators import and things will continue
-to work, allowing you to convert incrementally:
-
-```javascript
-import Component from '@ember/component';
-import { computed } from '@ember-decorators/object';
-import { inject as service } from '@ember-decorators/service';
-
-export default Component.extend({
-  foo: service(),
-
-  bar: computed('someKey', 'otherKey', function() {
-    var someKey = this.get('someKey');
-    var otherKey = this.get('otherKey');
-
-    return `${someKey} - ${otherKey}`;
-  }),
-
-  actions: {
-    handleClick() {
-      // do stuff
-    }
-  }
-})
-```
-
-The packages in `ember-decorators` are setup to mirror Ember's
-[javascript module](https://github.com/emberjs/rfcs/blob/master/text/0176-javascript-module-api.md)
-API. Decorators can be imported from the packages that they belong to:
-
-```javascript
-import {
-  attr,
-  hasMany,
-  belongsTo,
-} from '@ember-decorators/data';
-
-import {
-  inject as controller
-} from '@ember-decorators/controller';
-
-import {
-  action,
-  computed,
-  observes,
-} from '@ember-decorators/object';
-
-import {
-  alias,
-  or,
-  reads,
-} from '@ember-decorators/object/computed';
-
-import {
-  inject as service
-} from '@ember-decorators/service';
 ```
 
 For a more detailed breakdown on the differences between native classes and the

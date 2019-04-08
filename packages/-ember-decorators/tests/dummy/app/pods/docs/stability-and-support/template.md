@@ -7,12 +7,11 @@ we will not make major breaking changes to our APIs _unless_ absolutely required
 by changes in the underlying spec.
 
 Class fields are currently stage 3 in the process and decorators are currently
-stage 2. Stage 4 marks completion, and the closer a spec is to stage 4, the more
-stable it is.
-
-We have recently updated to the stage 2 transforms, and are cross-compatible
-with the stage 1 transforms so libraries using either can interoperate (for a
-slight runtime cost).
+stage 2. Stage 4 marks completion, stage 3 marks a high level of confidence in
+stability, and stage 2 marks belief that the spec will eventually be included in
+the language in some form. Recently decorators began undergoing a redesign while
+still remaining in stage 2. Ember is following their recommendations through
+this process, and supporting the "legacy" stage 1 decorator specification.
 
 ## Browser Support
 
@@ -35,10 +34,6 @@ version.
 
 As of `ember-cli-typescript@2.0`, Typescript in Ember is now being compiled
 using Babel, which allows you to use the same stage 2 transforms in Typescript
-as you would in a normal Javascript app. Installing
-`@ember-decorators/babel-transforms` should work as expected, and all decorators
-should operate the same.
-
-Standard Typescript decorators will continue to work using their stage 1
-transforms. Support will be phased out in some time in the near future, along
-with support for stage 1 transforms in general.
+as you would in a normal Javascript app. Installing the latest version of
+`ember-cli-babel` should work as expected, and all decorators should operate the
+same.

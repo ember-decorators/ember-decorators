@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { attribute } from '@ember-decorators/component';
-import { computed } from '@ember-decorators/object';
+import { computed } from '@ember/object';
 
 import hbs from 'htmlbars-inline-precompile';
 import { moduleForComponent } from 'ember-qunit';
@@ -47,7 +47,7 @@ test('decorator does not add attribute to superclass', function(assert) {
   this.register('component:bar-component', BarComponent);
   this.register('template:components/bar-component', hbs`Hello, moon!`);
 
-  this.render(hbs`{{foo-component}}{{bar-component}}`)
+  this.render(hbs`{{foo-component}}{{bar-component}}`);
 
   assert.equal(findAll('[role="button"]').length, 2);
   assert.equal(findAll('#bar').length, 1);
@@ -56,7 +56,7 @@ test('decorator does not add attribute to superclass', function(assert) {
 test('decorator works correctly through traditional and ES6 hierarchy', function(assert) {
   const FooComponent = Component.extend({
     attributeBindings: ['role'],
-    role: 'button'
+    role: 'button',
   });
 
   class BarComponent extends FooComponent {
@@ -69,7 +69,7 @@ test('decorator works correctly through traditional and ES6 hierarchy', function
   this.register('component:bar-component', BarComponent);
   this.register('template:components/bar-component', hbs`Hello, moon!`);
 
-  this.render(hbs`{{foo-component}}{{bar-component}}`)
+  this.render(hbs`{{foo-component}}{{bar-component}}`);
 
   assert.equal(findAll('[role="button"]').length, 2);
   assert.equal(findAll('#bar').length, 1);

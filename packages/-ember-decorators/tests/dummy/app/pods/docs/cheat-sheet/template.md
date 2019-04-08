@@ -7,18 +7,17 @@ native classes with Ember.
 
 * `ember install ember-decorators`
 * Troubleshooting
-  * Make sure `@ember-decorators/babel-transforms` was installed
+  * Make sure the latest `ember-cli-babel` is installed
   * Make sure `babel-eslint` was installed and set to be the parser in
   `.eslintrc.js`
 
 ## Support
 
-* Supports same browsers as Ember
+* Supports same browsers as Ember,
 * Supported on Ember 3.6+ (3.4+ with [native class
   polyfill](https://github.com/pzuraq/ember-native-class-polyfill))
 * Supports TS via `ember-cli-typescript`
-* Supports stage 1 and 2 decorator transforms currently (but stage 1 transforms
-  are deprecated)
+* Supports stage 1 decorator transforms
 
 ## Classes
 
@@ -73,7 +72,7 @@ native classes with Ember.
   }
   ```
 * Do _not_ use class fields or constructor assignments for bound functions.
-  Instead, use the `@action` decorator:
+  Instead, use the `@action` decorator from Ember:
 
   ```js
   // bad
@@ -102,21 +101,13 @@ native classes with Ember.
 
 ## Decorators
 
-* Use native getter/setter syntax with `@computed`
-* You still must use `@ember/object#set` (and `@ember/object#get` in
-  Ember < 3.1)
-* Use `@action` directly on class methods
-* Use `@service` and `@controller` to inject
+* Ember provides decorators directly for:
+  * Computed Properties and Macros (Including Ember Data)
+  * Actions
+  * Injections
 * Use component decorators to customize a component's element
   * `@layout`
   * `@tagName`
   * `@classNames`
   * `@className`
   * `@attribute`
-* Use data decorators to declare attributes and relationships on a model
-  * `@attr`
-  * `@belongsTo`
-  * `@hasMany`
-* Computed properties, injections, and data decorators are all usable with
-  classic class syntax. You can use them as a drop-in replacement for their
-  Ember equivalents.
