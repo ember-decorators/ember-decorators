@@ -7,7 +7,7 @@ const Funnel = require('broccoli-funnel');
 
 function treeForPackage(packageName) {
   let addonFiles = new Funnel(`../${packageName}/addon`, {
-    destDir: `@ember-decorators/${packageName}`
+    destDir: `@ember-decorators/${packageName}`,
   });
 
   return addonFiles;
@@ -16,17 +16,10 @@ function treeForPackage(packageName) {
 module.exports = function(defaults) {
   // Build addon docs tree
   let baseFiles = new Funnel(new UnwatchedDir('./'), {
-    include: ['package.json', 'README.md']
+    include: ['package.json', 'README.md'],
   });
 
-  let tree = new MergeTrees([
-    baseFiles,
-    treeForPackage('component'),
-    treeForPackage('controller'),
-    treeForPackage('data'),
-    treeForPackage('object'),
-    treeForPackage('service'),
-  ]);
+  let tree = new MergeTrees([baseFiles, treeForPackage('component'), treeForPackage('object')]);
 
   let trees;
 
@@ -40,7 +33,7 @@ module.exports = function(defaults) {
     };
   } else {
     trees = {
-      tests: 'tests'
+      tests: 'tests',
     };
   }
 
@@ -48,22 +41,22 @@ module.exports = function(defaults) {
     trees,
 
     '@ember-decorators/babel-transforms': {
-      decoratorsBeforeExport: false
+      decoratorsBeforeExport: false,
     },
 
     'ember-cli-uglify': {
-			uglify: {
-				compress: {
-					collapse_vars: false
-				}
-			}
-		},
+      uglify: {
+        compress: {
+          collapse_vars: false,
+        },
+      },
+    },
 
     'ember-cli-addon-docs': {
       projects: {
-        main: tree
-      }
-    }
+        main: tree,
+      },
+    },
   });
 
   /*

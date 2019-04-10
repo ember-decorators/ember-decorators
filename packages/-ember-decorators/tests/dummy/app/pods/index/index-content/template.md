@@ -2,16 +2,14 @@
 
 <aside>Looking for the quickstart? {{docs-link 'Click here' 'docs.index'}}.</aside>
 
-Native class syntax has been an emerging standard in Javascript for some time
-now. With features like class fields, private methods and fields, and decorators
-on the way, pretty soon Javascript will have a fully featured class syntax with
-capabilities that haven’t been available in the language before. While Ember.js
-has had its own trusty custom object-model since the very beginning, these
-broader advancements are going to be the future of the language and the web, and
-Ember has begun planning to transition to using them as the default.
+Decorators recently became a first class part of Ember.js API! They've been
+accepted in [RFC](https://github.com/emberjs/rfcs/blob/master/text/0408-decorators.md),
+and will be released in an upcoming version soon. A polyfill has been [created
+as well](https://github.com/pzuraq/ember-decorators-polyfill).
 
-Ember Decorators is a project dedicated to exploring and unlocking that future.
-Its goal is to provide a set of decorators which can be used to write native
-classes with every standard feature that is available in Ember, along with the
-transforms and build system required to polyfill and ship them in your app
-today!
+Ember Decorators used to provide decorators like `@computed` and `@service`, but
+now that Ember has first class support for these, it no longer does. However,
+there are still some helpful decorators in this library that were not upstreamed
+to Ember, and remain available for folks to use! These decorators are mainly for
+compatibility with older Ember classes and features, specifically classic
+components, observers, and event listeners.

@@ -10,14 +10,11 @@ import {
   Decorator which indicates that the field or computed should be bound
   to an attribute value on the component. This replaces `attributeBindings`
   by directly allowing you to specify which properties should be bound.
-
   ```js
   export default class AttributeDemoComponent extends Component {
     @attribute role = 'button';
-
     // With provided attribute name
     @attribute('data-foo') foo = 'lol';
-
     @attribute
     @computed
     get id() {
@@ -25,7 +22,6 @@ import {
     }
   }
   ```
-
   @function
   @param {string} name? - The name of the attribute to bind the value to if it is truthy
 */
@@ -72,14 +68,11 @@ export const attribute = decoratorWithParams((desc, params = []) => {
   Decorator which indicates that the field or computed should be bound to
   the component class names. This replaces `classNameBindings` by directly
   allowing you to specify which properties should be bound.
-
   ```js
   export default class ClassNameDemoComponent extends Component {
     @className boundField = 'default-class';
-
     // With provided true/false class names
     @className('active', 'inactive') isActive = true;
-
     @className
     @computed
     get boundComputed() {
@@ -87,7 +80,6 @@ export const attribute = decoratorWithParams((desc, params = []) => {
     }
   }
   ```
-
   @function
   @param {string} truthyName? - The class to be applied if the value the field
                                 is truthy, defaults to the name of the field.
@@ -137,12 +129,10 @@ export const className = decoratorWithParams((desc, params = []) => {
   Class decorator which specifies the class names to be applied to a component.
   This replaces the `classNames` property on components in the traditional Ember
   object model.
-
   ```js
   @classNames('a-static-class', 'another-static-class')
   export default class ClassNamesDemoComponent extends Component {}
   ```
-
   @function
   @param {...string} classNames - The list of classes to be applied to the component
 */
@@ -173,12 +163,10 @@ export const classNames = decoratorWithRequiredParams((desc, classNames) => {
 /**
   Class decorator which specifies the tag name of the component. This replaces
   the `tagName` property on components in the traditional Ember object model.
-
   ```js
   @tagName('button')
   export default class TagNameDemoComponent extends Component {}
   ```
-
   @function
   @param {string} tagName - The HTML tag to be used for the component
 */
@@ -205,17 +193,13 @@ export const tagName = decoratorWithRequiredParams((desc, params) => {
 /**
   Class decorator which specifies the layout for the component. This replaces
   the `layout` property on components in the traditional Ember object model.
-
   ```js
   import template from '../templates/components/x-foo';
-
   @layout(template)
   export default class TagNameDemoComponent extends Component {}
   ```
-
   ```js
   import hbs from 'htmlbars-inline-precompile';
-
   @layout(hbs`<h1>Hello {{ name }}</h1>`)
   export default class TagNameDemoComponent extends Component {
     constructor() {
@@ -224,7 +208,6 @@ export const tagName = decoratorWithRequiredParams((desc, params) => {
     }
   }
   ```
-
   @function
   @param {TemplateFactory} template - The compiled template to be used for the component
 */

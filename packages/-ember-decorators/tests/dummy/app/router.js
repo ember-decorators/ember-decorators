@@ -3,13 +3,11 @@ import config from './config/environment';
 
 const Router = AddonDocsRouter.extend({
   location: config.locationType,
-  rootURL: config.rootURL
+  rootURL: config.rootURL,
 });
 
 Router.map(function() {
   docsRoute(this, function() {
-    this.route('what-is-ember-decorators');
-    this.route('why-go-native');
     this.route('stability-and-support');
 
     this.route('native-class-basics');
