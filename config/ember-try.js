@@ -5,20 +5,18 @@ module.exports = function() {
     getChannelURL('release'),
     getChannelURL('beta'),
     getChannelURL('canary'),
-  ]).then((urls) => {
+  ]).then(urls => {
     return {
       useYarn: true,
       useWorkspaces: true,
       command: 'yarn test',
       scenarios: [
-
         // Ember Versions
         {
           name: 'ember-lts-2.16',
           npm: {
             devDependencies: {
               'ember-source': '~2.16.0',
-              'ember-data': '~2.16.0'
             },
           },
         },
@@ -27,7 +25,6 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'ember-source': '~2.18.0',
-              'ember-data': '~2.18.0'
             },
           },
         },
@@ -36,7 +33,6 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'ember-source': '~3.4.0',
-              'ember-data': '~3.4.0'
             },
           },
         },
@@ -45,7 +41,6 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'ember-source': urls[0],
-              'ember-data': 'emberjs/data#release'
             },
           },
         },
@@ -54,7 +49,6 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'ember-source': urls[1],
-              'ember-data': 'emberjs/data#beta'
             },
           },
         },
@@ -63,7 +57,6 @@ module.exports = function() {
           npm: {
             devDependencies: {
               'ember-source': urls[2],
-              'ember-data': 'emberjs/data#master'
             },
           },
         },
@@ -83,8 +76,8 @@ module.exports = function() {
           npm: {
             devDependencies: {
               '@ember-decorators/babel-transforms': '^2.0.0',
-            }
-          }
+            },
+          },
         },
 
         // Build Flags
