@@ -1,4 +1,4 @@
-function isStage1ClassDescriptor(possibleDesc) {
+function isClassDescriptor(possibleDesc) {
   let [target] = possibleDesc;
 
   return (
@@ -9,7 +9,7 @@ function isStage1ClassDescriptor(possibleDesc) {
   );
 }
 
-function isStage1FieldDescriptor(possibleDesc) {
+export function isFieldDescriptor(possibleDesc) {
   let [target, key, desc] = possibleDesc;
 
   return (
@@ -25,53 +25,6 @@ function isStage1FieldDescriptor(possibleDesc) {
   );
 }
 
-export function isStage2FieldDescriptor(possibleDesc) {
-  return possibleDesc && possibleDesc.toString() === '[object Descriptor]';
-}
-
-export function isFieldDescriptor(possibleDesc) {
-  return isStage2FieldDescriptor(possibleDesc) || isStage1FieldDescriptor(possibleDesc);
-}
-
 export function isDescriptor(possibleDesc) {
-  return isFieldDescriptor(possibleDesc) || isStage1ClassDescriptor(possibleDesc);
-}
-
-function kindForDesc(desc) {
-  if ('value' in desc && desc.enumerable === true) {
-    return 'field';
-  } else {
-    return 'method';
-  }
-}
-
-function placementForKind(kind) {
-  return kind === 'method' ? 'prototype' : 'own';
-}
-
-export function convertStage1ToStage2(desc) {
-  if (desc.length === 3) {
-    // Class element decorator
-    let [, key, descriptor] = desc;
-
-    let kind = kindForDesc(desc);
-    let placement = placementForKind(kind);
-
-    let initializer = descriptor !== undefined ? descriptor.initializer : undefined;
-
-    return {
-      descriptor,
-      key,
-      kind,
-      placement,
-      initializer,
-      toString: () => '[object Descriptor]',
-    };
-  } else {
-    // Class decorator
-    return {
-      kind: 'class',
-      elements: [],
-    };
-  }
+  return isFieldDescriptor(possibleDesc) || isClassDescriptor(possibleDesc);
 }

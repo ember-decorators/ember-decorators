@@ -2,39 +2,14 @@ import { DEBUG } from '@glimmer/env';
 
 import { module, test } from 'qunit';
 import {
-  decorator,
   decoratorWithParams,
   decoratorWithRequiredParams,
 } from '@ember-decorators/utils/decorator';
 
 module('decorator helpers', function() {
-  module('decorator', function() {
-    test('it works with returning a newly created member descriptor', function(assert) {
-      let decorate = decorator(desc => {
-        return {
-          ...desc,
-          descriptor: {
-            configurable: desc.configurable,
-            enumerable: desc.enumerable,
-            get() {
-              return 1337;
-            },
-          },
-        };
-      });
-
-      class Foo {
-        @decorate foo() {}
-      }
-
-      let foo = new Foo();
-      assert.strictEqual(foo.foo, 1337);
-    });
-  });
-
   module('decoratorWithParams', function() {
     test('it works with params', function(assert) {
-      let decorate = decoratorWithParams(({ key }, params) => {
+      let decorate = decoratorWithParams((target, key, desc, params) => {
         assert.equal(key, 'foo', 'correct key decorated');
         assert.ok(Array.isArray(params), 'array passed in as params');
         assert.equal(params.length, 1, 'params list has correct number of params');
@@ -49,7 +24,7 @@ module('decorator helpers', function() {
     });
 
     test('it works without params', function(assert) {
-      let decorate = decoratorWithParams(({ key }, params) => {
+      let decorate = decoratorWithParams((target, key, desc, params) => {
         assert.equal(key, 'foo', 'correct key decorated');
         assert.equal(params, undefined, 'no params passed');
       });
@@ -62,7 +37,7 @@ module('decorator helpers', function() {
     });
 
     test('it works with empty params list', function(assert) {
-      let decorate = decoratorWithParams(({ key }, params) => {
+      let decorate = decoratorWithParams((target, key, desc, params) => {
         assert.equal(key, 'foo', 'correct key decorated');
         assert.ok(Array.isArray(params), 'array passed in as params');
         assert.equal(params.length, 0, 'params list is empty');
@@ -78,7 +53,7 @@ module('decorator helpers', function() {
 
   module('decoratorWithRequiredParams', function() {
     test('it works with params', function(assert) {
-      let decorate = decoratorWithRequiredParams(({ key }, params) => {
+      let decorate = decoratorWithRequiredParams((target, key, desc, params) => {
         assert.equal(key, 'foo', 'correct key decorated');
         assert.ok(Array.isArray(params), 'array passed in as params');
         assert.equal(params.length, 1, 'params list has correct number of params');
