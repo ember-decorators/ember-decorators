@@ -1,53 +1,6 @@
-import { assert, deprecate } from '@ember/debug';
+import { assert } from '@ember/debug';
 
-import {
-  isDescriptor,
-  isStage2FieldDescriptor,
-  convertStage1ToStage2,
-} from './-private/class-field-descriptor';
-
-export function decorator(fn) {
-  return function(...params) {
-    if (isStage2FieldDescriptor(params)) {
-      deprecate(
-        'You are using the stage 2 decorator trasforms (@ember-decorators/babel-transforms v3-v5). Ember has officially adopted the stage 1 transforms instead. The stage 2 transforms will not be supported in ember-decorators v6. You can update `ember-cli-babel` to the latest version (at least 7.7.3) and remove @ember-decorators/babel-transforms from your app/addon.',
-        false,
-        {
-          id: 'action-deprecation',
-          until: '6.0.0',
-        }
-      );
-
-      let desc = params[0];
-
-      return fn(desc);
-    } else {
-      let desc = convertStage1ToStage2(params);
-
-      desc = fn(desc) || desc;
-
-      if (typeof desc.finisher === 'function') {
-        // Finishers are supposed to run at the end of class finalization,
-        // but we don't get that with stage 1 transforms. We have to be careful
-        // to make sure that we aren't doing any operations which would change
-        // due to timing.
-        let [target] = params;
-
-        desc.finisher(target.prototype ? target : target.constructor);
-      }
-
-      if (typeof desc.initializer === 'function') {
-        // Babel 6 / the legacy decorator transform needs the initializer back
-        // on the property descriptor/ In case the user has set a new
-        // initializer on the member descriptor, we transfer it back to
-        // original descriptor.
-        desc.descriptor.initializer = desc.initializer;
-      }
-
-      return desc.descriptor;
-    }
-  };
-}
+import { isDescriptor } from './-private/class-field-descriptor';
 
 /**
  * A macro that takes a decorator function and allows it to optionally
@@ -70,9 +23,9 @@ export function decoratorWithParams(fn) {
   return function(...params) {
     // determine if user called as @computed('blah', 'blah') or @computed
     if (isDescriptor(params)) {
-      return decorator(fn)(...params);
+      return fn(...params);
     } else {
-      return decorator(desc => fn(desc, params));
+      return (...desc) => fn(...desc, params);
     }
   };
 }
@@ -101,8 +54,6 @@ export function decoratorWithRequiredParams(fn, name) {
       !isDescriptor(params) && params.length > 0
     );
 
-    return decorator(desc => {
-      return fn(desc, params);
-    });
+    return (...desc) => fn(...desc, params);
   };
 }

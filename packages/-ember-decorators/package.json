@@ -23,8 +23,7 @@
   "dependencies": {
     "@ember-decorators/component": "^5.2.0",
     "@ember-decorators/object": "^5.2.0",
-    "ember-cli-babel": "^7.7.3",
-    "semver": "^6.0.0"
+    "ember-cli-babel": "^7.7.3"
   },
   "devDependencies": {
     "@ember-decorators/utils": "^5.2.0",

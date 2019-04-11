@@ -25,7 +25,7 @@ import {
   @function
   @param {string} name? - The name of the attribute to bind the value to if it is truthy
 */
-export const attribute = decoratorWithParams((desc, params = []) => {
+export const attribute = decoratorWithParams((target, key, desc, params = []) => {
   assert(
     `The @attribute decorator may take up to one parameter, the bound attribute name. Received: ${
       params.length
@@ -37,29 +37,22 @@ export const attribute = decoratorWithParams((desc, params = []) => {
     params.every(s => typeof s === 'string')
   );
 
-  desc.finisher = target => {
-    let { prototype } = target;
-    let { key, descriptor } = desc;
+  collapseProto(target);
 
-    collapseProto(prototype);
+  if (!target.hasOwnProperty('attributeBindings')) {
+    let parentValue = target.attributeBindings;
+    target.attributeBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
+  }
 
-    if (!prototype.hasOwnProperty('attributeBindings')) {
-      let parentValue = prototype.attributeBindings;
-      prototype.attributeBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
-    }
+  let binding = params[0] ? `${key}:${params[0]}` : key;
 
-    let binding = params[0] ? `${key}:${params[0]}` : key;
+  target.attributeBindings.push(binding);
 
-    prototype.attributeBindings.push(binding);
-
-    if (descriptor) {
-      // Decorated fields are currently not configurable in Babel for some reason, so ensure
-      // that the field becomes configurable (else it messes with things)
-      descriptor.configurable = true;
-    }
-
-    return target;
-  };
+  if (desc) {
+    // Decorated fields are currently not configurable in Babel for some reason, so ensure
+    // that the field becomes configurable (else it messes with things)
+    desc.configurable = true;
+  }
 
   return desc;
 });
@@ -86,7 +79,7 @@ export const attribute = decoratorWithParams((desc, params = []) => {
   @param {string} falsyName? - The class to be applied if the value of the field
                                is falsy.
 */
-export const className = decoratorWithParams((desc, params = []) => {
+export const className = decoratorWithParams((target, key, desc, params = []) => {
   assert(
     `The @className decorator may take up to two parameters, the truthy class and falsy class for the class binding. Received: ${
       params.length
@@ -98,29 +91,22 @@ export const className = decoratorWithParams((desc, params = []) => {
     params.every(s => typeof s === 'string')
   );
 
-  desc.finisher = target => {
-    let { prototype } = target;
-    let { key, descriptor } = desc;
+  collapseProto(target);
 
-    collapseProto(prototype);
+  if (!target.hasOwnProperty('classNameBindings')) {
+    let parentValue = target.classNameBindings;
+    target.classNameBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
+  }
 
-    if (!prototype.hasOwnProperty('classNameBindings')) {
-      let parentValue = prototype.classNameBindings;
-      prototype.classNameBindings = Array.isArray(parentValue) ? parentValue.slice() : [];
-    }
+  let binding = params.length > 0 ? `${key}:${params.join(':')}` : key;
 
-    let binding = params.length > 0 ? `${key}:${params.join(':')}` : key;
+  target.classNameBindings.push(binding);
 
-    prototype.classNameBindings.push(binding);
-
-    if (descriptor) {
-      // Decorated fields are currently not configurable in Babel for some reason, so ensure
-      // that the field becomes configurable (else it messes with things)
-      descriptor.configurable = true;
-    }
-
-    return target;
-  };
+  if (desc) {
+    // Decorated fields are currently not configurable in Babel for some reason, so ensure
+    // that the field becomes configurable (else it messes with things)
+    desc.configurable = true;
+  }
 
   return desc;
 });
@@ -136,28 +122,22 @@ export const className = decoratorWithParams((desc, params = []) => {
   @function
   @param {...string} classNames - The list of classes to be applied to the component
 */
-export const classNames = decoratorWithRequiredParams((desc, classNames) => {
+export const classNames = decoratorWithRequiredParams((target, classNames) => {
   assert(
     `The @classNames decorator must be provided strings, received: ${classNames}`,
     classNames.reduce((allStrings, name) => allStrings && typeof name === 'string', true)
   );
 
-  desc.finisher = target => {
-    let { prototype } = target;
+  collapseProto(target.prototype);
 
-    collapseProto(prototype);
+  if ('classNames' in target.prototype) {
+    let parentClasses = target.prototype.classNames;
+    classNames.unshift(...parentClasses);
+  }
 
-    if ('classNames' in prototype) {
-      let parentClasses = prototype.classNames;
-      classNames.unshift(...parentClasses);
-    }
+  target.prototype.classNames = classNames;
 
-    prototype.classNames = classNames;
-
-    return target;
-  };
-
-  return desc;
+  return target;
 }, 'classNames');
 
 /**
@@ -170,7 +150,7 @@ export const classNames = decoratorWithRequiredParams((desc, classNames) => {
   @function
   @param {string} tagName - The HTML tag to be used for the component
 */
-export const tagName = decoratorWithRequiredParams((desc, params) => {
+export const tagName = decoratorWithRequiredParams((target, params) => {
   let [tagName] = params;
 
   assert(
@@ -182,12 +162,9 @@ export const tagName = decoratorWithRequiredParams((desc, params) => {
     typeof tagName === 'string'
   );
 
-  desc.finisher = target => {
-    target.prototype.tagName = tagName;
-    return target;
-  };
+  target.prototype.tagName = tagName;
 
-  return desc;
+  return target;
 }, 'tagName');
 
 /**
@@ -211,7 +188,7 @@ export const tagName = decoratorWithRequiredParams((desc, params) => {
   @function
   @param {TemplateFactory} template - The compiled template to be used for the component
 */
-export const layout = decoratorWithRequiredParams((desc, params) => {
+export const layout = decoratorWithRequiredParams((target, params) => {
   let [template] = params;
 
   assert(
@@ -227,10 +204,6 @@ export const layout = decoratorWithRequiredParams((desc, params) => {
     (() => typeof template === 'object' && typeof template.indexOf === 'undefined')()
   );
 
-  desc.finisher = target => {
-    target.prototype.layout = template;
-    return target;
-  };
-
-  return desc;
+  target.prototype.layout = template;
+  return target;
 }, 'layout');
