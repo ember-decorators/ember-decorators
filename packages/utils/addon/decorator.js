@@ -6,8 +6,14 @@ import {
   convertStage1ToStage2,
 } from './-private/class-field-descriptor';
 
+const IS_EDGE = /Edge\/\d/.test(window.navigator.userAgent);
+
+const ensureFunctionPrototype = IS_EDGE
+  ? fn => Object.setPrototypeOf(fn, Function.prototype)
+  : fn => fn;
+
 export function decorator(fn) {
-  return function(...params) {
+  return ensureFunctionPrototype(function(...params) {
     if (isStage2FieldDescriptor(params)) {
       deprecate(
         'You are using the stage 2 decorator trasforms (@ember-decorators/babel-transforms v3-v5). Ember has officially adopted the stage 1 transforms instead. The stage 2 transforms will not be supported in ember-decorators v6. You can update `ember-cli-babel` to the latest version (at least 7.7.3) and remove @ember-decorators/babel-transforms from your app/addon.',
@@ -46,7 +52,7 @@ export function decorator(fn) {
 
       return desc.descriptor;
     }
-  };
+  });
 }
 
 /**
