@@ -59,7 +59,7 @@ Turns into this:
 ```javascript
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { tagName, className } from '@ember/component';
+import { tagName, className } from '@ember-decorators/component';
 
 @tagName('a')
 export default class ExampleComponent extends Component {
