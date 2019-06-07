@@ -15,12 +15,12 @@
     "try": "ember try:one"
   },
   "devDependencies": {
-    "babel-eslint": "^8.1.2",
+    "babel-eslint": "^10.0.0",
     "ember-cli": "^3.4.2",
     "ember-cli-babel": "^7.1.3",
     "ember-source-channel-url": "^1.1.0",
     "ember-try": "^1.1.0",
-    "eslint": "^4.19.1",
+    "eslint": "^5.0.0",
     "eslint-plugin-ember": "^6.0.0",
     "eslint-plugin-node": "^8.0.0",
     "lerna": "^3.0.0"
