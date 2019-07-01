@@ -201,7 +201,9 @@ export const layout = decoratorWithRequiredParams((target, params) => {
   );
   assert(
     `The @layout decorator must be provided a template, received: ${template}`,
-    (() => typeof template === 'object' && typeof template.indexOf === 'undefined')()
+    (() =>
+      typeof template === 'function' ||
+      (typeof template === 'object' && typeof template.indexOf === 'undefined'))()
   );
 
   target.prototype.layout = template;
