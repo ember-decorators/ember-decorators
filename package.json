@@ -26,6 +26,7 @@
     "lerna": "^3.0.0"
   },
   "resolutions": {
+    "**/ember-data": "~3.10.0",
     "**/tough-cookie": "~2.4.0"
   },
   "engines": {
