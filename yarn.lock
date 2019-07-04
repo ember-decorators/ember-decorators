@@ -6784,10 +6784,10 @@ ember-native-dom-helpers@^0.6.0:
     broccoli-funnel "^1.1.0"
     ember-cli-babel "^6.6.0"
 
-ember-qunit-assert-helpers@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/ember-qunit-assert-helpers/-/ember-qunit-assert-helpers-0.2.1.tgz#4a77f8ff252e47cc53db6fa7fb4becb426de8d29"
-  integrity sha512-3h7jdwp/Lzpri04hrSzUz0hguzzF7ldnCEb+tB+5MianGiFusYjPEu8QsUqJ6BhzXlljyX+pmMVyNe7HL6lsjA==
+ember-qunit-assert-helpers@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/ember-qunit-assert-helpers/-/ember-qunit-assert-helpers-0.2.2.tgz#6fec8a33fd0d2c3fb6202f849291a309581727a4"
+  integrity sha512-P5eAqD753+p/qEeBi6OGpl2EzRxx8O9dUnr6HgyxU9fqQsSNQkJNGZ+ajbtePI8oMDGm+X7uOnf1+BgQ7eJ7qg==
   dependencies:
     broccoli-filter "^1.0.1"
     ember-cli-babel "^6.9.0"
