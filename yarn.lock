@@ -6503,7 +6503,7 @@ ember-cli-version-checker@^3.0.0:
     resolve "^1.9.0"
     semver "^5.6.0"
 
-ember-cli-version-checker@^3.1.3:
+ember-cli-version-checker@^3.0.1, ember-cli-version-checker@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/ember-cli-version-checker/-/ember-cli-version-checker-3.1.3.tgz#7c9b4f5ff30fdebcd480b1c06c4de43bb51c522c"
   integrity sha512-PZNSvpzwWgv68hcXxyjREpj3WWb81A7rtYNQq1lLEgrWIchF8ApKJjWP3NBpHjaatwILkZAV8klair5WFlXAKg==
@@ -6636,10 +6636,10 @@ ember-compatibility-helpers@^1.2.0:
     ember-cli-version-checker "^2.1.1"
     semver "^5.4.1"
 
-ember-component-css@^0.6.7:
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/ember-component-css/-/ember-component-css-0.6.7.tgz#dbc6debe5c04a2c0fe8a5edc64303c7324b33945"
-  integrity sha512-nZbGVHr3TI5uBb6mGqAvB2QJo8VQcmXTLCy/PnJ/Lyq3sKZCjg5dQE66X+TcHPG3IWEMOmCe/1vaK4HPtE8gfA==
+ember-component-css@^0.6.7, ember-component-css@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/ember-component-css/-/ember-component-css-0.7.4.tgz#b8e94b062468721df6c9ea0c8739226c96809c9f"
+  integrity sha512-dJV6WyvIc4NZ2fSNhMWe4UJaSPLBtjQ4zHJ9bOg6UCMLHfTlwjJsn+rYqddMn65xau7MS8mwxa+otujQij0xEw==
   dependencies:
     broccoli-concat "^3.7.3"
     broccoli-funnel "^2.0.1"
@@ -6649,14 +6649,14 @@ ember-component-css@^0.6.7:
     broccoli-replace "^0.12.0"
     broccoli-style-manifest "^1.5.2"
     ember-cli-babel "^7.1.4"
-    ember-cli-version-checker "^2.1.2"
+    ember-cli-version-checker "^3.0.1"
     ember-getowner-polyfill "^2.2.0"
-    fs-tree-diff "^1.0.2"
+    fs-tree-diff "^0.5.9"
     md5 "^2.2.1"
     postcss "^7.0.6"
     postcss-less "^3.1.0"
     postcss-scss "^2.0.0"
-    postcss-selector-namespace "^1.5.0"
+    postcss-selector-namespace "^2.0.0"
     rsvp "^4.8.4"
     walk-sync "^1.0.1"
 
@@ -12442,12 +12442,12 @@ postcss-scss@^2.0.0:
   dependencies:
     postcss "^7.0.0"
 
-postcss-selector-namespace@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/postcss-selector-namespace/-/postcss-selector-namespace-1.5.0.tgz#62335de8f1992eae989d1be33ba2298156ab458b"
-  integrity sha512-tQmqzuqOyH4sCwr+yRmnIKPzNQy1tIVvEZMR9qd82npDJ2X5KwMoeFFjCdupJ00eqMrCYj58wWvSwwZDA3kTmA==
+postcss-selector-namespace@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/postcss-selector-namespace/-/postcss-selector-namespace-2.0.0.tgz#d784cc24f5f483a301c9148fc7e50f5d7b64845e"
+  integrity sha512-1Eka6f/6IL08c8gWfslUdwqmURvHYbdI57zOMHeslIuiLaK1nxvQefqAGcr9Em9T0k+4IcwhBTAtJm+6nCz2wQ==
   dependencies:
-    postcss "^6.0.14"
+    postcss "^7.0.0"
 
 postcss-selector-parser@^3.1.1:
   version "3.1.1"
