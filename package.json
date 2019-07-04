@@ -31,6 +31,6 @@
     "**/tough-cookie": "~2.4.0"
   },
   "engines": {
-    "node": ">= 7.*"
+    "node": ">= 8.*"
   }
 }
