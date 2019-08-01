@@ -31,7 +31,7 @@ if (DEBUG) {
       },
       /The @layout decorator must be provided a template/,
       'error thrown correctly'
-    )
+    );
   });
   test('decorator throws a specialized error if given a string value', function(assert) {
     assert.throws(
@@ -43,7 +43,7 @@ if (DEBUG) {
       },
       /use 'htmlbars-inline-precompile'/,
       'error thrown correctly'
-    )
+    );
   });
 
   test('decorator throws an error if given more than one value', function(assert) {
@@ -56,20 +56,20 @@ if (DEBUG) {
       },
       /The @layout decorator must be provided exactly one argument/,
       'error thrown correctly'
-    )
+    );
   });
 
   test('decorator throws an error if given no values', function(assert) {
-    assert.throws(
-      () => {
-        @layout
-        class FooComponent extends Component {}
+    /*
+      Note: We cannot test for the following case:
 
-        new FooComponent();
-      },
-      /The @layout decorator requires parameters/,
-      'error thrown correctly'
-    )
+      ```js
+      @layout
+      class FooComponent extends Component {}
+      ```
+
+      @see https://github.com/ember-decorators/ember-decorators/pull/451#issuecomment-508807480
+    */
 
     assert.throws(
       () => {
@@ -78,8 +78,8 @@ if (DEBUG) {
 
         new FooComponent();
       },
-      /The @layout decorator requires parameters/,
+      /The @layout decorator must be provided exactly one argument, received: 0/,
       'error thrown correctly'
-    )
+    );
   });
 }
