@@ -1,17 +1,17 @@
 import { module, test } from 'qunit';
 
-module('Babel | decorators (legacy)');
+module('Babel | decorators (legacy)', function() {
+  // This test more or less only checks, if the `@decorator` syntax can be used.
 
-// This test more or less only checks, if the `@decorator` syntax can be used.
+  test('it works', function(assert) {
+    function decorator(value) {
+      assert.strictEqual(value, 123);
+      return function() {};
+    }
 
-test('it works', function(assert) {
-  function decorator(value) {
-    assert.strictEqual(value, 123);
-    return function() {};
-  }
+    @decorator(123)
+    class Foo {}
 
-  @decorator(123)
-  class Foo {}
-
-  new Foo();
+    new Foo();
+  });
 });
