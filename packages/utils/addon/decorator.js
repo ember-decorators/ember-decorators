@@ -6,7 +6,9 @@ import {
   convertStage1ToStage2,
 } from './-private/class-field-descriptor';
 
-const IS_EDGE = /Edge\/\d/.test(window.navigator.userAgent);
+const IS_EDGE =
+  typeof FastBoot === 'undefined' &&
+  /Edge\/\d/.test(window.navigator.userAgent);
 
 const ensureFunctionPrototype = IS_EDGE
   ? fn => Object.setPrototypeOf(fn, Function.prototype)
