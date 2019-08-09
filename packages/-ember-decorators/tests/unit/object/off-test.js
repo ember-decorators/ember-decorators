@@ -1,6 +1,6 @@
 import { DEBUG } from '@glimmer/env';
 
-import { module, test } from 'ember-qunit';
+import { module, test } from 'qunit';
 
 import { on, off } from '@ember-decorators/object';
 import { sendEvent } from '@ember/object/events';

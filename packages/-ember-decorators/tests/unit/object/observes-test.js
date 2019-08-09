@@ -1,5 +1,5 @@
 import { DEBUG } from '@glimmer/env';
-import { module, test } from 'ember-qunit';
+import { module, test } from 'qunit';
 import EmberObject, { set } from '@ember/object';
 
 import { observes } from '@ember-decorators/object';

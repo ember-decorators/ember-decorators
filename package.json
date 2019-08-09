@@ -16,19 +16,22 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.0.0",
-    "ember-cli": "^3.4.2",
+    "ember-cli": "~3.9.0",
     "ember-cli-babel": "^7.1.3",
     "ember-source-channel-url": "^1.1.0",
     "ember-try": "^1.1.0",
     "eslint": "^5.0.0",
     "eslint-plugin-ember": "^6.0.0",
     "eslint-plugin-node": "^8.0.0",
-    "lerna": "^3.0.0"
+    "lerna": "^3.0.0",
+    "sass": "^1.22.3"
   },
   "resolutions": {
+    "**/ember-component-css": "^0.7.4",
+    "**/ember-data": "~3.10.0",
     "**/tough-cookie": "~2.4.0"
   },
   "engines": {
-    "node": "6.* || >= 7.*"
+    "node": ">= 8.*"
   }
 }

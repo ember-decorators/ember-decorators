@@ -37,8 +37,8 @@
     "broccoli-funnel": "^2.0.1",
     "broccoli-merge-trees": "^3.0.0",
     "broccoli-source": "^1.1.0",
-    "ember-cli": "~3.0.0",
-    "ember-cli-addon-docs": "^0.6.10",
+    "ember-cli": "~3.9.0",
+    "ember-cli-addon-docs": "^0.6.13",
     "ember-cli-addon-docs-esdoc": "^0.2.1",
     "ember-cli-app-version": "^3.0.0",
     "ember-cli-dependency-checker": "^3.0.0",
@@ -63,7 +63,7 @@
     "ember-load-initializers": "^2.0.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-native-dom-helpers": "^0.6.0",
-    "ember-qunit-assert-helpers": "^0.2.1",
+    "ember-qunit-assert-helpers": "^0.2.2",
     "ember-resolver": "^5.0.0",
     "ember-root-url": "^0.2.0",
     "ember-source": "~3.0.0",
@@ -72,7 +72,7 @@
     "typescript": "3.2.4"
   },
   "engines": {
-    "node": "6.* || >= 7.*"
+    "node": ">= 8.*"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
