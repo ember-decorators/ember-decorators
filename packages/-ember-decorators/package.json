@@ -72,7 +72,7 @@
     "typescript": "3.2.4"
   },
   "engines": {
-    "node": "6.* || >= 7.*"
+    "node": ">= 8.*"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",

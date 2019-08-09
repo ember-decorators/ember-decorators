@@ -60,7 +60,7 @@
     "mocha": "^5.0.0"
   },
   "engines": {
-    "node": "6.* || >= 7.*"
+    "node": ">= 8.*"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
