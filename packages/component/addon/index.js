@@ -188,7 +188,7 @@ export const tagName = decoratorWithRequiredParams((target, params) => {
   @function
   @param {TemplateFactory} template - The compiled template to be used for the component
 */
-export const layout = decoratorWithRequiredParams((target, params) => {
+export const layout = (...params) => target => {
   let [template] = params;
 
   assert(
@@ -201,9 +201,10 @@ export const layout = decoratorWithRequiredParams((target, params) => {
   );
   assert(
     `The @layout decorator must be provided a template, received: ${template}`,
-    (() => typeof template === 'object' && typeof template.indexOf === 'undefined')()
+    typeof template === 'function' ||
+      (typeof template === 'object' && typeof template.indexOf === 'undefined')
   );
 
   target.prototype.layout = template;
   return target;
-}, 'layout');
+};
