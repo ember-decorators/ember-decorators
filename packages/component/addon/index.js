@@ -111,6 +111,26 @@ export const className = decoratorWithParams((target, key, desc, params = []) =>
   return desc;
 });
 
+function concattedPropDecorator(propName) {
+  return decoratorWithRequiredParams((target, propValues) => {
+    assert(
+      `The @${propName} decorator must be provided strings, received: ${propValues}`,
+      propValues.reduce((allStrings, name) => allStrings && typeof name === 'string', true)
+    );
+
+    collapseProto(target.prototype);
+
+    if (propName in target.prototype) {
+      let parentValues = target.prototype[propName];
+      propValues.unshift(...parentValues);
+    }
+
+    target.prototype[propName] = propValues;
+
+    return target;
+  }, propName);
+}
+
 /**
   Class decorator which specifies the class names to be applied to a component.
   This replaces the `classNames` property on components in the traditional Ember
@@ -122,23 +142,33 @@ export const className = decoratorWithParams((target, key, desc, params = []) =>
   @function
   @param {...string} classNames - The list of classes to be applied to the component
 */
-export const classNames = decoratorWithRequiredParams((target, classNames) => {
-  assert(
-    `The @classNames decorator must be provided strings, received: ${classNames}`,
-    classNames.reduce((allStrings, name) => allStrings && typeof name === 'string', true)
-  );
+export const classNames = concattedPropDecorator('classNames');
 
-  collapseProto(target.prototype);
+/**
+  Class decorator which specifies the class name bindings to be applied to a
+  component. This replaces the `classNameBindings` property on components in the
+  traditional Ember object model.
+  ```js
+  @classNameBindings('aDynamicProperty:truthy-class-name:falsy-class-name')
+  export default class ClassNamesDemoComponent extends Component {}
+  ```
+  @function
+  @param {...string} classNameBindings - The list of class name bindings to be applied to the component
+*/
+export const classNameBindings = concattedPropDecorator('classNameBindings');
 
-  if ('classNames' in target.prototype) {
-    let parentClasses = target.prototype.classNames;
-    classNames.unshift(...parentClasses);
-  }
-
-  target.prototype.classNames = classNames;
-
-  return target;
-}, 'classNames');
+/**
+  Class decorator which specifies the attribute bindings to be applied to a
+  component. This replaces the `attributeBindings` property on components in the
+  traditional Ember object model.
+  ```js
+  @attributeBindings('role', 'aProperty:a-different-attribute')
+  export default class ClassNamesDemoComponent extends Component {}
+  ```
+  @function
+  @param {...string} attributeBindings - The list of attribute bindings to be applied to the component
+*/
+export const attributeBindings = concattedPropDecorator('attributeBindings');
 
 /**
   Class decorator which specifies the tag name of the component. This replaces
