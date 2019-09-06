@@ -1,6 +1,6 @@
 {
   "name": "@ember-decorators/utils",
-  "version": "6.1.0",
+  "version": "6.1.1",
   "description": "Utilities used by the Ember Decorators project",
   "keywords": [
     "ember-addon"
