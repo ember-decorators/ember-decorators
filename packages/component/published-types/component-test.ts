@@ -1,5 +1,13 @@
 import Component from '@ember/component';
-import { tagName, attribute, className, classNames, layout } from '@ember-decorators/component';
+import {
+  tagName,
+  attribute,
+  className,
+  classNames,
+  classNameBindings,
+  attributeBindings,
+  layout,
+} from '@ember-decorators/component';
 import hbs from 'htmlbars-inline-precompile';
 
 @tagName('span')
@@ -9,6 +17,7 @@ export class XFoo extends Component {}
 @tagName
 export class XFoo2 extends Component {}
 
+@attributeBindings('foo', 'bar')
 export class AttributeDemoComponent extends Component {
   @attribute role = 'button';
 
@@ -21,6 +30,11 @@ export class AttributeDemoComponent extends Component {
   }
 }
 
+// $ExpectError
+@attributeBindings
+export class AttributeDemoComponent2 extends Component { }
+
+@classNameBindings('foo', 'bar')
 export class ClassNameDemoComponent extends Component {
   @className boundField = 'default-class';
 
@@ -33,12 +47,16 @@ export class ClassNameDemoComponent extends Component {
   }
 }
 
+// $ExpectError
+@classNameBindings
+export class ClassNameDemoComponent2 extends Component { }
+
 @classNames('a-static-class', 'another-static-class')
-export class ClassNamesDemoComponent1 extends Component { }
+export class ClassNamesDemoComponent1 extends Component {}
 
 // $ExpectError
 @classNames
-export class ClassNamesDemoComponent2 extends Component { }
+export class ClassNamesDemoComponent2 extends Component {}
 
 @layout(hbs`<h1> Hello {{name}} </h1>`)
 export class LayoutDemoComponent1 extends Component {}
