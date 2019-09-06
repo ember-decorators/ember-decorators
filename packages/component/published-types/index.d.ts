@@ -192,6 +192,32 @@ export function className(trueValue?: string, falseValue?: string): PropertyDeco
 export function classNames(...classNames: string[]): ClassDecorator;
 
 /**
+  Class decorator which specifies the class name bindings to be applied to a
+  component. This replaces the `classNameBindings` property on components in the
+  traditional Ember object model.
+  ```js
+  @classNameBindings('aDynamicProperty:truthy-class-name:falsy-class-name')
+  export default class ClassNamesDemoComponent extends Component {}
+  ```
+  @function
+  @param {...string} classNameBindings - The list of class name bindings to be applied to the component
+*/
+export function classNameBindings(...classNameBindings: string[]): ClassDecorator;
+
+/**
+  Class decorator which specifies the attribute bindings to be applied to a
+  component. This replaces the `attributeBindings` property on components in the
+  traditional Ember object model.
+  ```js
+  @attributeBindings('role', 'aProperty:a-different-attribute')
+  export default class ClassNamesDemoComponent extends Component {}
+  ```
+  @function
+  @param {...string} attributeBindings - The list of attribute bindings to be applied to the component
+*/
+export function attributeBindings(...attributeBindings: string[]): ClassDecorator;
+
+/**
  * Class decorator which specifies the tag name of the component. This replaces
  * the `tagName` property on components in the traditional Ember object model.
  *
