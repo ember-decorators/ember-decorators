@@ -7,6 +7,8 @@ import { addObserver, removeObserver } from '@ember/object/observers';
 
 import { decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
 
+import { gte } from 'ember-compatibility-helpers';
+
 /**
   Triggers the target function when the dependent properties have changed. Note,
   `@observes` _must_ be used on EmberObject based classes only, otherwise there
@@ -17,6 +19,26 @@ import { decoratorWithRequiredParams } from '@ember-decorators/utils/decorator';
 
   class Foo {
     @observes('foo')
+    bar() {
+      //...
+    }
+  }
+  ```
+
+  Ember 3.13 added support for specifying if an observer should be fired
+  synchronously or asynchronously. Future versions of Ember will default to
+  firing these observers asynchronously, but you can manually specify if you
+  would like sync or async behaviors.
+
+  ```javascript
+  import EmberObject from '@ember/object';
+  import { observes } from '@ember-decorators/object';
+
+  class Foo extends EmberObject {
+    @observes({
+      dependentKeys: ['foo'],
+      sync: false, // run asynchronously regardless of the application wide default
+    })
     bar() {
       //...
     }
@@ -39,9 +61,20 @@ export const observes = decoratorWithRequiredParams((target, key, desc, params) 
     target instanceof EmberObject
   );
 
-  for (let path of params) {
+  let dependentKeys = params;
+  let sync;
+
+  if (gte('3.13.0')) {
+    let [firstParam] = params;
+    if (typeof firstParam === 'object' && firstParam !== null && Array.isArray(firstParam.dependentKeys)) {
+      dependentKeys = firstParam.dependentkeys;
+      sync = firstParam.sync;
+    }
+  }
+
+  for (let path of dependentKeys) {
     expandProperties(path, expandedPath => {
-      addObserver(target, expandedPath, null, key);
+      addObserver(target, expandedPath, null, key, sync);
     });
   }
 
