@@ -41,7 +41,7 @@
     "ember-cli-blueprint-test-helpers": "^0.19.0",
     "ember-cli-dependency-checker": "^3.2.0",
     "ember-cli-htmlbars": "^3.1.0",
-    "ember-cli-htmlbars-inline-precompile": "^2.0.0",
+    "ember-cli-htmlbars-inline-precompile": "^3.0.0",
     "ember-cli-inject-live-reload": "^2.0.0",
     "ember-cli-qunit": "^4.1.1",
     "ember-cli-shims": "^1.2.0",
