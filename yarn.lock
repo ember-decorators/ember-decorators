@@ -1702,34 +1702,10 @@
     "@types/jquery" "*"
     "@types/rsvp" "*"
 
-"@types/ember@*", "@types/ember@^3.1.0":
+"@types/ember@*", "@types/ember@3.1.0", "@types/ember@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@types/ember/-/ember-3.1.0.tgz#3c44b846c41a1340bc823910f9222746585b3314"
   integrity sha512-RHP/N7k81XIS16DLF/yTfnWEKdFFftRAUgjWO1oKNJ5ho3+iTH3vVq8u11PrhaHd+FHXNB1XKV20d5o1KEOnUQ==
-  dependencies:
-    "@types/ember__application" "*"
-    "@types/ember__array" "*"
-    "@types/ember__component" "*"
-    "@types/ember__controller" "*"
-    "@types/ember__debug" "*"
-    "@types/ember__engine" "*"
-    "@types/ember__error" "*"
-    "@types/ember__object" "*"
-    "@types/ember__polyfills" "*"
-    "@types/ember__routing" "*"
-    "@types/ember__runloop" "*"
-    "@types/ember__service" "*"
-    "@types/ember__string" "*"
-    "@types/ember__test" "*"
-    "@types/ember__utils" "*"
-    "@types/htmlbars-inline-precompile" "*"
-    "@types/jquery" "*"
-    "@types/rsvp" "*"
-
-"@types/ember@3.0.29":
-  version "3.0.29"
-  resolved "https://registry.yarnpkg.com/@types/ember/-/ember-3.0.29.tgz#a437a60a41f8df9cba52de267bfd0007566eae41"
-  integrity sha512-qW8quUN996GHQlNC4jnQlRcIeZUMW4lL8M16FMAbHEv3cEvY1aPX6GQc4TPt167eR1fAjykfB4cTG6OQFxGHXQ==
   dependencies:
     "@types/ember__application" "*"
     "@types/ember__array" "*"
@@ -1917,10 +1893,10 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
 
-"@types/qunit@2.5.4":
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/@types/qunit/-/qunit-2.5.4.tgz#0518940acc6013259a8619a1ec34ce0e4ff8d1c4"
-  integrity sha512-VHi2lEd4/zp8OOouf43JXGJJ5ZxHvdLL1dU0Yakp6Iy73SjpuXl7yjwAwmh1qhTv8krDgHteSwaySr++uXX9YQ==
+"@types/qunit@2.9.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@types/qunit/-/qunit-2.9.0.tgz#0b3fcbe2b92f067856adac82ba3afbc66d8835ac"
+  integrity sha512-Hx34HZmTJKRay+x3sFdEK62I8Z8YSWYg+rAlNr4M+AbwvNUJYxTTmWEH4a8B9ZN+Fl61awFrw+oRicWLFVugvQ==
 
 "@types/rsvp@*", "@types/rsvp@4.0.3", "@types/rsvp@^4.0.2":
   version "4.0.3"
