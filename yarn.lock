@@ -6710,10 +6710,10 @@ ember-copy@^1.0.0:
     resolve "^1.8.1"
     silent-error "^1.1.1"
 
-ember-decorators-polyfill@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/ember-decorators-polyfill/-/ember-decorators-polyfill-1.0.4.tgz#d563b02e4256ec4ad48c1534e9bedd6cc27898c5"
-  integrity sha512-GoCPwWX4x5Xqn6jwr2DaWS4bqjnpXlc4oGTXVWcn2Wh++ZE27yURr7ZRMEQROc8c4omndzlsrM83kTLSIq0XAA==
+ember-decorators-polyfill@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ember-decorators-polyfill/-/ember-decorators-polyfill-1.1.0.tgz#f701d513c2f4dbcd1e7c84af623a8cdaad1dd349"
+  integrity sha512-ftXzKDJ53HUJu9gq8/6mBNerERKPKGDRBP4b72YZt/CIn1qwaspi0k23YvdwddqTPcmsCWxN+hRMfrRPQBoI4w==
   dependencies:
     ember-cli-babel "^7.1.2"
     ember-cli-version-checker "^3.1.3"
