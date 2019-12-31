@@ -22,7 +22,7 @@
     "ember-try": "^1.1.0",
     "eslint": "^5.0.0",
     "eslint-plugin-ember": "^7.0.0",
-    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-node": "^11.0.0",
     "lerna": "^3.0.0",
     "sass": "^1.22.3"
   },
