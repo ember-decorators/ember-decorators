@@ -34,7 +34,7 @@
     "@types/qunit": "2.9.0",
     "@types/rsvp": "4.0.3",
     "broccoli-asset-rev": "^3.0.0",
-    "broccoli-funnel": "^2.0.1",
+    "broccoli-funnel": "^3.0.0",
     "broccoli-merge-trees": "^3.0.0",
     "broccoli-source": "^3.0.0",
     "ember-cli": "~3.11.0",
