@@ -1,6 +1,8 @@
 import { DEBUG } from '@glimmer/env';
 import { module, test } from 'qunit';
+import { settled } from '@ember/test-helpers';
 import EmberObject, { set } from '@ember/object';
+import { gte } from 'ember-compatibility-helpers';
 
 import { observes } from '@ember-decorators/object';
 
@@ -88,6 +90,91 @@ module('@observes', function() {
     set(obj, 'person.first', 'yehuda');
     set(obj.person, 'last', 'katz');
   });
+
+  if (gte('3.13.0')) {
+    test('it calls the method synchronously - ObserverDefinition', function(assert) {
+      assert.expect(5);
+
+      let i = 0;
+
+      class Foo extends EmberObject {
+        @observes({
+          dependentKeys: ['first', 'last'],
+          sync: true,
+        })
+        fullName() {
+          assert.step('recalculating');
+          [
+            () => {
+              assert.equal(this.first, 'yehuda');
+              assert.equal(this.last, undefined);
+            },
+            () => {
+              assert.equal(this.first, 'yehuda');
+              assert.equal(this.last, 'katz');
+            },
+          ][i++]();
+        }
+      }
+
+      let obj = Foo.create();
+      assert.step('setting dependentKey properties');
+      set(obj, 'first', 'yehuda');
+      set(obj, 'last', 'katz');
+
+      assert.step('after set');
+
+      assert.verifySteps([
+        'setting dependentKey properties',
+        'recalculating',
+        'after set',
+      ]);
+    });
+
+    test('it calls the method asynchronously - ObserverDefinition', async function(assert) {
+      assert.expect(5);
+
+      let i = 0;
+
+      class Foo extends EmberObject {
+        @observes({
+          dependentKeys: ['first', 'last'],
+          sync: false,
+        })
+        fullName() {
+          assert.step('recalculating');
+          [
+            () => {
+              assert.equal(this.first, 'yehuda');
+              assert.equal(this.last, undefined);
+            },
+            () => {
+              assert.equal(this.first, 'yehuda');
+              assert.equal(this.last, 'katz');
+            },
+          ][i++]();
+        }
+      }
+
+      let obj = Foo.create();
+      assert.step('setting dependentKey properties');
+      set(obj, 'first', 'yehuda');
+      set(obj, 'last', 'katz');
+
+      assert.step('after set');
+
+      await settled();
+
+      assert.step('after settled');
+
+      assert.verifySteps([
+        'setting dependentKey properties',
+        'after set',
+        'recalculating',
+        'after settled',
+      ]);
+    });
+  }
 
   if (DEBUG) {
     test('it throws if attempting to use on a non-EmberObject class', function(assert) {
