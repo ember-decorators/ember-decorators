@@ -1,3 +1,4 @@
+# TODO: Keep until we still use `decorator-transforms.patch`
 packages:
   - "packages/*"
 approveBuilds: esbuild
