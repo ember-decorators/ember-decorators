@@ -7,62 +7,53 @@
   ],
   "license": "MIT",
   "author": "",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/ember-decorators/ember-decorators.git"
   },
+  "imports": {
+    "#src/*": "./src/*"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./addon-main.js": "./addon-main.cjs",
+    "./*": {
+      "default": "./dist/*.js"
+    }
+  },
+  "files": [
+    "addon-main.cjs",
+    "dist",
+    "src",
+    "index.d.ts"
+  ],
   "scripts": {
-    "build": "ember build",
-    "start": "echo \"Run serve in the main ember-decorators package\" && false",
-    "test": "echo \"Run tests in the main ember-decorators package\" && false",
-    "dtslint": "dtslint published-types",
-    "node-test": "mocha node-tests --recursive",
-    "prepack": "mv ./published-types/*.d.ts ./",
-    "postpack": "mv ./*.d.ts ./published-types/"
+    "build": "rollup --config",
+    "prepack": "rollup --config",
+    "lint:publish": "pnpm build && publint run --level error"
   },
   "dependencies": {
     "@ember-decorators/utils": "workspace:*",
-    "ember-cli-babel": "^7.1.3"
+    "@embroider/addon-shim": "^1.8.9",
+    "decorator-transforms": "^2.2.2"
   },
   "devDependencies": {
-    "@ember-decorators/babel-transforms": "^5.2.0",
-    "@ember-decorators/object": "workspace:*",
-    "@types/ember": "3.1.1",
-    "@types/ember-testing-helpers": "0.0.3",
-    "@types/rsvp": "4.0.3",
-    "broccoli-asset-rev": "^3.0.0",
-    "dtslint": "0.4.9",
-    "ember-ajax": "^5.0.0",
-    "ember-cli": "~3.11.0",
-    "ember-cli-blueprint-test-helpers": "^0.19.0",
-    "ember-cli-dependency-checker": "^3.2.0",
-    "ember-cli-htmlbars": "^4.0.0",
-    "ember-cli-htmlbars-inline-precompile": "^3.0.0",
-    "ember-cli-inject-live-reload": "^2.0.0",
-    "ember-cli-qunit": "^4.1.1",
-    "ember-cli-shims": "^1.2.0",
-    "ember-cli-sri": "^2.1.0",
-    "ember-cli-uglify": "^3.0.0",
-    "ember-disable-prototype-extensions": "^1.1.2",
-    "ember-export-application-global": "^2.0.0",
-    "ember-legacy-class-shim": "^1.0.2",
-    "ember-load-initializers": "^2.0.0",
-    "ember-maybe-import-regenerator": "^0.1.6",
-    "ember-native-dom-helpers": "^0.6.0",
-    "ember-resolver": "^7.0.0",
-    "ember-source": "~3.0.0",
-    "fs-extra": "^8.0.0",
-    "loader.js": "^4.2.3",
-    "mocha": "^6.0.0"
-  },
-  "engines": {
-    "node": ">= 8.*"
+    "@babel/core": "^7.25.2",
+    "@embroider/addon-dev": "^8.1.0",
+    "@embroider/compat": "^4.1.0",
+    "@embroider/core": "^4.1.0",
+    "@embroider/macros": "^1.20.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "babel-plugin-ember-template-compilation": "^4.0.0",
+    "publint": "^0.3.16",
+    "rollup": "^4.22.5"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "version": 2,
+    "type": "addon",
+    "main": "addon-main.cjs"
   }
 }
