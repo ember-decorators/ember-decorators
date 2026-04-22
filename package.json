@@ -6,6 +6,7 @@
   "scripts": {
     "lint:js": "eslint .",
     "start": "pnpm --filter ember-decorators start",
+    "start:docs": "pnpm --filter ember-decorators-docs start",
     "test": "pnpm --filter ember-decorators test",
     "build": "pnpm --filter './packages/*' build"
   },
@@ -17,5 +18,21 @@
   },
   "engines": {
     "node": ">= 8.*"
+  },
+  "pnpm": {
+    "packageExtensions": {
+      "ember-cli-clipboard": {
+        "dependencies": {
+          "@glimmer/component": "^1.1.2",
+          "@glimmer/tracking": "^1.1.2"
+        }
+      },
+      "ember-tether": {
+        "dependencies": {
+          "@glimmer/component": "^1.1.2",
+          "@glimmer/tracking": "^1.1.2"
+        }
+      }
+    }
   }
 }

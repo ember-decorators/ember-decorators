@@ -1,0 +1,33 @@
+<DocsHero @logo="ember" @slimHeading="decorators" />
+
+<div class="docs-container docs-md">
+  <section class='docs-max-w-md docs-mx-auto docs-pb-8'>
+    <h2>
+      <a href="#-motivation">@motivation</a>
+    </h2>
+
+    <aside>Looking for the quickstart? <DocsLink @route="docs.index">Click here</DocsLink>.</aside>
+
+    <p>
+      Decorators recently became a first class part of Ember.js API! They've been
+      accepted in <a href="https://github.com/emberjs/rfcs/blob/master/text/0408-decorators.md">RFC</a>,
+      and will be released in an upcoming version soon. A polyfill has been <a href="https://github.com/pzuraq/ember-decorators-polyfill">created
+      as well</a>.
+    </p>
+
+    <p>
+      Ember Decorators used to provide decorators like <code>@computed</code> and <code>@service</code>,
+      but now that Ember has first class support for these, it no longer does. However,
+      there are still some helpful decorators in this library that were not upstreamed
+      to Ember, and remain available for folks to use! These decorators are mainly for
+      compatibility with older Ember classes and features, specifically classic
+      components, observers, and event listeners.
+    </p>
+
+    <div class="my-16 text-right">
+      <LinkTo @route="docs" class="bg-grey-darkest hover:bg-black text-white py-2 px-4 no-underline rounded">
+        Read the docs →
+      </LinkTo>
+    </div>
+  </section>
+</div>

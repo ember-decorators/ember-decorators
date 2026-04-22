@@ -1,0 +1,59 @@
+{
+  "name": "ember-decorators-docs",
+  "version": "6.1.1",
+  "description": "Useful decorators for Ember applications.",
+  "private": true,
+  "keywords": [
+    "ember-addon"
+  ],
+  "license": "MIT",
+  "author": "Robert Jackson <me@rwjblue.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ember-decorators/ember-decorators.git"
+  },
+  "scripts": {
+    "build": "ember build",
+    "start": "ember serve"
+  },
+  "dependencies": {
+    "@ember-decorators/component": "workspace:*",
+    "@ember-decorators/object": "workspace:*",
+    "@ember-decorators/utils": "workspace:*",
+    "ember-cli-babel": "^8.2.0"
+  },
+  "devDependencies": {
+    "@ember/optional-features": "^2.3.0",
+    "@glimmer/component": "^1.1.2",
+    "@glimmer/tracking": "^1.1.2",
+    "@ember/test-waiters": "^4.0.0",
+    "@embroider/test-setup": "^4.0.0",
+    "broccoli-asset-rev": "^3.0.0",
+    "broccoli-funnel": "^3.0.8",
+    "broccoli-merge-trees": "^4.2.0",
+    "ember-auto-import": "^2.12.0",
+    "ember-cli": "~6.2.0",
+    "ember-cli-addon-docs": "^11.0.0",
+    "ember-cli-addon-docs-esdoc": "^0.4.0",
+    "ember-cli-htmlbars": "^6.3.0",
+    "ember-cli-inject-live-reload": "^2.1.0",
+    "ember-cli-sri": "^2.1.1",
+    "ember-cli-terser": "^4.0.2",
+    "ember-load-initializers": "^3.0.1",
+    "ember-resolver": "^13.1.1",
+    "ember-source": "~6.2.0",
+    "loader.js": "^4.7.0",
+    "qunit": "^2.24.1",
+    "webpack": "^5.98.0"
+  },
+  "ember": {
+    "edition": "octane"
+  },
+  "engines": {
+    "node": ">= 18"
+  },
+  "ember-addon": {
+    "configPath": "tests/dummy/config"
+  },
+  "homepage": "https://ember-decorators.github.io/ember-decorators"
+}

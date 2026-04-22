@@ -1,0 +1,24 @@
+<DocsViewer as |viewer|>
+
+  <viewer.nav as |nav|>
+    <nav.section @label="Introduction" />
+
+    <nav.item @label="Quickstart" @route="docs.index" />
+    <nav.item @label="Stability & Support" @route="docs.stability-and-support" />
+
+    <nav.section @label="Usage" />
+
+    <nav.item @label="Native Class Basics" @route="docs.native-class-basics" />
+    <nav.item @label="Class Fields" @route="docs.class-fields" />
+    <nav.item @label="Decorators" @route="docs.decorators" />
+    <nav.item @label="Cheat Sheet" @route="docs.cheat-sheet" />
+    <nav.item @label="Specs" @route="docs.specs" />
+  </viewer.nav>
+
+  <viewer.main>
+    <div class="docs-section">
+      {{outlet}}
+    </div>
+  </viewer.main>
+
+</DocsViewer>
