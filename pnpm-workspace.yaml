@@ -1,5 +1,6 @@
 packages:
   - "packages/*"
+approveBuilds: esbuild
 
 autoInstallPeers: false
 resolvePeersFromWorkspaceRoot: false

@@ -2,11 +2,11 @@ import Component from '@ember/component';
 import { attribute } from '@ember-decorators/component';
 import { computed } from '@ember/object';
 
-import hbs from 'htmlbars-inline-precompile';
+import { precompileTemplate } from '@ember/template-compilation';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { find, findAll } from 'ember-native-dom-helpers';
+import { find, findAll } from '@ember/test-helpers';
 
 module('@attribute', function(hooks) {
   setupRenderingTest(hooks);
@@ -25,9 +25,9 @@ module('@attribute', function(hooks) {
     }
 
     this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', hbs`Hello, world!`);
+    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
 
-    await render(hbs`{{foo-component}}`);
+    await render(precompileTemplate(`{{foo-component}}`, { strictMode: false }));
 
     assert.ok(find('[role="button"]'));
     assert.ok(find('[data-foo="lol"]'));
@@ -44,12 +44,12 @@ module('@attribute', function(hooks) {
     }
 
     this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', hbs`Hello, world!`);
+    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
 
     this.owner.register('component:bar-component', BarComponent);
-    this.owner.register('template:components/bar-component', hbs`Hello, moon!`);
+    this.owner.register('template:components/bar-component', precompileTemplate(`Hello, moon!`, { strictMode: false }));
 
-    await render(hbs`{{foo-component}}{{bar-component}}`);
+    await render(precompileTemplate(`{{foo-component}}{{bar-component}}`, { strictMode: false }));
 
     assert.equal(findAll('[role="button"]').length, 2);
     assert.equal(findAll('#bar').length, 1);
@@ -66,12 +66,12 @@ module('@attribute', function(hooks) {
     }
 
     this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', hbs`Hello, world!`);
+    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
 
     this.owner.register('component:bar-component', BarComponent);
-    this.owner.register('template:components/bar-component', hbs`Hello, moon!`);
+    this.owner.register('template:components/bar-component', precompileTemplate(`Hello, moon!`, { strictMode: false }));
 
-    await render(hbs`{{foo-component}}{{bar-component}}`);
+    await render(precompileTemplate(`{{foo-component}}{{bar-component}}`, { strictMode: false }));
 
     assert.equal(findAll('[role="button"]').length, 2);
     assert.equal(findAll('#bar').length, 1);

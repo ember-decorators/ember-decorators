@@ -3,11 +3,11 @@ import { DEBUG } from '@glimmer/env';
 import Component from '@ember/component';
 import { tagName } from '@ember-decorators/component';
 
-import hbs from 'htmlbars-inline-precompile';
+import { precompileTemplate } from '@ember/template-compilation';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { find } from 'ember-native-dom-helpers';
+import { find } from '@ember/test-helpers';
 
 module('@tagName', function(hooks) {
   setupRenderingTest(hooks);
@@ -17,9 +17,9 @@ module('@tagName', function(hooks) {
     class FooComponent extends Component {}
 
     this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', hbs`Hello, world!`);
+    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
 
-    await render(hbs`{{foo-component}}`);
+    await render(precompileTemplate(`{{foo-component}}`, { strictMode: false }));
 
     assert.ok(find('foo'));
   });

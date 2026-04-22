@@ -19,14 +19,14 @@ export default {
 
     addon.dependencies(),
 
+    addon.hbs(),
+    addon.gjs(),
+
     babel({
       extensions: ['.js', '.gjs'],
       babelHelpers: 'bundled',
       configFile: babelConfig,
     }),
-
-    addon.hbs(),
-    addon.gjs(),
     addon.keepAssets(['**/*.css']),
     addon.clean(),
   ],
