@@ -4,20 +4,13 @@
   "description": "Core library for Ember Decorators",
   "license": "MIT",
   "scripts": {
-    "lint:js": "eslint .",
+    "build": "pnpm -r build",
+    "test": "pnpm -r build && pnpm --filter ember-decorators test",
     "start": "pnpm --filter ember-decorators start",
-    "start:docs": "pnpm --filter ember-decorators-docs start",
-    "test": "pnpm --filter ember-decorators test",
-    "build": "pnpm --filter './packages/*' build"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.0.0",
-    "eslint": "^5.0.0",
-    "eslint-plugin-ember": "^7.0.0",
-    "eslint-plugin-node": "^11.0.0"
+    "start:docs": "pnpm --filter ember-decorators-docs start"
   },
   "engines": {
-    "node": ">= 8.*"
+    "node": ">= 18"
   },
   "pnpm": {
     "packageExtensions": {
