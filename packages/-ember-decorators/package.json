@@ -2,9 +2,6 @@
   "name": "ember-decorators",
   "version": "6.1.1",
   "description": "Useful decorators for Ember applications.",
-  "keywords": [
-    "ember-addon"
-  ],
   "license": "MIT",
   "author": "Robert Jackson <me@rwjblue.com>",
   "repository": {
