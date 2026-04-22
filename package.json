@@ -5,9 +5,30 @@
   "license": "MIT",
   "scripts": {
     "build": "pnpm -r build",
-    "test": "pnpm -r build && pnpm --filter ember-decorators test",
+    "format": "prettier . --cache --write",
+    "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
+    "lint:fix": "concurrently \"pnpm:lint:*:fix\" --names \"fix:\" --prefixColors auto && pnpm run format",
+    "lint:format": "prettier . --cache --check",
+    "lint:js": "eslint . --cache",
+    "lint:js:fix": "eslint . --fix",
+    "lint:publish": "pnpm -r lint:publish",
     "start": "pnpm --filter ember-decorators start",
-    "start:docs": "pnpm --filter ember-decorators-docs start"
+    "start:docs": "pnpm --filter ember-decorators-docs start",
+    "test": "pnpm -r build && pnpm --filter ember-decorators test"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/eslint-parser": "^7.25.1",
+    "@babel/plugin-proposal-decorators": "^7.29.0",
+    "@eslint/js": "^9.17.0",
+    "concurrently": "^9.0.1",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-ember": "^12.3.3",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^17.15.1",
+    "globals": "^16.1.0",
+    "prettier": "^3.4.2"
   },
   "engines": {
     "node": ">= 18"
