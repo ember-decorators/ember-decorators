@@ -1,6 +1,6 @@
 import { assert } from '@ember/debug';
 
-import { isDescriptor } from './-private/class-field-descriptor';
+import { isDescriptor } from './-private/class-field-descriptor.js';
 
 /**
  * A macro that takes a decorator function and allows it to optionally
