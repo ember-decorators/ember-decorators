@@ -1,9 +1,9 @@
 import { DEBUG } from '@glimmer/env';
 
-import Component from '@ember/component';
+import Component, { setComponentTemplate } from '@ember/component';
 import { classNames } from '@ember-decorators/component';
-
 import { precompileTemplate } from '@ember/template-compilation';
+
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
@@ -14,31 +14,27 @@ module('@classNames', function(hooks) {
 
   test('decorator adds class to component', async function(assert) {
     @classNames('foo')
-    class FooComponent extends Component {}
+    class FooComponent extends Component {
+      <template>Hello, world!</template>
+    }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
-
-    await render(precompileTemplate(`{{foo-component}}`, { strictMode: false }));
+    await render(<template><FooComponent /></template>);
 
     assert.ok(find('.foo'));
   });
 
-
   test('decorator does not add class to superclass', async function(assert) {
     @classNames('foo')
-    class FooComponent extends Component {}
+    class FooComponent extends Component {
+      <template>Hello, world!</template>
+    }
 
     @classNames('bar')
-    class BarComponent extends FooComponent {}
+    class BarComponent extends FooComponent {
+      <template>Hello, moon!</template>
+    }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
-
-    this.owner.register('component:bar-component', BarComponent);
-    this.owner.register('template:components/bar-component', precompileTemplate(`Hello, moon!`, { strictMode: false }));
-
-    await render(precompileTemplate(`{{foo-component}}{{bar-component}}`, { strictMode: false }))
+    await render(<template><FooComponent /><BarComponent /></template>);
 
     assert.equal(findAll('.foo').length, 2);
     assert.equal(findAll('.bar').length, 1);
@@ -48,17 +44,14 @@ module('@classNames', function(hooks) {
     const FooComponent = Component.extend({
       classNames: ['foo']
     });
+    setComponentTemplate(precompileTemplate(`Hello, world!`, { strictMode: true }), FooComponent);
 
     @classNames('bar')
-    class BarComponent extends FooComponent {}
+    class BarComponent extends FooComponent {
+      <template>Hello, moon!</template>
+    }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
-
-    this.owner.register('component:bar-component', BarComponent);
-    this.owner.register('template:components/bar-component', precompileTemplate(`Hello, moon!`, { strictMode: false }));
-
-    await render(precompileTemplate(`{{foo-component}}{{bar-component}}`, { strictMode: false }))
+    await render(<template><FooComponent /><BarComponent /></template>);
 
     assert.equal(findAll('.foo').length, 2);
     assert.equal(findAll('.bar').length, 1);

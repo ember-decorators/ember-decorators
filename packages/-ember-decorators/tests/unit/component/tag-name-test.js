@@ -3,7 +3,6 @@ import { DEBUG } from '@glimmer/env';
 import Component from '@ember/component';
 import { tagName } from '@ember-decorators/component';
 
-import { precompileTemplate } from '@ember/template-compilation';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
@@ -14,12 +13,11 @@ module('@tagName', function(hooks) {
 
   test('decorator sets tag of component', async function(assert) {
     @tagName('foo')
-    class FooComponent extends Component {}
+    class FooComponent extends Component {
+      <template>Hello, world!</template>
+    }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
-
-    await render(precompileTemplate(`{{foo-component}}`, { strictMode: false }));
+    await render(<template><FooComponent /></template>);
 
     assert.ok(find('foo'));
   });

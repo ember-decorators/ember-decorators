@@ -1,10 +1,10 @@
 import { DEBUG } from '@glimmer/env';
 
-import Component from '@ember/component';
+import Component, { setComponentTemplate } from '@ember/component';
 import { classNameBindings } from '@ember-decorators/component';
 import { computed } from '@ember/object';
-
 import { precompileTemplate } from '@ember/template-compilation';
+
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
@@ -22,12 +22,11 @@ module('@classNameBindings', function(hooks) {
       get bar() {
         return 'bar';
       }
+
+      <template>Hello, world!</template>
     }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
-
-    await render(precompileTemplate(`{{foo-component}}`, { strictMode: false }));
+    await render(<template><FooComponent /></template>);
 
     assert.ok(find('.foo'));
     assert.ok(find('.bar'));
@@ -40,12 +39,11 @@ module('@classNameBindings', function(hooks) {
       bar = false;
       active = true;
       baz = false;
+
+      <template>Hello, world!</template>
     }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
-
-    await render(precompileTemplate(`{{foo-component}}`, { strictMode: false }));
+    await render(<template><FooComponent /></template>);
 
     assert.ok(find('.is-foo'));
     assert.ok(find('.is-not-bar'));
@@ -70,6 +68,8 @@ module('@classNameBindings', function(hooks) {
     @classNameBindings('foo')
     class FooComponent extends Component {
       foo = 'foo';
+
+      <template>Hello, world!</template>
     }
 
     @classNameBindings('bar')
@@ -78,15 +78,11 @@ module('@classNameBindings', function(hooks) {
       get bar() {
         return 'bar';
       }
+
+      <template>Hello, moon!</template>
     }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
-
-    this.owner.register('component:bar-component', BarComponent);
-    this.owner.register('template:components/bar-component', precompileTemplate(`Hello, moon!`, { strictMode: false }));
-
-    await render(precompileTemplate(`{{foo-component}}{{bar-component}}`, { strictMode: false }));
+    await render(<template><FooComponent /><BarComponent /></template>);
 
     assert.equal(findAll('.foo').length, 2);
     assert.equal(findAll('.bar').length, 1);
@@ -97,6 +93,7 @@ module('@classNameBindings', function(hooks) {
       classNameBindings: ['foo'],
       foo: 'foo',
     });
+    setComponentTemplate(precompileTemplate(`Hello, world!`, { strictMode: true }), FooComponent);
 
     @classNameBindings('bar')
     class BarComponent extends FooComponent {
@@ -104,15 +101,11 @@ module('@classNameBindings', function(hooks) {
       get bar() {
         return 'bar';
       }
+
+      <template>Hello, moon!</template>
     }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', precompileTemplate(`Hello, world!`, { strictMode: false }));
-
-    this.owner.register('component:bar-component', BarComponent);
-    this.owner.register('template:components/bar-component', precompileTemplate(`Hello, moon!`, { strictMode: false }));
-
-    await render(precompileTemplate(`{{foo-component}}{{bar-component}}`, { strictMode: false }));
+    await render(<template><FooComponent /><BarComponent /></template>);
 
     assert.equal(findAll('.foo').length, 2);
     assert.equal(findAll('.bar').length, 1);

@@ -2,8 +2,8 @@ import { DEBUG } from '@glimmer/env';
 
 import Component from '@ember/component';
 import { layout } from '@ember-decorators/component';
-
 import { precompileTemplate } from '@ember/template-compilation';
+
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
@@ -13,12 +13,10 @@ module('@layout', function(hooks) {
   setupRenderingTest(hooks);
 
   test('decorator sets layout of component', async function(assert) {
-    @layout(precompileTemplate(`<section class='foo'>Hello, world!</section>`, { strictMode: false }))
+    @layout(precompileTemplate(`<section class='foo'>Hello, world!</section>`, { strictMode: true }))
     class FooComponent extends Component {}
 
-    this.owner.register('component:foo-component', FooComponent);
-
-    await render(precompileTemplate(`{{foo-component}}`, { strictMode: false }));
+    await render(<template><FooComponent /></template>);
     assert.ok(find('section.foo'));
   });
 

@@ -35,14 +35,6 @@ export default defineConfig([
     files: ['**/*.js'],
     languageOptions: {
       parser: babelParser,
-      parserOptions: {
-        requireConfigFile: false,
-        babelOptions: {
-          babelrc: false,
-          configFile: false,
-          plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]],
-        },
-      },
     },
   },
   {
