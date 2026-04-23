@@ -20,7 +20,6 @@ export default defineConfig([
     '**/coverage/',
     '**/*.d.ts',
     '!**/.*',
-    'packages/docs/',
   ]),
   js.configs.recommended,
   prettier,
@@ -38,9 +37,35 @@ export default defineConfig([
     },
   },
   {
+    files: [
+      'packages/docs/index.js',
+      'packages/docs/ember-cli-build.js',
+      'packages/docs/testem.js',
+      'packages/docs/config/**/*.js',
+      'packages/docs/tests/dummy/config/**/*.js',
+    ],
+    languageOptions: {
+      sourceType: 'script',
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+  {
     files: ['**/*.{js,gjs}'],
     languageOptions: {
-      parserOptions: esmParserOptions,
+      parserOptions: {
+        ...esmParserOptions,
+        requireConfigFile: false,
+        babelOptions: {
+          plugins: [
+            [
+              '@babel/plugin-proposal-decorators',
+              { decoratorsBeforeExport: true },
+            ],
+          ],
+        },
+      },
       globals: {
         ...globals.browser,
       },

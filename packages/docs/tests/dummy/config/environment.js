@@ -15,6 +15,7 @@ module.exports = function (environment) {
   };
 
   if (environment === 'development') {
+    // development-specific config
   }
 
   if (environment === 'test') {
