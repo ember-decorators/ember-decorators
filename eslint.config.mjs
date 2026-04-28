@@ -57,14 +57,6 @@ export default defineConfig([
       parserOptions: {
         ...esmParserOptions,
         requireConfigFile: false,
-        babelOptions: {
-          plugins: [
-            [
-              '@babel/plugin-proposal-decorators',
-              { decoratorsBeforeExport: true },
-            ],
-          ],
-        },
       },
       globals: {
         ...globals.browser,
