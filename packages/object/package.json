@@ -38,7 +38,7 @@
   "dependencies": {
     "@ember-decorators/utils": "workspace:*",
     "@embroider/addon-shim": "^1.8.9",
-    "decorator-transforms": "^2.2.2"
+    "decorator-transforms": "^2.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

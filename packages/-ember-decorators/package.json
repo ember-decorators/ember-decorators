@@ -30,7 +30,7 @@
     "@glimmer/tracking": "^1.1.2",
     "@rollup/plugin-babel": "^6.0.4",
     "babel-plugin-ember-template-compilation": "^4.0.0",
-    "decorator-transforms": "^2.2.2",
+    "decorator-transforms": "^2.3.2",
     "ember-qunit": "^9.0.2",
     "ember-source": "^6.7.0",
     "ember-strict-application-resolver": "^0.1.0",
