@@ -43,6 +43,9 @@ export default defineConfig([
       'packages/docs/testem.js',
       'packages/docs/config/**/*.js',
       'packages/docs/tests/dummy/config/**/*.js',
+      'packages/classic-test-app/ember-cli-build.js',
+      'packages/classic-test-app/testem.js',
+      'packages/classic-test-app/config/**/*.js',
     ],
     languageOptions: {
       sourceType: 'script',
@@ -83,6 +86,13 @@ export default defineConfig([
       'ember/no-classic-classes': 'off',
       'ember/no-computed-properties-in-native-classes': 'off',
       'ember/classic-decorator-hooks': 'off',
+    },
+  },
+  {
+    files: ['packages/classic-test-app/app/**/*'],
+    rules: {
+      'ember/no-classic-components': 'off',
+      'ember/require-tagless-components': 'off',
     },
   },
   {
