@@ -1,22 +1,17 @@
 'use strict';
 
 module.exports = function (environment) {
-  let ENV = {
-    modulePrefix: 'dummy',
-    podModulePrefix: 'dummy/pods',
+  const ENV = {
+    modulePrefix: 'classic-test-app',
     environment,
     rootURL: '/',
     locationType: 'history',
     EmberENV: {
       EXTEND_PROTOTYPES: false,
+      FEATURES: {},
     },
-
     APP: {},
   };
-
-  if (environment === 'development') {
-    // development-specific config
-  }
 
   if (environment === 'test') {
     ENV.locationType = 'none';
@@ -24,11 +19,6 @@ module.exports = function (environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
-  }
-
-  if (environment === 'production') {
-    // Allow ember-cli-addon-docs to update the rootURL in compiled assets
-    ENV.rootURL = 'ADDON_DOCS_ROOT_URL';
   }
 
   return ENV;

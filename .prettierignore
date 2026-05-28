@@ -1,0 +1,16 @@
+dist/
+dist-tests/
+declarations/
+coverage/
+pnpm-lock.yaml
+
+# Existing source — autoformat separately
+packages/*/src/
+packages/-ember-decorators/tests/
+packages/*/README.md
+packages/*/index.d.ts
+packages/-ember-decorators/*.json
+README.md
+
+# Docs package — legacy templates and extracted markdown
+packages/docs/
