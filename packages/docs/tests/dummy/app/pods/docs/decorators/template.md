@@ -33,7 +33,7 @@ general decorators in some depth, and for more details you can refer to the API
 documentation.
 
 If you are interested in _how_ decorators work under the hood, head over to the
-{{link-to 'specs page' 'docs.specs'}}.
+{{docs-link 'specs page' 'docs.specs'}}.
 
 Ember now provides first class decorators for:
 

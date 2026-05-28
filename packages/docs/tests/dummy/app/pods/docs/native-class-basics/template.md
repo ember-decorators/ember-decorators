@@ -7,10 +7,10 @@ differences between `EmberObject` and `class` syntax.
 
 This page covers the basics of class definition, constructors, and method
 definition - all things that are supported by the `class` keyword as of ES2015.
-Subsequent pages cover {{link-to 'class fields' 'docs.class-fields'}} and
-{{link-to 'decorators' 'docs.decorators'}} in depth. If you are interested in
+Subsequent pages cover {{docs-link 'class fields' 'docs.class-fields'}} and
+{{docs-link 'decorators' 'docs.decorators'}} in depth. If you are interested in
 _how_ decorators work under the hood, head over to the
-{{link-to 'Specs page' 'docs.specs'}}.
+{{docs-link 'Specs page' 'docs.specs'}}.
 
 ## Definition
 
@@ -256,7 +256,7 @@ way of sending property change notifications, which makes them less useful than
 computed properties for many things. `@computed` was made to wrap native getters
 and setters, meaning that any accessor can be converted into a computed property
 by decorating it. This is discussed more in the section on
-{{link-to 'decorators' 'docs.decorators'}}.
+{{docs-link 'decorators' 'docs.decorators'}}.
 
 ### Lifecycle Hooks
 
