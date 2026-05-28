@@ -4,7 +4,7 @@ const MergeTrees = require('broccoli-merge-trees');
 const Funnel = require('broccoli-funnel');
 
 function treeForPackage(packageName) {
-  return new Funnel(`../${packageName}/src`, {
+  return new Funnel(`../${packageName}/addon`, {
     destDir: `@ember-decorators/${packageName}`,
   });
 }
