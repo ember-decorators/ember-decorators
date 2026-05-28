@@ -13,7 +13,7 @@
     "url": "https://github.com/ember-decorators/ember-decorators.git"
   },
   "scripts": {
-    "build": "ember build",
+    "build": "ember build --environment=production",
     "start": "ember serve"
   },
   "dependencies": {
