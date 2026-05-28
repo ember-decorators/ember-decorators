@@ -38,8 +38,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm build
-        env:
-          EMBER_ENV: production
+        working-directory: ./packages/docs
       - name: Prepare deploy
         run: node packages/docs/prepare-deploy.mjs --out deploy
         env:
