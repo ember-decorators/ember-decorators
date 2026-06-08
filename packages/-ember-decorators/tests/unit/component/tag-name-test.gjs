@@ -3,23 +3,21 @@ import { DEBUG } from '@glimmer/env';
 import Component from '@ember/component';
 import { tagName } from '@ember-decorators/component';
 
-import hbs from 'htmlbars-inline-precompile';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { find } from 'ember-native-dom-helpers';
+import { find } from '@ember/test-helpers';
 
 module('@tagName', function(hooks) {
   setupRenderingTest(hooks);
 
   test('decorator sets tag of component', async function(assert) {
     @tagName('foo')
-    class FooComponent extends Component {}
+    class FooComponent extends Component {
+      <template>Hello, world!</template>
+    }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', hbs`Hello, world!`);
-
-    await render(hbs`{{foo-component}}`);
+    await render(<template><FooComponent /></template>);
 
     assert.ok(find('foo'));
   });
