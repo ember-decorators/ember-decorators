@@ -1,12 +1,12 @@
-import Component from '@ember/component';
+import Component, { setComponentTemplate } from '@ember/component';
 import { attribute } from '@ember-decorators/component';
 import { computed } from '@ember/object';
+import { precompileTemplate } from '@ember/template-compilation';
 
-import hbs from 'htmlbars-inline-precompile';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
-import { find, findAll } from 'ember-native-dom-helpers';
+import { find, findAll } from '@ember/test-helpers';
 
 module('@attribute', function(hooks) {
   setupRenderingTest(hooks);
@@ -22,12 +22,11 @@ module('@attribute', function(hooks) {
       get id() {
         return 'bar';
       }
+
+      <template>Hello, world!</template>
     }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', hbs`Hello, world!`);
-
-    await render(hbs`{{foo-component}}`);
+    await render(<template><FooComponent /></template>);
 
     assert.ok(find('[role="button"]'));
     assert.ok(find('[data-foo="lol"]'));
@@ -37,19 +36,17 @@ module('@attribute', function(hooks) {
   test('decorator does not add attribute to superclass', async function(assert) {
     class FooComponent extends Component {
       @attribute role = 'button';
+
+      <template>Hello, world!</template>
     }
 
     class BarComponent extends FooComponent {
       @attribute id = 'bar';
+
+      <template>Hello, moon!</template>
     }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', hbs`Hello, world!`);
-
-    this.owner.register('component:bar-component', BarComponent);
-    this.owner.register('template:components/bar-component', hbs`Hello, moon!`);
-
-    await render(hbs`{{foo-component}}{{bar-component}}`);
+    await render(<template><FooComponent /><BarComponent /></template>);
 
     assert.equal(findAll('[role="button"]').length, 2);
     assert.equal(findAll('#bar').length, 1);
@@ -60,18 +57,15 @@ module('@attribute', function(hooks) {
       attributeBindings: ['role'],
       role: 'button',
     });
+    setComponentTemplate(precompileTemplate(`Hello, world!`, { strictMode: true }), FooComponent);
 
     class BarComponent extends FooComponent {
       @attribute id = 'bar';
+
+      <template>Hello, moon!</template>
     }
 
-    this.owner.register('component:foo-component', FooComponent);
-    this.owner.register('template:components/foo-component', hbs`Hello, world!`);
-
-    this.owner.register('component:bar-component', BarComponent);
-    this.owner.register('template:components/bar-component', hbs`Hello, moon!`);
-
-    await render(hbs`{{foo-component}}{{bar-component}}`);
+    await render(<template><FooComponent /><BarComponent /></template>);
 
     assert.equal(findAll('[role="button"]').length, 2);
     assert.equal(findAll('#bar').length, 1);

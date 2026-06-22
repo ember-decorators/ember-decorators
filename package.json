@@ -4,7 +4,7 @@
   "description": "Core library for Ember Decorators",
   "license": "MIT",
   "scripts": {
-    "lint:js": "eslint .",
+    "lint": "eslint .",
     "start": "pnpm --filter ember-decorators start",
     "start:docs": "pnpm --filter ember-decorators-docs start",
     "test": "pnpm --filter ember-decorators test",
