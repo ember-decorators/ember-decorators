@@ -51,5 +51,8 @@
     "version": 2,
     "type": "addon",
     "main": "addon-main.cjs"
+  },
+  "ember": {
+    "edition": "octane"
   }
 }
