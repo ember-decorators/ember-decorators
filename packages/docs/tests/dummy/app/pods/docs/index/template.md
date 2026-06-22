@@ -2,30 +2,17 @@
 
 ## Installation
 
-First, install the package:
+The addon is split into `object` and `component` decorators:
+* `@ember-decorators/component`
+* `@ember-decorators/object`
+
+You can run the following command to install both packages:
 
 ```sh
-ember install ember-decorators
+npm install @ember-decorators/component @ember-decorators/object -D
 ```
 
-This will add the package, and should also add several babel packages to your
-app. You should see the following added to you `package.json`:
-
-```json
-"ember-decorators": "{{latest version}}",
-"babel-eslint": "{{latest version}}",
-```
-
-And in your `.eslintrc.js`, you should see the following line added:
-
-```
-  parser: 'babel-eslint',
-```
-
-These packages and settings are necessary for babel and eslint to understand
-decorators and class fields and correctly transpile/lint them. You should also
-ensure that you are using at least `ember-cli-babel@v7.7.3`, since it adds
-support for class fields and decorators.
+<aside>If you're coming from v6 and earlier, the meta package `ember-decorators` no longer transitively ships the individual packages for your apps. You must install them directly.</aside>
 
 ## Usage
 
@@ -36,8 +23,6 @@ including:
 
 - `@ember-decorators/component`
 - `@ember-decorators/object`
-
-Now you can write Ember using native classes! For example, this:
 
 ```javascript
 import Component from '@ember/component';

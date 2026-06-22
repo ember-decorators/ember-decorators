@@ -5,7 +5,18 @@ native classes with Ember.
 
 ## Installation
 
-* `ember install ember-decorators`
+The addon is split into `object` and `component` decorators:
+* `@ember-decorators/component`
+* `@ember-decorators/object`
+
+You can run the following command to install both packages:
+
+```sh
+npm install @ember-decorators/component @ember-decorators/object -D
+```
+
+<aside>If you're coming from v6 and earlier, the meta package `ember-decorators` no longer transitively ships the individual packages for your apps. You must install them directly.</aside>
+
 * Troubleshooting
   * Make sure the latest `ember-cli-babel` is installed
   * Make sure `babel-eslint` was installed and set to be the parser in
