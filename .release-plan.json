@@ -1,0 +1,93 @@
+{
+  "solution": {
+    "ember-decorators": {
+      "impact": "major",
+      "oldVersion": "6.1.1",
+      "newVersion": "7.0.0",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "major",
+          "reason": "Appears in changelog section :boom: Breaking Change"
+        },
+        {
+          "impact": "patch",
+          "reason": "Has dependency `workspace:*` on @ember-decorators/component"
+        },
+        {
+          "impact": "patch",
+          "reason": "Has dependency `workspace:*` on @ember-decorators/object"
+        },
+        {
+          "impact": "patch",
+          "reason": "Has dependency `workspace:*` on @ember-decorators/utils"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :memo: Documentation"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
+        }
+      ],
+      "pkgJSONPath": "./packages/-ember-decorators/package.json"
+    },
+    "@ember-decorators/component": {
+      "impact": "major",
+      "oldVersion": "6.1.1",
+      "newVersion": "7.0.0",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "major",
+          "reason": "Appears in changelog section :boom: Breaking Change"
+        },
+        {
+          "impact": "patch",
+          "reason": "Has dependency `workspace:*` on @ember-decorators/utils"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
+        }
+      ],
+      "pkgJSONPath": "./packages/component/package.json"
+    },
+    "@ember-decorators/object": {
+      "impact": "major",
+      "oldVersion": "6.1.1",
+      "newVersion": "7.0.0",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "major",
+          "reason": "Appears in changelog section :boom: Breaking Change"
+        },
+        {
+          "impact": "patch",
+          "reason": "Has dependency `workspace:*` on @ember-decorators/utils"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
+        }
+      ],
+      "pkgJSONPath": "./packages/object/package.json"
+    },
+    "@ember-decorators/utils": {
+      "impact": "major",
+      "oldVersion": "6.1.1",
+      "newVersion": "7.0.0",
+      "tagName": "latest",
+      "constraints": [
+        {
+          "impact": "major",
+          "reason": "Appears in changelog section :boom: Breaking Change"
+        }
+      ],
+      "pkgJSONPath": "./packages/utils/package.json"
+    }
+  },
+  "description": "## Release (2026-06-22)\n\n* ember-decorators 7.0.0 (major)\n* @ember-decorators/component 7.0.0 (major)\n* @ember-decorators/object 7.0.0 (major)\n* @ember-decorators/utils 7.0.0 (major)\n\n#### :boom: Breaking Change\n* `ember-decorators`, `@ember-decorators/component`\n  * [#505](https://github.com/ember-decorators/ember-decorators/pull/505) Migrate the main ember-decorators meta-package to a v2 addon ([@BobrImperator](https://github.com/BobrImperator))\n* `@ember-decorators/component`\n  * [#503](https://github.com/ember-decorators/ember-decorators/pull/503) Migrate @ember-decorators/component to a v2 addon ([@BobrImperator](https://github.com/BobrImperator))\n* `@ember-decorators/object`\n  * [#504](https://github.com/ember-decorators/ember-decorators/pull/504) Migrate @ember-decorators/object to a v2 addon ([@BobrImperator](https://github.com/BobrImperator))\n* `@ember-decorators/utils`\n  * [#502](https://github.com/ember-decorators/ember-decorators/pull/502) Migrate @ember-decorators/utils to a v2 addon ([@BobrImperator](https://github.com/BobrImperator))\n* Other\n  * [#497](https://github.com/ember-decorators/ember-decorators/pull/497) drop support for Ember < 3.8 ([@mansona](https://github.com/mansona))\n\n#### :memo: Documentation\n* `ember-decorators`\n  * [#511](https://github.com/ember-decorators/ember-decorators/pull/511) Docs: `ember-decorators` no longer transitively provides @ember-decorators/ packages ([@BobrImperator](https://github.com/BobrImperator))\n\n#### :house: Internal\n* Other\n  * [#495](https://github.com/ember-decorators/ember-decorators/pull/495) Setup release plan ([@BobrImperator](https://github.com/BobrImperator))\n  * [#510](https://github.com/ember-decorators/ember-decorators/pull/510) feat: drop Ember <3.8 add classic-test-app ([@BobrImperator](https://github.com/BobrImperator))\n  * [#496](https://github.com/ember-decorators/ember-decorators/pull/496) Setup gh pages deploy ([@BobrImperator](https://github.com/BobrImperator))\n* `ember-decorators`\n  * [#499](https://github.com/ember-decorators/ember-decorators/pull/499) move ember-cli-addon-docs to a separate legacy app ([@mansona](https://github.com/mansona))\n* `ember-decorators`, `@ember-decorators/component`, `@ember-decorators/object`\n  * [#498](https://github.com/ember-decorators/ember-decorators/pull/498) chore: migrate to pnpm ([@mansona](https://github.com/mansona))\n\n#### Committers: 2\n- Bartlomiej Dudzik ([@BobrImperator](https://github.com/BobrImperator))\n- Chris Manson ([@mansona](https://github.com/mansona))\n"
+}
