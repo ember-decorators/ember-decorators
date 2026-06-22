@@ -12,6 +12,9 @@
     "type": "git",
     "url": "https://github.com/ember-decorators/ember-decorators.git"
   },
+  "exports": {
+    "./addon-main.js": "./addon-main.cjs"
+  },
   "scripts": {
     "start": "vite dev",
     "test": "vite build --mode=development --out-dir dist-tests && testem --file testem.cjs ci --port 0"
