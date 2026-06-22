@@ -1,3 +1,4 @@
+// eslint-disable-next-line node/no-missing-require
 const ComponentBlueprint = require('ember-source/blueprints/component');
 
 module.exports = Object.assign({}, ComponentBlueprint, {

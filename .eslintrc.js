@@ -13,7 +13,9 @@ module.exports = {
   globals: {
     Ember: true,
   },
-  rules: {},
+  rules: {
+    'ember/no-observers': 'off'
+  },
   overrides: [
     // node files
     {
@@ -54,5 +56,12 @@ module.exports = {
         }
       ),
     },
+
+    {
+      files: ['packages/component/node-tests/**/*'],
+      rules: {
+        'node/no-missing-require': 'off'
+      }
+    }
   ],
 };

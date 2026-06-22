@@ -15,6 +15,7 @@ module.exports = function (environment) {
   };
 
   if (environment === 'development') {
+    // empty
   }
 
   if (environment === 'test') {
