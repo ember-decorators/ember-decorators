@@ -69,8 +69,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       decorator-transforms:
-        specifier: ^2.2.2
-        version: 2.3.1(@babel/core@7.29.0)
+        specifier: ^2.3.2
+        version: 2.3.2(@babel/core@7.29.0)
       ember-qunit:
         specifier: ^9.0.2
         version: 9.0.4(@ember/test-helpers@5.4.1(@babel/core@7.29.0))(qunit@2.25.0)
@@ -3118,9 +3118,6 @@ packages:
 
   decorator-transforms@1.2.1:
     resolution: {integrity: sha512-UUtmyfdlHvYoX3VSG1w5rbvBQ2r5TX1JsE4hmKU9snleFymadA3VACjl6SRfi9YgBCSjBbfQvR1bs9PRW9yBKw==}
-
-  decorator-transforms@2.3.1:
-    resolution: {integrity: sha512-PDOk74Zqqy0946Lx4ckXxbgG6uhPScOICtrxL/pXmfznxchqNee0TaJISClGJQe6FeT8ohGqsOgdjfahm4FwEw==}
 
   decorator-transforms@2.3.2:
     resolution: {integrity: sha512-XcErcjlmCzG5ODgYjt6ZTXwd6S8fPKln/sJmw15ZXkWG2JpoQNwszis+AwF6XSGlOoG7g8MCEO97g+Yw3fk5OQ==}
@@ -8148,7 +8145,7 @@ snapshots:
       '@embroider/addon-shim': 1.10.2
       '@embroider/macros': 1.20.2
       '@simple-dom/interface': 1.4.0
-      decorator-transforms: 2.3.1(@babel/core@7.29.0)
+      decorator-transforms: 2.3.2(@babel/core@7.29.0)
       dom-element-descriptors: 0.5.1
     transitivePeerDependencies:
       - '@babel/core'
@@ -10802,13 +10799,6 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
 
-  decorator-transforms@2.3.1(@babel/core@7.29.0):
-    dependencies:
-      '@babel/plugin-syntax-decorators': 7.28.6(@babel/core@7.29.0)
-      babel-import-util: 3.0.1
-    transitivePeerDependencies:
-      - '@babel/core'
-
   decorator-transforms@2.3.2(@babel/core@7.29.0):
     dependencies:
       '@babel/plugin-syntax-decorators': 7.28.6(@babel/core@7.29.0)
@@ -11757,7 +11747,7 @@ snapshots:
   ember-strict-application-resolver@0.1.1(@babel/core@7.29.0):
     dependencies:
       '@embroider/addon-shim': 1.10.2
-      decorator-transforms: 2.3.1(@babel/core@7.29.0)
+      decorator-transforms: 2.3.2(@babel/core@7.29.0)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
