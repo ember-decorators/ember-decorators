@@ -11,7 +11,7 @@
     "build": "pnpm --filter './packages/*' build"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.0",
+    "@babel/eslint-parser": "^7.11.0",
     "eslint": "^5.0.0",
     "eslint-plugin-ember": "^7.0.0",
     "eslint-plugin-node": "^11.0.0"
