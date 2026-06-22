@@ -19,7 +19,8 @@
   "dependencies": {
     "@ember-decorators/component": "workspace:*",
     "@ember-decorators/object": "workspace:*",
-    "@ember-decorators/utils": "workspace:*"
+    "@ember-decorators/utils": "workspace:*",
+    "@embroider/addon-shim": "^1.8.9"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -42,5 +43,10 @@
     "testem": "^3.15.1",
     "vite": "^7.1.9"
   },
-  "homepage": "https://ember-decorators.github.io/ember-decorators"
+  "homepage": "https://ember-decorators.github.io/ember-decorators",
+  "ember-addon": {
+    "version": 2,
+    "type": "addon",
+    "main": "addon-main.cjs"
+  }
 }
