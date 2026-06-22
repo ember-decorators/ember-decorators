@@ -7,7 +7,6 @@
   ],
   "license": "MIT",
   "author": "Robert Jackson <me@rwjblue.com>",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/ember-decorators/ember-decorators.git"
