@@ -144,6 +144,9 @@ importers:
       '@ember-decorators/utils':
         specifier: workspace:*
         version: link:../utils
+      ember-auto-import:
+        specifier: ^2.13.1
+        version: 2.13.1(webpack@5.106.2)
       ember-cli-babel:
         specifier: ^8.2.0
         version: 8.3.1(@babel/core@7.29.0)
@@ -172,9 +175,6 @@ importers:
       broccoli-merge-trees:
         specifier: ^4.2.0
         version: 4.2.0
-      ember-auto-import:
-        specifier: ^2.12.0
-        version: 2.13.1(webpack@5.106.2)
       ember-cli:
         specifier: ~6.2.0
         version: 6.2.3(@babel/core@7.29.0)(@types/node@25.6.0)
