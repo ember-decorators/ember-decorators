@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   publish:
-    name: "NPM Publish"
+    name: 'NPM Publish'
     runs-on: ubuntu-latest
     permissions:
       contents: write

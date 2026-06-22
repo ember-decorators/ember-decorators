@@ -1,4 +1,4 @@
-// eslint-disable-next-line node/no-missing-require
+/* eslint-disable no-undef */
 const AddonImportBlueprint = require('ember-source/blueprints/component-addon');
 
 module.exports = Object.assign({}, AddonImportBlueprint, {

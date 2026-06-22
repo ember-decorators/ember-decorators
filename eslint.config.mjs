@@ -21,6 +21,7 @@ export default defineConfig([
     '**/*.d.ts',
     '!**/.*',
     'packages/docs/',
+    'packages/component/blueprints/classic-component/files/**/*.js',
   ]),
   js.configs.recommended,
   prettier,
@@ -35,6 +36,25 @@ export default defineConfig([
     files: ['**/*.js'],
     languageOptions: {
       parser: babelParser,
+    },
+  },
+  {
+    files: [
+      'packages/docs/index.js',
+      'packages/docs/ember-cli-build.js',
+      'packages/docs/testem.js',
+      'packages/docs/config/**/*.js',
+      'packages/docs/tests/dummy/config/**/*.js',
+      'packages/classic-test-app/ember-cli-build.js',
+      'packages/classic-test-app/testem.js',
+      'packages/classic-test-app/config/**/*.js',
+      'packages/component/node-tests/**/*.js',
+    ],
+    languageOptions: {
+      sourceType: 'script',
+      globals: {
+        ...globals.node,
+      },
     },
   },
   {
