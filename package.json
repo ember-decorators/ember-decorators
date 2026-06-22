@@ -2,20 +2,26 @@
   "name": "@ember-decorators/ember-decorators",
   "private": true,
   "description": "Core library for Ember Decorators",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ember-decorators/ember-decorators.git"
+  },
   "license": "MIT",
   "scripts": {
+    "build": "pnpm --filter './packages/*' build",
     "lint": "eslint .",
     "start": "pnpm --filter ember-decorators start",
     "start:docs": "pnpm --filter ember-decorators-docs start",
-    "test": "pnpm --filter ember-decorators test",
-    "build": "pnpm --filter './packages/*' build"
+    "test": "pnpm --filter ember-decorators test"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.0",
     "eslint": "^5.0.0",
     "eslint-plugin-ember": "^7.0.0",
-    "eslint-plugin-node": "^11.0.0"
+    "eslint-plugin-node": "^11.0.0",
+    "release-plan": "^0.18.0"
   },
+  "packageManager": "pnpm@10.33.0",
   "engines": {
     "node": ">= 8.*"
   },
@@ -34,6 +40,5 @@
         }
       }
     }
-  },
-  "packageManager": "pnpm@10.33.0"
+  }
 }
