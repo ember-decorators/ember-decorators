@@ -1,6 +1,6 @@
 {
   "name": "@ember-decorators/component",
-  "version": "6.1.1",
+  "version": "7.0.0",
   "description": "Decorators for Ember Components",
   "keywords": [
     "ember-addon"
