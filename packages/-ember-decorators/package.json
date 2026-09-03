@@ -38,7 +38,7 @@
     "babel-plugin-ember-template-compilation": "^4.0.0",
     "decorator-transforms": "^2.3.2",
     "ember-qunit": "^9.0.2",
-    "ember-source": "^6.7.0",
+    "ember-source": "^7.0.0",
     "ember-strict-application-resolver": "^0.1.0",
     "qunit": "^2.24.1",
     "qunit-dom": "^3.4.0",
