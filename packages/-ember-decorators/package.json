@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
-    "@babel/eslint-parser": "^7.25.1",
+    "@babel/eslint-parser": "^8.0.0",
     "@ember/test-helpers": "^5.2.1",
     "@embroider/compat": "^4.1.0",
     "@embroider/core": "^4.1.0",
