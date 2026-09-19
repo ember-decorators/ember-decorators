@@ -4023,7 +4023,7 @@ packages:
     engines: {node: '>= 6.0.0'}
 
   esdoc@https://codeload.github.com/pzuraq/esdoc/tar.gz/015a3426b2e53b2b0270a9c00133780db3f1d144:
-    resolution: {tarball: https://codeload.github.com/pzuraq/esdoc/tar.gz/015a3426b2e53b2b0270a9c00133780db3f1d144}
+    resolution: {gitHosted: true, tarball: https://codeload.github.com/pzuraq/esdoc/tar.gz/015a3426b2e53b2b0270a9c00133780db3f1d144}
     version: 1.0.4
     engines: {node: '>= 6.0.0'}
     hasBin: true
