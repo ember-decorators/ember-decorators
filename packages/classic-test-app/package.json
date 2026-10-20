@@ -13,7 +13,7 @@
     "@ember-decorators/component": "workspace:*"
   },
   "devDependencies": {
-    "@ember/optional-features": "^2.1.0",
+    "@ember/optional-features": "^3.0.0",
     "@ember/test-helpers": "^2.9.4",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
